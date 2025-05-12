@@ -4,7 +4,7 @@
 
     <groupId>io.github.mxylery</groupId>
     <artifactId>bobuxplugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

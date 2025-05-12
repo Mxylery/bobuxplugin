@@ -1,3 +1,7 @@
 name: BobuxPlugin
 main: io.github.mxylery.bobuxplugin.BobuxPlugin
 version: 0.0.1
+commands:
+   bobuxgive:
+      description: Gives the user the amount of bobux they input
+      usage: /bobuxgive <number>
