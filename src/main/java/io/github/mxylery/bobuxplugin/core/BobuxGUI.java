@@ -1,4 +1,4 @@
-package io.github.mxylery.bobuxplugin.interfaces;
+package io.github.mxylery.bobuxplugin.core;
 
 import org.bukkit.inventory.*;
 import org.bukkit.event.*;

@@ -1,5 +1,6 @@
 package io.github.mxylery.bobuxplugin;
 
+import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
@@ -7,14 +8,14 @@ import io.github.mxylery.bobuxplugin.listeners.*;
 
 public final class BobuxPlugin extends JavaPlugin {
 
-    public BobuxTimer bobuxTimer = new BobuxTimer();
+    private BobuxTimer bobuxTimer = new BobuxTimer();
 
     @Override
 	public void onEnable() {
 		getLogger().info("onEnable has been invoked!");
 
         new BobuxGiver(this);
-        new AbilityManager(this);
+        new PlayerAbilityManager(this);
         
         this.getCommand("bobuxgive").setExecutor(new BobuxCommands(this));
 
@@ -29,9 +30,5 @@ public final class BobuxPlugin extends JavaPlugin {
 	public void onDisable() {
 		getLogger().info("onDisable has been invoked!");
 	}
-
-    public void getTick() {
-
-    }
-
+    
 }

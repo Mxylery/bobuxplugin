@@ -8,7 +8,7 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class BobuxTimer extends BukkitRunnable {
     
-    private long ticksPassed;
+    private static long ticksPassed;
 
     public BobuxTimer() {
         ticksPassed = 0;
@@ -18,7 +18,7 @@ public class BobuxTimer extends BukkitRunnable {
         ticksPassed++;
     }
 
-    public long getTicksPassed() {
+    public static long getTicksPassed() {
         return ticksPassed;
     }
 }

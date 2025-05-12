@@ -21,7 +21,12 @@ public class PAIStructure {
             //If it has been more than one minute, remove the instances. 
             //No ability should rely on an instance ran more than a minute from its activation.
             if (PAIarray[lastIndex].getTick() - PAIarray[i].getTick() > 1200) {
-
+                for (int j = i; j > 0; j--) {
+                    PAIarray[j] = PAIarray[j+1];
+                    cull++;
+                }
+                index =- cull;
+                break;
             }
         }
     }
@@ -39,6 +44,7 @@ public class PAIStructure {
         }
         PAIarray[index] = PAI;
         index++;
+        this.clearMemory();
     }
 
     /*

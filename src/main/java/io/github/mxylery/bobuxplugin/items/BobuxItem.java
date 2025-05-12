@@ -16,13 +16,14 @@ public class BobuxItem {
     private String name;
     private BobuxAbility ability;
 
-    public BobuxItem (ItemStack stack, String[] description, String name) {
+    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability) {
         this.stack = stack;
         this.description = description;
         this.name = name;
+        this.ability = ability; //Could be null if desired
     }
 
-    //The stack meta is initialized, then this method appends the desired name and lore to the item. 
+    //The stack meta is initialized (in BobuxItemInterface), then this method appends the desired name and lore to the item. 
     public void initializeStack() {
 		ItemMeta meta = (ItemMeta) stack.getItemMeta();
 		List<String> lore = new ArrayList<>();
@@ -37,5 +38,12 @@ public class BobuxItem {
 		
 		stack.setItemMeta(meta);
     }
+
+    public ItemStack getStack() {
+        this.initializeStack();
+        return stack;
+    }
+
+
 
 }

@@ -21,6 +21,7 @@ public abstract class BobuxAbility {
         this.cooldown = cooldown;
         this.scheduler = scheduler;
         this.name = name;
+        actionList = new BobuxAction[10];
     }
 
 
@@ -34,6 +35,12 @@ public abstract class BobuxAbility {
 
     public BobuxAction[] getActionList() {
         return actionList;
+    }
+
+    protected void updateListSize() {
+        BobuxAction[] newActionList = new BobuxAction[actionList.length*2];
+        System.arraycopy(actionList, 0, newActionList, 0, actionList.length);
+        actionList = newActionList;
     }
 
 }
