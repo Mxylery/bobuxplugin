@@ -1,21 +1,15 @@
-package io.github.mxylery.bobuxplugin.interfaces;
+package io.github.mxylery.bobuxplugin.core;
+
+import io.github.mxylery.bobuxplugin.conditions.ActionCondition;
 
 public abstract class BobuxAction implements Runnable {
     
-
-private long time;
+private Entity[] entityList;
+protected boolean requiresEntity;
 
 @Override
 public void run() {
 
-}
-
-public void runLater(int num) {
-    t
-}
-
-public long getTime() {
-    return time;
 }
     
 }

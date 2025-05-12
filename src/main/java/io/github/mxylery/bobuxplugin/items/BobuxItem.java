@@ -11,16 +11,26 @@ import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 
 //https://www.gamergeeks.net/apps/minecraft/color-codes for examples of colored text
 public class BobuxItem {
+    private int price;
     private ItemStack stack;
     private String[] description;
     private String name;
     private BobuxAbility ability;
+
+    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, int price) {
+        this.stack = stack;
+        this.description = description;
+        this.name = name;
+        this.ability = ability; //Could be null if desired
+        this.price = price;
+    }
 
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability) {
         this.stack = stack;
         this.description = description;
         this.name = name;
         this.ability = ability; //Could be null if desired
+        this.price = 1;
     }
 
     //The stack meta is initialized (in BobuxItemInterface), then this method appends the desired name and lore to the item. 
@@ -44,6 +54,8 @@ public class BobuxItem {
         return stack;
     }
 
-
+    public BobuxAbility getAbility() {
+        return ability;
+    }
 
 }

@@ -2,8 +2,6 @@ package io.github.mxylery.bobuxplugin.core;
 
 import org.bukkit.entity.Player;
 
-import io.github.mxylery.bobuxplugin.*;;
-
 public class PlayerAbilityInstance {
     private Player player;
     private long tick;

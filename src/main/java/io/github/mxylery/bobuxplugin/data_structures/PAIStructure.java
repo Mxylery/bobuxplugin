@@ -1,7 +1,13 @@
 package io.github.mxylery.bobuxplugin.data_structures;
 
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
+
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
+import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.PlayerAbilityInstance;
+import io.github.mxylery.bobuxplugin.vectors.BobuxUtils;
 
 //Basically just a bag
 public class PAIStructure {
@@ -48,27 +54,89 @@ public class PAIStructure {
     }
 
     /*
-     * This method seeks to remove the oldest instance of a desired ability within a time frame
+     * This method seeks to remove the oldest instance of a desired ability within a time frame of a player
      */
-    public PlayerAbilityInstance checkForAbilityInstanceDelete(BobuxAbility ability, long timeFrame, long currentTime) {
-        
-        String abilityName = ability.getName();
+    public PlayerAbilityInstance removeAbilityInstance(BobuxAbility ability, long timeFrame, Player player) {
         
         for (int i = 0; i < PAIarray.length; i++) {
             //Checks if the ability of the checked PAI is the desired one
-            if (PAIarray[i].getAbility().getName().equals(abilityName)) {
+            if (PAIarray[i].getAbility().equals(ability)) {
+                if (PAIarray[i].getPlayer().equals(player)) {
+                    if (PAIarray[i].getTick() - BobuxTimer.getTicksPassed() < timeFrame) {
+                        PlayerAbilityInstance temp = PAIarray[i];
+                        for (int j = i; j < PAIarray.length; j++) {
+                            PAIarray[j] = PAIarray[j+1];
+                        }
+                        return temp;
+                    }
+                }
                 //If the difference of the currentTime and the ability instance is
                 //lesser than the time difference desired, return this instance
-                if (PAIarray[i].getTick() - currentTime < timeFrame) {
-                    PlayerAbilityInstance temp = PAIarray[i];
-                    for (int j = i; j < PAIarray.length; j++) {
-                        PAIarray[j] = PAIarray[j+1];
-                    }
-                    return temp;
-                }
             } 
         }
         return null;
+    }
+
+    /**
+     * This is used for when a condition is for other users  of the same ability in a certain radius and time frame
+     */
+    public PlayerAbilityInstance removeAbilityInstance(BobuxAbility ability, long timeFrame, double radius, Player player) {
+        
+        for (int i = 0; i < PAIarray.length; i++) {
+            //Checks if the ability of the checked PAI is the desired one
+            if (PAIarray[i].getAbility().equals(ability)) {
+
+                Player otherPlayer = PAIarray[i].getPlayer();
+                Location location1 = player.getLocation();
+                Location location2 = otherPlayer.getLocation();
+
+                //If their distance is less than the radius
+                if (BobuxUtils.getLocationDifferenceMagnitude(location1, location2) < radius) {
+                    if (PAIarray[i].getTick() - BobuxTimer.getTicksPassed() < timeFrame) {
+                        PlayerAbilityInstance temp = PAIarray[i];
+                        for (int j = i; j < PAIarray.length; j++) {
+                            PAIarray[j] = PAIarray[j+1];
+                        }
+                        return temp;
+                    }
+                }
+                //If the difference of the currentTime and the ability instance is
+                //lesser than the time difference desired, return this instance
+            } 
+        }
+        return null;
+    }
+
+    /**
+     * Check if player has performed an ability in the past (timeFrame) ticks
+     * @param ability
+     * @param timeFrame
+     * @param currentTime
+     * @param player
+     * @return The remaining cooldown before using or -1 if not found
+     */
+        public long checkForAbilityCD(BobuxAbility ability, long timeFrame, Player player) {
+        
+            for (int i = 0; i < PAIarray.length; i++) {
+                //Checks if the ability of the checked PAI is the desired one
+                if (PAIarray[i].getAbility().equals(ability)) {
+                    if (PAIarray[i].getPlayer().equals(player)) {
+                        if (BobuxTimer.getTicksPassed() - PAIarray[i].getTick() < timeFrame) {
+                            return BobuxTimer.getTicksPassed() - PAIarray[i].getTick();
+                        } else {
+                            break;
+                        }
+                    }  
+                //If the difference of the currentTime and the ability instance is
+                //lesser than the time difference desired, return this instance
+                } 
+            }
+        return -1;
+    }
+    
+
+    public int getIndex() {
+        return index;
     }
 
 }
