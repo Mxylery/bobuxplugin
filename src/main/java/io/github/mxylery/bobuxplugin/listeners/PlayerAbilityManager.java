@@ -31,7 +31,9 @@ public class PlayerAbilityManager implements Listener {
 
     //Used in all of the listener methods below.
     private static void useAbility(BobuxAbility ability, Player player) {
+        //Checks if the ability is a one-time ability
         if (ability instanceof AbilityOneTime) {
+            //Registers the first-time player
             if (!PAImap.containsKey(player)) {
                 PAIStructure newStruct = new PAIStructure();
                 PAImap.put(player, newStruct);
@@ -42,6 +44,7 @@ public class PlayerAbilityManager implements Listener {
             //Initializes the PAI Structure holding all of the ability instances
             PAIStructure abilityInstanceHistory = PAImap.get(player);
             BobuxAction[] actionList = polyAbility.getActionList();
+            polyAbility.setUser(player);
 
             //If it has PAI conditions
             if (polyAbility.getConditionList() != null) {
@@ -78,7 +81,7 @@ public class PlayerAbilityManager implements Listener {
         }
     }
 
-    private boolean verifyAbilityCD(Player player, BobuxAbility ability) {
+    private boolean verifyItemCD(Player player, BobuxAbility ability) {
             long cooldown = ability.getCooldown();
                 if (!PAImap.containsKey(player)) {
                     return true;
@@ -95,13 +98,23 @@ public class PlayerAbilityManager implements Listener {
                 } 
     }
 
-    private void addEntityToAbil(BobuxAbility ability, Entity entity) {
-        ability.addEntity(entity);
+    //Sets the triggerer of the actions to be the user of the ability
+    private void defaultTriggererSetting(Player player, BobuxAbility ability) {
+        
+        if (ability instanceof AbilityOneTime) {
+            AbilityOneTime polyAbility = (AbilityOneTime) ability;
+            BobuxAction[] actionList = polyAbility.getActionList();
+            for (int i = 0; i < actionList.length; i++) {
+                actionList[i].setTriggerer(player);
+            }
+        } else {
+
+        }
+        
     }
 
     //All items that require clicks
     public void playerClickListener(PlayerInteractEvent e) {
-
         /*
          * ALL LEFT CLICK ACTIVATED ITEMS
          */
@@ -111,9 +124,10 @@ public class PlayerAbilityManager implements Listener {
             //Testing Item
             if (e.getItem().equals(BobuxItemInterface.testingItem.getStack())) {
                 BobuxItem item = BobuxItemInterface.testingItem;
-                BobuxAbility ability = item.getAbility();
-                boolean canUse = verifyAbilityCD(currentPlayer, ability);
-                if (canUse) {
+                AbilityOneTime ability = (AbilityOneTime) item.getAbility();
+                BobuxAction[] actionList = ability.getActionList();
+                actionList[0].setTriggerer(currentPlayer);
+                if (verifyItemCD(currentPlayer, ability)) {
                     useAbility(ability, currentPlayer);
                 }
             }

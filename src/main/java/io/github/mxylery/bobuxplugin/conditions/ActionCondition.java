@@ -1,10 +1,7 @@
-package io.github.mxylery.bobuxplugin.core;
+package io.github.mxylery.bobuxplugin.conditions;
 
 //Things like speed and health
 public enum ActionCondition {
 
-    CONDITION;
 
-    public double speed;
-    public double radius;
 }

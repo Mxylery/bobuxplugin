@@ -1,8 +1,6 @@
 package io.github.mxylery.bobuxplugin.core;
 
-import org.bukkit.Server;
-import org.bukkit.entity.Entity;
-import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.entity.Player;
 
 import io.github.mxylery.bobuxplugin.conditions.PlayerAbilityInstanceCondition;
 
@@ -18,12 +16,12 @@ public abstract class BobuxAbility {
     protected long cooldown;
     protected BobuxAction[] actionList;
     protected PlayerAbilityInstanceCondition[] conditions;
-    protected Entity[] entityList;
+    protected Player user;
+    protected int entities = 0;
 
     public BobuxAbility(long cooldown, PlayerAbilityInstanceCondition[] conditions) {
         this.cooldown = cooldown;
         this.conditions = conditions;
-        entityList = new Entity[10];
     }
 
     public long getCooldown() {
@@ -34,8 +32,8 @@ public abstract class BobuxAbility {
         return conditions;
     }
 
-    public Entity[] getEntityList() {
-        return entityList;
+    public void setUser(Player user) {
+        this.user = user;
     }
 
     protected void updateListSize() {
