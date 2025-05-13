@@ -3,6 +3,7 @@ package io.github.mxylery.bobuxplugin.listeners;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -17,7 +18,7 @@ import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.vectors.BobuxUtils;
 
 //This is where all cooldowns get registered to players and whatnot. Also take into account mobs, can have seperate methods or even a seperate class
-public class PlayerAbilityManager implements Listener {
+public final class PlayerAbilityManager implements Listener {
     
     //PAI = Player Ability Instance, ../core/PlayerAbilityInstance.java
     private final BobuxPlugin plugin;
@@ -27,6 +28,7 @@ public class PlayerAbilityManager implements Listener {
 
     public PlayerAbilityManager(BobuxPlugin plugin) {
         this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     //Used in all of the listener methods below.
@@ -75,7 +77,9 @@ public class PlayerAbilityManager implements Listener {
                     }
                 }
             } else {
-                //Runs each action of the ability
+                /*
+                 * Runs each action of the ability with no conditions otherwise
+                 */
                 for (int i = 0; i < actionList.length; i++) {
                     actionList[i].run();
                 }
@@ -119,7 +123,7 @@ public class PlayerAbilityManager implements Listener {
                     if (cd == -1) {
                         return true;
                     } else {
-                        plugin.getServer().broadcastMessage("You need to wait" + (double) cd/(double) 20 + "more seconds until using this ability.");
+                        plugin.getServer().broadcastMessage("You need to wait " + ( (double) cd - (double) cd/(double) 20 )+ " more seconds until using this ability.");
                         return false;
                     }
                 } 
@@ -140,20 +144,19 @@ public class PlayerAbilityManager implements Listener {
         
     }
 
-    //All items that require clicks
-    public void playerClickListener(PlayerInteractEvent e) {
-        /*
-         * ALL LEFT CLICK ACTIVATED ITEMS
-         */
+    //All items use left clicks
+    @EventHandler
+    public void onLeftClick(PlayerInteractEvent e) {
+
         if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
             Player currentPlayer = e.getPlayer();
 
             //Testing Item
             if (e.getItem().equals(BobuxItemInterface.testingItem.getStack())) {
+
                 BobuxItem item = BobuxItemInterface.testingItem;
-                AbilityOneTime ability = (AbilityOneTime) item.getAbility();
-                BobuxAction[] actionList = ability.getActionList();
-                actionList[0].setTriggerer(currentPlayer);
+                BobuxAbility ability = item.getAbility();
+                defaultTriggererSetting(currentPlayer, ability);
                 if (verifyItemCD(currentPlayer, ability)) {
                     useAbility(ability, currentPlayer);
                 }

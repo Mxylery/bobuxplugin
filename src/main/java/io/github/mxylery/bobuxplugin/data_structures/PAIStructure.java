@@ -2,7 +2,6 @@ package io.github.mxylery.bobuxplugin.data_structures;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
@@ -21,20 +20,23 @@ public class PAIStructure {
     }
 
     private void clearMemory() {
-        int lastIndex = PAIarray.length - 1;
-        int cull = 0;
-        for (int i = lastIndex; i > 0; i--) {
-            //If it has been more than one minute, remove the instances. 
-            //No ability should rely on an instance ran more than a minute from its activation.
-            if (PAIarray[lastIndex].getTick() - PAIarray[i].getTick() > 1200) {
-                for (int j = i; j > 0; j--) {
-                    PAIarray[j] = PAIarray[j+1];
-                    cull++;
+        System.out.println("Clearing memory with index " + index);
+        if (index != 0) {
+            int cull = 0;
+            for (int i = index; i > 0; i--) {
+                //If it has been more than one minute, remove the instances. 
+                //No ability should rely on an instance ran more than a minute from its activation.
+                if (BobuxTimer.getTicksPassed() - PAIarray[i].getTick() > 1200) {
+                    cull = i;
+                    break;
                 }
-                index =- cull;
-                break;
             }
-        }
+            for (int i = 0; i + cull < index; i++) {
+                PAIarray[i] = PAIarray[i+cull];
+            }
+            index =- cull;
+            }
+        
     }
 
     private void addMemory() {
@@ -45,12 +47,15 @@ public class PAIStructure {
     }
 
     public void addPAI(PlayerAbilityInstance PAI) {
+        System.out.println("Added a PAI");
+        if (index != 0) {
+            this.clearMemory();
+        }
         if (index + 1 == PAIarray.length) {
             this.addMemory();
         }
         PAIarray[index] = PAI;
         index++;
-        this.clearMemory();
     }
 
     /*
@@ -58,7 +63,7 @@ public class PAIStructure {
      */
     public boolean removeAbilityInstance(BobuxAbility ability, long timeFrame, Player player) {
         
-        for (int i = 0; i < PAIarray.length; i++) {
+        for (int i = 0; i < index; i++) {
             //Checks if the ability of the checked PAI is the desired one
             if (PAIarray[i].getAbility().equals(ability)) {
                 if (PAIarray[i].getPlayer().equals(player)) {
@@ -81,7 +86,8 @@ public class PAIStructure {
      */
     public boolean removeAbilityInstance(BobuxAbility ability, long timeFrame, double radius, Player player) {
         
-        for (int i = 0; i < PAIarray.length; i++) {
+
+        for (int i = 0; i < index + 1; i++) {
             //Checks if the ability of the checked PAI is the desired one
             if (PAIarray[i].getAbility().equals(ability)) {
 
@@ -115,20 +121,20 @@ public class PAIStructure {
      */
         public long checkForAbilityCD(BobuxAbility ability, long timeFrame, Player player) {
         
-            for (int i = 0; i < PAIarray.length; i++) {
-                //Checks if the ability of the checked PAI is the desired one
-                if (PAIarray[i].getAbility().equals(ability)) {
+        for (int i = 0; i < index + 1; i++) {
+            //Checks if the ability of the checked PAI is the desired one
+            if (PAIarray[i].getAbility().equals(ability)) {
                     if (PAIarray[i].getPlayer().equals(player)) {
-                        if (BobuxTimer.getTicksPassed() - PAIarray[i].getTick() < timeFrame) {
-                            return BobuxTimer.getTicksPassed() - PAIarray[i].getTick();
-                        } else {
-                            break;
-                        }
-                    }  
+                    if (BobuxTimer.getTicksPassed() - PAIarray[i].getTick() < timeFrame) {
+                        return BobuxTimer.getTicksPassed() - PAIarray[i].getTick();
+                    } else {
+                         break;
+                    }
+                }  
                 //If the difference of the currentTime and the ability instance is
                 //lesser than the time difference desired, return this instance
-                } 
-            }
+            } 
+        }
         return -1;
     }
     

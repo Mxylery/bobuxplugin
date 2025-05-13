@@ -36,11 +36,10 @@ public class BobuxUtils {
 
 		for (int i = 0; i < entityList.size(); i++) {
 			if (entityList.get(i) instanceof Player) {
-				Player player = (Player) playerList.get(i);
+				Player player = (Player) entityList.get(i);
 				playerList.add(player);
 			}
 		}
-
 		return playerList;
 	}
 }

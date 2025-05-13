@@ -28,11 +28,10 @@ public void setDamage(double damage) {
     this.damage = damage;
 }
 
-public void setEntity(Damageable entity) {
-    this.entity = entity;
-}
-
 public void run() {
+    if (entity == null) {
+        entity = (Damageable) super.triggerer;
+    }
     entity.damage(damage);
 }
 

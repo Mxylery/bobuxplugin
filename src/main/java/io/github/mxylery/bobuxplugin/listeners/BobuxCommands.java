@@ -14,20 +14,26 @@ public BobuxCommands(BobuxPlugin plugin) {
     this.plugin = plugin;
 }
 
+@Override
 public boolean onCommand(CommandSender sender, Command command, String string, String[] args) {
     
+    Player player = (Player) sender;
+    player.getServer().broadcastMessage(command.getName());
     if (sender instanceof Player) {
-        Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("bobuxgive")) {
-        
+            return true;
         } else if (command.getName().equalsIgnoreCase("bobuxitemgive")) {
             switch (args[0]) {
                 case "testing_item": player.getInventory().addItem(BobuxItemInterface.testingItem.getStack());
+                break;
+                default:
+                break;
             }
+            return true;
+        } else {
+
         }
     }
-    
-    
     return false;
 }
 

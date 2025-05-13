@@ -24,7 +24,8 @@ public final class BobuxPlugin extends JavaPlugin {
 	}
 
 	@Override 
-    /* Write something that saves bobux after server close,
+    /* 
+     * Write something that saves bobux after server close,
      * or maybe just implement SQL throughout so it doesn't 
      * need to close?
      */

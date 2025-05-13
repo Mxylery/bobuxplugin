@@ -3,7 +3,7 @@ package io.github.mxylery.bobuxplugin.listeners;
 import org.bukkit.event.Listener;
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 
-public class BobuxGiver implements Listener {
+public final class BobuxGiver implements Listener {
 
     private final BobuxPlugin plugin;
 
