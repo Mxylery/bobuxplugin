@@ -16,24 +16,34 @@ public abstract class BobuxAbility {
     protected long cooldown;
     protected BobuxAction[] actionList;
     protected PlayerAbilityInstanceCondition[] conditions;
-    protected Player user;
-    protected int entities = 0;
+    protected String name;
 
-    public BobuxAbility(long cooldown, PlayerAbilityInstanceCondition[] conditions) {
+    public BobuxAbility(long cooldown, PlayerAbilityInstanceCondition[] conditions, String name) {
         this.cooldown = cooldown;
         this.conditions = conditions;
+        this.name = name;
     }
 
     public long getCooldown() {
         return cooldown;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public PlayerAbilityInstanceCondition[] getConditionList() {
         return conditions;
     }
 
-    public void setUser(Player user) {
-        this.user = user;
+    //Adjusts number of an action (if applicable) by a flat amount
+    public void increaseFlat() {
+
+    }
+
+    //Adjusts numbers of an action (if applicable) by a percent (-100% = 0x, +100% = 2x)
+    public void adjustPerc() {
+        
     }
 
     protected void updateListSize() {

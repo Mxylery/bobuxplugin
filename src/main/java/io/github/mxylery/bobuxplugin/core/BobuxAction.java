@@ -1,19 +1,19 @@
 package io.github.mxylery.bobuxplugin.core;
 
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 
 public abstract class BobuxAction implements Runnable {
     
-protected Entity triggerer;
+protected Entity[] entityList;
 protected boolean requiresCondition;
 
-@Override
-public void run() {
+public abstract void run();
+public abstract void adjustFlat(int adjustment);
+public abstract void adjustPerc(int adjustment);
 
-}
-
-public void setTriggerer(Entity triggerer) {
-    this.triggerer = triggerer;
+public void initializeEntityList(Entity[] entityList) {
+    this.entityList = entityList;
 }
 
 public boolean requiresCondition() {

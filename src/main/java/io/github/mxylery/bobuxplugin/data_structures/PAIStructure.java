@@ -8,7 +8,7 @@ import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.PlayerAbilityInstance;
 import io.github.mxylery.bobuxplugin.vectors.BobuxUtils;
 
-//Basically just a bag
+//Basically just a bag, maybe replace with doubly linked list implementation at some point
 public class PAIStructure {
     
     private PlayerAbilityInstance[] PAIarray;
@@ -16,27 +16,24 @@ public class PAIStructure {
 
     public PAIStructure() {
         PAIarray = new PlayerAbilityInstance[10];
-        index = 0;
+        index = -1;
     }
 
     private void clearMemory() {
-        System.out.println("Clearing memory with index " + index);
-        if (index != 0) {
-            int cull = 0;
-            for (int i = index; i > 0; i--) {
-                //If it has been more than one minute, remove the instances. 
-                //No ability should rely on an instance ran more than a minute from its activation.
-                if (BobuxTimer.getTicksPassed() - PAIarray[i].getTick() > 1200) {
-                    cull = i;
-                    break;
-                }
+        int cull = 0;
+        for (int i = 0; i < index; i++) {
+            //If it has been more than one minute, remove the instances. 
+            //No ability should rely on an instance ran more than a minute from its activation.
+            if (BobuxTimer.getTicksPassed() - PAIarray[i].getTick() > 1200) {
+                cull = i;
+                break;
             }
-            for (int i = 0; i + cull < index; i++) {
-                PAIarray[i] = PAIarray[i+cull];
-            }
-            index =- cull;
-            }
-        
+        }
+        for (int i = 0; i + cull < index; i++) {
+            PAIarray[i] = PAIarray[i+cull];
+        }
+        index =- cull;
+        System.out.print("Culled " + cull + " PAIs.");
     }
 
     private void addMemory() {
@@ -47,15 +44,14 @@ public class PAIStructure {
     }
 
     public void addPAI(PlayerAbilityInstance PAI) {
-        System.out.println("Added a PAI");
-        if (index != 0) {
+        if (index > 2) {
             this.clearMemory();
         }
         if (index + 1 == PAIarray.length) {
             this.addMemory();
         }
-        PAIarray[index] = PAI;
         index++;
+        PAIarray[index] = PAI;
     }
 
     /*
@@ -63,9 +59,9 @@ public class PAIStructure {
      */
     public boolean removeAbilityInstance(BobuxAbility ability, long timeFrame, Player player) {
         
-        for (int i = 0; i < index; i++) {
+        for (int i = index; i > index; i--) {
             //Checks if the ability of the checked PAI is the desired one
-            if (PAIarray[i].getAbility().equals(ability)) {
+            if (PAIarray[i].getAbility().getName().equals(ability.getName())) {
                 if (PAIarray[i].getPlayer().equals(player)) {
                     if (PAIarray[i].getTick() - BobuxTimer.getTicksPassed() < timeFrame) {
                         for (int j = i; j < PAIarray.length; j++) {
@@ -86,10 +82,9 @@ public class PAIStructure {
      */
     public boolean removeAbilityInstance(BobuxAbility ability, long timeFrame, double radius, Player player) {
         
-
-        for (int i = 0; i < index + 1; i++) {
+        for (int i = index; i > 0; i--) {
             //Checks if the ability of the checked PAI is the desired one
-            if (PAIarray[i].getAbility().equals(ability)) {
+            if (PAIarray[i].getAbility().getName().equals(ability.getName())) {
 
                 Player otherPlayer = PAIarray[i].getPlayer();
                 Location location1 = player.getLocation();
@@ -119,9 +114,11 @@ public class PAIStructure {
      * @param player
      * @return The remaining cooldown before using or -1 if not found
      */
-        public long checkForAbilityCD(BobuxAbility ability, long timeFrame, Player player) {
-        
-        for (int i = 0; i < index + 1; i++) {
+    public long checkForAbilityCD(BobuxAbility ability, long timeFrame, Player player) {
+        if (index == -1) {
+            return -1;
+        }
+        for (int i = index; i > -1; i--) {
             //Checks if the ability of the checked PAI is the desired one
             if (PAIarray[i].getAbility().equals(ability)) {
                     if (PAIarray[i].getPlayer().equals(player)) {

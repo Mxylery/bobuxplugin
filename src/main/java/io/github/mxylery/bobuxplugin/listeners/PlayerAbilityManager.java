@@ -32,7 +32,7 @@ public final class PlayerAbilityManager implements Listener {
     }
 
     //Used in all of the listener methods below.
-    private static void useAbility(BobuxAbility ability, Player player) {
+    private static void useAbility(Player player, BobuxAbility ability) {
         //Checks if the ability is a one-time ability
         if (ability instanceof AbilityOneTime) {
             //Registers the first-time player
@@ -46,7 +46,6 @@ public final class PlayerAbilityManager implements Listener {
             //Initializes the PAI Structure holding all of the ability instances
             PAIStructure abilityInstanceHistory = PAImap.get(player);
             BobuxAction[] actionList = polyAbility.getActionList();
-            polyAbility.setUser(player);
 
             //If it has PAI conditions (if it relies on other people using their abilities in a certain radius)
             if (polyAbility.getConditionList() != null) {
@@ -89,7 +88,7 @@ public final class PlayerAbilityManager implements Listener {
             PlayerAbilityInstance abilityInstance = new PlayerAbilityInstance(player, BobuxTimer.getTicksPassed(), ability);
 
             //Puts this instance in the history of all players' historys within a radius of 32 blocks
-            ArrayList<Player> playerList = BobuxUtils.getNearbyPlayers(player.getLocation(), maxRegistrationRadius);
+            ArrayList<Player> playerList = BobuxUtils.getNearbyPlayers(player, maxRegistrationRadius);
             for (int i = 0; i < playerList.size(); i++) {
                 Player analyzedPlayer = playerList.get(i);
                 //If any of the players aren't registered yet
@@ -112,55 +111,85 @@ public final class PlayerAbilityManager implements Listener {
         }
     }
 
-    private boolean verifyItemCD(Player player, BobuxAbility ability) {
-            long cooldown = ability.getCooldown();
-                if (!PAImap.containsKey(player)) {
-                    return true;
-                } else {
-                    PAIStructure playerAbilHistory = PAImap.get(player);
-                    long cd = playerAbilHistory.checkForAbilityCD(ability, cooldown, player);
-                    //If no such ability was casted in the past #cooldown ticks
-                    if (cd == -1) {
-                        return true;
-                    } else {
-                        plugin.getServer().broadcastMessage("You need to wait " + ( (double) cd - (double) cd/(double) 20 )+ " more seconds until using this ability.");
-                        return false;
-                    }
-                } 
-    }
+    //Sets entity list to be the player triggering the ability
+    private void defaultTargetSettings(Player player, BobuxAbility ability) {
 
-    //Sets the triggerer of the actions to be the user of the ability
-    private void defaultTriggererSetting(Player player, BobuxAbility ability) {
-        
         if (ability instanceof AbilityOneTime) {
+            Player[] playerList = {player};
             AbilityOneTime polyAbility = (AbilityOneTime) ability;
             BobuxAction[] actionList = polyAbility.getActionList();
+            //Registeres the user of the ability as the entity list of the action
             for (int i = 0; i < actionList.length; i++) {
-                actionList[i].setTriggerer(player);
+                actionList[i].initializeEntityList(playerList);
             }
         } else {
 
         }
-        
     }
 
-    //All items use left clicks
+    private boolean verifyItemCD(Player player, BobuxAbility ability) {
+        long cooldown = ability.getCooldown();
+            if (!PAImap.containsKey(player)) {
+                return true;
+            } else {
+                PAIStructure playerAbilHistory = PAImap.get(player);
+                long lastUse = playerAbilHistory.checkForAbilityCD(ability, cooldown, player);
+                //If no such ability was casted in the past #cooldown ticks
+                if (lastUse == -1) {
+                    return true;
+                } else {
+                    plugin.getServer().broadcastMessage("You need to wait " + ( (double) cooldown / (double) 20 - (double) lastUse / (double) 20 ) + " more seconds until using this ability.");
+                    return false;
+                }
+            } 
+        }
+
+    //If you want the listener to check in the mainhand, make the boolean false. If you want the listener to check the offhand, make the boolean true.
+    private void checkForHandMatch(BobuxItem bobuxitem, PlayerInteractEvent e, boolean isOffHand) {
+        Player currentPlayer = e.getPlayer();
+        //Mainhand
+        if (!isOffHand && e.getPlayer().getInventory().getItemInMainHand() != null) {
+            if (e.getPlayer().getInventory().getItemInMainHand().equals(bobuxitem.getStack())) {
+                BobuxItem item = BobuxItemInterface.testingItem;
+                BobuxAbility ability = item.getAbility();
+                defaultTargetSettings(currentPlayer, ability);
+                if (verifyItemCD(currentPlayer, ability)) {
+                    useAbility(currentPlayer, ability);
+                }
+            }
+        //Offhand
+        } else if (e.getPlayer().getInventory().getItemInOffHand() != null) {
+            if (e.getPlayer().getInventory().getItemInOffHand().equals(bobuxitem.getStack())) {
+                BobuxItem item = BobuxItemInterface.testingItem;
+                BobuxAbility ability = item.getAbility();
+                defaultTargetSettings(currentPlayer, ability);
+                if (verifyItemCD(currentPlayer, ability)) {
+                    useAbility(currentPlayer, ability);
+                }
+            }
+        }
+    }
+
+    private void checkForSlotMatch(BobuxItem bobuxitem, PlayerInteractEvent e) {
+
+    }
+
+    private void overrideTargetSettings(Player player, BobuxAbility ability, Player[] playerList) {
+
+    }
+
+    /**
+     * The following procedure is to be used when implementing item abilities.
+     * 1. Initialize the item and ability in ../items/BobuxItemInterface.java
+     * 2. Go under the desired handler in this class
+     * 3. Under the if statements, use the appropriate method checkForHandMatch() or checkForSlotMatch()
+     * @param e
+     */
     @EventHandler
     public void onLeftClick(PlayerInteractEvent e) {
 
         if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
-            Player currentPlayer = e.getPlayer();
-
-            //Testing Item
-            if (e.getItem().equals(BobuxItemInterface.testingItem.getStack())) {
-
-                BobuxItem item = BobuxItemInterface.testingItem;
-                BobuxAbility ability = item.getAbility();
-                defaultTriggererSetting(currentPlayer, ability);
-                if (verifyItemCD(currentPlayer, ability)) {
-                    useAbility(ability, currentPlayer);
-                }
-            }
+            checkForHandMatch(BobuxItemInterface.testingItem, e, false);
         }
 
     }

@@ -6,8 +6,8 @@ import io.github.mxylery.bobuxplugin.core.*;
 
 public class AbilityOneTime extends BobuxAbility {
 
-    public AbilityOneTime(long cooldown, PlayerAbilityInstanceCondition[] conditions, BobuxAction[] actionList) {
-        super(cooldown, conditions);
+    public AbilityOneTime(long cooldown, PlayerAbilityInstanceCondition[] conditions, BobuxAction[] actionList, String name) {
+        super(cooldown, conditions, name);
         this.actionList = actionList;
     }
 

@@ -11,28 +11,35 @@ import org.bukkit.entity.*;
 public class DamageEntity extends BobuxAction {
     
 private double damage;
-private Damageable entity;
 
 //This action needs an entity to damage and a number to damage for
-public DamageEntity(double damage, Damageable entity) {
-    this.damage = damage;
-    this.entity = entity;
-}
-
 public DamageEntity(double damage) {
     this.damage = damage;
-    this.entity = (Damageable) super.triggerer;
 }
 
-public void setDamage(double damage) {
-    this.damage = damage;
+public void adjustFlat(int increase) {
+    this.damage += increase;
+}
+
+public void adjustPerc(int increase) {
+    this.damage = this.damage*(increase/100 + 1);
 }
 
 public void run() {
-    if (entity == null) {
-        entity = (Damageable) super.triggerer;
+    int j = -1;
+    Damageable[] damageArray = new Damageable[super.entityList.length];
+    //Filter through all of the non-damageable entities
+    for (int i = 0; i < super.entityList.length; i++) {
+        if (super.entityList[i] instanceof Damageable) {
+            damageArray[j + 1] = (Damageable) super.entityList[i];
+            j++;
+        }
     }
-    entity.damage(damage);
+    if (j != -1) {
+        for (int i = 0; i < j + 1; i++) {
+            damageArray[i].damage(damage);
+        }
+    }
 }
 
 }

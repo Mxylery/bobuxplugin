@@ -42,4 +42,21 @@ public class BobuxUtils {
 		}
 		return playerList;
 	}
+
+	//This is to excluse a center player
+	public static ArrayList<Player> getNearbyPlayers(Player player, double radius) {
+
+		Location loc = player.getLocation();
+		ArrayList<Entity> entityList = new ArrayList<Entity>();
+		entityList = (ArrayList<Entity>) loc.getWorld().getNearbyEntities(loc, radius, radius, radius);
+		ArrayList<Player> playerList = new ArrayList<Player>();
+
+		for (int i = 0; i < entityList.size(); i++) {
+			if (entityList.get(i) instanceof Player && !entityList.get(i).equals(player)) {
+				Player newPlayer = (Player) entityList.get(i);
+				playerList.add(newPlayer);
+			}
+		}
+		return playerList;
+	}
 }

@@ -13,6 +13,7 @@ import io.github.mxylery.bobuxplugin.core.ability_types.AbilityOneTime;
  * They will all be public static variables, so a simple BobuxItemInterface.<itemname>.initializeStack() will be the method to retrieve items.
  */
 
+//As long as the names are unique...
 public class BobuxItemInterface {
 
     private static final int itemTotal = 1;
@@ -22,7 +23,7 @@ public class BobuxItemInterface {
     private static String[] testingItemDesc = {"Balls"};
     private static String testingItemName = "Testing Item";
     private static BobuxAction[] testingItemActionList = {new DamageEntity(5)};
-    private static BobuxAbility testingItemAbility = new AbilityOneTime(100, null, testingItemActionList);
+    private static BobuxAbility testingItemAbility = new AbilityOneTime(100, null, testingItemActionList, "Testing Item Abil");
 
     public static BobuxItem testingItem = new BobuxItem(testingItemStack, testingItemDesc, testingItemName, testingItemAbility, 5000);
 

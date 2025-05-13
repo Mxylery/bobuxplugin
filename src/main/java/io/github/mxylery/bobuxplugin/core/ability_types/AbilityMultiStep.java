@@ -18,8 +18,8 @@ public class AbilityMultiStep extends BobuxAbility {
      * @param conditions Ability conditions to activate (if any)
      * @param steps Number of different steps/stages the ability has
      */
-    public AbilityMultiStep(long cooldown, PlayerAbilityInstanceCondition[] conditions, int steps) {
-        super(cooldown, conditions);
+    public AbilityMultiStep(long cooldown, PlayerAbilityInstanceCondition[] conditions, int steps, String name) {
+        super(cooldown, conditions, name);
         delays = new long[steps];
         delays[0] = 0;
         stepList = new BobuxAction[steps][10];
