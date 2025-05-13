@@ -4,6 +4,7 @@ import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
+import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class BobuxCommands implements CommandExecutor {
     

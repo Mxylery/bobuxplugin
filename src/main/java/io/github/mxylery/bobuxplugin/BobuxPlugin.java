@@ -18,6 +18,7 @@ public final class BobuxPlugin extends JavaPlugin {
         new PlayerAbilityManager(this);
         
         this.getCommand("bobuxgive").setExecutor(new BobuxCommands(this));
+        this.getCommand("bobuxitemgive").setExecutor(new BobuxCommands(this));
 
         bobuxTimer.runTaskTimer(this, 0, 1);
 	}

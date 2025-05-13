@@ -56,31 +56,30 @@ public class PAIStructure {
     /*
      * This method seeks to remove the oldest instance of a desired ability within a time frame of a player
      */
-    public PlayerAbilityInstance removeAbilityInstance(BobuxAbility ability, long timeFrame, Player player) {
+    public boolean removeAbilityInstance(BobuxAbility ability, long timeFrame, Player player) {
         
         for (int i = 0; i < PAIarray.length; i++) {
             //Checks if the ability of the checked PAI is the desired one
             if (PAIarray[i].getAbility().equals(ability)) {
                 if (PAIarray[i].getPlayer().equals(player)) {
                     if (PAIarray[i].getTick() - BobuxTimer.getTicksPassed() < timeFrame) {
-                        PlayerAbilityInstance temp = PAIarray[i];
                         for (int j = i; j < PAIarray.length; j++) {
                             PAIarray[j] = PAIarray[j+1];
                         }
-                        return temp;
+                        return true;
                     }
                 }
                 //If the difference of the currentTime and the ability instance is
                 //lesser than the time difference desired, return this instance
             } 
         }
-        return null;
+        return false;
     }
 
     /**
      * This is used for when a condition is for other users  of the same ability in a certain radius and time frame
      */
-    public PlayerAbilityInstance removeAbilityInstance(BobuxAbility ability, long timeFrame, double radius, Player player) {
+    public boolean removeAbilityInstance(BobuxAbility ability, long timeFrame, double radius, Player player) {
         
         for (int i = 0; i < PAIarray.length; i++) {
             //Checks if the ability of the checked PAI is the desired one
@@ -93,18 +92,17 @@ public class PAIStructure {
                 //If their distance is less than the radius
                 if (BobuxUtils.getLocationDifferenceMagnitude(location1, location2) < radius) {
                     if (PAIarray[i].getTick() - BobuxTimer.getTicksPassed() < timeFrame) {
-                        PlayerAbilityInstance temp = PAIarray[i];
                         for (int j = i; j < PAIarray.length; j++) {
                             PAIarray[j] = PAIarray[j+1];
                         }
-                        return temp;
+                        return true;
                     }
                 }
                 //If the difference of the currentTime and the ability instance is
                 //lesser than the time difference desired, return this instance
             } 
         }
-        return null;
+        return false;
     }
 
     /**

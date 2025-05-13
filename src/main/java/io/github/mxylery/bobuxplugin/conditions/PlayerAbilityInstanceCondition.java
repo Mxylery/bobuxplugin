@@ -1,6 +1,8 @@
-package io.github.mxylery.bobuxplugin.core;
+package io.github.mxylery.bobuxplugin.conditions;
 
 import org.bukkit.entity.Player;
+
+import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 
 
 public class PlayerAbilityInstanceCondition {

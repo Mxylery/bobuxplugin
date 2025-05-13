@@ -17,13 +17,11 @@ private Damageable entity;
 public DamageEntity(double damage, Damageable entity) {
     this.damage = damage;
     this.entity = entity;
-    super.requiresEntity = true;
 }
 
 public DamageEntity(double damage) {
     this.damage = damage;
     this.entity = (Damageable) super.triggerer;
-    super.requiresEntity = true;
 }
 
 public void setDamage(double damage) {

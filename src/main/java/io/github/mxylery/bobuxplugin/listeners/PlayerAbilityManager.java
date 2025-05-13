@@ -1,12 +1,11 @@
 package io.github.mxylery.bobuxplugin.listeners;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import io.github.mxylery.bobuxplugin.*;
 import io.github.mxylery.bobuxplugin.conditions.PlayerAbilityInstanceCondition;
@@ -15,6 +14,7 @@ import io.github.mxylery.bobuxplugin.core.ability_types.*;
 import io.github.mxylery.bobuxplugin.data_structures.*;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
+import io.github.mxylery.bobuxplugin.vectors.BobuxUtils;
 
 //This is where all cooldowns get registered to players and whatnot. Also take into account mobs, can have seperate methods or even a seperate class
 public class PlayerAbilityManager implements Listener {
@@ -23,7 +23,7 @@ public class PlayerAbilityManager implements Listener {
     private final BobuxPlugin plugin;
     private static HashMap<Player, PAIStructure> PAImap = new HashMap<Player, PAIStructure>();
     //This number is the highest radius that a PAI will be put into nearby players' PAI maps.
-    private final double maxRegistrationRadius = 32;
+    private static final double maxRegistrationRadius = 32;
 
     public PlayerAbilityManager(BobuxPlugin plugin) {
         this.plugin = plugin;
@@ -46,20 +46,32 @@ public class PlayerAbilityManager implements Listener {
             BobuxAction[] actionList = polyAbility.getActionList();
             polyAbility.setUser(player);
 
-            //If it has PAI conditions
+            //If it has PAI conditions (if it relies on other people using their abilities in a certain radius)
             if (polyAbility.getConditionList() != null) {
                 PlayerAbilityInstanceCondition[] conditionList = polyAbility.getConditionList();
-                for (int i = 0; i < conditionList.length; i++) {
+                //Stops if conditions aren't met or if all conditions have been checked and are met
+                boolean conditionsMet = true;
+                for (int i = 0; i < conditionList.length && conditionsMet == true; i++) {
                     
                     BobuxAbility conditionAbility = conditionList[i].getAbility();
                     double conditionRadius = conditionList[i].getRadius();
                     long conditionTimeFrame = conditionList[i].getTimeFrame();
                     Player conditionPlayer = conditionList[i].getPlayer();
                     
+                    //Only activates if condition abilities 
                     if (conditionRadius == 0) {
-                        abilityInstanceHistory.removeAbilityInstance(conditionAbility, conditionTimeFrame, conditionPlayer);
+                        conditionsMet = abilityInstanceHistory.removeAbilityInstance(conditionAbility, conditionTimeFrame, conditionPlayer);
                     } else {
-                        abilityInstanceHistory.removeAbilityInstance(conditionAbility, conditionTimeFrame, conditionRadius, conditionPlayer);
+                        conditionsMet = abilityInstanceHistory.removeAbilityInstance(conditionAbility, conditionTimeFrame, conditionRadius, conditionPlayer);
+                    }
+                }
+                for (int i = 0; i < actionList.length; i++) {
+                    if (actionList[i].requiresCondition()) {
+                        if (conditionsMet) {
+                            actionList[i].run();
+                        }
+                    } else {
+                        actionList[i].run();
                     }
                 }
             } else {
@@ -71,6 +83,21 @@ public class PlayerAbilityManager implements Listener {
             
             //Registers the instance to the PAIStructure, which is then registered to the map.
             PlayerAbilityInstance abilityInstance = new PlayerAbilityInstance(player, BobuxTimer.getTicksPassed(), ability);
+
+            //Puts this instance in the history of all players' historys within a radius of 32 blocks
+            ArrayList<Player> playerList = BobuxUtils.getNearbyPlayers(player.getLocation(), maxRegistrationRadius);
+            for (int i = 0; i < playerList.size(); i++) {
+                Player analyzedPlayer = playerList.get(i);
+                //If any of the players aren't registered yet
+                if (!PAImap.containsKey(analyzedPlayer)) {
+                    PAIStructure struct = new PAIStructure();
+                    PAImap.put(analyzedPlayer, struct);
+                }
+                PAIStructure analyzedPlayerHistory = PAImap.get(analyzedPlayer);
+                analyzedPlayerHistory.addPAI(abilityInstance);
+                PAImap.put(analyzedPlayer, analyzedPlayerHistory);
+            }   
+             
             abilityInstanceHistory.addPAI(abilityInstance);
             PAImap.put(player, abilityInstanceHistory);
 
