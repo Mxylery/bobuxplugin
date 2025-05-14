@@ -9,6 +9,7 @@ public final class BobuxGiver implements Listener {
 
     public BobuxGiver(BobuxPlugin plugin) {
         this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     

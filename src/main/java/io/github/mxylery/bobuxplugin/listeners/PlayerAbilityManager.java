@@ -3,10 +3,26 @@ package io.github.mxylery.bobuxplugin.listeners;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryEvent;
+import org.bukkit.event.player.PlayerEvent;
+import org.bukkit.event.player.PlayerInputEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerVelocityEvent;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.util.Vector;
+import org.bukkit.Material;
+import org.bukkit.block.spawner.SpawnerEntry.Equipment;
 import org.bukkit.entity.Player;
 import io.github.mxylery.bobuxplugin.*;
 import io.github.mxylery.bobuxplugin.conditions.PlayerAbilityInstanceCondition;
@@ -111,16 +127,29 @@ public final class PlayerAbilityManager implements Listener {
         }
     }
 
-    //Sets entity list to be the player triggering the ability
-    private void defaultTargetSettings(Player player, BobuxAbility ability) {
-
+    //Leaving the playerList null will use the activating player; leaving the vector null will use the direction the player is facing.
+    private void setTargetSettings(Player player, BobuxAbility ability, Player[] playerList, Vector vector) {
         if (ability instanceof AbilityOneTime) {
-            Player[] playerList = {player};
             AbilityOneTime polyAbility = (AbilityOneTime) ability;
             BobuxAction[] actionList = polyAbility.getActionList();
             //Registeres the user of the ability as the entity list of the action
             for (int i = 0; i < actionList.length; i++) {
-                actionList[i].initializeEntityList(playerList);
+                if (actionList[i].requiresEntities()) {
+                    if (playerList == null) {
+                        Player[] singlePlayerList = {player};
+                        actionList[i].initializeEntityList(singlePlayerList);
+                    } else {
+                        actionList[i].initializeEntityList(playerList);
+                    }
+                }
+                //Default vector is where player is facing
+                if (actionList[i].requiresVector()) {
+                    if (vector == null) {
+                        actionList[i].initializeVector(player.getEyeLocation().getDirection());
+                    } else {
+                        actionList[i].initializeVector(vector);
+                    }
+                }
             }
         } else {
 
@@ -143,54 +172,97 @@ public final class PlayerAbilityManager implements Listener {
                 }
             } 
         }
-
-    //If you want the listener to check in the mainhand, make the boolean false. If you want the listener to check the offhand, make the boolean true.
-    private void checkForHandMatch(BobuxItem bobuxitem, PlayerInteractEvent e, boolean isOffHand) {
-        Player currentPlayer = e.getPlayer();
-        //Mainhand
-        if (!isOffHand && e.getPlayer().getInventory().getItemInMainHand() != null) {
-            if (e.getPlayer().getInventory().getItemInMainHand().equals(bobuxitem.getStack())) {
-                BobuxItem item = BobuxItemInterface.testingItem;
+    /**
+     * Used to check certain item slots before triggering abilities
+     * @param bobuxitem
+     * @param holder
+     * @param slot
+     * @param playerList
+     * @param vector
+     */
+    private void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Player[] playerList, Vector vector) {
+        PlayerInventory currentInventory = holder.getInventory();
+        if (currentInventory.getItem(slot) != null) {
+            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
+                BobuxItem item = bobuxitem;
                 BobuxAbility ability = item.getAbility();
-                defaultTargetSettings(currentPlayer, ability);
-                if (verifyItemCD(currentPlayer, ability)) {
-                    useAbility(currentPlayer, ability);
+                setTargetSettings(holder, ability, playerList, vector);
+                if (verifyItemCD(holder, ability)) {
+                    useAbility(holder, ability);
                 }
             }
         //Offhand
-        } else if (e.getPlayer().getInventory().getItemInOffHand() != null) {
-            if (e.getPlayer().getInventory().getItemInOffHand().equals(bobuxitem.getStack())) {
-                BobuxItem item = BobuxItemInterface.testingItem;
-                BobuxAbility ability = item.getAbility();
-                defaultTargetSettings(currentPlayer, ability);
-                if (verifyItemCD(currentPlayer, ability)) {
-                    useAbility(currentPlayer, ability);
-                }
-            }
         }
-    }
-
-    private void checkForSlotMatch(BobuxItem bobuxitem, PlayerInteractEvent e) {
-
-    }
-
-    private void overrideTargetSettings(Player player, BobuxAbility ability, Player[] playerList) {
-
     }
 
     /**
      * The following procedure is to be used when implementing item abilities.
      * 1. Initialize the item and ability in ../items/BobuxItemInterface.java
      * 2. Go under the desired handler in this class
-     * 3. Under the if statements, use the appropriate method checkForHandMatch() or checkForSlotMatch()
+     * 3. Under the if statements, use the appropriate method checkForHandMatch() or checkForSlotMatch() 
+     * 4. If checking for a slot: 9-35 = inventory, 200-226 = ender chest, or use EquipmentSlot enums.
+     * 5. Use the BobuxRegisterer and (not yet made) class to register desired mobs to 
      * @param e
      */
     @EventHandler
-    public void onLeftClick(PlayerInteractEvent e) {
-
+    public void onClick(PlayerInteractEvent e) {
+        //Air left clicks
+        Player player = e.getPlayer();
         if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
-            checkForHandMatch(BobuxItemInterface.testingItem, e, false);
+            checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, null, null);
+            checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, null, null);
+        //Air right clicks
+        } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+
         }
+    }
+
+    @EventHandler
+    public void onSpace(PlayerInputEvent e) {
+        Player player = e.getPlayer();
+        if (player.isOnGround()) {
+            if (e.getInput().isJump()) {
+                System.out.println("Jumped!");
+                checkForSlotMatch(BobuxItemInterface.bounceBoots, player, EquipmentSlot.FEET, null, new Vector(0,1,0));
+            }
+        } else { //If you want mid-air OK
+            if (e.getInput().isJump()) {
+
+            }
+        }
+    }
+
+    //Will be used for passive abilities along onEquipmentSwitch and onLogin
+    public void onItemSwitch(PlayerItemHeldEvent e) {
+
+    }
+
+    /**
+     * 100 = feet, 101 = leggings, 102 = chestplate, 103 = helmet
+     * 200-226 = echest
+     * 9-35 = non-hotbar inventory
+     * 
+     * Have fun!
+     * 
+     * @param e
+     */
+    public void onEquipmentSwitch(InventoryClickEvent e) {
+        InventoryHolder holder = e.getInventory().getHolder();
+        if (holder instanceof Player) {
+            Player player = (Player) holder;
+        }
+    }
+
+    //To update all of the passives if the player is wearing/holding anything
+    public void onLogin(PlayerLoginEvent e) {
+
+    }
+
+    public void onEat(PlayerItemConsumeEvent e) {
+
+    }
+
+    public void onVelocityMet(PlayerVelocityEvent e) {
 
     }
 

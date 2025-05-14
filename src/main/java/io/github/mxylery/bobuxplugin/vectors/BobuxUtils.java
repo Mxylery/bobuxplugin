@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
+
+import io.github.mxylery.bobuxplugin.items.BobuxItem;
 
 public class BobuxUtils {
     
@@ -58,5 +63,21 @@ public class BobuxUtils {
 			}
 		}
 		return playerList;
+	}
+
+	public static boolean checkWithoutDuraAmnt(ItemStack item, BobuxItem bobuxitem) {
+		item.setAmount(1);
+		if (item instanceof Damageable) {
+			Damageable damageable = (Damageable) item;
+			damageable.setDamage(damageable.getMaxDamage());
+			if (damageable == bobuxitem.getStack()) {
+			return true;
+		}
+		return false;
+		}
+		if (item == bobuxitem.getStack()) {
+			return true;
+		}
+		return false;
 	}
 }

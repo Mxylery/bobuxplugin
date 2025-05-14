@@ -26,6 +26,9 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
             switch (args[0]) {
                 case "testing_item": player.getInventory().addItem(BobuxItemInterface.testingItem.getStack());
                 break;
+                case "bouncing_item": player.getInventory().addItem(BobuxItemInterface.bouncingItem.getStack());
+                break;
+                case "bouncing_boots": player.getInventory().addItem(BobuxItemInterface.bounceBoots.getStack());
                 default:
                 break;
             }

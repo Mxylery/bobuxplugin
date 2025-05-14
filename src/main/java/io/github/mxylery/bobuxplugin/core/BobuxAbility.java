@@ -36,15 +36,13 @@ public abstract class BobuxAbility {
         return conditions;
     }
 
-    //Adjusts number of an action (if applicable) by a flat amount
-    public void increaseFlat() {
 
-    }
+    public void adjustFlat() {
 
-    //Adjusts numbers of an action (if applicable) by a percent (-100% = 0x, +100% = 2x)
+    };
     public void adjustPerc() {
         
-    }
+    };
 
     protected void updateListSize() {
         BobuxAction[] newActionList = new BobuxAction[actionList.length*2];

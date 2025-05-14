@@ -1,5 +1,6 @@
 package io.github.mxylery.bobuxplugin.core;
 
+import org.bukkit.Server;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -9,9 +10,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class BobuxTimer extends BukkitRunnable {
     
     private static long ticksPassed;
+    private static Server server;
 
-    public BobuxTimer() {
+    public BobuxTimer(Server pluginServer) {
         ticksPassed = 0;
+        server = pluginServer;
     }
 
     public void run() {
@@ -20,5 +23,9 @@ public class BobuxTimer extends BukkitRunnable {
 
     public static long getTicksPassed() {
         return ticksPassed;
+    }
+
+    public static Server getServer() {
+        return server;
     }
 }

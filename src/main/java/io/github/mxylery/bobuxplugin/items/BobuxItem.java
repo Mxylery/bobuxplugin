@@ -3,32 +3,43 @@ package io.github.mxylery.bobuxplugin.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 
-//https://www.gamergeeks.net/apps/minecraft/color-codes for examples of colored text
 public class BobuxItem {
     private int price;
     private ItemStack stack;
     private String[] description;
     private String name;
     private BobuxAbility ability;
+    private Enchantment[] enchants;
+    private int[] enchantLevels;
+    private boolean unbreakable;
 
-    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, int price) {
+    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
+    Enchantment[] enchants, int[] enchantLevels, boolean unbreakable, int price) {
         this.stack = stack;
         this.description = description;
         this.name = name;
         this.ability = ability; //Could be null if desired
+        this.enchants = enchants;
+        this.enchantLevels = enchantLevels;
+        this.unbreakable = unbreakable;
         this.price = price;
     }
 
-    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability) {
+    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
+    Enchantment[] enchants, int[] enchantLevels, boolean unbreakable) {
         this.stack = stack;
         this.description = description;
         this.name = name;
         this.ability = ability; //Could be null if desired
+        this.enchants = enchants;
+        this.enchantLevels = enchantLevels;
+        this.unbreakable = unbreakable;
         this.price = 1;
     }
 
@@ -40,6 +51,12 @@ public class BobuxItem {
         //Each element of description is a seperate line
         for (int i = 0; i < description.length; i++) {
             lore.add(description[i]);
+        }
+
+        if (enchants != null) {
+            for (int i = 0; i < enchants.length; i++) {
+                meta.addEnchant(enchants[i], enchantLevels[i], unbreakable);
+            }
         }
 
 		meta.setDisplayName(name);
