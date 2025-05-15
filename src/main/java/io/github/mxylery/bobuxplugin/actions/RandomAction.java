@@ -45,9 +45,9 @@ public class RandomAction extends BobuxAction {
                 }
             }
             for (int i = 0; i < randomList[selectedElement].length; i++) {
-            randomList[selectedElement][i].initializeEntityList(super.entityList);
-            randomList[selectedElement][i].initializeVector(super.vector);
-            randomList[selectedElement][i].run();
+                randomList[selectedElement][i].initializeEntityList(super.entityList);
+                randomList[selectedElement][i].initializeVector(super.vector);
+                randomList[selectedElement][i].run();
             }
         }
     }

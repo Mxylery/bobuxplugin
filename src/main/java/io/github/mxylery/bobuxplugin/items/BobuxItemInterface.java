@@ -43,18 +43,19 @@ import io.github.mxylery.bobuxplugin.core.ability_types.AbilityOneTime;
 
 public class BobuxItemInterface {
 
-    private void setUnbreakables() {
-        bounceBootsStack.getItemMeta().setUnbreakable(true);
+    public ItemStack[] getMarketItems() {
+        return null;
     }
 
-    private static final int itemTotal = 3;
+    private static final int itemTotal = 7;
+    private static final int marketItemTotal = 3;
     private static Server server = BobuxTimer.getServer();
     private static ItemFactory itemFactory = server.getItemFactory();
 
     //Items start here
     private static ItemStack testingItemStack = new ItemStack(Material.IRON_INGOT);
     private static String[] testingItemDesc = 
-    {"Balls"};
+    {"§7§oBalls"};
     private static String testingItemName = "Testing Item";
     private static BobuxAction[] testingItemActionList = 
     {new DamageEntity(5, false)};
@@ -68,8 +69,8 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bouncingItemStack = new ItemStack(Material.SLIME_BALL);
     private static String[] bouncingItemDesc = 
-    {"Legendary Bounce Ball", 
-    "Second Line Because Why Not"};
+    {"§7§oLegendary Bounce Ball", 
+    "§7§oSecond Line Because Why Not"};
     private static String bouncingItemName = "Bouncing Item";
     private static BobuxAction[] bouncingItemActionList = 
     {new ChangeVelocity(1, false)};
@@ -83,8 +84,8 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bounceBootsStack = new ItemStack(Material.LEATHER_BOOTS);
     private static String[] bounceBootsDesc = 
-    {"§7These boots make you bounce when you jump.",
-    "§l§aNo cooldown"};
+    {"§7§oThese boots make you bounce when you jump.",
+    "§7§oNo cooldown"};
     private static String bounceBootsName = "Bouncing Boots";
     private static BobuxAction[] bounceBootsActionList = 
     {new ChangeVelocity(0.8, false)};
@@ -100,7 +101,7 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack harmfulSubstanceStack = new ItemStack(Material.FERMENTED_SPIDER_EYE);
     private static String[] harmfulSubstanceDesc = 
-    {"§7Some say this substance can cause harm..."};
+    {"§7§oSome say this substance can cause harm..."};
     private static String harmfulSubstanceName = "Harmful Substance?";
     //
     // Example of making a random action
@@ -134,8 +135,8 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack hurriedStopwatchStack = new ItemStack(Material.CLOCK);
     private static String[] hurriedStopwatchDesc = 
-    {"§7Right clicking gives the user Speed III for 5 seconds",
-    "§l§a 15s CD"};
+    {"§7§oRight clicking gives the user Speed III for 5 seconds",
+    "§7§o15s CD"};
     private static String hurriedStopwatchName = "Hurried Stopwatch";
     private static BobuxAction[] hurriedStopwatchActionList = 
     {new EffectGive(PotionEffectType.SPEED, 100, 2, false)};
@@ -151,12 +152,37 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxStack = new ItemStack(Material.LIME_DYE);
     private static String[] bobuxDesc = 
-    {"§l§aOfficial currency of the Bobux SMP",
-    "§l§aWorth 1 $BBX"};
+    {"§7§oOfficial currency of the Bobux SMP",
+    "§7§oWorth 1 $BBX"};
     private static String bobuxName = "§l§aBobux";
     public static BobuxItem bobux = new BobuxItem
     (bobuxStack, bobuxDesc, bobuxName, null, 
     null, null, false);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack marketStack = new ItemStack(Material.GOLDEN_HORSE_ARMOR);
+    private static String[] marketDesc = 
+    {"§6Access the daily market here."};
+    private static String marketName = "§6Market";
+    public static BobuxItem market = new BobuxItem
+    (marketStack, marketDesc, marketName, null, 
+    null, null, false);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack cleaverStack = new ItemStack(Material.GOLDEN_SWORD);
+    private static String[] cleaverDesc = 
+    {"§7§oHitting mobs with this sword cleaves a group.",
+    "§7§o5s CD"};
+    private static String cleaverName = "§l§dCleaver";
+    private static BobuxAction[] cleaverActionList = 
+    {new DamageEntity(2,false), new ChangeVelocity(0.2, false)};
+    private static BobuxAbility cleaverAbility = new AbilityOneTime
+    (100, null, cleaverActionList, "Cleaver Ability");
+    public static BobuxItem cleaver = new BobuxItem
+    (cleaverStack, cleaverDesc, cleaverName, cleaverAbility, 
+    null, null, true);
     //////////////////////////////////////////////////////////////////////////////////////////
 
 }

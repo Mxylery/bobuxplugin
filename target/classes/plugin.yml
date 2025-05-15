@@ -1,13 +1,14 @@
 name: BobuxPlugin
 main: io.github.mxylery.bobuxplugin.BobuxPlugin
-version: 0.1.1
+version: 0.1.2
+api-version: '1.20.5'
 
 commands:
   bobuxgive:
     description: Gives the user the amount of bobux they input.
     aliases: bobuxgive
-    usage: "Usage: /<command> [number]"
-  bobuxitemgive:
-    description: Gives the user the desired bobux item.
-    aliases: bobuxitemgive
-    usage: "Type: /<command> [bobuxitem]"
+    usage: "Usage: /<command> [bobuxitem]"
+  bobuxmenu:
+    description: Opens the Bobux Menu
+    aliases: bobuxmenu
+    usage: "Usage: /<command>"

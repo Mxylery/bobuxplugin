@@ -6,7 +6,7 @@ import io.github.mxylery.bobuxplugin.core.BobuxGUI;
 
 public class MarketGUI {
     
-    private ItemStack[] inventoryStack;
+    private ItemStack[] shopList;
 
     public MarketGUI() {
         
@@ -14,6 +14,10 @@ public class MarketGUI {
 
     public void slotHit(int slot) {
 
+    }
+
+    public void refresh() {
+        
     }
 
 }

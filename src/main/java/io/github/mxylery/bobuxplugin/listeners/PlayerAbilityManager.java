@@ -7,12 +7,15 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInputEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -23,8 +26,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.util.Vector;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.spawner.SpawnerEntry.Equipment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import io.github.mxylery.bobuxplugin.*;
 import io.github.mxylery.bobuxplugin.conditions.PlayerAbilityInstanceCondition;
@@ -55,7 +60,7 @@ public final class PlayerAbilityManager implements Listener {
         if (ability instanceof AbilityOneTime) {
             //Registers the first-time player
             if (!PAImap.containsKey(player)) {
-                PAIStructure newStruct = new PAIStructure();
+                PAIStructure newStruct = new PAIStructure(player);
                 PAImap.put(player, newStruct);
             }
 
@@ -75,13 +80,12 @@ public final class PlayerAbilityManager implements Listener {
                     BobuxAbility conditionAbility = conditionList[i].getAbility();
                     double conditionRadius = conditionList[i].getRadius();
                     long conditionTimeFrame = conditionList[i].getTimeFrame();
-                    Player conditionPlayer = conditionList[i].getPlayer();
                     
                     //Only activates if condition abilities 
                     if (conditionRadius == 0) {
-                        conditionsMet = abilityInstanceHistory.removeAbilityInstance(conditionAbility, conditionTimeFrame, conditionPlayer);
+                        conditionsMet = abilityInstanceHistory.removeAbilityInstance(conditionAbility, conditionTimeFrame);
                     } else {
-                        conditionsMet = abilityInstanceHistory.removeAbilityInstance(conditionAbility, conditionTimeFrame, conditionRadius, conditionPlayer);
+                        conditionsMet = abilityInstanceHistory.removeAbilityInstance(conditionAbility, conditionTimeFrame, conditionRadius);
                     }
                 }
                 for (int i = 0; i < actionList.length; i++) {
@@ -111,7 +115,7 @@ public final class PlayerAbilityManager implements Listener {
                 Player analyzedPlayer = playerList.get(i);
                 //If any of the players aren't registered yet
                 if (!PAImap.containsKey(analyzedPlayer)) {
-                    PAIStructure struct = new PAIStructure();
+                    PAIStructure struct = new PAIStructure(analyzedPlayer);
                     PAImap.put(analyzedPlayer, struct);
                 }
                 PAIStructure analyzedPlayerHistory = PAImap.get(analyzedPlayer);
@@ -130,18 +134,18 @@ public final class PlayerAbilityManager implements Listener {
     }
 
     //Leaving the playerList null will use the activating player; leaving the vector null will use the direction the player is facing.
-    private void setTargetSettings(Player player, BobuxAbility ability, Player[] playerList, Vector vector) {
+    private void setTargetSettings(Player player, BobuxAbility ability, Entity[] entityList, Vector vector, Location location) {
         if (ability instanceof AbilityOneTime) {
             AbilityOneTime polyAbility = (AbilityOneTime) ability;
             BobuxAction[] actionList = polyAbility.getActionList();
             //Registeres the user of the ability as the entity list of the action
             for (int i = 0; i < actionList.length; i++) {
                 if (actionList[i].requiresEntities()) {
-                    if (playerList == null) {
+                    if (entityList == null) {
                         Player[] singlePlayerList = {player};
                         actionList[i].initializeEntityList(singlePlayerList);
                     } else {
-                        actionList[i].initializeEntityList(playerList);
+                        actionList[i].initializeEntityList(entityList);
                     }
                 }
                 //Default vector is where player is facing
@@ -150,6 +154,14 @@ public final class PlayerAbilityManager implements Listener {
                         actionList[i].initializeVector(player.getEyeLocation().getDirection());
                     } else {
                         actionList[i].initializeVector(vector);
+                    }
+                }
+                //Default location is player location
+                if (actionList[i].requiresLocation()) {
+                    if (location == null) {
+                        actionList[i].initializeLocation(player.getLocation());
+                    } else {
+                        actionList[i].initializeLocation(location);
                     }
                 }
             }
@@ -182,13 +194,13 @@ public final class PlayerAbilityManager implements Listener {
      * @param playerList
      * @param vector
      */
-    private void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Player[] playerList, Vector vector) {
+    private void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity[] playerList, Vector vector, Location location) {
         PlayerInventory currentInventory = holder.getInventory();
         if (currentInventory.getItem(slot) != null) {
             if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
                 BobuxItem item = bobuxitem;
                 BobuxAbility ability = item.getAbility();
-                setTargetSettings(holder, ability, playerList, vector);
+                setTargetSettings(holder, ability, playerList, vector, location);
                 if (verifyItemCD(holder, ability)) {
                     useAbility(holder, ability);
                 }
@@ -202,30 +214,47 @@ public final class PlayerAbilityManager implements Listener {
      * 1. Initialize the item and ability in ../items/BobuxItemInterface.java
      * 2. Go under the desired handler in this class
      * 3. Under the if statements, use the appropriate method checkForHandMatch() or checkForSlotMatch() 
-     * 4. If checking for a slot: 9-35 = inventory, 200-226 = ender chest, or use EquipmentSlot enums.
-     * 5. Use the BobuxRegisterer and (not yet made) class to register desired mobs to 
+     * 4. When checking for a slot: 9-35 = inventory, 200-226 = ender chest, or use EquipmentSlot enums.
+     * 5. Use the appropriate initialized variables and BobuxRegisterer methods to edit the ability targeting 
+     * (You can derive a lot of locations/vectors from player from given variables)
      * @param e
      */
     @EventHandler
     public void onClick(PlayerInteractEvent e) {
         //Air left clicks
         Player player = e.getPlayer();
+        Vector playerEyeVector = player.getEyeLocation().getDirection();
         if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
-            checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, null, null);
-            checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, null, null);
-            checkForSlotMatch(BobuxItemInterface.harmfulSubstance, player, EquipmentSlot.HAND, null, null);
+            checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, null, null, null);
+            checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, null, null, null);
+            checkForSlotMatch(BobuxItemInterface.harmfulSubstance, player, EquipmentSlot.HAND, null, null, null);
         //Air right clicks
         } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
-            checkForSlotMatch(BobuxItemInterface.hurriedStopwatch, player, EquipmentSlot.HAND, null, null);
+            checkForSlotMatch(BobuxItemInterface.hurriedStopwatch, player, EquipmentSlot.HAND, null, null, null);
+        }
+    }
+
+    @EventHandler
+    public void onHit(EntityDamageByEntityEvent e) {
+        System.out.println("Damaged! ");
+        if (e.getDamageSource().getCausingEntity() instanceof Player) {
+            System.out.println("Damaged by a player!");
+            Player player = (Player) e.getDamageSource().getCausingEntity();
+            Entity damagedEntity = e.getEntity();
+            Vector playerEyeVector = player.getEyeLocation().getDirection();
+            Vector slightKnockUp = new Vector(playerEyeVector.getX(), 1, playerEyeVector.getZ());
+            Entity[] singleEntity = {damagedEntity};
+            checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND, singleEntity, slightKnockUp, null);
         }
     }
 
     @EventHandler
     public void onSpace(PlayerInputEvent e) {
         Player player = e.getPlayer();
+        Vector playerEyeVector = player.getEyeLocation().getDirection();
         if (player.isOnGround()) {
             if (e.getInput().isJump()) {
-                checkForSlotMatch(BobuxItemInterface.bounceBoots, player, EquipmentSlot.FEET, null, new Vector(0,1,0));
+                checkForSlotMatch(BobuxItemInterface.bounceBoots, player, EquipmentSlot.FEET, null, new Vector(0,1,0), null);
             }
         } else { //If you want mid-air OK
             if (e.getInput().isJump()) {

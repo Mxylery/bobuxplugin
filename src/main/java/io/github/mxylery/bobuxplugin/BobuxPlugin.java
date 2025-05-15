@@ -1,10 +1,8 @@
 package io.github.mxylery.bobuxplugin;
 
-import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
-import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.listeners.*;
 
 public final class BobuxPlugin extends JavaPlugin {
@@ -18,9 +16,8 @@ public final class BobuxPlugin extends JavaPlugin {
         new BobuxGiver(this);
         new PlayerAbilityManager(this);
         
-
         this.getCommand("bobuxgive").setExecutor(new BobuxCommands(this));
-        this.getCommand("bobuxitemgive").setExecutor(new BobuxCommands(this));
+        this.getCommand("bobuxmenu").setExecutor(new BobuxCommands(this));
 
         bobuxTimer.runTaskTimer(this, 0, 1);
 	}
