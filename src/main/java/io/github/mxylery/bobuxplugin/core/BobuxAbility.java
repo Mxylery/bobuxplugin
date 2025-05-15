@@ -17,11 +17,13 @@ public abstract class BobuxAbility {
     protected BobuxAction[] actionList;
     protected PlayerAbilityInstanceCondition[] conditions;
     protected String name;
+    protected boolean muteCD;
 
-    public BobuxAbility(long cooldown, PlayerAbilityInstanceCondition[] conditions, String name) {
+    public BobuxAbility(long cooldown, PlayerAbilityInstanceCondition[] conditions, String name, boolean muteCD) {
         this.cooldown = cooldown;
         this.conditions = conditions;
         this.name = name;
+        this.muteCD = muteCD;
     }
 
     public long getCooldown() {

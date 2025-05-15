@@ -8,10 +8,13 @@ import io.github.mxylery.bobuxplugin.core.BobuxAction;
 public class PlaySound extends BobuxAction {
     
     private Sound sound;
-    private Location location;
+    private float volume;
+    private float pitch;
 
-    public PlaySound(Sound sound, boolean requiresCondition) {
+    public PlaySound(Sound sound, float volume, float pitch, boolean requiresCondition) {
         this.sound = sound;
+        this.volume = volume;
+        this.pitch = pitch;
         super.requiresCondition = requiresCondition;
         super.requiresEntity = true;
         super.requiresLocation = true;
@@ -26,7 +29,6 @@ public class PlaySound extends BobuxAction {
     }
 
     public void run() {
-        location = entityList[0].getLocation();
-
+        location.getWorld().playSound(location,sound,volume,pitch);
     }
 }

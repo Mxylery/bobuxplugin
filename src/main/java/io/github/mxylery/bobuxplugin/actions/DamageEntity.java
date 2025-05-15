@@ -17,7 +17,6 @@ public DamageEntity(double damage, boolean requiresCondition) {
     this.damage = damage;
     super.requiresCondition = requiresCondition;
     super.requiresEntity = true;
-    super.requiresVector = false;
 }
 
 public void adjustFlat(double increase) {

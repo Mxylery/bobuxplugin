@@ -2,7 +2,7 @@ package io.github.mxylery.bobuxplugin.guis;
 
 import org.bukkit.inventory.ItemStack;
 
-import io.github.mxylery.bobuxplugin.core.BobuxGUI;
+import io.github.mxylery.bobuxplugin.listeners.BobuxGUI;
 
 public class MarketGUI {
     
@@ -17,7 +17,7 @@ public class MarketGUI {
     }
 
     public void refresh() {
-        
+
     }
 
 }

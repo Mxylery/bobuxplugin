@@ -60,7 +60,7 @@ public class BobuxItemInterface {
     private static BobuxAction[] testingItemActionList = 
     {new DamageEntity(5, false)};
     private static BobuxAbility testingItemAbility = new AbilityOneTime
-    (100, null, testingItemActionList, "Testing Item Abil");
+    (100, null, testingItemActionList, "Testing Item Abil", false);
     public static BobuxItem testingItem = 
     new BobuxItem(testingItemStack, testingItemDesc, testingItemName, testingItemAbility, 
     null, null, false, 5000);
@@ -75,7 +75,7 @@ public class BobuxItemInterface {
     private static BobuxAction[] bouncingItemActionList = 
     {new ChangeVelocity(1, false)};
     private static BobuxAbility bouncingItemAbility = new AbilityOneTime
-    (100, null, bouncingItemActionList, "Bouncing Item Abil");
+    (100, null, bouncingItemActionList, "Bouncing Item Abil", false);
     public static BobuxItem bouncingItem = 
     new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, bouncingItemAbility,
     null, null, false);
@@ -90,7 +90,7 @@ public class BobuxItemInterface {
     private static BobuxAction[] bounceBootsActionList = 
     {new ChangeVelocity(0.8, false)};
     private static BobuxAbility bounceBootsAbility = new AbilityOneTime
-    (1, null, bounceBootsActionList, "Bouncing Boots Abil");
+    (1, null, bounceBootsActionList, "Bouncing Boots Abil", false);
     private static Enchantment[] bounceBootsEnchantList = {Enchantment.FEATHER_FALLING};
     private static int[] bounceBootsEnchantLevels = {3};
     public static BobuxItem bounceBoots = new BobuxItem
@@ -124,7 +124,7 @@ public class BobuxItemInterface {
     randomHarmfulSubstanceActionList1Weights, 
     false)};
     private static BobuxAbility harmfulSubstanceAbility = new AbilityOneTime 
-    ((long) 250, null, harmfulSubstanceActionList, "Harmful Substance Abil");
+    ((long) 250, null, harmfulSubstanceActionList, "Harmful Substance Abil", false);
     private static Enchantment[] harmfulSubstanceEnchantList = {Enchantment.SHARPNESS};
     private static int[] harmfulSubstanceEnchantLevels = {3};
     public static BobuxItem harmfulSubstance = new BobuxItem
@@ -141,7 +141,7 @@ public class BobuxItemInterface {
     private static BobuxAction[] hurriedStopwatchActionList = 
     {new EffectGive(PotionEffectType.SPEED, 100, 2, false)};
     private static BobuxAbility hurriedStopwatchAbility = new AbilityOneTime
-    (300, null, hurriedStopwatchActionList, hurriedStopwatchName);
+    (300, null, hurriedStopwatchActionList, hurriedStopwatchName, false);
     private static Enchantment[] hurriedStopwatchEnchantList = {Enchantment.UNBREAKING, Enchantment.CHANNELING};
     private static int[] hurriedStopwatchEnchantLevels = {2, 2};
     public static BobuxItem hurriedStopwatch = new BobuxItem
@@ -177,9 +177,9 @@ public class BobuxItemInterface {
     "§7§o5s CD"};
     private static String cleaverName = "§l§dCleaver";
     private static BobuxAction[] cleaverActionList = 
-    {new DamageEntity(2,false), new ChangeVelocity(0.2, false)};
+    {new DamageEntity(2,false), new ChangeVelocity(0.5, false)};
     private static BobuxAbility cleaverAbility = new AbilityOneTime
-    (100, null, cleaverActionList, "Cleaver Ability");
+    (100, null, cleaverActionList, "Cleaver Ability", true);
     public static BobuxItem cleaver = new BobuxItem
     (cleaverStack, cleaverDesc, cleaverName, cleaverAbility, 
     null, null, true);

@@ -186,6 +186,7 @@ public final class PlayerAbilityManager implements Listener {
                 }
             } 
         }
+
     /**
      * Used to check certain item slots before triggering abilities
      * @param bobuxitem
@@ -234,15 +235,14 @@ public final class PlayerAbilityManager implements Listener {
         }
     }
 
+    //On arrow hit you'd use getCausingEntity
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
-        System.out.println("Damaged! ");
-        if (e.getDamageSource().getCausingEntity() instanceof Player) {
-            System.out.println("Damaged by a player!");
-            Player player = (Player) e.getDamageSource().getCausingEntity();
+        if (e.getDamageSource().getDirectEntity() instanceof Player) {
+            Player player = (Player) e.getDamageSource().getDirectEntity();
             Entity damagedEntity = e.getEntity();
             Vector playerEyeVector = player.getEyeLocation().getDirection();
-            Vector slightKnockUp = new Vector(playerEyeVector.getX(), 1, playerEyeVector.getZ());
+            Vector slightKnockUp = new Vector(playerEyeVector.getX(), 2, playerEyeVector.getZ());
             Entity[] singleEntity = {damagedEntity};
             checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND, singleEntity, slightKnockUp, null);
         }

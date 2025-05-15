@@ -68,10 +68,12 @@ public class BobuxUtils {
 	public static boolean checkWithoutDuraAmnt(ItemStack item, BobuxItem bobuxitem) {
 		ItemStack tempStack = new ItemStack(item);
 		tempStack.setAmount(1);
-		if (tempStack instanceof Damageable && bobuxitem.getStack() instanceof Damageable) {
-			Damageable damageable = (Damageable) item;
-			damageable.setDamage(damageable.getMaxDamage());
-			if (damageable.equals((Damageable) bobuxitem.getStack())) {
+		ItemMeta tempMeta = tempStack.getItemMeta();
+		if (tempMeta instanceof Damageable && bobuxitem.getStack().getItemMeta() instanceof Damageable) {
+			Damageable damageable = (Damageable) tempMeta;
+			damageable.setDamage(0);
+			tempStack.setItemMeta(damageable);
+			if (damageable.equals((Damageable) bobuxitem.getStack().getItemMeta())) {
 			return true;
 		}
 		return false;
