@@ -9,6 +9,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInputEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -211,9 +213,10 @@ public final class PlayerAbilityManager implements Listener {
         if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
             checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, null, null);
             checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, null, null);
+            checkForSlotMatch(BobuxItemInterface.harmfulSubstance, player, EquipmentSlot.HAND, null, null);
         //Air right clicks
         } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
-
+            checkForSlotMatch(BobuxItemInterface.hurriedStopwatch, player, EquipmentSlot.HAND, null, null);
         }
     }
 
@@ -222,7 +225,6 @@ public final class PlayerAbilityManager implements Listener {
         Player player = e.getPlayer();
         if (player.isOnGround()) {
             if (e.getInput().isJump()) {
-                System.out.println("Jumped!");
                 checkForSlotMatch(BobuxItemInterface.bounceBoots, player, EquipmentSlot.FEET, null, new Vector(0,1,0));
             }
         } else { //If you want mid-air OK
@@ -250,6 +252,14 @@ public final class PlayerAbilityManager implements Listener {
         InventoryHolder holder = e.getInventory().getHolder();
         if (holder instanceof Player) {
             Player player = (Player) holder;
+        }
+    }
+
+    public void onChat(AsyncPlayerChatEvent e) {
+        Player player = e.getPlayer();
+        switch (e.getFormat()) {
+            case "BallsSecretCode": 
+            break;
         }
     }
 

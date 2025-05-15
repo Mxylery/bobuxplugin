@@ -17,8 +17,11 @@ public abstract class BobuxGUI implements Listener {
         if (e.getInventory().equals(inventory)) {
 
             e.setCancelled(true);
+            slotHit(e.getSlot());
 
         }
     }
+
+    public abstract void slotHit(int slot);
 
 }

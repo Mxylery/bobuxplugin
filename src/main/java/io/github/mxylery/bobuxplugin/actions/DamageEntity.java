@@ -38,11 +38,10 @@ public void run() {
             j++;
         }
     }
-    if (j != -1) {
-        for (int i = 0; i < j + 1; i++) {
-            damageArray[i].damage(damage);
-        }
+    for (int i = 0; i < j + 1; i++) {
+        damageArray[i].damage(damage);
     }
+    
 }
 
 }

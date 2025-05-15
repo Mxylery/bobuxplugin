@@ -26,7 +26,7 @@ public class BobuxUtils {
 		
 		double result = Math.sqrt(loc2.getX() - loc1.getX() + loc2.getY() - loc1.getY() + loc2.getZ() - loc1.getZ());
 		
-		return result;
+		return Math.abs(result);
 		
 	}
 
@@ -66,16 +66,17 @@ public class BobuxUtils {
 	}
 
 	public static boolean checkWithoutDuraAmnt(ItemStack item, BobuxItem bobuxitem) {
-		item.setAmount(1);
-		if (item instanceof Damageable) {
+		ItemStack tempStack = new ItemStack(item);
+		tempStack.setAmount(1);
+		if (tempStack instanceof Damageable && bobuxitem.getStack() instanceof Damageable) {
 			Damageable damageable = (Damageable) item;
 			damageable.setDamage(damageable.getMaxDamage());
-			if (damageable == bobuxitem.getStack()) {
+			if (damageable.equals((Damageable) bobuxitem.getStack())) {
 			return true;
 		}
 		return false;
 		}
-		if (item == bobuxitem.getStack()) {
+		if (tempStack.equals(bobuxitem.getStack())) {
 			return true;
 		}
 		return false;

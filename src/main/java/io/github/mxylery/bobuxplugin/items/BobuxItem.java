@@ -54,6 +54,7 @@ public class BobuxItem {
         }
 
         if (enchants != null) {
+            System.out.print("Tried to enchant.");
             for (int i = 0; i < enchants.length; i++) {
                 meta.addEnchant(enchants[i], enchantLevels[i], unbreakable);
             }
@@ -61,7 +62,6 @@ public class BobuxItem {
 
 		meta.setDisplayName(name);
 		meta.setLore(lore);
-		
 		stack.setItemMeta(meta);
     }
 

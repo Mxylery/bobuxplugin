@@ -2,6 +2,7 @@ package io.github.mxylery.bobuxplugin.core;
 
 import org.bukkit.Server;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
 
 /**
  * This class keeps track of the ticks of the server and reports to the
@@ -27,5 +28,9 @@ public class BobuxTimer extends BukkitRunnable {
 
     public static Server getServer() {
         return server;
+    }
+
+    public static BukkitScheduler getScheduler() {
+        return server.getScheduler();
     }
 }
