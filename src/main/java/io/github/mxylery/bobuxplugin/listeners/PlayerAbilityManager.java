@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -28,6 +29,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.util.Vector;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.spawner.SpawnerEntry.Equipment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -134,7 +136,7 @@ public final class PlayerAbilityManager implements Listener {
     }
 
     //Leaving the playerList null will use the activating player; leaving the vector null will use the direction the player is facing.
-    private void setTargetSettings(Player player, BobuxAbility ability, Entity[] entityList, Vector vector, Location location) {
+    private boolean setTargetSettings(Player player, BobuxAbility ability, Entity[] entityList, Vector vector, Location location) {
         if (ability instanceof AbilityOneTime) {
             AbilityOneTime polyAbility = (AbilityOneTime) ability;
             BobuxAction[] actionList = polyAbility.getActionList();
@@ -142,8 +144,7 @@ public final class PlayerAbilityManager implements Listener {
             for (int i = 0; i < actionList.length; i++) {
                 if (actionList[i].requiresEntities()) {
                     if (entityList == null) {
-                        Player[] singlePlayerList = {player};
-                        actionList[i].initializeEntityList(singlePlayerList);
+                        return false;
                     } else {
                         actionList[i].initializeEntityList(entityList);
                     }
@@ -151,7 +152,7 @@ public final class PlayerAbilityManager implements Listener {
                 //Default vector is where player is facing
                 if (actionList[i].requiresVector()) {
                     if (vector == null) {
-                        actionList[i].initializeVector(player.getEyeLocation().getDirection());
+                        return false;
                     } else {
                         actionList[i].initializeVector(vector);
                     }
@@ -159,14 +160,15 @@ public final class PlayerAbilityManager implements Listener {
                 //Default location is player location
                 if (actionList[i].requiresLocation()) {
                     if (location == null) {
-                        actionList[i].initializeLocation(player.getLocation());
+                        return false;
                     } else {
                         actionList[i].initializeLocation(location);
                     }
                 }
             }
+            return true;
         } else {
-
+            return false;
         }
     }
 
@@ -181,7 +183,8 @@ public final class PlayerAbilityManager implements Listener {
                 if (lastUse == -1) {
                     return true;
                 } else {
-                    plugin.getServer().broadcastMessage("You need to wait " + ( (double) cooldown / (double) 20 - (double) lastUse / (double) 20 ) + " more seconds until using this ability.");
+                    if (!ability.isMuted())
+                        plugin.getServer().broadcastMessage("You need to wait " + ( (double) cooldown / (double) 20 - (double) lastUse / (double) 20 ) + " more seconds until using this ability.");
                     return false;
                 }
             } 
@@ -195,14 +198,13 @@ public final class PlayerAbilityManager implements Listener {
      * @param playerList
      * @param vector
      */
-    private void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity[] playerList, Vector vector, Location location) {
+    private void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity[] entityList, Vector vector, Location location) {
         PlayerInventory currentInventory = holder.getInventory();
         if (currentInventory.getItem(slot) != null) {
             if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
                 BobuxItem item = bobuxitem;
                 BobuxAbility ability = item.getAbility();
-                setTargetSettings(holder, ability, playerList, vector, location);
-                if (verifyItemCD(holder, ability)) {
+                if (setTargetSettings(holder, ability, entityList, vector, location) && verifyItemCD(holder, ability)) {
                     useAbility(holder, ability);
                 }
             }
@@ -226,25 +228,36 @@ public final class PlayerAbilityManager implements Listener {
         Player player = e.getPlayer();
         Vector playerEyeVector = player.getEyeLocation().getDirection();
         if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
-            checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, null, null, null);
-            checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, null, null, null);
-            checkForSlotMatch(BobuxItemInterface.harmfulSubstance, player, EquipmentSlot.HAND, null, null, null);
+            Entity[] playerAsArray = {player};
+            checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, 
+            BobuxUtils.getEntitiesSphere(player, 3,  true), null, null);
+            checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, playerAsArray, null, null);
+
         //Air right clicks
         } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+            Entity[] playerAsArray = {player};
             checkForSlotMatch(BobuxItemInterface.hurriedStopwatch, player, EquipmentSlot.HAND, null, null, null);
+
         }
     }
 
     //On arrow hit you'd use getCausingEntity
     @EventHandler
-    public void onHit(EntityDamageByEntityEvent e) {
-        if (e.getDamageSource().getDirectEntity() instanceof Player) {
-            Player player = (Player) e.getDamageSource().getDirectEntity();
+    public void onDealingHit(EntityDamageEvent e) {
+        if (e.getDamageSource().getCausingEntity() instanceof Player) {
+            Player player = (Player) e.getDamageSource().getCausingEntity();
+            Entity[] playerAsArray = {player};
             Entity damagedEntity = e.getEntity();
+            Entity[] damagedAsArray = {damagedEntity};
             Vector playerEyeVector = player.getEyeLocation().getDirection();
-            Vector slightKnockUp = new Vector(playerEyeVector.getX(), 2, playerEyeVector.getZ());
-            Entity[] singleEntity = {damagedEntity};
-            checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND, singleEntity, slightKnockUp, null);
+
+            checkForSlotMatch(BobuxItemInterface.harmfulSubstance, player, EquipmentSlot.HAND, playerAsArray, null, null);
+
+            Vector slightKnockUp = new Vector(playerEyeVector.getX(), 1.5, playerEyeVector.getZ());
+
+            checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND,
+            BobuxUtils.getEntitiesSphere(player, damagedEntity.getLocation(), 3,2.5,playerEyeVector), slightKnockUp, null);
+
         }
     }
 

@@ -1,5 +1,6 @@
 package io.github.mxylery.bobuxplugin.actions;
 
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
@@ -28,7 +29,9 @@ public class ChangeVelocity extends BobuxAction {
     public void run() {
         vector.multiply(magnitude);
         for (int i = 0; i < super.entityList.length; i++) {
-            entityList[i].setVelocity(vector);
+            if (entityList[i] instanceof LivingEntity) {
+                entityList[i].setVelocity(vector);
+            }
         }
     }
 

@@ -6,8 +6,6 @@ import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 public class AbilityPassive {
     
     private int repCycle;
-
-    //Abil to repeat
     private BobuxAbility ability;
 
     public AbilityPassive() {

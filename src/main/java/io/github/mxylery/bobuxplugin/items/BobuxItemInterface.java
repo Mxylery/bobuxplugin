@@ -47,7 +47,7 @@ public class BobuxItemInterface {
         return null;
     }
 
-    private static final int itemTotal = 7;
+    private static final int itemTotal = 9;
     private static final int marketItemTotal = 3;
     private static Server server = BobuxTimer.getServer();
     private static ItemFactory itemFactory = server.getItemFactory();
@@ -60,7 +60,7 @@ public class BobuxItemInterface {
     private static BobuxAction[] testingItemActionList = 
     {new DamageEntity(5, false)};
     private static BobuxAbility testingItemAbility = new AbilityOneTime
-    (100, null, testingItemActionList, "Testing Item Abil", false);
+    (20, null, testingItemActionList, "Testing Item Abil", false);
     public static BobuxItem testingItem = 
     new BobuxItem(testingItemStack, testingItemDesc, testingItemName, testingItemAbility, 
     null, null, false, 5000);
@@ -161,6 +161,39 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack bobuxSquareStack = new ItemStack(Material.LIME_WOOL);
+    private static String[] bobuxSquareDesc = 
+    {"§7§oOfficial currency of the Bobux SMP",
+    "§7§oWorth 4 $BBX"};
+    private static String bobuxSquareName = "§l§aBobux Square";
+    public static BobuxItem bobuxSquare = new BobuxItem
+    (bobuxSquareStack, bobuxSquareDesc, bobuxSquareName, null, 
+    null, null, false);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack bobuxCubeStack = new ItemStack(Material.LIME_TERRACOTTA);
+    private static String[] bobuxCubeDesc = 
+    {"§7§oOfficial currency of the Bobux SMP",
+    "§7§oWorth 16 $BBX"};
+    private static String bobuxCubeName = "§l§aBobux Cube";
+    public static BobuxItem bobuxCube = new BobuxItem
+    (bobuxCubeStack, bobuxCubeDesc, bobuxCubeName, null, 
+    null, null, false);
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack bobuxTesseractStack = new ItemStack(Material.LIME_WOOL);
+    private static String[] bobuxTesseractDesc = 
+    {"§7§oOfficial currency of the Bobux SMP",
+    "§7§oWorth 64 $BBX"};
+    private static String bobuxTesseractName = "§l§aBobux Tesseract";
+    public static BobuxItem bobuxTesseract = new BobuxItem
+    (bobuxTesseractStack, bobuxTesseractDesc, bobuxTesseractName, null, 
+    null, null, false);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack marketStack = new ItemStack(Material.GOLDEN_HORSE_ARMOR);
     private static String[] marketDesc = 
     {"§6Access the daily market here."};
@@ -173,13 +206,14 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack cleaverStack = new ItemStack(Material.GOLDEN_SWORD);
     private static String[] cleaverDesc = 
-    {"§7§oHitting mobs with this sword cleaves a group.",
+    {"§7§oHitting mobs with this sword cleaves the mobs behind it.",
     "§7§o5s CD"};
     private static String cleaverName = "§l§dCleaver";
     private static BobuxAction[] cleaverActionList = 
-    {new DamageEntity(2,false), new ChangeVelocity(0.5, false)};
+    {new DamageEntity(2,false), 
+    new ChangeVelocity(0.5, false)};
     private static BobuxAbility cleaverAbility = new AbilityOneTime
-    (100, null, cleaverActionList, "Cleaver Ability", true);
+    (100, null, cleaverActionList, "Cleaver Ability", false);
     public static BobuxItem cleaver = new BobuxItem
     (cleaverStack, cleaverDesc, cleaverName, cleaverAbility, 
     null, null, true);

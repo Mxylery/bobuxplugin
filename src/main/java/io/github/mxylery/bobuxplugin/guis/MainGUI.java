@@ -5,8 +5,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
-import io.github.mxylery.bobuxplugin.core.BobuxGUI;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
+import io.github.mxylery.bobuxplugin.listeners.BobuxGUI;
 
 public class MainGUI extends BobuxGUI {
 

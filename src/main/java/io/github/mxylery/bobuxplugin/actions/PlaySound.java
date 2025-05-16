@@ -16,7 +16,6 @@ public class PlaySound extends BobuxAction {
         this.volume = volume;
         this.pitch = pitch;
         super.requiresCondition = requiresCondition;
-        super.requiresEntity = true;
         super.requiresLocation = true;
     }
 

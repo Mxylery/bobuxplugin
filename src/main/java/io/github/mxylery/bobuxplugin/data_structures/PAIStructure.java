@@ -50,10 +50,10 @@ public class PAIStructure {
     }
 
     public void addPAI(PlayerAbilityInstance PAI) {
-        if (index > 2) {
+        if (index > 8) {
             this.clearMemory();
         }
-        if (index + 1 == PAIarray.length) {
+        if (index + 1 >= PAIarray.length) {
             this.addMemory();
         }
         index++;

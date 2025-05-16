@@ -38,6 +38,12 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
                 case "bobux": player.getInventory().addItem(BobuxItemInterface.bobux.getStack());
                 break;
+                case "bobux_square": player.getInventory().addItem(BobuxItemInterface.bobuxSquare.getStack());
+                break;
+                case "bobux_cube": player.getInventory().addItem(BobuxItemInterface.bobuxCube.getStack());
+                break;
+                case "bobux_tesseract": player.getInventory().addItem(BobuxItemInterface.bobuxTesseract.getStack());
+                break;
                 case "cleaver": player.getInventory().addItem(BobuxItemInterface.cleaver.getStack());
                 break;
                 default:

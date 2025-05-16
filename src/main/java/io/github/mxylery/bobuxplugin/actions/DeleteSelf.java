@@ -19,7 +19,6 @@ public class DeleteSelf extends BobuxAction {
         this.amount = amount;
         super.requiresCondition = requiresCondition;
         super.requiresEntity = true;
-        super.requiresVector = false;
     }
 
     public void adjustPerc(double adjustment) {

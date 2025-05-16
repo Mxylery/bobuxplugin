@@ -34,10 +34,13 @@ public abstract class BobuxAbility {
         return name;
     }
 
+    public boolean isMuted() {
+        return muteCD;
+    }
+
     public PlayerAbilityInstanceCondition[] getConditionList() {
         return conditions;
     }
-
 
     public void adjustFlat() {
 

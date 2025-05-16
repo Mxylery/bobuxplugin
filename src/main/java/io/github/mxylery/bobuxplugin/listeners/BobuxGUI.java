@@ -1,4 +1,4 @@
-package io.github.mxylery.bobuxplugin.core;
+package io.github.mxylery.bobuxplugin.listeners;
 
 import org.bukkit.inventory.*;
 
