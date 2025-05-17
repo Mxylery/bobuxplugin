@@ -1,6 +1,7 @@
 package io.github.mxylery.bobuxplugin.items;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFactory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -62,9 +63,9 @@ public class BobuxItemInterface {
                 break;
                 case 2: marketMenu[i] = harmfulSubstance;
                 break;
-                case 3:
+                case 3: marketMenu[i] = cleaver;
                 break;
-                case 4:
+                case 4: marketMenu[i] = bouncingItem;
                 break;
                 case 5:
                 break;
@@ -88,7 +89,7 @@ public class BobuxItemInterface {
     }
 
     private static final int itemTotal = 9;
-    private static final int marketItemTotal = 3;
+    private static final int marketItemTotal = 5;
     private static Server server = BobuxTimer.getServer();
     private static ItemFactory itemFactory = server.getItemFactory();
 
@@ -113,7 +114,7 @@ public class BobuxItemInterface {
     "§7§oSecond Line Because Why Not"};
     private static String bouncingItemName = "§r§fBouncing Item";
     private static BobuxAction[] bouncingItemActionList = 
-    {new ChangeVelocity(1, false)};
+    {new ChangeVelocity(1, false), new DeleteSelf(EquipmentSlot.HAND, 1, false)};
     private static BobuxAbility bouncingItemAbility = new AbilityOneTime
     (100, null, bouncingItemActionList, "Bouncing Item Abil", false);
     public static BobuxItem bouncingItem = 
@@ -169,7 +170,7 @@ public class BobuxItemInterface {
     private static int[] harmfulSubstanceEnchantLevels = {3};
     public static BobuxItem harmfulSubstance = new BobuxItem
     (harmfulSubstanceStack, harmfulSubstanceDesc, harmfulSubstanceName, harmfulSubstanceAbility, 
-    harmfulSubstanceEnchantList, harmfulSubstanceEnchantLevels, false);
+    harmfulSubstanceEnchantList, harmfulSubstanceEnchantLevels, false, 8);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -186,7 +187,7 @@ public class BobuxItemInterface {
     private static int[] hurriedStopwatchEnchantLevels = {2, 2};
     public static BobuxItem hurriedStopwatch = new BobuxItem
     (hurriedStopwatchStack, hurriedStopwatchDesc, hurriedStopwatchName, hurriedStopwatchAbility, 
-    hurriedStopwatchEnchantList, hurriedStopwatchEnchantLevels, false);
+    hurriedStopwatchEnchantList, hurriedStopwatchEnchantLevels, false, 15);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -208,7 +209,7 @@ public class BobuxItemInterface {
     private static String bobuxSquareName = "§l§aBobux Square";
     public static BobuxItem bobuxSquare = new BobuxItem
     (bobuxSquareStack, bobuxSquareDesc, bobuxSquareName, null, 
-    null, null, false);
+    null, null, false, 4);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -219,7 +220,7 @@ public class BobuxItemInterface {
     private static String bobuxCubeName = "§l§aBobux Cube";
     public static BobuxItem bobuxCube = new BobuxItem
     (bobuxCubeStack, bobuxCubeDesc, bobuxCubeName, null, 
-    null, null, false);
+    null, null, false, 16);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -230,7 +231,7 @@ public class BobuxItemInterface {
     private static String bobuxTesseractName = "§l§aBobux Tesseract";
     public static BobuxItem bobuxTesseract = new BobuxItem
     (bobuxTesseractStack, bobuxTesseractDesc, bobuxTesseractName, null, 
-    null, null, false);
+    null, null, false, 64);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -256,7 +257,7 @@ public class BobuxItemInterface {
     (100, null, cleaverActionList, "Cleaver Ability", false);
     public static BobuxItem cleaver = new BobuxItem
     (cleaverStack, cleaverDesc, cleaverName, cleaverAbility, 
-    null, null, true);
+    null, null, true, 16);
     //////////////////////////////////////////////////////////////////////////////////////////
 
 }

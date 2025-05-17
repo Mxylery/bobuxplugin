@@ -266,8 +266,9 @@ public final class PlayerAbilityManager implements Listener {
         Player player = e.getPlayer();
         Vector playerEyeVector = player.getEyeLocation().getDirection();
         if (player.isOnGround()) {
+            Entity[] playerAsArray = {player};
             if (e.getInput().isJump()) {
-                checkForSlotMatch(BobuxItemInterface.bounceBoots, player, EquipmentSlot.FEET, null, new Vector(0,1,0), null);
+                checkForSlotMatch(BobuxItemInterface.bounceBoots, player, EquipmentSlot.FEET, playerAsArray, new Vector(0,1,0), null);
             }
         } else { //If you want mid-air OK
             if (e.getInput().isJump()) {

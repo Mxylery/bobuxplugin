@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -18,6 +19,7 @@ public class BobuxItem {
     private Enchantment[] enchants;
     private int[] enchantLevels;
     private boolean unbreakable;
+    private boolean hideFlags;
 
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
     Enchantment[] enchants, int[] enchantLevels, boolean unbreakable, int price) {
@@ -29,6 +31,7 @@ public class BobuxItem {
         this.enchantLevels = enchantLevels;
         this.unbreakable = unbreakable;
         this.price = price;
+        this.hideFlags = hideFlags;
     }
 
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
@@ -41,12 +44,14 @@ public class BobuxItem {
         this.enchantLevels = enchantLevels;
         this.unbreakable = unbreakable;
         this.price = 1;
+        this.hideFlags = hideFlags;
     }
 
     //The stack meta is initialized (in BobuxItemInterface), then this method appends the desired name and lore to the item. 
     public void initializeStack() {
 		ItemMeta meta = (ItemMeta) stack.getItemMeta();
 		List<String> lore = new ArrayList<>();
+        lore.add("_________________");
         lore.add("");
 		
         //Each element of description is a seperate line
@@ -59,8 +64,9 @@ public class BobuxItem {
                 meta.addEnchant(enchants[i], enchantLevels[i], true);
             }
         }
-
-        meta.setUnbreakable(unbreakable);
+        if (unbreakable) {
+            meta.setUnbreakable(unbreakable);
+        }
 		meta.setDisplayName(name);
 		meta.setLore(lore);
 		stack.setItemMeta(meta);

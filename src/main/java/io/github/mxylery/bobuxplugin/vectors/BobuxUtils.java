@@ -91,7 +91,7 @@ public class BobuxUtils {
 		}
 		return false;
 		}
-		if (tempMeta.equals(bobuxitem.getStack().getItemMeta())) {
+		if (tempStack.equals(bobuxitem.getStack())) {
 			return true;
 		}
 		return false;
