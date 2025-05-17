@@ -3,6 +3,7 @@ package io.github.mxylery.bobuxplugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
+import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.listeners.*;
 
 public final class BobuxPlugin extends JavaPlugin {
@@ -20,6 +21,7 @@ public final class BobuxPlugin extends JavaPlugin {
         this.getCommand("bobuxmenu").setExecutor(new BobuxCommands(this));
 
         bobuxTimer.runTaskTimer(this, 0, 1);
+        BobuxItemInterface.randomizeMarketItems();
 	}
 
 	@Override 

@@ -18,14 +18,17 @@ public abstract class BobuxGUI implements Listener {
     protected Player player;
 
     protected abstract void setGUI();
-    public abstract void slotHit(int slot);
+    protected abstract void slotHit(int slot);
+    protected abstract void specialGUIOption();
 
+    //When making a GUI, the player 
     public BobuxGUI(Inventory inventory, Player player, BobuxPlugin plugin) {
         this.inventory = inventory;
         this.inventorySize = inventory.getSize();
         this.player = player;
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        specialGUIOption();
         setGUI();
         generateGUI();
         openGUI();

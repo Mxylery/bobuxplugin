@@ -1,10 +1,13 @@
 package io.github.mxylery.bobuxplugin.guis;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
+import io.github.mxylery.bobuxplugin.core.BobuxTransaction;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.listeners.BobuxGUI;
 
@@ -21,11 +24,14 @@ public class MainGUI extends BobuxGUI {
         super.slotIndex = slotIndex;
     }
 
-    public void slotHit(int slot) {
+    protected void slotHit(int slot) {
         if (slot == 13) {
-            System.out.println("The market item has been selected. ");
-            player.damage(2);
+            new MarketGUI(Bukkit.createInventory(player, 36), player, plugin);
         }
+    }
+
+    protected void specialGUIOption() {
+        
     }
 
 

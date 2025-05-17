@@ -10,12 +10,19 @@ public class ParticlePlayer implements Runnable {
     //all the options for the particle player
     public enum ParticlePlayerOptions {
         LINE,
-        SPIRAL
+        SPIRAL,
+        CIRCLE,
+        SPHERE,
+        RECTANGLE
     }
 
     @Override
     public void run() {
         
+    }
+
+    public void setParticleSequence(ParticlePlayerOptions option) {
+
     }
 
     public void drawHelix(World world, Vector vector, double length, double radius, Particle particle) {

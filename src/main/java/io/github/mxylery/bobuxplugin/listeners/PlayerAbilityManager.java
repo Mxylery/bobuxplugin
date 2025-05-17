@@ -231,12 +231,12 @@ public final class PlayerAbilityManager implements Listener {
             Entity[] playerAsArray = {player};
             checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, 
             BobuxUtils.getEntitiesSphere(player, 3,  true), null, null);
-            checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, playerAsArray, null, null);
+            checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, playerAsArray, playerEyeVector, null);
 
         //Air right clicks
         } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
             Entity[] playerAsArray = {player};
-            checkForSlotMatch(BobuxItemInterface.hurriedStopwatch, player, EquipmentSlot.HAND, null, null, null);
+            checkForSlotMatch(BobuxItemInterface.hurriedStopwatch, player, EquipmentSlot.HAND, playerAsArray, null, null);
 
         }
     }
@@ -251,7 +251,7 @@ public final class PlayerAbilityManager implements Listener {
             Entity[] damagedAsArray = {damagedEntity};
             Vector playerEyeVector = player.getEyeLocation().getDirection();
 
-            checkForSlotMatch(BobuxItemInterface.harmfulSubstance, player, EquipmentSlot.HAND, playerAsArray, null, null);
+            checkForSlotMatch(BobuxItemInterface.harmfulSubstance, player, EquipmentSlot.HAND, damagedAsArray, null, null);
 
             Vector slightKnockUp = new Vector(playerEyeVector.getX(), 1.5, playerEyeVector.getZ());
 

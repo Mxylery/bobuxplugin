@@ -40,11 +40,51 @@ import io.github.mxylery.bobuxplugin.core.ability_types.AbilityOneTime;
  * https://www.gamergeeks.net/apps/minecraft/color-codes for examples of colored text
  */
 
-
 public class BobuxItemInterface {
 
-    public ItemStack[] getMarketItems() {
-        return null;
+    //As of 0.2.3, generates 3 items randomly.
+    public static BobuxItem[] marketMenu = new BobuxItem[3];
+    public static void randomizeMarketItems() {
+        BobuxItem[] randomStack = new BobuxItem[3];
+        int[] noDupe = new int[3];
+        for (int i = 0; i < 3; i++) {
+            int rng = (int) (Math.random()*marketItemTotal);
+            for (int j = 0; j < i; j++) {
+                if (rng == noDupe[j]) {
+                    rng = (int) (Math.random()*marketItemTotal);
+                    j = -1;
+                }
+            }
+            switch(rng) {
+                case 0: marketMenu[i] = bounceBoots;
+                break;
+                case 1: marketMenu[i] = hurriedStopwatch;
+                break;
+                case 2: marketMenu[i] = harmfulSubstance;
+                break;
+                case 3:
+                break;
+                case 4:
+                break;
+                case 5:
+                break;
+                case 6:
+                break;
+                case 7:
+                break;
+                case 8:
+                break;
+                case 9:
+                break;
+                case 10:
+                break;
+                case 11:
+                break;
+                case 12:
+                break;
+            }
+            noDupe[i] = rng;
+        }
     }
 
     private static final int itemTotal = 9;
@@ -56,7 +96,7 @@ public class BobuxItemInterface {
     private static ItemStack testingItemStack = new ItemStack(Material.IRON_INGOT);
     private static String[] testingItemDesc = 
     {"§7§oBalls"};
-    private static String testingItemName = "Testing Item";
+    private static String testingItemName = "§r§fTesting Item";
     private static BobuxAction[] testingItemActionList = 
     {new DamageEntity(5, false)};
     private static BobuxAbility testingItemAbility = new AbilityOneTime
@@ -71,7 +111,7 @@ public class BobuxItemInterface {
     private static String[] bouncingItemDesc = 
     {"§7§oLegendary Bounce Ball", 
     "§7§oSecond Line Because Why Not"};
-    private static String bouncingItemName = "Bouncing Item";
+    private static String bouncingItemName = "§r§fBouncing Item";
     private static BobuxAction[] bouncingItemActionList = 
     {new ChangeVelocity(1, false)};
     private static BobuxAbility bouncingItemAbility = new AbilityOneTime
@@ -86,7 +126,7 @@ public class BobuxItemInterface {
     private static String[] bounceBootsDesc = 
     {"§7§oThese boots make you bounce when you jump.",
     "§7§oNo cooldown"};
-    private static String bounceBootsName = "Bouncing Boots";
+    private static String bounceBootsName = "§r§fBouncing Boots";
     private static BobuxAction[] bounceBootsActionList = 
     {new ChangeVelocity(0.8, false)};
     private static BobuxAbility bounceBootsAbility = new AbilityOneTime
@@ -102,7 +142,7 @@ public class BobuxItemInterface {
     private static ItemStack harmfulSubstanceStack = new ItemStack(Material.FERMENTED_SPIDER_EYE);
     private static String[] harmfulSubstanceDesc = 
     {"§7§oSome say this substance can cause harm..."};
-    private static String harmfulSubstanceName = "Harmful Substance?";
+    private static String harmfulSubstanceName = "§r§fHarmful Substance?";
     //
     // Example of making a random action
     //
@@ -137,7 +177,7 @@ public class BobuxItemInterface {
     private static String[] hurriedStopwatchDesc = 
     {"§7§oRight clicking gives the user Speed III for 5 seconds",
     "§7§o15s CD"};
-    private static String hurriedStopwatchName = "Hurried Stopwatch";
+    private static String hurriedStopwatchName = "§r§fHurried Stopwatch";
     private static BobuxAction[] hurriedStopwatchActionList = 
     {new EffectGive(PotionEffectType.SPEED, 100, 2, false)};
     private static BobuxAbility hurriedStopwatchAbility = new AbilityOneTime
@@ -183,7 +223,7 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack bobuxTesseractStack = new ItemStack(Material.LIME_WOOL);
+    private static ItemStack bobuxTesseractStack = new ItemStack(Material.EMERALD_BLOCK);
     private static String[] bobuxTesseractDesc = 
     {"§7§oOfficial currency of the Bobux SMP",
     "§7§oWorth 64 $BBX"};
@@ -208,7 +248,7 @@ public class BobuxItemInterface {
     private static String[] cleaverDesc = 
     {"§7§oHitting mobs with this sword cleaves the mobs behind it.",
     "§7§o5s CD"};
-    private static String cleaverName = "§l§dCleaver";
+    private static String cleaverName = "§r§fCleaver";
     private static BobuxAction[] cleaverActionList = 
     {new DamageEntity(2,false), 
     new ChangeVelocity(0.5, false)};

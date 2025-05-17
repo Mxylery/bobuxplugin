@@ -12,8 +12,19 @@ public class RandomAction extends BobuxAction {
         this.randomList = randomList;
         this.weights = weights;
         super.requiresCondition = requiresCondition;
-        super.requiresEntity = true;
-        super.requiresVector = true;
+        for (int i = 0; i < randomList.length; i++) {
+            for (int j = 0; j < randomList[i].length; j++) {
+                if (randomList[i][j].requiresEntities()) {
+                super.requiresEntity = true;
+                }
+                if (randomList[i][j].requiresVector()) {
+                super.requiresVector = true;
+                }
+                if (randomList[i][j].requiresLocation()) {
+                super.requiresLocation = true;
+                }
+            }
+        }
     }
 
     public void adjustFlat(double adjustment) {

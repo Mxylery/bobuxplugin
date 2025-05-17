@@ -36,6 +36,7 @@ public class DeleteSelf extends BobuxAction {
                 Player currentPlayer = (Player) currentEntity;
                 ItemStack stack = currentPlayer.getInventory().getItem(equSlot);
                 stack.setAmount(stack.getAmount() - amount);
+                currentPlayer.getInventory().setItem(equSlot, stack);
             } 
         }
     }

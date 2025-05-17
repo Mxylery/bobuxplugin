@@ -47,6 +47,7 @@ public class BobuxItem {
     public void initializeStack() {
 		ItemMeta meta = (ItemMeta) stack.getItemMeta();
 		List<String> lore = new ArrayList<>();
+        lore.add("");
 		
         //Each element of description is a seperate line
         for (int i = 0; i < description.length; i++) {
@@ -72,6 +73,14 @@ public class BobuxItem {
 
     public BobuxAbility getAbility() {
         return ability;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

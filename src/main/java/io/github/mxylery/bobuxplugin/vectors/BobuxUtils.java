@@ -11,6 +11,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -18,6 +19,7 @@ import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
+import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class BobuxUtils {
     
@@ -89,7 +91,7 @@ public class BobuxUtils {
 		}
 		return false;
 		}
-		if (tempStack.equals(bobuxitem.getStack())) {
+		if (tempMeta.equals(bobuxitem.getStack().getItemMeta())) {
 			return true;
 		}
 		return false;
@@ -99,13 +101,10 @@ public class BobuxUtils {
 	public static Vector[] getNormalizedMatrix(Vector vector) {
 		Vector normalXVector = new Vector(1.0,0.0,0.0);
 		vector.normalize();
-		BobuxTimer.getServer().broadcastMessage("\nDirection vector: " + vector.toString());
         Vector newYVector = vector.getCrossProduct(normalXVector);
         newYVector.normalize();
-		BobuxTimer.getServer().broadcastMessage("\nY vector: " + newYVector.toString());
         Vector newZVector = vector.getCrossProduct(newYVector);
         newYVector.normalize();
-		BobuxTimer.getServer().broadcastMessage("\nZ vector: " + newZVector.toString());
         Vector[] matrix = {vector, newYVector, newZVector};
         return matrix;
     }
@@ -181,8 +180,6 @@ public class BobuxUtils {
         return finalList;
 	}
 
-
-
 	//doesnt work for now dont use
 	public static Entity[] getEntitiesSphere(Player player, Location location, double radius, double offset, Vector direction) {
 
@@ -202,14 +199,30 @@ public class BobuxUtils {
         Entity[] finalList = new Entity[size+1];
         System.arraycopy(intermList, 0, finalList, 0, size+1);
 		if (size > 0) {
-			System.out.println(finalList.length);
 			return finalList;
 		} else {
 			return null;
 		}
 	}
 
-
+	public static int calculateTotalBBX(Inventory inventory) {
+        int bbxTotal = 0;
+        for (int i = 0; i < 36; i++) {
+            ItemStack stack = inventory.getItem(i);
+            if (stack != null) {
+                if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobux)) {
+                bbxTotal += stack.getAmount();
+            } else if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobuxSquare)){
+                bbxTotal += 4*stack.getAmount();
+            } else if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobuxCube)){
+                bbxTotal += 16*stack.getAmount();
+            } else if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobuxTesseract)){
+                bbxTotal += 64*stack.getAmount();
+            	}
+        	}
+    	}
+        return bbxTotal;
+    }
 
 
 
