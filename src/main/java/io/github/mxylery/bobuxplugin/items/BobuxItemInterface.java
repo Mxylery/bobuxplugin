@@ -1,12 +1,15 @@
 package io.github.mxylery.bobuxplugin.items;
 
+import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFactory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.Server;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.enchantments.Enchantment;
 
 import io.github.mxylery.bobuxplugin.actions.*;
@@ -14,19 +17,21 @@ import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.ability_types.AbilityOneTime;
+import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
+import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticlePlayerOptions;
 
 /**
- * The class where all items will be instantiated and retrieved. 
- * They will all be public static variables, so a simple BobuxItemInterface.<itemname>.initializeStack() will be the method to retrieve items.
+ * The class where all items will be instantiated and retrieved. \n
+ * They will all be public static variables, so a simple BobuxItemInterface.<itemname>.initializeStack() will be the method to retrieve items. \n
  * 
- * There are many options when it comes to making bobux items; a bobux item REQUIRES the following:
+ * There are many options when it comes to making bobux items; a bobux item REQUIRES the following: \n
  * 
- * private static ItemStack (Stack)
- * private static String[] (Desc)
- * private static String (Name)
- * private static BobuxAction[] (ActionList)
- * private static BobuxAbility (Ability)
- * public static BobuxItem (Item)
+ * private static ItemStack (Stack)\n
+ * private static String[] (Desc)\n
+ * private static String (Name)\n
+ * private static BobuxAction[] (ActionList)\n
+ * private static BobuxAbility (Ability)\n
+ * public static BobuxItem (Item)\n
  * 
  * There are a lot of optional things too, which will require a bit of effort to use
  * 
@@ -42,6 +47,11 @@ import io.github.mxylery.bobuxplugin.core.ability_types.AbilityOneTime;
  */
 
 public class BobuxItemInterface {
+
+    //java??? hello??? pls???
+    public BobuxItemInterface() {
+
+    }
 
     //As of 0.2.3, generates 3 items randomly.
     public static BobuxItem[] marketMenu = new BobuxItem[3];
@@ -67,7 +77,7 @@ public class BobuxItemInterface {
                 break;
                 case 4: marketMenu[i] = bouncingItem;
                 break;
-                case 5:
+                case 5: marketMenu[i] = lineSpawner;
                 break;
                 case 6:
                 break;
@@ -102,9 +112,9 @@ public class BobuxItemInterface {
     {new DamageEntity(5, false)};
     private static BobuxAbility testingItemAbility = new AbilityOneTime
     (20, null, testingItemActionList, "Testing Item Abil", false);
+    
     public static BobuxItem testingItem = 
-    new BobuxItem(testingItemStack, testingItemDesc, testingItemName, testingItemAbility, 
-    null, null, false, 5000);
+    new BobuxItem(testingItemStack, testingItemDesc, testingItemName, testingItemAbility, 5000);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -117,9 +127,9 @@ public class BobuxItemInterface {
     {new ChangeVelocity(1, false), new DeleteSelf(EquipmentSlot.HAND, 1, false)};
     private static BobuxAbility bouncingItemAbility = new AbilityOneTime
     (100, null, bouncingItemActionList, "Bouncing Item Abil", false);
+
     public static BobuxItem bouncingItem = 
-    new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, bouncingItemAbility,
-    null, null, false);
+    new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, bouncingItemAbility, 1);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -134,6 +144,7 @@ public class BobuxItemInterface {
     (1, null, bounceBootsActionList, "Bouncing Boots Abil", false);
     private static Enchantment[] bounceBootsEnchantList = {Enchantment.FEATHER_FALLING};
     private static int[] bounceBootsEnchantLevels = {3};
+    
     public static BobuxItem bounceBoots = new BobuxItem
     (bounceBootsStack, bounceBootsDesc, bounceBootsName, bounceBootsAbility,
      bounceBootsEnchantList, bounceBootsEnchantLevels, true, 10);
@@ -142,7 +153,7 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack harmfulSubstanceStack = new ItemStack(Material.FERMENTED_SPIDER_EYE);
     private static String[] harmfulSubstanceDesc = 
-    {"§7§oSome say this substance can cause harm..."};
+    {"§7Some say this substance can cause harm..."};
     private static String harmfulSubstanceName = "§r§fHarmful Substance?";
     //
     // Example of making a random action
@@ -176,8 +187,8 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack hurriedStopwatchStack = new ItemStack(Material.CLOCK);
     private static String[] hurriedStopwatchDesc = 
-    {"§7§oRight clicking gives the user Speed III for 5 seconds",
-    "§7§o15s CD"};
+    {"§7Right clicking gives the user Speed III for 5 seconds",
+    "§715s CD"};
     private static String hurriedStopwatchName = "§r§fHurried Stopwatch";
     private static BobuxAction[] hurriedStopwatchActionList = 
     {new EffectGive(PotionEffectType.SPEED, 100, 2, false)};
@@ -193,45 +204,41 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxStack = new ItemStack(Material.LIME_DYE);
     private static String[] bobuxDesc = 
-    {"§7§oOfficial currency of the Bobux SMP",
-    "§7§oWorth 1 $BBX"};
+    {"§7Official currency of the Bobux SMP",
+    "§7Worth 1 $BBX"};
     private static String bobuxName = "§l§aBobux";
     public static BobuxItem bobux = new BobuxItem
-    (bobuxStack, bobuxDesc, bobuxName, null, 
-    null, null, false);
+    (bobuxStack, bobuxDesc, bobuxName);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxSquareStack = new ItemStack(Material.LIME_WOOL);
     private static String[] bobuxSquareDesc = 
-    {"§7§oOfficial currency of the Bobux SMP",
-    "§7§oWorth 4 $BBX"};
+    {"§7Official currency of the Bobux SMP",
+    "§7Worth 4 $BBX"};
     private static String bobuxSquareName = "§l§aBobux Square";
     public static BobuxItem bobuxSquare = new BobuxItem
-    (bobuxSquareStack, bobuxSquareDesc, bobuxSquareName, null, 
-    null, null, false, 4);
+    (bobuxSquareStack, bobuxSquareDesc, bobuxSquareName, 4);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxCubeStack = new ItemStack(Material.LIME_TERRACOTTA);
     private static String[] bobuxCubeDesc = 
-    {"§7§oOfficial currency of the Bobux SMP",
-    "§7§oWorth 16 $BBX"};
+    {"§7Official currency of the Bobux SMP",
+    "§7Worth 16 $BBX"};
     private static String bobuxCubeName = "§l§aBobux Cube";
     public static BobuxItem bobuxCube = new BobuxItem
-    (bobuxCubeStack, bobuxCubeDesc, bobuxCubeName, null, 
-    null, null, false, 16);
+    (bobuxCubeStack, bobuxCubeDesc, bobuxCubeName, 16);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxTesseractStack = new ItemStack(Material.EMERALD_BLOCK);
     private static String[] bobuxTesseractDesc = 
-    {"§7§oOfficial currency of the Bobux SMP",
-    "§7§oWorth 64 $BBX"};
+    {"§7Official currency of the Bobux SMP",
+    "§7Worth 64 $BBX"};
     private static String bobuxTesseractName = "§l§aBobux Tesseract";
     public static BobuxItem bobuxTesseract = new BobuxItem
-    (bobuxTesseractStack, bobuxTesseractDesc, bobuxTesseractName, null, 
-    null, null, false, 64);
+    (bobuxTesseractStack, bobuxTesseractDesc, bobuxTesseractName, 64);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -240,24 +247,60 @@ public class BobuxItemInterface {
     {"§6Access the daily market here."};
     private static String marketName = "§6Market";
     public static BobuxItem market = new BobuxItem
-    (marketStack, marketDesc, marketName, null, 
-    null, null, false);
+    (marketStack, marketDesc, marketName, null, true, true);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack cleaverStack = new ItemStack(Material.GOLDEN_SWORD);
     private static String[] cleaverDesc = 
-    {"§7§oHitting mobs with this sword cleaves the mobs behind it.",
-    "§7§o5s CD"};
+    {"§7Hitting mobs with this sword cleaves the mobs behind it.",
+    "§75s CD"};
     private static String cleaverName = "§r§fCleaver";
+    private static ParticleSequence cleaverParticleSequence = 
+    new ParticleSequence(ParticlePlayerOptions.RING, Particle.DUST, 2, 0, 0, 3, new DustOptions(Color.YELLOW, 2));
     private static BobuxAction[] cleaverActionList = 
     {new DamageEntity(2,false), 
-    new ChangeVelocity(0.5, false)};
+    new ChangeVelocity(0.5, false),
+    new PlayParticle(cleaverParticleSequence, false)};
     private static BobuxAbility cleaverAbility = new AbilityOneTime
     (100, null, cleaverActionList, "Cleaver Ability", false);
     public static BobuxItem cleaver = new BobuxItem
     (cleaverStack, cleaverDesc, cleaverName, cleaverAbility, 
     null, null, true, 16);
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack lineSpawnerStack = new ItemStack(Material.END_ROD);
+    private static String[] lineSpawnerDesc = 
+    {"§7test",
+    "§71s CD"};
+    private static String lineSpawnerName = "§r§fLine Spawner";
+    private static ParticleSequence lineSpawnerParticleSequence = 
+    new ParticleSequence(ParticlePlayerOptions.RING, Particle.ANGRY_VILLAGER, 5, 0, 3, 10, null);
+    private static BobuxAction[] lineSpawnerActionList = 
+    {new PlayParticle(lineSpawnerParticleSequence, false)};
+    private static BobuxAbility lineSpawnerAbility = new AbilityOneTime
+    (40, null, lineSpawnerActionList, "Line Spawner Ability", false);
+    public static BobuxItem lineSpawner = new BobuxItem
+    (lineSpawnerStack, lineSpawnerDesc, lineSpawnerName, lineSpawnerAbility, 16);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack railgunStack = new ItemStack(Material.IRON_HOE);
+    private static String[] railgunDesc = 
+    {"§7Right click",
+    "§71s CD"};
+    private static String railgunName = "§r§fRailgun";
+    private static ParticleSequence railgunParticleSequence1 = 
+    new ParticleSequence(Particle.ANGRY_VILLAGER, 5.0, 2.0, 0.0, null);
+    private static ParticleSequence railgunParticleSequence2 = 
+    new ParticleSequence(ParticlePlayerOptions.SPIRAL, Particle.ANGRY_VILLAGER, 5, 0, 1, 1, null);
+    private static ParticleSequence[] railgunParticleSequenceList = {railgunParticleSequence1, railgunParticleSequence2};
+    private static BobuxAction[] railgunActionList = 
+    {new DamageEntity(10, false), new PlayParticle(railgunParticleSequenceList, null, false)};
+    private static BobuxAbility railgunAbility = new AbilityOneTime
+    (40, null, railgunActionList, "Railgun Ability", false);
+    public static BobuxItem railgun = new BobuxItem(railgunStack, railgunDesc, railgunName, railgunAbility, true, true, 50);
     //////////////////////////////////////////////////////////////////////////////////////////
 
 }

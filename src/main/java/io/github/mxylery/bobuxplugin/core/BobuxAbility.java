@@ -44,10 +44,11 @@ public abstract class BobuxAbility {
 
     public void adjustFlat() {
 
-    };
+    }
+    
     public void adjustPerc() {
         
-    };
+    }
 
     protected void updateListSize() {
         BobuxAction[] newActionList = new BobuxAction[actionList.length*2];

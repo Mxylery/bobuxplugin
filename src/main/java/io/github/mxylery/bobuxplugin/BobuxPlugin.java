@@ -1,6 +1,8 @@
 package io.github.mxylery.bobuxplugin;
 
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
@@ -8,7 +10,7 @@ import io.github.mxylery.bobuxplugin.listeners.*;
 
 public final class BobuxPlugin extends JavaPlugin {
 
-    private BobuxTimer bobuxTimer = new BobuxTimer(this.getServer());
+    private BukkitScheduler scheduler;
 
     @Override
 	public void onEnable() {
@@ -20,8 +22,10 @@ public final class BobuxPlugin extends JavaPlugin {
         this.getCommand("bobuxgive").setExecutor(new BobuxCommands(this));
         this.getCommand("bobuxmenu").setExecutor(new BobuxCommands(this));
 
-        bobuxTimer.runTaskTimer(this, 0, 1);
-        BobuxItemInterface.randomizeMarketItems();
+        scheduler = this.getServer().getScheduler();
+        BobuxTimer bobuxTimer = new BobuxTimer(this.getServer(), this);
+        scheduler.runTaskTimer(this, bobuxTimer, 0, 1);
+        
 	}
 
 	@Override 
@@ -34,4 +38,5 @@ public final class BobuxPlugin extends JavaPlugin {
 		getLogger().info("onDisable has been invoked!");
 	}
     
+
 }

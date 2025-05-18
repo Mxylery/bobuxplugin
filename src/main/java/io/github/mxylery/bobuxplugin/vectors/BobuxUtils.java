@@ -40,7 +40,30 @@ public class BobuxUtils {
 		double result = Math.sqrt(diffX*diffX + diffY*diffY + diffZ*diffZ);
 		
 		return Math.abs(result);
-		
+	}
+	//Figure it out completely eventually...
+	public static Vector getDownwardFacing(Vector direction) {
+		double xLoc = direction.getX();
+		double zLoc = direction.getZ();
+		Vector finalVector;
+		if (Math.abs(xLoc) > Math.abs(zLoc)) {
+			finalVector = direction.getCrossProduct(new Vector(0,0,1));
+		} else {
+			finalVector = direction.getCrossProduct(new Vector(1,0,0));
+		}
+		return finalVector;
+	}
+
+	//Hopefully the closest enemy
+	public static Entity rayTraceEntity(Location location, double radius, double length, Vector direction) {
+		for (int i = 0; i < length; i+=radius/2) {
+			location.add(direction);
+			if (!location.getWorld().getNearbyEntities(location, radius, radius, radius).isEmpty()) {
+				Entity[] tempList = (Entity[]) location.getWorld().getNearbyEntities(location, radius, radius, radius).toArray();
+				return tempList[0];
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -78,6 +101,12 @@ public class BobuxUtils {
 		return playerList;
 	}
 
+	public static Location offsetLocation(Location location, Vector direction, double offset, double verticalOffset) {
+		Location newLocation = new Location(location.getWorld(), location.getX(), location.getY() + verticalOffset, location.getZ());
+		newLocation.add(direction.getX()*offset, direction.getY()*offset, direction.getZ()*offset);
+		return newLocation;
+	}
+
 	public static boolean checkWithoutDuraAmnt(ItemStack item, BobuxItem bobuxitem) {
 		ItemStack tempStack = new ItemStack(item);
 		tempStack.setAmount(1);
@@ -111,6 +140,22 @@ public class BobuxUtils {
 
 	public static Entity[] getEntitiesHemisphere(Entity entity, double radius) {
 		return null;
+	}
+
+	public static Entity[] getEntitiesLine(Location location, double length, double radius, Vector direction) {
+		Set<Entity> finalSet = (Set<Entity>) location.getWorld().getNearbyEntities(location, radius, radius, radius);
+		for (int i = 0; i < length; i+=radius/2) {
+			location.add(direction);
+			Set<Entity> tempSet = (Set<Entity>) location.getWorld().getNearbyEntities(location, radius, radius, radius);
+			if (!tempSet.isEmpty()) {
+				finalSet.addAll(tempSet);
+			}
+		}
+		if (finalSet.contains(null) & finalSet.size() <= 1) {
+			return null;
+		} else {
+			return (Entity[]) finalSet.toArray();
+		}
 	}
 
 	   //Angle in degrees
@@ -156,11 +201,8 @@ public class BobuxUtils {
         return null;
     }
 
-	public static Entity[] getEntitiesSphere(Entity user, double radius, boolean userIncluded) {
+	public static Entity[] getEntitiesSphere(Entity user, double radius) {
         ArrayList<Entity> entityList = (ArrayList<Entity>) user.getNearbyEntities(radius, radius, radius);
-		if (!userIncluded) {
-			entityList.remove(user);
-		}
 		Location entityLoc = user.getLocation();
         int size = -1;
         Entity[] intermList = new Entity[entityList.size()];
@@ -179,6 +221,7 @@ public class BobuxUtils {
         System.arraycopy(intermList, 0, finalList, 0, size+1);
         return finalList;
 	}
+
 
 	//doesnt work for now dont use
 	public static Entity[] getEntitiesSphere(Player player, Location location, double radius, double offset, Vector direction) {

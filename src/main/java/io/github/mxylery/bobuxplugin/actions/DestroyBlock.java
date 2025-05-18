@@ -1,5 +1,5 @@
 package io.github.mxylery.bobuxplugin.actions;
 
-public class RepulseFromPoint {
+public class DestroyBlock {
     
 }

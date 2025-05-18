@@ -1,32 +1,37 @@
 package io.github.mxylery.bobuxplugin.vectors;
 
+import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.util.Vector;
 
 //This class will use the MatrixNormalizer and BobuxParticleShapes enums to generate various particles.
-public class ParticlePlayer implements Runnable {
-    
-    //all the options for the particle player
-    public enum ParticlePlayerOptions {
-        LINE,
-        SPIRAL,
-        CIRCLE,
-        SPHERE,
-        RECTANGLE
+public class ParticlePlayer {
+
+    public static void spawnParticles(ParticleSequence[] incomingParticleSequence, int[] delayList, Location location, Vector direction) {
+        if (delayList == null) {
+            for (int i = 0; i < incomingParticleSequence.length; i++) {
+                incomingParticleSequence[i].setDirection(direction);
+                incomingParticleSequence[i].setLocation(location);
+                incomingParticleSequence[i].run();
+            }
+        } else {
+            for (int i = 0; i < incomingParticleSequence.length; i++) {
+                if (i == 0) {
+                    incomingParticleSequence[i].setDirection(direction);
+                    incomingParticleSequence[i].setLocation(location);
+                    incomingParticleSequence[i].run();
+                } else {
+                    incomingParticleSequence[i].setDirection(direction);
+                    incomingParticleSequence[i].setLocation(location);
+                    incomingParticleSequence[i].runLater(delayList[i-1]);
+                }
+            }
+        }
     }
-
-    @Override
-    public void run() {
-        
+    public static void spawnParticles(ParticleSequence incomingParticleSequence, Location location, Vector direction) {
+        incomingParticleSequence.setDirection(direction);
+        incomingParticleSequence.setLocation(location);
+        incomingParticleSequence.run();
     }
-
-    public void setParticleSequence(ParticlePlayerOptions option) {
-
-    }
-
-    public void drawHelix(World world, Vector vector, double length, double radius, Particle particle) {
-
-    }
-
 }

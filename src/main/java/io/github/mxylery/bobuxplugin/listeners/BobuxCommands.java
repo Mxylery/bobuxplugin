@@ -46,6 +46,10 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
                 case "cleaver": player.getInventory().addItem(BobuxItemInterface.cleaver.getStack());
                 break;
+                case "line_spawner": player.getInventory().addItem(BobuxItemInterface.lineSpawner.getStack());
+                break;
+                case "railgun": player.getInventory().addItem(BobuxItemInterface.railgun.getStack());
+                break;
                 default:
                 break;
             }

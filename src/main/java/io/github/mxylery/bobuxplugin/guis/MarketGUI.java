@@ -44,7 +44,7 @@ public class MarketGUI extends BobuxGUI{
             finalList[2*i] = BobuxItemInterface.marketMenu[i].getStack();
             ItemStack buyButtonStack;
             String colorString;
-            if (BobuxItemInterface.marketMenu[i].getPrice() < BobuxUtils.calculateTotalBBX(player.getInventory())) {
+            if (BobuxItemInterface.marketMenu[i].getPrice() <= BobuxUtils.calculateTotalBBX(player.getInventory())) {
                 buyButtonStack = new ItemStack(Material.LIME_CONCRETE);
                 colorString = "§a";
             } else {
@@ -55,7 +55,7 @@ public class MarketGUI extends BobuxGUI{
             ArrayList<String> lore = new ArrayList<String>();
             lore.add(colorString + BobuxItemInterface.marketMenu[i].getName());
             buyButtonMeta.setLore(lore);
-            buyButtonMeta.setItemName(colorString + "§lBUY (" + BobuxItemInterface.marketMenu[i].getPrice() + ")");
+            buyButtonMeta.setItemName(colorString + "§lBUY ($" + BobuxItemInterface.marketMenu[i].getPrice() + "BBX)");
             buyButtonStack.setItemMeta(buyButtonMeta);
             finalList[2*i + 1] = buyButtonStack;
         }

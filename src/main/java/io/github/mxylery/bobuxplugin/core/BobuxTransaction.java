@@ -27,7 +27,7 @@ public class BobuxTransaction {
         removeTotalBBX();
     }
 
-    //maybe use this class for bounties?
+    //maybe use this class for bounties.
     public BobuxTransaction(Player player, int compensation, ItemStack[] bounties) {
         this.player = player;
         cost = compensation;
@@ -264,8 +264,9 @@ public class BobuxTransaction {
                             for (int i = 0; i < bbxStack.length-1; i++) {
                                 bbxStack[i] = bbxStack[i+1];
                             }
+                        } else {
+                            inventory.setItem(bbxStack[0], intermStack);
                         }
-                        inventory.setItem(bbxStack[0], intermStack);
                     } 
                 }
             inventory.addItem(stack);
