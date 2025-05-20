@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.core.ability_types.AbilityPassive;
 
 public class BobuxItem {
     private int price;
@@ -20,8 +21,7 @@ public class BobuxItem {
     private Enchantment[] enchants;
     private int[] enchantLevels;
     private boolean unbreakable;
-    private boolean hideFlags;
-    private BobuxAction[] passive;
+    private AbilityPassive passive;
 
     public BobuxItem (ItemStack stack, String[] description, String name) {
         this.stack = stack;
@@ -32,7 +32,6 @@ public class BobuxItem {
         this.enchantLevels = null;
         this.unbreakable = false;
         this.price = 1;
-        this.hideFlags = false;
         this.passive = null;
     }
 
@@ -45,11 +44,37 @@ public class BobuxItem {
         this.enchantLevels = null;
         this.unbreakable = false;
         this.price = price;
-        this.hideFlags = false;
+        this.passive = null;
+    }
+
+    public BobuxItem (ItemStack stack, String[] description, String name, AbilityPassive passive, 
+    int price) {
+        this.stack = stack;
+        this.description = description;
+        this.name = name;
+        this.ability = null;
+        this.enchants = null;
+        this.enchantLevels = null;
+        this.unbreakable = false;
+        this.price = price;
+        this.passive = passive;
+    }
+
+    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
+    int price) {
+        this.stack = stack;
+        this.description = description;
+        this.name = name;
+        this.ability = ability; 
+        this.enchants = null;
+        this.enchantLevels = null;
+        this.unbreakable = false;
+        this.price = price;
         this.passive = null;
     }
      
-    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability) {
+    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, AbilityPassive passive, 
+    int price) {
         this.stack = stack;
         this.description = description;
         this.name = name;
@@ -58,34 +83,11 @@ public class BobuxItem {
         this.enchantLevels = null;
         this.unbreakable = false;
         this.price = 1;
-        this.hideFlags = false;
+        this.passive = passive;
     }
 
-    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, int price) {
-        this.stack = stack;
-        this.description = description;
-        this.name = name;
-        this.ability = ability; 
-        this.enchants = null;
-        this.enchantLevels = null;
-        this.unbreakable = false;
-        this.price = price;
-        this.hideFlags = false;
-    }
-
-    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, boolean unbreakable, boolean hideMeta) {
-        this.stack = stack;
-        this.description = description;
-        this.name = name;
-        this.ability = ability; 
-        this.enchants = null;
-        this.enchantLevels = null;
-        this.unbreakable = unbreakable;
-        this.price = 1;
-        this.hideFlags = hideMeta;
-    }
-
-    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, boolean unbreakable, boolean hideMeta, int price) {
+    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
+    boolean unbreakable, int price) {
         this.stack = stack;
         this.description = description;
         this.name = name;
@@ -94,33 +96,24 @@ public class BobuxItem {
         this.enchantLevels = null;
         this.unbreakable = unbreakable;
         this.price = price;
-        this.hideFlags = hideMeta;
+        this.passive = null;
     }
 
-    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
-    Enchantment[] enchants, int[] enchantLevels, boolean unbreakable) {
+    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, AbilityPassive passive,
+    boolean unbreakable, int price) {
         this.stack = stack;
         this.description = description;
         this.name = name;
-        this.ability = ability;
-        this.enchants = enchants;
-        if (enchants == null) {
-            this.enchantLevels = null;
-        } else if (enchantLevels == null) {
-            this.enchantLevels = new int[enchants.length];
-            for (int i = 0; i < enchants.length; i++) {
-                this.enchantLevels[i] = 1;
-            }
-        } else {
-            this.enchantLevels = enchantLevels;
-        }
+        this.ability = ability; 
+        this.enchants = null;
+        this.enchantLevels = null;
         this.unbreakable = unbreakable;
-        this.price = 1;
-        this.hideFlags = false;
+        this.price = price;
+        this.passive = null;
     }
 
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
-        Enchantment[] enchants, int[] enchantLevels, boolean unbreakable, int price) {
+    Enchantment[] enchants, int[] enchantLevels, boolean unbreakable, int price) {
         this.stack = stack;
         this.description = description;
         this.name = name;
@@ -138,7 +131,29 @@ public class BobuxItem {
         }
         this.unbreakable = unbreakable;
         this.price = price;
-        this.hideFlags = false;
+        this.passive = null;
+    }
+
+    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, AbilityPassive passive,
+    Enchantment[] enchants, int[] enchantLevels, boolean unbreakable, int price) {
+        this.stack = stack;
+        this.description = description;
+        this.name = name;
+        this.ability = ability;
+        this.enchants = enchants;
+        if (enchants == null) {
+            this.enchantLevels = null;
+        } else if (enchantLevels == null) {
+            this.enchantLevels = new int[enchants.length];
+            for (int i = 0; i < enchants.length; i++) {
+                this.enchantLevels[i] = 1;
+            }
+        } else {
+            this.enchantLevels = enchantLevels;
+        }
+        this.unbreakable = unbreakable;
+        this.price = price;
+        this.passive = passive;
     }
 
     //The stack meta is initialized (in BobuxItemInterface), then this method appends the desired name and lore to the item. 

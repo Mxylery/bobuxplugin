@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.Server;
+import org.bukkit.Sound;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.enchantments.Enchantment;
 
@@ -18,7 +19,8 @@ import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.ability_types.AbilityOneTime;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
-import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticlePlayerOptions;
+import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
+import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;
 
 /**
  * The class where all items will be instantiated and retrieved. \n
@@ -247,7 +249,7 @@ public class BobuxItemInterface {
     {"§6Access the daily market here."};
     private static String marketName = "§6Market";
     public static BobuxItem market = new BobuxItem
-    (marketStack, marketDesc, marketName, null, true, true);
+    (marketStack, marketDesc, marketName);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -257,7 +259,7 @@ public class BobuxItemInterface {
     "§75s CD"};
     private static String cleaverName = "§r§fCleaver";
     private static ParticleSequence cleaverParticleSequence = 
-    new ParticleSequence(ParticlePlayerOptions.RING, Particle.DUST, 2, 0, 0, 3, new DustOptions(Color.YELLOW, 2));
+    new ParticleSequence(ParticleSequenceOptions.RING, ParticleSequenceOrientations.DOWN, Particle.DUST, 2, 0, 0, 3, 0, new DustOptions(Color.YELLOW, 2));
     private static BobuxAction[] cleaverActionList = 
     {new DamageEntity(2,false), 
     new ChangeVelocity(0.5, false),
@@ -276,7 +278,7 @@ public class BobuxItemInterface {
     "§71s CD"};
     private static String lineSpawnerName = "§r§fLine Spawner";
     private static ParticleSequence lineSpawnerParticleSequence = 
-    new ParticleSequence(ParticlePlayerOptions.RING, Particle.ANGRY_VILLAGER, 5, 0, 3, 10, null);
+    new ParticleSequence(ParticleSequenceOrientations.NORMAL, Particle.ANGRY_VILLAGER, 5, 3, 0, null);
     private static BobuxAction[] lineSpawnerActionList = 
     {new PlayParticle(lineSpawnerParticleSequence, false)};
     private static BobuxAbility lineSpawnerAbility = new AbilityOneTime
@@ -288,19 +290,21 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack railgunStack = new ItemStack(Material.IRON_HOE);
     private static String[] railgunDesc = 
-    {"§7Right click",
+    {"§7Right click to shoot a beam that pierces enemies.",
     "§71s CD"};
     private static String railgunName = "§r§fRailgun";
     private static ParticleSequence railgunParticleSequence1 = 
-    new ParticleSequence(Particle.ANGRY_VILLAGER, 5.0, 2.0, 0.0, null);
+    new ParticleSequence(ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 30, 2.0, 0.0, null);
     private static ParticleSequence railgunParticleSequence2 = 
-    new ParticleSequence(ParticlePlayerOptions.SPIRAL, Particle.ANGRY_VILLAGER, 5, 0, 1, 1, null);
+    new ParticleSequence(ParticleSequenceOptions.SPIRAL, ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 5, 0, 1, 1, 30, null);
     private static ParticleSequence[] railgunParticleSequenceList = {railgunParticleSequence1, railgunParticleSequence2};
     private static BobuxAction[] railgunActionList = 
-    {new DamageEntity(10, false), new PlayParticle(railgunParticleSequenceList, null, false)};
+    {new DamageEntity(10, false), 
+    new PlayParticle(railgunParticleSequenceList, null, false), 
+    new PlaySound(Sound.ENTITY_FIREWORK_ROCKET_BLAST, 0.1f, 1.0f, false)};
     private static BobuxAbility railgunAbility = new AbilityOneTime
-    (40, null, railgunActionList, "Railgun Ability", false);
-    public static BobuxItem railgun = new BobuxItem(railgunStack, railgunDesc, railgunName, railgunAbility, true, true, 50);
+    (100, null, railgunActionList, "Railgun Ability", false);
+    public static BobuxItem railgun = new BobuxItem(railgunStack, railgunDesc, railgunName, railgunAbility, true, 50);
     //////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -1,15 +1,9 @@
 package io.github.mxylery.bobuxplugin.vectors;
 
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.function.Predicate;
 
 import org.bukkit.Location;
-import org.bukkit.Server;
-import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -17,7 +11,6 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 
-import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
@@ -41,31 +34,6 @@ public class BobuxUtils {
 		
 		return Math.abs(result);
 	}
-	//Figure it out completely eventually...
-	public static Vector getDownwardFacing(Vector direction) {
-		double xLoc = direction.getX();
-		double zLoc = direction.getZ();
-		Vector finalVector;
-		if (Math.abs(xLoc) > Math.abs(zLoc)) {
-			finalVector = direction.getCrossProduct(new Vector(0,0,1));
-		} else {
-			finalVector = direction.getCrossProduct(new Vector(1,0,0));
-		}
-		return finalVector;
-	}
-
-	//Hopefully the closest enemy
-	public static Entity rayTraceEntity(Location location, double radius, double length, Vector direction) {
-		for (int i = 0; i < length; i+=radius/2) {
-			location.add(direction);
-			if (!location.getWorld().getNearbyEntities(location, radius, radius, radius).isEmpty()) {
-				Entity[] tempList = (Entity[]) location.getWorld().getNearbyEntities(location, radius, radius, radius).toArray();
-				return tempList[0];
-			}
-		}
-		return null;
-	}
-
 	/**
 	 * Retrieves all nearby players from a location (in a box) into an array list
 	 */
@@ -128,13 +96,28 @@ public class BobuxUtils {
 
 	//Don't forget to make it so that like when you like when when you like when if its when if its - then unnegative because then its like the other way or like negative it after the normalize
 	public static Vector[] getNormalizedMatrix(Vector vector) {
-		Vector normalXVector = new Vector(1.0,0.0,0.0);
-		vector.normalize();
-        Vector newYVector = vector.getCrossProduct(normalXVector);
-        newYVector.normalize();
-        Vector newZVector = vector.getCrossProduct(newYVector);
-        newYVector.normalize();
-        Vector[] matrix = {vector, newYVector, newZVector};
+		Vector[] matrix = new Vector[3];
+		Vector tempVector = new Vector(vector.getX(), vector.getY(), vector.getZ());
+		tempVector.normalize();
+		if (Math.abs(vector.getX()) > Math.abs(vector.getZ())) {
+			Vector newXVector = new Vector(0.0,0.0,1.0);
+			Vector newYVector = tempVector.getCrossProduct(newXVector);
+        	newYVector.normalize();
+        	Vector newZVector = tempVector.getCrossProduct(newYVector);
+        	newZVector.normalize();
+			matrix[0] = tempVector;
+			matrix[1] = newYVector;
+			matrix[2] = newZVector;
+		} else {
+			Vector newXVector = new Vector(1.0,0.0,0.0);
+			Vector newYVector = newXVector.getCrossProduct(tempVector);
+        	newYVector.normalize();
+        	Vector newZVector = newYVector.getCrossProduct(tempVector);
+        	newZVector.normalize();
+			matrix[0] = tempVector;
+			matrix[1] = newYVector;
+			matrix[2] = newZVector;
+		}
         return matrix;
     }
 
@@ -142,19 +125,68 @@ public class BobuxUtils {
 		return null;
 	}
 
-	public static Entity[] getEntitiesLine(Location location, double length, double radius, Vector direction) {
-		Set<Entity> finalSet = (Set<Entity>) location.getWorld().getNearbyEntities(location, radius, radius, radius);
-		for (int i = 0; i < length; i+=radius/2) {
-			location.add(direction);
-			Set<Entity> tempSet = (Set<Entity>) location.getWorld().getNearbyEntities(location, radius, radius, radius);
-			if (!tempSet.isEmpty()) {
-				finalSet.addAll(tempSet);
+	//this is for ordering mobs based off of eucl dist from another entity, used in the line method two methods down
+	public static void entityMerge(Entity[] array, int l, int r, Location location) {
+		
+		int length = array.length;
+		int m = (r-l)/2;
+		Entity[] newArray1 = new Entity[length/2];
+		for (int i = 0; i < m; i++) {
+			newArray1[i] = array[i];
+		}
+		Entity[] newArray2 = new Entity[(length+1)/2];
+		for (int i = 0; i < (2*m+1)/2; i++) {
+			newArray1[i] = array[i+m];
+		}
+
+		entityMerge(newArray1, 0, m, location);
+		entityMerge(newArray2, m+1, r, location);
+
+	}
+
+	public static Entity[] entityMergeSort(Entity[] array, Location location) {
+		int l = 0;
+		int r = array.length;
+
+		entityMerge(array, l, r, location);
+		return array;
+	}
+
+	public static Entity[] getEntitiesLine(Location location, double length, double radius, int limit, Vector direction) {
+		ArrayList<Entity> firstList = (ArrayList<Entity>) location.getWorld().getNearbyEntities(location, length, length, length);
+		Vector tempDirection = new Vector(direction.getX(), direction.getY(), direction.getZ());
+		tempDirection.normalize();
+		ArrayList<Entity> finalList = new ArrayList<Entity>();
+		for (int i = 0; i < firstList.size(); i++) {
+			Entity currentEntity = firstList.get(i);
+			double tempVecLength = getLocationDifferenceMagnitude(currentEntity.getLocation(), location);
+			Location tempLoc = new Location
+			(location.getWorld(), 
+			location.getX() + tempDirection.getX()*tempVecLength,
+			location.getY() + tempDirection.getY()*tempVecLength,
+			location.getZ() + tempDirection.getZ()*tempVecLength);
+			double euclDist = getLocationDifferenceMagnitude(currentEntity.getLocation(), tempLoc);
+			if (euclDist < radius) {
+				finalList.add(currentEntity);
 			}
 		}
-		if (finalSet.contains(null) & finalSet.size() <= 1) {
-			return null;
+		if (finalList.size() > 1) {
+			if (limit == 0) {
+				Entity[] returnList = new Entity[finalList.size()];
+				for (int i = 0; i < returnList.length; i++) {
+					returnList[i] = finalList.get(i);
+				}
+				return returnList;
+			} else {
+				int biggestNum = Math.min(finalList.size(), limit);
+				Entity[] returnList = new Entity[biggestNum];
+				for (int i = 0; i < biggestNum; i++) {
+					returnList[i] = finalList.get(i);
+				}
+				return returnList;
+			}
 		} else {
-			return (Entity[]) finalSet.toArray();
+			return null;
 		}
 	}
 
@@ -195,10 +227,6 @@ public class BobuxUtils {
             System.arraycopy(intermediateList, 0, finalList, 0, size+1);
             return finalList;
         }
-    }
-
-    public static Entity[] getEntitiesLine() {
-        return null;
     }
 
 	public static Entity[] getEntitiesSphere(Entity user, double radius) {
@@ -266,9 +294,6 @@ public class BobuxUtils {
     	}
         return bbxTotal;
     }
-
-
-
 
 	//work on later
 	public static Entity[] getEntitiesEllipse(Location location, double length, double width, double height, double offset, Vector direction, Entity ignoredEntity) {

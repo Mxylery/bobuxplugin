@@ -19,7 +19,8 @@ public class ParticleSequence implements Runnable {
     private double length;
     private double amount;
     private double speed;
-    private ParticlePlayerOptions option;
+    private ParticleSequenceOptions option;
+    private ParticleSequenceOrientations orientation;
     private boolean animated = false;
     private boolean perpendicular;
     private double inRadius;
@@ -27,7 +28,7 @@ public class ParticleSequence implements Runnable {
     private DustOptions dustOption;
 
     //all the options for the particle player
-    public enum ParticlePlayerOptions {
+    public enum ParticleSequenceOptions {
         LINE,
         SPIRAL,
         RING,
@@ -35,6 +36,14 @@ public class ParticleSequence implements Runnable {
         RECTANGLE,
         CYLINDER,
         EXPLOSION
+    }
+
+    public enum ParticleSequenceOrientations {
+        NORMAL,
+        LEFT,
+        RIGHT,
+        DOWN,
+        UP
     }
 
     public void setLocation(Location location) {
@@ -46,6 +55,11 @@ public class ParticleSequence implements Runnable {
         directionMatrix = BobuxUtils.getNormalizedMatrix(direction);
     }
 
+    //The matrix needs to be recorrected to account for the <t,cost,sint> vectors since it is only centered around the x axis being the normalized axis.
+    private void reconfigureMatrix() {
+
+    }
+
     /**
      * This constructor is used for non-animated line sequences.
      * @param option Particle sequence desired (line, ring, etc)
@@ -54,8 +68,9 @@ public class ParticleSequence implements Runnable {
      * @param speed Speed of the particle (weather it will move a lot or not, also depends on the particle)
      * @param dustOption DustOption if using redstone dust particles
      */
-    public ParticleSequence(Particle particle, double length, double amount, double speed, DustOptions dustOption) {
-        this.option = ParticlePlayerOptions.LINE;
+    public ParticleSequence(ParticleSequenceOrientations orientation, Particle particle, double length, double amount, double speed, DustOptions dustOption) {
+        this.option = ParticleSequenceOptions.LINE;
+        this.orientation = orientation;
         this.particle = particle;
         this.amount = amount;
         this.speed = speed;
@@ -73,27 +88,47 @@ public class ParticleSequence implements Runnable {
      * @param outRadius The outer radius of a sphere/ring/cylinder, and also used for the radius of a spiral.
      * @param dustOption DustOption if using redstone dust particles
      */
-    public ParticleSequence(ParticlePlayerOptions option, Particle particle, double amount, double speed, double inRadius, double outRadius, DustOptions dustOption) {
+    public ParticleSequence(ParticleSequenceOptions option, ParticleSequenceOrientations orientation, Particle particle, double amount, double speed, double inRadius, double outRadius, double length, DustOptions dustOption) {
         this.option = option;
+        this.orientation = orientation;
         this.particle = particle;
         this.amount = amount;
         this.outRadius = outRadius;
         this.inRadius = inRadius;
-        this.length = outRadius - inRadius;
+        this.length = length;
         this.dustOption = dustOption;
     }
 
     //For animations
-    public ParticleSequence(ParticlePlayerOptions option, Particle particle, double amount, double speed, boolean hollow, double duration) {
+    public ParticleSequence(ParticleSequenceOptions option, ParticleSequenceOrientations orientation, Particle particle, double amount, double speed, boolean hollow, double duration) {
         this.option = option;
+        this.orientation = orientation;
         this.particle = particle;
         this.amount = amount;
         this.length = outRadius - inRadius;
         this.animated = true;
     }
 
+    
+
     public void run() {
-        //This does the equivalent of setting the y axis as the new base
+        //Left-hand: x is index, z is middle, y is thumb
+        switch(orientation) {
+            case NORMAL: 
+            break;
+            case DOWN:
+            Vector oldX = directionMatrix[0];
+            Vector oldY = directionMatrix[1];
+            Vector oldZ = directionMatrix[2];
+            directionMatrix[0] = oldY;
+            directionMatrix[0].multiply(-1);
+            directionMatrix[1] = oldX;
+            directionMatrix[2] = oldZ;
+            break;
+            default:
+            break;
+        }
+        System.out.println(option.toString());
         switch(option) {
             case LINE: drawLine(location);
             break;
@@ -113,16 +148,22 @@ public class ParticleSequence implements Runnable {
     }
 
     public void runLater(int ticks) {
-        BukkitScheduler scheduler = BobuxTimer.getScheduler();
-        scheduler.runTaskLater(BobuxTimer.getPlugin(), this, ticks);
+        if (ticks == 0) {
+            this.run();
+        } else {
+            BukkitScheduler scheduler = BobuxTimer.getScheduler();
+            scheduler.runTaskLater(BobuxTimer.getPlugin(), this, ticks);
+        }
+        
     }
 
     private void drawLine(Location thisLoc) {
         //d/dt<ax,by,cz> = <a,b,c>
+        Location ogLoc = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ());
         for (double i = 0; i < length; i += 1/amount) {
             Location locAdjustment = new Location(world, directionMatrix[0].getX(), directionMatrix[0].getY(), directionMatrix[0].getZ());
-            thisLoc.add(locAdjustment);
-            world.spawnParticle(particle, thisLoc, 1);
+            ogLoc.add(locAdjustment);
+            world.spawnParticle(particle,ogLoc,1,0,0,0,speed, dustOption);
         }
     }
 
@@ -138,9 +179,9 @@ public class ParticleSequence implements Runnable {
                 ogDirectionMatrix[1].getY()*outerRadius*Math.cos(i), 
                 ogDirectionMatrix[1].getZ()*outerRadius*Math.cos(i));
                 Location zLoc = new Location(world, 
-                -ogDirectionMatrix[2].getX()*outerRadius*Math.sin(i), 
-                -ogDirectionMatrix[2].getY()*outerRadius*Math.sin(i), 
-                -ogDirectionMatrix[2].getZ()*outerRadius*Math.sin(i));
+                ogDirectionMatrix[2].getX()*outerRadius*Math.sin(i), 
+                ogDirectionMatrix[2].getY()*outerRadius*Math.sin(i), 
+                ogDirectionMatrix[2].getZ()*outerRadius*Math.sin(i));
                 double xAdjustment = ogLoc.getX() + yLoc.getX() + zLoc.getX();
                 double yAdjustment = ogLoc.getY() + yLoc.getY() + zLoc.getY();
                 double zAdjustment = ogLoc.getZ() + yLoc.getZ() + zLoc.getZ();
@@ -160,33 +201,25 @@ public class ParticleSequence implements Runnable {
         Vector[] ogDirectionMatrix = {directionMatrix[0], directionMatrix[1], directionMatrix[2]};
         for (double i = 0; i < length; i += 1/amount) {
             Location xLoc = new Location(world, 
-            ogDirectionMatrix[0].getX(), 
-            ogDirectionMatrix[0].getY(), 
-            ogDirectionMatrix[0].getZ());
+            ogDirectionMatrix[0].getX()*i, 
+            ogDirectionMatrix[0].getY()*i, 
+            ogDirectionMatrix[0].getZ()*i);
             Location yLoc = new Location(world, 
-            ogDirectionMatrix[1].getX()*outRadius*Math.cos(i)*inRadius, 
-            ogDirectionMatrix[1].getY()*outRadius*Math.cos(i)*inRadius, 
-            ogDirectionMatrix[1].getZ()*outRadius*Math.cos(i)*inRadius);
+            ogDirectionMatrix[1].getX()*outRadius*Math.cos(i*inRadius), 
+            ogDirectionMatrix[1].getY()*outRadius*Math.cos(i*inRadius), 
+            ogDirectionMatrix[1].getZ()*outRadius*Math.cos(i*inRadius));
             Location zLoc = new Location(world, 
-            -ogDirectionMatrix[2].getX()*outRadius*Math.sin(i)*inRadius, 
-            -ogDirectionMatrix[2].getY()*outRadius*Math.sin(i)*inRadius, 
-            -ogDirectionMatrix[2].getZ()*outRadius*Math.sin(i)*inRadius);
-            location.add(xLoc);
-            location.add(yLoc);
-            location.add(zLoc);
-            world.spawnParticle(particle, location, 1, 0, 0, 0, speed, dustOption);
+            -ogDirectionMatrix[2].getX()*outRadius*Math.sin(i*inRadius), 
+            -ogDirectionMatrix[2].getY()*outRadius*Math.sin(i*inRadius), 
+            -ogDirectionMatrix[2].getZ()*outRadius*Math.sin(i*inRadius));
+            double xAdjustment = ogLoc.getX() + xLoc.getX() + yLoc.getX() + zLoc.getX();
+            double yAdjustment = ogLoc.getY() + xLoc.getY() + yLoc.getY() + zLoc.getY();
+            double zAdjustment = ogLoc.getZ() + xLoc.getZ() + yLoc.getZ() + zLoc.getZ();
+            world.spawnParticle(particle,  xAdjustment, yAdjustment, zAdjustment, 0, 0, 0, speed, dustOption);
         }
     }
 
-    private void drawCircleHollow() {
-
-    }
-
-    private void drawSphereHollow() {
-
-    }
-
-    private void drawSphereFull() {
+    private void drawSphere() {
 
     }
 

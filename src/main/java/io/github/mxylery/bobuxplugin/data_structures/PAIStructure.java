@@ -69,7 +69,7 @@ public class PAIStructure {
             //Checks if the ability of the checked PAI is the desired one
             if (PAIarray[i].getAbility().getName().equals(ability.getName())) {
                 if (PAIarray[i].getTick() - BobuxTimer.getTicksPassed() < timeFrame) {
-                    for (int j = i; j < PAIarray.length; j++) {
+                    for (int j = i; j < PAIarray.length - 1; j++) {
                         PAIarray[j] = PAIarray[j+1];
                     }
                     return true;

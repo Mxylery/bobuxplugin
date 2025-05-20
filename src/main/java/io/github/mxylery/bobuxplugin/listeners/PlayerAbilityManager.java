@@ -59,7 +59,7 @@ public final class PlayerAbilityManager implements Listener {
 
     //Used in all of the listener methods below.
     private static void useAbility(Player player, BobuxAbility ability) {
-        //Checks if the ability is a one-time ability
+
         if (ability instanceof AbilityOneTime) {
             //Registers the first-time player
             if (!PAImap.containsKey(player)) {
@@ -354,13 +354,15 @@ public final class PlayerAbilityManager implements Listener {
         } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
             Entity[] playerAsArray = {player};
             checkForSlotMatch(BobuxItemInterface.hurriedStopwatch, player, EquipmentSlot.HAND, playerAsArray, null, null);
-            checkForSlotMatch(BobuxItemInterface.lineSpawner, player, EquipmentSlot.HAND, null, playerEyeVector, playerLocation);
+            checkForSlotMatch(BobuxItemInterface.lineSpawner, player, EquipmentSlot.HAND, null, playerEyeVector, playerLocation, playerEyeVector, playerLocation);
 
-            Location[] railgunLocs = {playerLocation, playerLocation};
+            //Anything that plays several particles needs this
+            Location elevatedPlayerLoc = new Location(playerLocation.getWorld(), playerLocation.getX(), playerLocation.getY() + 1, playerLocation.getZ());
+            Location[] railgunLocs = {elevatedPlayerLoc, elevatedPlayerLoc};
             Vector[] railgunVectors = {playerEyeVector, playerEyeVector};
 
             checkForSlotMatch(BobuxItemInterface.railgun, player, EquipmentSlot.HAND, 
-            BobuxUtils.getEntitiesLine(playerLocation, 30, 1, playerEyeVector), null, null, playerEyeVector, playerLocation);
+            BobuxUtils.getEntitiesLine(playerLocation, 30, 1, 10, playerEyeVector), null, null, railgunVectors, railgunLocs);
         }
     }
 
@@ -377,13 +379,12 @@ public final class PlayerAbilityManager implements Listener {
 
             checkForSlotMatch(BobuxItemInterface.harmfulSubstance, player, EquipmentSlot.HAND, damagedAsArray, null, null);
 
-            Vector slightKnockUp = new Vector(playerEyeVector.getX(), 1.5, playerEyeVector.getZ());
-
-            
+            //Set up for 
+            Vector slightKnockUp = new Vector(playerEyeVector.getX(), playerEyeVector.getY() + 1, playerEyeVector.getZ());
 
             checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND,
             BobuxUtils.getEntitiesSphere(player, damagedEntity.getLocation(), 3,2.5,playerEyeVector), slightKnockUp, 
-            null, BobuxUtils.getDownwardFacing(playerEyeVector), BobuxUtils.offsetLocation(damagedEntityLoc, playerEyeVector, 2, 0.5));
+            null, playerEyeVector, BobuxUtils.offsetLocation(damagedEntityLoc, playerEyeVector, 2, 0.5));
 
         }
     }
@@ -439,6 +440,10 @@ public final class PlayerAbilityManager implements Listener {
 
     public void onVelocityMet(PlayerVelocityEvent e) {
 
+    }
+
+    public static HashMap<Player, PAIStructure> getPAIMap() {
+        return PAImap;
     }
 
 }
