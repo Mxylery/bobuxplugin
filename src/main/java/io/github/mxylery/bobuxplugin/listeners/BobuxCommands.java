@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
+import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.guis.MainGUI;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
@@ -57,8 +58,16 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
         } else if (command.getName().equalsIgnoreCase("bobuxmenu")) {
             MainGUI mainGUI = new MainGUI(Bukkit.createInventory(player, 27), player, plugin);
             return true;
+        } else if (command.getName().equalsIgnoreCase("bobuxinfo")) {
+            long ticksLeft = 1200 - BobuxTimer.getTicksPassed() % 1200;
+            long seconds = ticksLeft/20;
+            player.sendMessage("Next market refresh:" + seconds + "s");
+            ticksLeft = 2400 - BobuxTimer.getTicksPassed() % 2400;
+            seconds = ticksLeft/20;
+            player.sendMessage("Next bounty refresh:" + seconds + "s");
+            return true;
         } else {
-
+            return false;
         }
     }
     return false;

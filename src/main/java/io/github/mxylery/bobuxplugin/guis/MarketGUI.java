@@ -56,7 +56,7 @@ public class MarketGUI extends BobuxGUI{
             ArrayList<String> lore = new ArrayList<String>();
             lore.add(colorString + BobuxGUIGenerator.marketMenu[i].getName());
             buyButtonMeta.setLore(lore);
-            buyButtonMeta.setItemName(colorString + "§lBUY ($" + BobuxGUIGenerator.marketMenu[i].getPrice() + "BBX)");
+            buyButtonMeta.setItemName(colorString + "§l$" + BobuxGUIGenerator.marketMenu[i].getPrice() + "BBX");
             buyButtonStack.setItemMeta(buyButtonMeta);
             finalList[2*i + 1] = buyButtonStack;
         }

@@ -17,7 +17,6 @@ public class BobuxTimer implements Runnable {
     private static long ticksPassed;
     private static Server server;
     private static Plugin bobuxPlugin;
-    private static BobuxGUIGenerator stupid;
 
     public BobuxTimer(Server pluginServer, Plugin plugin) {
         ticksPassed = 0;
@@ -25,14 +24,18 @@ public class BobuxTimer implements Runnable {
         bobuxPlugin = plugin;
         //for some reason there needs to be an initialized BobuxItemInterface to use the static method BobuxItemInterface.randomizeMarketItems
         //even though static methods by definition literally should be used statically, but it completely breaks everything if not so.
-        this.stupid = new BobuxGUIGenerator();
     }
 
     private static void refresh() {
-        if (ticksPassed % 300 == 0) {
+        //Try to overlap as many possibilities as possible (least amount of if checks)
+        if (ticksPassed % 1200 == 0) {
             server.broadcastMessage("The market has been reset! ");
-            stupid.randomizeMarketItems();
-        }
+            BobuxGUIGenerator.randomizeMarketItems();
+            if (ticksPassed % 2400 == 0) {
+                server.broadcastMessage("New bounties are now available...");
+                BobuxGUIGenerator.randomizeBounties();
+            }
+        } 
     }
 
     public void run() {

@@ -128,7 +128,6 @@ public class ParticleSequence implements Runnable {
             default:
             break;
         }
-        System.out.println(option.toString());
         switch(option) {
             case LINE: drawLine(location);
             break;

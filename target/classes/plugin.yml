@@ -1,6 +1,6 @@
 name: BobuxPlugin
 main: io.github.mxylery.bobuxplugin.BobuxPlugin
-version: 0.2.4
+version: 0.3.0
 api-version: '1.20.5'
 
 commands:
@@ -11,4 +11,8 @@ commands:
   bobuxmenu:
     description: Opens the Bobux Menu
     aliases: bobuxmenu
+    usage: "Usage: /<command>"
+  bobuxinfo:
+    description: Shows bobux information related to timers, etc.
+    aliases: bobuxinfo
     usage: "Usage: /<command>"

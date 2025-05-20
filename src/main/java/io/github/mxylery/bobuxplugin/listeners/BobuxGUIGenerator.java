@@ -1,14 +1,19 @@
 package io.github.mxylery.bobuxplugin.listeners;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
+import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxBounty;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
@@ -16,14 +21,16 @@ import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class BobuxGUIGenerator implements Listener {
     
-    private static Server server = BobuxTimer.getServer();
+    private static Server server;
+    private BobuxPlugin plugin;
 
-    public BobuxGUIGenerator() {
-
+    public BobuxGUIGenerator(BobuxPlugin plugin) {
+        this.plugin = plugin;
+        server = plugin.getServer();
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    
-    public static HashMap<Player,BobuxBounty> playerBountyMap = new HashMap<Player,BobuxBounty>();
+    public static HashMap<Player,BobuxBounty[]> playerBountyMap = new HashMap<Player,BobuxBounty[]>();
     public static BobuxItem[] marketMenu = new BobuxItem[3];
     public static final int marketItemTotal = 7;
     //As of 0.2.3, generates 3 items randomly.
@@ -70,15 +77,40 @@ public class BobuxGUIGenerator implements Listener {
     }
 
     public static void randomizeBounties() {
-        Player[] playerList = (Player[]) server.getOnlinePlayers().toArray();
+        Object[] objectList = (Object[]) server.getOnlinePlayers().toArray();
+        Player[] playerList = new Player[objectList.length];
         for (int i = 0; i < playerList.length; i++) {
-           
+            playerList[i] = (Player) objectList[i];
         }
+        for (int i = 0; i < playerList.length; i++) {
+            BobuxBounty[] bountyList = new BobuxBounty[3];
+            bountyList[0] = new BobuxBounty();
+            bountyList[1] = new BobuxBounty();
+            bountyList[2] = new BobuxBounty();
+            playerBountyMap.put(playerList[i], bountyList);
+        }
+    }
+
+    public static void randomizeBounty(Player player) {
+        BobuxBounty[] bountyList = new BobuxBounty[3];
+        bountyList[0] = new BobuxBounty();
+        bountyList[1] = new BobuxBounty();
+        bountyList[2] = new BobuxBounty();
+        playerBountyMap.put(player, bountyList);
     }
 
     @EventHandler
     public void onLogin (PlayerLoginEvent e) {
-
+        OfflinePlayer[] playerList =  server.getOfflinePlayers();
+        boolean wasOnline = false;
+        for (int i = 0; i < playerList.length; i++) {
+            if (playerList[i].getUniqueId() == e.getPlayer().getUniqueId()) {
+                wasOnline = true;
+            }
+        }
+        if (!wasOnline) {
+            System.out.println("Randomized a bounty!" );
+            randomizeBounty(e.getPlayer());
+        }
     }
-
 }

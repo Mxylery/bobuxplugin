@@ -195,8 +195,9 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack marketStack = new ItemStack(Material.GOLDEN_HORSE_ARMOR);
     private static String[] marketDesc = 
-    {"§6Access the daily market here."};
-    private static String marketName = "§6Market";
+    {"§7Access the daily market here.",
+    "§8(Left or right click)"};
+    private static String marketName = "§6§lMarket";
     public static BobuxItem market = new BobuxItem
     (marketStack, marketDesc, marketName);
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -246,15 +247,26 @@ public class BobuxItemInterface {
     new ParticleSequence(ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 30, 2.0, 0.0, null);
     private static ParticleSequence railgunParticleSequence2 = 
     new ParticleSequence(ParticleSequenceOptions.SPIRAL, ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 5, 0, 1, 1, 30, null);
-    private static ParticleSequence[] railgunParticleSequenceList = {railgunParticleSequence1, railgunParticleSequence2};
+    private static ParticleSequence[] railgunParticleSequenceList = 
+    {railgunParticleSequence1, railgunParticleSequence2};
     private static BobuxAction[] railgunActionList = 
     {new DamageEntity(10, false), 
     new PlayParticle(railgunParticleSequenceList, null, false), 
     new PlaySound(Sound.ENTITY_FIREWORK_ROCKET_BLAST, 0.1f, 1.0f, false)};
     private static BobuxAbility railgunAbility = new AbilityOneTime
     (100, null, railgunActionList, "Railgun Ability", false);
-    public static BobuxItem railgun = new BobuxItem(railgunStack, railgunDesc, railgunName, railgunAbility, true, 50);
+    public static BobuxItem railgun = new BobuxItem
+    (railgunStack, railgunDesc, railgunName, railgunAbility, true, 50);
     //////////////////////////////////////////////////////////////////////////////////////////
+     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack bountyStack = new ItemStack(Material.PAPER);
+    private static String[] bountyDesc = 
+    {"§7Access your bounties here.",
+    "§8(Left or right click)"};
+    private static String bountyName = "§c§lBounties";
+    public static BobuxItem bounty = new BobuxItem
+    (bountyStack, bountyDesc, bountyName);
 
 }
 

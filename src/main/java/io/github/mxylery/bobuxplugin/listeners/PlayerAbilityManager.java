@@ -362,7 +362,7 @@ public final class PlayerAbilityManager implements Listener {
             Vector[] railgunVectors = {playerEyeVector, playerEyeVector};
 
             checkForSlotMatch(BobuxItemInterface.railgun, player, EquipmentSlot.HAND, 
-            BobuxUtils.getEntitiesLine(playerLocation, 30, 1, 10, playerEyeVector), null, null, railgunVectors, railgunLocs);
+            BobuxUtils.getEntitiesLine(playerLocation, 30, 1, 10, playerEyeVector), null, playerLocation, railgunVectors, railgunLocs);
         }
     }
 

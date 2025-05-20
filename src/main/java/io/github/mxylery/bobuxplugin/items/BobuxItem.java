@@ -22,6 +22,7 @@ public class BobuxItem {
     private int[] enchantLevels;
     private boolean unbreakable;
     private AbilityPassive passive;
+    private boolean hideFlag;
 
     public BobuxItem (ItemStack stack, String[] description, String name) {
         this.stack = stack;
@@ -33,6 +34,7 @@ public class BobuxItem {
         this.unbreakable = false;
         this.price = 1;
         this.passive = null;
+        this.hideFlag = true;
     }
 
     public BobuxItem (ItemStack stack, String[] description, String name, int price) {
@@ -45,6 +47,7 @@ public class BobuxItem {
         this.unbreakable = false;
         this.price = price;
         this.passive = null;
+        this.hideFlag = false;
     }
 
     public BobuxItem (ItemStack stack, String[] description, String name, AbilityPassive passive, 
@@ -58,6 +61,7 @@ public class BobuxItem {
         this.unbreakable = false;
         this.price = price;
         this.passive = passive;
+        this.hideFlag = false;
     }
 
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
@@ -71,6 +75,7 @@ public class BobuxItem {
         this.unbreakable = false;
         this.price = price;
         this.passive = null;
+        this.hideFlag = false;
     }
      
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, AbilityPassive passive, 
@@ -84,6 +89,7 @@ public class BobuxItem {
         this.unbreakable = false;
         this.price = 1;
         this.passive = passive;
+        this.hideFlag = false;
     }
 
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
@@ -97,6 +103,7 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = null;
+        this.hideFlag = false;
     }
 
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, AbilityPassive passive,
@@ -110,6 +117,7 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = null;
+        this.hideFlag = false;
     }
 
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
@@ -132,6 +140,7 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = null;
+        this.hideFlag = false;
     }
 
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, AbilityPassive passive,
@@ -154,6 +163,7 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = passive;
+        this.hideFlag = false;
     }
 
     //The stack meta is initialized (in BobuxItemInterface), then this method appends the desired name and lore to the item. 
@@ -175,6 +185,9 @@ public class BobuxItem {
         }
         if (unbreakable) {
             meta.setUnbreakable(unbreakable);
+        }
+        if (hideFlag) {
+            meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP, ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
         }
 		meta.setDisplayName(name);
 		meta.setLore(lore);

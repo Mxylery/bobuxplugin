@@ -19,7 +19,6 @@ public class BobuxTransaction {
     private int[] slotNums = new int[36];
     private BobuxBounty bounty;
 
-
     public BobuxTransaction(Player player, int cost, ItemStack stack) {
         this.player = player;
         this.cost = cost;
@@ -29,9 +28,9 @@ public class BobuxTransaction {
     }
 
     //maybe use this class for bounties.
-    public BobuxTransaction(Player player, int compensation, BobuxBounty bounty) {
+    public BobuxTransaction(Player player, BobuxBounty bounty) {
         this.player = player;
-        cost = -compensation;
+        cost = -1*bounty.getCompensation();
         this.bounty = bounty;
         inventory = player.getInventory();
         removeTotalItems();
@@ -48,22 +47,22 @@ public class BobuxTransaction {
         for (int i = 0; i < 36; i++) {
             ItemStack stack = inventory.getItem(i);
             if (stack != null) {
-                if (BobuxUtils.checkWithoutDuraAmnt(stack, bounty0)) {
-                itemTotal0 += stack.getAmount();
-                size++;
-                slotNums[size] = i;
-            } else if (BobuxUtils.checkWithoutDuraAmnt(stack, bounty1)){
-                itemTotal1 += stack.getAmount();
-                size++;
-                slotNums[size] = i;
-            } else if (BobuxUtils.checkWithoutDuraAmnt(stack, bounty2)){
-                itemTotal2 += stack.getAmount();
-                size++;
-                slotNums[size] = i;
+                if (stack.getType().equals(bounty0.getType())) {
+                    itemTotal0 += stack.getAmount();
+                    size++;
+                    slotNums[size] = i;
+                } else if (stack.getType().equals(bounty1.getType())){
+                    itemTotal1 += stack.getAmount();
+                    size++;
+                    slotNums[size] = i;
+                } else if (stack.getType().equals(bounty2.getType())){
+                    itemTotal2 += stack.getAmount();
+                    size++;
+                    slotNums[size] = i;
                 }
             }
         }
-        if (size != -1) {
+        if (size == -1) {
             return false;
         } 
         if (itemTotal0 >= bounty0.getAmount() && itemTotal1 >= bounty1.getAmount() && itemTotal2 >= bounty2.getAmount()) {
@@ -115,7 +114,7 @@ public class BobuxTransaction {
         for (int i = 0; i < slotNums.length; i++) {
             ItemStack comparedStack = inventory.getItem(slotNums[i]);
             if (comparedStack != null) {
-                if (BobuxUtils.checkWithoutDuraAmnt(comparedStack, stack)) {
+                if (stack.getType().equals(comparedStack.getType())) {
                     index++;
                     bbxStorage[index] = slotNums[i];
                 }
@@ -179,7 +178,7 @@ public class BobuxTransaction {
     }
 
     private void removeTotalItems() {
-        if (checkTotalItems()) {
+        if (checkTotalItems() && !bounty.getState()) {
             ItemStack[] tempStack = new ItemStack[slotNums.length];
             for (int i = 0; i < slotNums.length; i++) {
                 tempStack[i] = inventory.getItem(i);
@@ -203,6 +202,7 @@ public class BobuxTransaction {
                 int prevAmnt = intermStack.getAmount();
                 intermStack.setAmount(prevAmnt - 1);
                 prevAmnt--;
+                itemAmnt0--;
                 if (prevAmnt == 0) {
                     for (int i = 0; i < itemStack0.length-1; i++) {
                         itemStack0[i] = itemStack0[i+1];
@@ -216,6 +216,7 @@ public class BobuxTransaction {
                 int prevAmnt = intermStack.getAmount();
                 intermStack.setAmount(prevAmnt - 1);
                 prevAmnt--;
+                itemAmnt1--;
                 if (prevAmnt == 0) {
                     for (int i = 0; i < itemStack1.length-1; i++) {
                         itemStack1[i] = itemStack1[i+1];
@@ -225,6 +226,7 @@ public class BobuxTransaction {
                 }                
             }
             while (itemAmnt2 > 0) {
+                itemAmnt2--;
                 intermStack = inventory.getItem(itemStack2[0]);
                 int prevAmnt = intermStack.getAmount();
                 intermStack.setAmount(prevAmnt - 1);
@@ -238,11 +240,16 @@ public class BobuxTransaction {
                 }                
             }
             bobuxCompensator();
-            player.playSound(player, Sound.ITEM_BOOK_PAGE_TURN, 0.1f, 1f);
+            player.playSound(player, Sound.ITEM_BOOK_PAGE_TURN, 0.5f, 1f);
             bounty.setState(true);
         } else {
-            player.sendMessage("You do not have enough items to go through with this transaction.");
-            player.playSound(player, Sound.BLOCK_BELL_USE,0.1f,0.5f);
+            if (bounty.getState()) {
+                player.sendMessage("You have already completed this bobux bounty.");
+                player.playSound(player, Sound.BLOCK_BELL_USE,0.1f,0.5f);
+            } else {
+                player.sendMessage("You do not have enough items to go through with this transaction.");
+                player.playSound(player, Sound.BLOCK_BELL_USE,0.1f,0.5f);
+            }
         }
     }
 

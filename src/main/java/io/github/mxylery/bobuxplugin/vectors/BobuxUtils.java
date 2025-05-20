@@ -84,9 +84,9 @@ public class BobuxUtils {
 			damageable.setDamage(0);
 			tempStack.setItemMeta(damageable);
 			if (damageable.equals((Damageable) bobuxitem.getStack().getItemMeta())) {
-			return true;
-		}
-		return false;
+				return true;
+			}
+			return false;
 		}
 		if (tempStack.equals(bobuxitem.getStack())) {
 			return true;
@@ -107,6 +107,7 @@ public class BobuxUtils {
 		}
 		return false;
 		}
+		System.out.println("First Item: ");
 		if (tempStack.equals(item2)) {
 			return true;
 		}

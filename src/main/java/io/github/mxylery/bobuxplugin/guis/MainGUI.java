@@ -18,15 +18,18 @@ public class MainGUI extends BobuxGUI {
     }
 
     protected void setGUI() {
-        ItemStack[] slotList = {BobuxItemInterface.market.getStack()};
+        ItemStack[] slotList = {BobuxItemInterface.market.getStack(), BobuxItemInterface.bounty.getStack()};
         super.slotList = slotList;
-        int[] slotIndex = {13};
+        int[] slotIndex = {11, 15};
         super.slotIndex = slotIndex;
     }
 
     protected void slotHit(int slot) {
-        if (slot == 13) {
-            new MarketGUI(Bukkit.createInventory(player, 36), player, plugin);
+        switch (slot) {
+            case 11: new MarketGUI(Bukkit.createInventory(player, 36), player, plugin);
+            break;
+            case 15: new BountyGUI(Bukkit.createInventory(player, 27), player, plugin);
+            break;
         }
     }
 

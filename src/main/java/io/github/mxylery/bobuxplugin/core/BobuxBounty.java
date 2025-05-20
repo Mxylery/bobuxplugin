@@ -8,9 +8,11 @@ public class BobuxBounty {
 
     private ItemStack[] stacks = new ItemStack[3];
     private boolean completed;
+    private int compensation;
     
     public BobuxBounty() {
         this.completed = false;
+        this.compensation = 0;
         generateBounty();
     }
 
@@ -28,7 +30,7 @@ public class BobuxBounty {
 
     private void generateBounty() {
         Bounty bounty;
-        int[] rngTrack = new int[2];
+        int[] rngTrack = new int[3];
         for (int i = 0; i < 3; i++) {
             int rng = (int) (Math.random()*Bounty.typeCount);
             for (int j = 0; j < i; j++) {
@@ -81,8 +83,15 @@ public class BobuxBounty {
                 default: bounty = Bounty.WOOL;
                 break;
             }
+            int stackAmnt = (int) (Math.random()*bounty.max + bounty.min);
             stacks[i] = new ItemStack(bounty.stack);
+            stacks[i].setAmount(stackAmnt);
             rngTrack[i] = rng;
+            compensation += bounty.bobux;
         }
+    }
+
+    public int getCompensation() {
+        return compensation;
     }
 }
