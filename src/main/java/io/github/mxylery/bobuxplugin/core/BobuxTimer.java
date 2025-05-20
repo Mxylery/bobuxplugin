@@ -6,6 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
+import io.github.mxylery.bobuxplugin.listeners.BobuxGUIGenerator;
 
 /**
  * This class keeps track of the ticks of the server and reports to the
@@ -16,7 +17,7 @@ public class BobuxTimer implements Runnable {
     private static long ticksPassed;
     private static Server server;
     private static Plugin bobuxPlugin;
-    private static BobuxItemInterface stupid;
+    private static BobuxGUIGenerator stupid;
 
     public BobuxTimer(Server pluginServer, Plugin plugin) {
         ticksPassed = 0;
@@ -24,7 +25,7 @@ public class BobuxTimer implements Runnable {
         bobuxPlugin = plugin;
         //for some reason there needs to be an initialized BobuxItemInterface to use the static method BobuxItemInterface.randomizeMarketItems
         //even though static methods by definition literally should be used statically, but it completely breaks everything if not so.
-        this.stupid = new BobuxItemInterface();
+        this.stupid = new BobuxGUIGenerator();
     }
 
     private static void refresh() {

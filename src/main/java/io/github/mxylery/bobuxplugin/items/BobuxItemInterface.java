@@ -50,58 +50,7 @@ import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOr
 
 public class BobuxItemInterface {
 
-    //java??? hello??? pls???
-    public BobuxItemInterface() {
-
-    }
-
-    //As of 0.2.3, generates 3 items randomly.
-    public static BobuxItem[] marketMenu = new BobuxItem[3];
-    public static void randomizeMarketItems() {
-        BobuxItem[] randomStack = new BobuxItem[3];
-        int[] noDupe = new int[3];
-        for (int i = 0; i < 3; i++) {
-            int rng = (int) (Math.random()*marketItemTotal);
-            for (int j = 0; j < i; j++) {
-                if (rng == noDupe[j]) {
-                    rng = (int) (Math.random()*marketItemTotal);
-                    j = -1;
-                }
-            }
-            switch(rng) {
-                case 0: marketMenu[i] = bounceBoots;
-                break;
-                case 1: marketMenu[i] = hurriedStopwatch;
-                break;
-                case 2: marketMenu[i] = harmfulSubstance;
-                break;
-                case 3: marketMenu[i] = cleaver;
-                break;
-                case 4: marketMenu[i] = bouncingItem;
-                break;
-                case 5: marketMenu[i] = lineSpawner;
-                break;
-                case 6:
-                break;
-                case 7:
-                break;
-                case 8:
-                break;
-                case 9:
-                break;
-                case 10:
-                break;
-                case 11:
-                break;
-                case 12:
-                break;
-            }
-            noDupe[i] = rng;
-        }
-    }
-
-    private static final int itemTotal = 9;
-    private static final int marketItemTotal = 5;
+    private static final int itemTotal = 13;
     private static Server server = BobuxTimer.getServer();
     private static ItemFactory itemFactory = server.getItemFactory();
 
