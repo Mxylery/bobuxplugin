@@ -63,7 +63,8 @@ public final class PlayerAbilityManager implements Listener {
         if (ability instanceof AbilityOneTime) {
             //Registers the first-time player
             if (!PAImap.containsKey(player)) {
-                PAIStructure newStruct = new PAIStructure(player);
+                PAIStructure newStruct = new PAIStructure();
+                newStruct.setOwner(player);
                 PAImap.put(player, newStruct);
             }
 
@@ -118,15 +119,16 @@ public final class PlayerAbilityManager implements Listener {
                 Player analyzedPlayer = playerList.get(i);
                 //If any of the players aren't registered yet
                 if (!PAImap.containsKey(analyzedPlayer)) {
-                    PAIStructure struct = new PAIStructure(analyzedPlayer);
+                    PAIStructure struct = new PAIStructure();
+                    struct.setOwner(analyzedPlayer);
                     PAImap.put(analyzedPlayer, struct);
                 }
                 PAIStructure analyzedPlayerHistory = PAImap.get(analyzedPlayer);
-                analyzedPlayerHistory.addPAI(abilityInstance);
+                analyzedPlayerHistory.addPAILast(abilityInstance);
                 PAImap.put(analyzedPlayer, analyzedPlayerHistory);
             }   
              
-            abilityInstanceHistory.addPAI(abilityInstance);
+            abilityInstanceHistory.addPAILast(abilityInstance);
             PAImap.put(player, abilityInstanceHistory);
 
         } else if (ability instanceof AbilityMultiStep) {

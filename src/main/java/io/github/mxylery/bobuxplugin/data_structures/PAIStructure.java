@@ -11,67 +11,122 @@ import io.github.mxylery.bobuxplugin.vectors.BobuxUtils;
 //Basically just a bag, maybe replace with doubly linked list implementation at some point
 public class PAIStructure {
     
+    //In the sentinel node, next and previous are first and last nodes respectively
+    private PAIStructure sentinel;
+    private PAIStructure next;
+    private PAIStructure previous;
     private Player owner;
-    private PlayerAbilityInstance[] PAIarray;
-    private int index;
+    private PlayerAbilityInstance PAI;
+    private int length;
 
-    public PAIStructure(Player owner) {
-        this.owner = owner;
-        PAIarray = new PlayerAbilityInstance[10];
-        index = -1;
+    public PAIStructure(PlayerAbilityInstance PAI) {
+        this.PAI = PAI;
+        this.owner = PAI.getPlayer();
+        length = 0;
     }
 
+    public PAIStructure() {
+        length = 0;
+    }
+
+    /**
+     * This method is used to clear memory of each PAIStructure whenever their length reaches above 50 to make sure 
+     */
     private void clearMemory() {
-        int cull = 0;
-        for (int i = 0; i < index; i++) {
-            //If it has been more than one minute, remove the instances. 
-            //No ability should rely on an instance ran more than a minute from its activation.
-            if (BobuxTimer.getTicksPassed() - PAIarray[i].getTick() > 1200) {
-                cull = i;
+        int cull = length;
+        PAIStructure tempHead = this;
+        while(tempHead.previous != this) {
+            tempHead = tempHead.previous;
+            if (BobuxTimer.getTicksPassed() - tempHead.PAI.getTick() > 1200) {
                 break;
             }
+            cull++;
         }
-        for (int i = 0; i + cull < index; i++) {
-            PAIarray[i] = PAIarray[i+cull];
-        }
-        index =- cull;
+        this.next = tempHead;
+        length -= cull;
         System.out.print("Culled " + cull + " PAIs.");
     }
 
-    private void addMemory() {
-        int arrayLength = PAIarray.length;
-        PlayerAbilityInstance[] newPAIarray = new PlayerAbilityInstance[arrayLength*2];
-        System.arraycopy(PAIarray, 0, newPAIarray, 0, arrayLength);
-        PAIarray = newPAIarray;
-    }
-
+    /**
+     * Returns the owner of the Player Ability Structure.
+     * @return Owner of the PAIStructure.
+     */
     public Player getOwner() {
         return owner;
     }
 
-    public void addPAI(PlayerAbilityInstance PAI) {
-        if (index > 8) {
-            this.clearMemory();
+    /**
+     * Sets the owner of the Player Ability Structure. This should only be used for sentinel nodes.
+     * @param player The player set to be this PAIStructure's owner.
+     */
+    public void setOwner(Player player) {
+        owner = player;
+    }
+
+    /**
+     * Sets the given node after the sentinel node.
+     * @param PAI Node to be set.
+     */
+    public void addPAIFirst(PlayerAbilityInstance PAI) {
+        if (length == 0) {
+            PAIStructure newElement = new PAIStructure(PAI);
+            this.sentinel = this;
+            this.next = newElement;
+            this.previous = newElement;
+            newElement.next = sentinel;
+            newElement.previous = sentinel;
+            length++;
+        } else if (length >= 1) {
+            PAIStructure newFirst = new PAIStructure(PAI);
+            PAIStructure prevFirst = this.next;
+            this.next = newFirst;
+            prevFirst.previous = newFirst;
+            newFirst.previous = this;
+            newFirst.next = prevFirst;
+            length++;
+        } 
+        if (length > 100) {
+            clearMemory();
         }
-        if (index + 1 >= PAIarray.length) {
-            this.addMemory();
-        }
-        index++;
-        PAIarray[index] = PAI;
+    }
+
+    /**
+     * Sets the given node before the sentinel node.
+     * @param PAI Node to be set.
+     */
+    public void addPAILast(PlayerAbilityInstance PAI) {
+        if (length == 0) {
+            PAIStructure newElement = new PAIStructure(PAI);
+            this.sentinel = this;
+            this.next = newElement;
+            this.previous = newElement;
+            newElement.next = sentinel;
+            newElement.previous = sentinel;
+            length++;
+        } else if (length >= 1) {
+            PAIStructure newLast = new PAIStructure(PAI);
+            PAIStructure prevLast = this.previous;
+            this.previous = newLast;
+            prevLast.next = newLast;
+            newLast.next = this;
+            newLast.previous = prevLast;
+            length++;
+        } 
     }
 
     /*
      * This method seeks to remove the oldest instance of a desired ability within a time frame of a player
      */
     public boolean removeAbilityInstance(BobuxAbility ability, long timeFrame) {
-        
-        for (int i = index; i > index; i--) {
-            //Checks if the ability of the checked PAI is the desired one
-            if (PAIarray[i].getAbility().getName().equals(ability.getName())) {
-                if (PAIarray[i].getTick() - BobuxTimer.getTicksPassed() < timeFrame) {
-                    for (int j = i; j < PAIarray.length - 1; j++) {
-                        PAIarray[j] = PAIarray[j+1];
-                    }
+        PAIStructure tempHead = this;
+        while (tempHead.previous != this) {
+            tempHead = tempHead.previous;
+            if (tempHead.PAI.getAbility().getName().equals(ability.getName())) {
+                if (tempHead.PAI.getTick() - BobuxTimer.getTicksPassed() < timeFrame) {
+                    PAIStructure previous = tempHead.previous;
+                    PAIStructure after = tempHead.next;
+                    previous.next = after;
+                    after.previous = previous;
                     return true;
                 }
             }
@@ -85,21 +140,23 @@ public class PAIStructure {
      * This is used for when a condition is for other users  of the same ability in a certain radius and time frame
      */
     public boolean removeAbilityInstance(BobuxAbility ability, long timeFrame, double radius) {
-        
-        for (int i = index; i > 0; i--) {
+        PAIStructure tempHead = this;
+        while (tempHead.previous != this) {
+            tempHead = tempHead.previous;
             //Checks if the ability of the checked PAI is the desired one
-            if (PAIarray[i].getAbility().getName().equals(ability.getName())) {
+            if (tempHead.PAI.getAbility().getName().equals(ability.getName())) {
 
-                Player otherPlayer = PAIarray[i].getPlayer();
+                Player otherPlayer = tempHead.PAI.getPlayer();
                 Location location1 = owner.getLocation();
                 Location location2 = otherPlayer.getLocation();
 
                 //If their distance is less than the radius
                 if (BobuxUtils.getLocationDifferenceMagnitude(location1, location2) < radius) {
-                    if (PAIarray[i].getTick() - BobuxTimer.getTicksPassed() < timeFrame) {
-                        for (int j = i; j < PAIarray.length; j++) {
-                            PAIarray[j] = PAIarray[j+1];
-                        }
+                    if (BobuxTimer.getTicksPassed() - tempHead.PAI.getTick() < timeFrame) {
+                        PAIStructure previous = tempHead.previous;
+                        PAIStructure after = tempHead.next;
+                        previous.next = after;
+                        after.previous = previous;
                         return true;
                     }
                 }
@@ -119,17 +176,19 @@ public class PAIStructure {
      * @return The remaining cooldown before using or -1 if not found
      */
     public long checkForAbilityCD(BobuxAbility ability, long timeFrame, Player player) {
-        if (index == -1) {
+        if (length == 0) {
             return -1;
         }
-        for (int i = index; i > -1; i--) {
+        PAIStructure tempHead = this;
+        while(tempHead.previous != this) {
+            tempHead = tempHead.previous;
             //Checks if the ability of the checked PAI is the desired one
-            if (PAIarray[i].getAbility().equals(ability)) {
-                    if (PAIarray[i].getPlayer().equals(player)) {
-                    if (BobuxTimer.getTicksPassed() - PAIarray[i].getTick() < timeFrame) {
-                        return BobuxTimer.getTicksPassed() - PAIarray[i].getTick();
+            if (tempHead.PAI.getAbility().equals(ability)) {
+                    if (tempHead.PAI.getPlayer().equals(player)) {
+                    if (BobuxTimer.getTicksPassed() - tempHead.PAI.getTick() < timeFrame) {
+                        return BobuxTimer.getTicksPassed() - tempHead.PAI.getTick();
                     } else {
-                         break;
+                        break;
                     }
                 }  
                 //If the difference of the currentTime and the ability instance is
@@ -139,9 +198,8 @@ public class PAIStructure {
         return -1;
     }
     
-
-    public int getIndex() {
-        return index;
+    public int getLength() {
+        return length;
     }
 
 }
