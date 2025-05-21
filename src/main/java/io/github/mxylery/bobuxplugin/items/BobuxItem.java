@@ -170,7 +170,7 @@ public class BobuxItem {
     public void initializeStack() {
 		ItemMeta meta = (ItemMeta) stack.getItemMeta();
 		List<String> lore = new ArrayList<>();
-        lore.add("_________________");
+        lore.add("§n_______________");
         lore.add("");
 		
         //Each element of description is a seperate line

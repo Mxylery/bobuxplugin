@@ -166,30 +166,30 @@ public class BobuxItemInterface {
     private static ItemStack bobuxSquareStack = new ItemStack(Material.LIME_WOOL);
     private static String[] bobuxSquareDesc = 
     {"§7Official currency of the Bobux SMP",
-    "§7Worth 4 $BBX"};
+    "§7Worth 8 $BBX"};
     private static String bobuxSquareName = "§l§aBobux Square";
     public static BobuxItem bobuxSquare = new BobuxItem
-    (bobuxSquareStack, bobuxSquareDesc, bobuxSquareName, 4);
+    (bobuxSquareStack, bobuxSquareDesc, bobuxSquareName, 8);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxCubeStack = new ItemStack(Material.LIME_TERRACOTTA);
     private static String[] bobuxCubeDesc = 
     {"§7Official currency of the Bobux SMP",
-    "§7Worth 16 $BBX"};
+    "§7Worth 64 $BBX"};
     private static String bobuxCubeName = "§l§aBobux Cube";
     public static BobuxItem bobuxCube = new BobuxItem
-    (bobuxCubeStack, bobuxCubeDesc, bobuxCubeName, 16);
+    (bobuxCubeStack, bobuxCubeDesc, bobuxCubeName, 64);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxTesseractStack = new ItemStack(Material.EMERALD_BLOCK);
     private static String[] bobuxTesseractDesc = 
     {"§7Official currency of the Bobux SMP",
-    "§7Worth 64 $BBX"};
+    "§7Worth 512 $BBX"};
     private static String bobuxTesseractName = "§l§aBobux Tesseract";
     public static BobuxItem bobuxTesseract = new BobuxItem
-    (bobuxTesseractStack, bobuxTesseractDesc, bobuxTesseractName, 64);
+    (bobuxTesseractStack, bobuxTesseractDesc, bobuxTesseractName, 512);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -267,6 +267,27 @@ public class BobuxItemInterface {
     private static String bountyName = "§c§lBounties";
     public static BobuxItem bounty = new BobuxItem
     (bountyStack, bountyDesc, bountyName);
-
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack theHotStickStack = new ItemStack(Material.BLAZE_ROD);
+    private static String[] theHotStickDesc = 
+    {"§7Right click to launch a blazing line of pure fire!",
+    "§8(Left or right click)"};
+    private static String theHotStickName = "§cTh§6e H§eot §6St§cick";
+    private static ParticleSequence theHotStickParticleSequence1 = new ParticleSequence
+    (ParticleSequenceOrientations.NORMAL, Particle.FLAME, 30, 5, 0, null);
+    private static ParticleSequence theHotStickParticleSequence2 = new ParticleSequence
+    (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.FLAME, 5, 5, 5, 5, 0, null);
+    private static BobuxAction[] theHotStickActionList = 
+    {new DamageEntity(10, false), 
+    new PlayParticle(theHotStickParticleSequence1, false),
+    new PlayParticle(theHotStickParticleSequence2, false),
+    new SetFire(200, false)};
+    private static BobuxAbility theHotStickAbility = 
+    new AbilityOneTime(100, null, theHotStickActionList, "The Hot Stick Ability", false);
+    public static BobuxItem theHotStick = new BobuxItem
+    (theHotStickStack, theHotStickDesc, theHotStickName, theHotStickAbility, 50);
+    //////////////////////////////////////////////////////////////////////////////////////////
 }
 

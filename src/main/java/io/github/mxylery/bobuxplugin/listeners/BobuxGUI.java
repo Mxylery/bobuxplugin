@@ -59,4 +59,5 @@ public abstract class BobuxGUI implements Listener {
         this.slotIndex = slotIndex;
         generateGUI();
     }
+    
 }

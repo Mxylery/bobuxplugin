@@ -285,11 +285,11 @@ public class BobuxUtils {
                 if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobux)) {
                 bbxTotal += stack.getAmount();
             } else if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobuxSquare)){
-                bbxTotal += 4*stack.getAmount();
+                bbxTotal += 8*stack.getAmount();
             } else if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobuxCube)){
-                bbxTotal += 16*stack.getAmount();
-            } else if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobuxTesseract)){
                 bbxTotal += 64*stack.getAmount();
+            } else if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobuxTesseract)){
+                bbxTotal += 512*stack.getAmount();
             	}
         	}
     	}

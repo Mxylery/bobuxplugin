@@ -55,11 +55,6 @@ public class ParticleSequence implements Runnable {
         directionMatrix = BobuxUtils.getNormalizedMatrix(direction);
     }
 
-    //The matrix needs to be recorrected to account for the <t,cost,sint> vectors since it is only centered around the x axis being the normalized axis.
-    private void reconfigureMatrix() {
-
-    }
-
     /**
      * This constructor is used for non-animated line sequences.
      * @param option Particle sequence desired (line, ring, etc)
@@ -108,8 +103,6 @@ public class ParticleSequence implements Runnable {
         this.length = outRadius - inRadius;
         this.animated = true;
     }
-
-    
 
     public void run() {
         //Left-hand: x is index, z is middle, y is thumb

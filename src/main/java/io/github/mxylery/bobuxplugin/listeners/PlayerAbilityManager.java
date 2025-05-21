@@ -210,9 +210,13 @@ public final class PlayerAbilityManager implements Listener {
                     }
                 }
                 if (actionList[i] instanceof PlayParticle) {
-                    actionList[i].initializeVector(particleDir[j]);
-                    actionList[i].initializeLocation(particleLoc[j]);
-                    j++;
+                    if (particleDir[j] != null && particleLoc[j] != null) {
+                        actionList[i].initializeVector(particleDir[j]);
+                        actionList[i].initializeLocation(particleLoc[j]);
+                        j++;
+                    } else {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -346,6 +350,11 @@ public final class PlayerAbilityManager implements Listener {
         Player player = e.getPlayer();
         Vector playerEyeVector = player.getEyeLocation().getDirection();
         Location playerLocation = player.getLocation();
+        //This location is specifically for items that registers in lines and can accidentally include the player
+        Location slightlyExtendedPlayerLoc = new Location(playerLocation.getWorld(), 
+        playerLocation.getX() + playerEyeVector.getX(), 
+        playerLocation.getZ() + playerEyeVector.getZ(), 
+        playerLocation.getZ() + playerEyeVector.getZ());
         if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
             Entity[] playerAsArray = {player};
             checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, 
@@ -365,6 +374,14 @@ public final class PlayerAbilityManager implements Listener {
 
             checkForSlotMatch(BobuxItemInterface.railgun, player, EquipmentSlot.HAND, 
             BobuxUtils.getEntitiesLine(playerLocation, 30, 1, 10, playerEyeVector), null, playerLocation, railgunVectors, railgunLocs);
+
+            if (BobuxUtils.getEntitiesLine(slightlyExtendedPlayerLoc, 30, 1, 1, playerEyeVector)[0] != null) {
+                Entity hotStickEntity = BobuxUtils.getEntitiesLine(playerLocation, 30, 1, 1, playerEyeVector)[0];
+                Vector[] theHotStickVectors = {playerEyeVector, playerEyeVector};
+                Location[] theHotStickLocs = {elevatedPlayerLoc, hotStickEntity.getLocation()};
+                checkForSlotMatch(BobuxItemInterface.theHotStick, player, EquipmentSlot.HAND, 
+                BobuxUtils.getEntitiesLine(slightlyExtendedPlayerLoc, 30, 1, 1, playerEyeVector), null, null, theHotStickVectors, theHotStickLocs);
+            }
         }
     }
 

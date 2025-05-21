@@ -87,16 +87,16 @@ public class BobuxTransaction {
                 slotNums[size] = i;
                 System.out.println("Bobux: " + stack.getAmount());
             } else if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobuxSquare)){
-                bbxTotal += 4*stack.getAmount();
+                bbxTotal += 8*stack.getAmount();
                 size++;
                 slotNums[size] = i;
                 System.out.println("Square: " + stack.getAmount());
             } else if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobuxCube)){
-                bbxTotal += 16*stack.getAmount();
+                bbxTotal += 64*stack.getAmount();
                 size++;
                 slotNums[size] = i;
             } else if (BobuxUtils.checkWithoutDuraAmnt(stack, BobuxItemInterface.bobuxTesseract)){
-                bbxTotal += 64*stack.getAmount();
+                bbxTotal += 512*stack.getAmount();
                 size++;
                 slotNums[size] = i;
             }
@@ -224,13 +224,13 @@ public class BobuxTransaction {
 
     private void bobuxCompensator() {
         while (cost < 0) {
-            while (cost <= -16) {
+            while (cost <= -64) {
                 inventory.addItem(BobuxItemInterface.bobuxCube.getStack());
-                cost += 16;
+                cost += 64;
             }
-            while (cost <= -4) {
+            while (cost <= -8) {
                 inventory.addItem(BobuxItemInterface.bobuxSquare.getStack());
-                cost += 4;
+                cost += 8;
             }
             inventory.addItem(BobuxItemInterface.bobux.getStack());
             cost += 1;
@@ -337,7 +337,7 @@ public class BobuxTransaction {
                     int prevAmnt = intermStack.getAmount();
                     intermStack.setAmount(prevAmnt - 1);
                     prevAmnt--;
-                    cost -= 64;
+                    cost -= 512;
                         if (prevAmnt == 0) {
                             for (int i = 0; i < tesseractStack.length-1; i++) {
                                 tesseractStack[i] = tesseractStack[i+1];
@@ -358,7 +358,7 @@ public class BobuxTransaction {
                         int prevAmnt = intermStack.getAmount();
                         intermStack.setAmount(prevAmnt - 1);
                         prevAmnt--;
-                        cost -= 16;
+                        cost -= 64;
                         if (prevAmnt == 0) {
                             for (int i = 0; i < cubeStack.length-1; i++) {
                                 cubeStack[i] = cubeStack[i+1];
@@ -380,7 +380,7 @@ public class BobuxTransaction {
                         int prevAmnt = intermStack.getAmount();
                         intermStack.setAmount(prevAmnt - 1);
                         prevAmnt--;
-                        cost -= 4;
+                        cost -= 8;
                         if (prevAmnt == 0) {
                             for (int i = 0; i < squareStack.length-1; i++) {
                                 squareStack[i] = squareStack[i+1];

@@ -51,6 +51,8 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
                 case "railgun": player.getInventory().addItem(BobuxItemInterface.railgun.getStack());
                 break;
+                case "the_hot_stick": player.getInventory().addItem(BobuxItemInterface.theHotStick.getStack());
+                break;
                 default:
                 break;
             }
