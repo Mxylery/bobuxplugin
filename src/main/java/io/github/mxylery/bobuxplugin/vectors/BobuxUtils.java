@@ -94,26 +94,6 @@ public class BobuxUtils {
 		return false;
 	}
 
-	public static boolean checkWithoutDuraAmnt(ItemStack item, ItemStack item2) {
-		ItemStack tempStack = new ItemStack(item);
-		tempStack.setAmount(1);
-		ItemMeta tempMeta = tempStack.getItemMeta();
-		if (tempMeta instanceof Damageable && item2.getItemMeta() instanceof Damageable) {
-			Damageable damageable = (Damageable) tempMeta;
-			damageable.setDamage(0);
-			tempStack.setItemMeta(damageable);
-			if (damageable.equals((Damageable) item2.getItemMeta())) {
-			return true;
-		}
-		return false;
-		}
-		System.out.println("First Item: ");
-		if (tempStack.equals(item2)) {
-			return true;
-		}
-		return false;
-	}
-
 	//Don't forget to make it so that like when you like when when you like when if its when if its - then unnegative because then its like the other way or like negative it after the normalize
 	public static Vector[] getNormalizedMatrix(Vector vector) {
 		Vector[] matrix = new Vector[3];

@@ -159,7 +159,7 @@ public class BobuxItemInterface {
     "§7Worth 1 $BBX"};
     private static String bobuxName = "§l§aBobux";
     public static BobuxItem bobux = new BobuxItem
-    (bobuxStack, bobuxDesc, bobuxName);
+    (bobuxStack, bobuxDesc, bobuxName, 1);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
