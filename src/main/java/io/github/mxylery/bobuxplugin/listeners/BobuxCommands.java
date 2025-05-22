@@ -53,6 +53,10 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
                 case "the_hot_stick": player.getInventory().addItem(BobuxItemInterface.theHotStick.getStack());
                 break;
+                case "bw5": player.getInventory().addItem(BobuxItemInterface.BW5.getStack());
+                break;
+                case "bw5_ammo": player.getInventory().addItem(BobuxItemInterface.BW5Ammo.getStack());
+                break;
                 default:
                 break;
             }

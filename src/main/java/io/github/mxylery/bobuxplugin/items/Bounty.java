@@ -5,7 +5,7 @@ import org.bukkit.inventory.ItemStack;
 
 public enum Bounty {
 
-    BROWN_MUSHROOM (6, 2, 16, new ItemStack(Material.BROWN_MUSHROOM)),
+    BROWN_MUSHROOM (11, 2, 16, new ItemStack(Material.BROWN_MUSHROOM)),
 	CARROT (16, 16, 32, new ItemStack(Material.CARROT)),
 	DIAMOND (71, 2, 4, new ItemStack(Material.DIAMOND)),
 	ENDER_PEARL (29, 2, 5, new ItemStack(Material.ENDER_PEARL)),

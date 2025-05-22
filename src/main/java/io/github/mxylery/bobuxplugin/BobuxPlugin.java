@@ -16,17 +16,17 @@ public final class BobuxPlugin extends JavaPlugin {
 	public void onEnable() {
 		getLogger().info("onEnable has been invoked!");
 
+        scheduler = this.getServer().getScheduler();
+        BobuxTimer bobuxTimer = new BobuxTimer(this.getServer(), this);
+        scheduler.runTaskTimer(this, bobuxTimer, 0, 1);
+
         new BobuxGiver(this);
-        new PlayerAbilityManager(this);
+        new BobuxAbilityListener(this);
         new BobuxGUIGenerator(this);
         
         this.getCommand("bobuxgive").setExecutor(new BobuxCommands(this));
         this.getCommand("bobuxmenu").setExecutor(new BobuxCommands(this));
         this.getCommand("bobuxinfo").setExecutor(new BobuxCommands(this));
-
-        scheduler = this.getServer().getScheduler();
-        BobuxTimer bobuxTimer = new BobuxTimer(this.getServer(), this);
-        scheduler.runTaskTimer(this, bobuxTimer, 0, 1);
         
 	}
 

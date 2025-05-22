@@ -52,7 +52,7 @@ public class ParticleSequence implements Runnable {
     }
 
     public void setDirection(Vector direction) {
-        directionMatrix = BobuxUtils.getNormalizedMatrix(direction);
+        directionMatrix = BobuxUtils.getNormalizedMatrix(direction, orientation);
     }
 
     /**
@@ -106,21 +106,6 @@ public class ParticleSequence implements Runnable {
 
     public void run() {
         //Left-hand: x is index, z is middle, y is thumb
-        switch(orientation) {
-            case NORMAL: 
-            break;
-            case DOWN:
-            Vector oldX = directionMatrix[0];
-            Vector oldY = directionMatrix[1];
-            Vector oldZ = directionMatrix[2];
-            directionMatrix[0] = oldY;
-            directionMatrix[0].multiply(-1);
-            directionMatrix[1] = oldX;
-            directionMatrix[2] = oldZ;
-            break;
-            default:
-            break;
-        }
         switch(option) {
             case LINE: drawLine(location);
             break;
@@ -146,7 +131,6 @@ public class ParticleSequence implements Runnable {
             BukkitScheduler scheduler = BobuxTimer.getScheduler();
             scheduler.runTaskLater(BobuxTimer.getPlugin(), this, ticks);
         }
-        
     }
 
     private void drawLine(Location thisLoc) {

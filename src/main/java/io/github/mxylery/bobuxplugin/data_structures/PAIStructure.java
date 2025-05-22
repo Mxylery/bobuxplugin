@@ -177,6 +177,7 @@ public class PAIStructure {
      */
     public long checkForAbilityCD(BobuxAbility ability, long timeFrame, Player player) {
         if (length == 0) {
+            System.out.println("Length zero");
             return -1;
         }
         PAIStructure tempHead = this;

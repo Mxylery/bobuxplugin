@@ -211,4 +211,8 @@ public class BobuxItem {
         return name;
     }
 
+    public BobuxAbility getPassive() {
+        return passive;
+    }
+
 }

@@ -18,6 +18,7 @@ import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.ability_types.AbilityOneTime;
+import io.github.mxylery.bobuxplugin.core.ability_types.AbilityPassive;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;
@@ -111,11 +112,11 @@ public class BobuxItemInterface {
     //
     private static BobuxAction[][] randomHarmfulSubstanceActionList1 = 
     {
-    {new EffectGive(PotionEffectType.REGENERATION, 300, 1, false), 
-    new EffectGive(PotionEffectType.ABSORPTION, 300, 0, false)
+    {new EffectGive(PotionEffectType.POISON, 300, 0, false), 
+    new DamageEntity(4, false)
     },
     {new EffectGive(PotionEffectType.POISON, 300, 1, false), 
-    new DamageEntity(4, false)
+    new DamageEntity(8, false)
     }
     };
     private static double[] randomHarmfulSubstanceActionList1Weights = {0.2, 0.8};
@@ -138,8 +139,8 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack hurriedStopwatchStack = new ItemStack(Material.CLOCK);
     private static String[] hurriedStopwatchDesc = 
-    {"§7Right clicking gives the user Speed III for 5 seconds",
-    "§715s CD"};
+    {"§7Gives the user Speed III for 5 seconds",
+    "§815s CD (Right Click)"};
     private static String hurriedStopwatchName = "§r§fHurried Stopwatch";
     private static BobuxAction[] hurriedStopwatchActionList = 
     {new EffectGive(PotionEffectType.SPEED, 100, 2, false)};
@@ -156,7 +157,7 @@ public class BobuxItemInterface {
     private static ItemStack bobuxStack = new ItemStack(Material.LIME_DYE);
     private static String[] bobuxDesc = 
     {"§7Official currency of the Bobux SMP",
-    "§7Worth 1 $BBX"};
+    "§8Worth 1 $BBX"};
     private static String bobuxName = "§l§aBobux";
     public static BobuxItem bobux = new BobuxItem
     (bobuxStack, bobuxDesc, bobuxName, 1);
@@ -166,7 +167,7 @@ public class BobuxItemInterface {
     private static ItemStack bobuxSquareStack = new ItemStack(Material.LIME_WOOL);
     private static String[] bobuxSquareDesc = 
     {"§7Official currency of the Bobux SMP",
-    "§7Worth 8 $BBX"};
+    "§8Worth 8 $BBX"};
     private static String bobuxSquareName = "§l§aBobux Square";
     public static BobuxItem bobuxSquare = new BobuxItem
     (bobuxSquareStack, bobuxSquareDesc, bobuxSquareName, 8);
@@ -176,7 +177,7 @@ public class BobuxItemInterface {
     private static ItemStack bobuxCubeStack = new ItemStack(Material.LIME_TERRACOTTA);
     private static String[] bobuxCubeDesc = 
     {"§7Official currency of the Bobux SMP",
-    "§7Worth 64 $BBX"};
+    "§8Worth 64 $BBX"};
     private static String bobuxCubeName = "§l§aBobux Cube";
     public static BobuxItem bobuxCube = new BobuxItem
     (bobuxCubeStack, bobuxCubeDesc, bobuxCubeName, 64);
@@ -186,7 +187,7 @@ public class BobuxItemInterface {
     private static ItemStack bobuxTesseractStack = new ItemStack(Material.EMERALD_BLOCK);
     private static String[] bobuxTesseractDesc = 
     {"§7Official currency of the Bobux SMP",
-    "§7Worth 512 $BBX"};
+    "§8Worth 512 $BBX"};
     private static String bobuxTesseractName = "§l§aBobux Tesseract";
     public static BobuxItem bobuxTesseract = new BobuxItem
     (bobuxTesseractStack, bobuxTesseractDesc, bobuxTesseractName, 512);
@@ -206,7 +207,7 @@ public class BobuxItemInterface {
     private static ItemStack cleaverStack = new ItemStack(Material.GOLDEN_SWORD);
     private static String[] cleaverDesc = 
     {"§7Hitting mobs with this sword cleaves the mobs behind it.",
-    "§75s CD"};
+    "§85s CD"};
     private static String cleaverName = "§r§fCleaver";
     private static ParticleSequence cleaverParticleSequence = 
     new ParticleSequence(ParticleSequenceOptions.RING, ParticleSequenceOrientations.DOWN, Particle.DUST, 2, 0, 0, 3, 0, new DustOptions(Color.YELLOW, 2));
@@ -215,7 +216,7 @@ public class BobuxItemInterface {
     new ChangeVelocity(0.5, false),
     new PlayParticle(cleaverParticleSequence, false)};
     private static BobuxAbility cleaverAbility = new AbilityOneTime
-    (100, null, cleaverActionList, "Cleaver Ability", false);
+    (100, null, cleaverActionList, "Cleaver Ability", true);
     public static BobuxItem cleaver = new BobuxItem
     (cleaverStack, cleaverDesc, cleaverName, cleaverAbility, 
     null, null, true, 16);
@@ -229,19 +230,19 @@ public class BobuxItemInterface {
     private static String lineSpawnerName = "§r§fLine Spawner";
     private static ParticleSequence lineSpawnerParticleSequence = 
     new ParticleSequence(ParticleSequenceOrientations.NORMAL, Particle.ANGRY_VILLAGER, 5, 3, 0, null);
-    private static BobuxAction[] lineSpawnerActionList = 
+    private static BobuxAction[] lineSpawnerPassiveActionList = 
     {new PlayParticle(lineSpawnerParticleSequence, false)};
-    private static BobuxAbility lineSpawnerAbility = new AbilityOneTime
-    (40, null, lineSpawnerActionList, "Line Spawner Ability", false);
+    private static AbilityPassive lineSpawnerPassive = new AbilityPassive
+    (5, null, lineSpawnerPassiveActionList, "Line Spawner Passive", false);
     public static BobuxItem lineSpawner = new BobuxItem
-    (lineSpawnerStack, lineSpawnerDesc, lineSpawnerName, lineSpawnerAbility, 16);
+    (lineSpawnerStack, lineSpawnerDesc, lineSpawnerName, lineSpawnerPassive, 16);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack railgunStack = new ItemStack(Material.IRON_HOE);
     private static String[] railgunDesc = 
-    {"§7Right click to shoot a beam that pierces enemies.",
-    "§71s CD"};
+    {"§7Shoot a beam that pierces enemies.",
+    "§81s CD (Right Click)"};
     private static String railgunName = "§r§fRailgun";
     private static ParticleSequence railgunParticleSequence1 = 
     new ParticleSequence(ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 30, 2.0, 0.0, null);
@@ -273,7 +274,7 @@ public class BobuxItemInterface {
     private static ItemStack theHotStickStack = new ItemStack(Material.BLAZE_ROD);
     private static String[] theHotStickDesc = 
     {"§7Right click to launch a blazing line of pure fire!",
-    "§8(Left or right click)"};
+    "§85s CD (Right click)"};
     private static String theHotStickName = "§cTh§6e H§eot §6St§cick";
     private static ParticleSequence theHotStickParticleSequence1 = new ParticleSequence
     (ParticleSequenceOrientations.NORMAL, Particle.FLAME, 30, 5, 0, null);
@@ -288,6 +289,50 @@ public class BobuxItemInterface {
     new AbilityOneTime(100, null, theHotStickActionList, "The Hot Stick Ability", false);
     public static BobuxItem theHotStick = new BobuxItem
     (theHotStickStack, theHotStickDesc, theHotStickName, theHotStickAbility, 50);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack BW5AmmoStack = new ItemStack(Material.BLUE_WOOL);
+    private static String[] BW5AmmoDesc = 
+    {"§7Ammunition used for the BW5 \"Nitro Express\" Rifle.",
+    "§8This item will be consumed upon one use of the BW5."};
+    private static String BW5AmmoName = "§1BW-5 Ammo";
+    public static BobuxItem BW5Ammo = new BobuxItem
+    (BW5AmmoStack, BW5AmmoDesc, BW5AmmoName, 4);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack BW5Stack = new ItemStack(Material.DIAMOND_HOE);
+    private static String[] BW5Desc = 
+    {"§7Nowhere would anyone expect this...",
+    "§85s CD (Right click to use)"};
+    private static String BW5Name = "§1BW-5 \"Nitro Express\"";
+    private static ParticleSequence BW5ParticleSequence1 = new ParticleSequence
+    (ParticleSequenceOrientations.NORMAL, Particle.WHITE_SMOKE, 30, 3, 0, new DustOptions(Color.RED, 4));
+    private static ParticleSequence BW5ParticleSequence2 = new ParticleSequence
+    (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.DUST, 5, 5, 5, 5, 0, new DustOptions(Color.RED, 4));
+    private static ParticleSequence BW5ParticleSequence3 = new ParticleSequence
+    (ParticleSequenceOrientations.UP, Particle.DUST, 2.5, 3, 0, new DustOptions(Color.RED, 4));
+    private static ParticleSequence BW5ParticleSequence4 = new ParticleSequence
+    (ParticleSequenceOrientations.RIGHT, Particle.DUST, 2.5, 3, 0, new DustOptions(Color.RED, 4));
+    private static ParticleSequence BW5ParticleSequence5 = new ParticleSequence
+    (ParticleSequenceOrientations.DOWN, Particle.DUST, 2.5, 3, 0, new DustOptions(Color.RED, 4));
+    private static ParticleSequence BW5ParticleSequence6 = new ParticleSequence
+    (ParticleSequenceOrientations.LEFT, Particle.DUST, 2.5, 3, 0, new DustOptions(Color.RED, 4));
+    private static BobuxAction[] BW5ActionList = 
+    {new DamageEntity(30, false), 
+    new PlayParticle(BW5ParticleSequence1, false),
+    new PlayParticle(BW5ParticleSequence2, false),
+    new PlayParticle(BW5ParticleSequence3, false),
+    new PlayParticle(BW5ParticleSequence4, false),
+    new PlayParticle(BW5ParticleSequence5, false),
+    new PlayParticle(BW5ParticleSequence6, false),
+    new PlaySound(Sound.ENTITY_GENERIC_EXPLODE, 0.4f, 0.5f, false),
+    new DeleteSelf(BobuxItemInterface.BW5AmmoStack, 1, false)};
+    private static BobuxAbility BW5Ability = 
+    new AbilityOneTime(100, null, BW5ActionList, "BW5 Ability", false);
+    public static BobuxItem BW5 = new BobuxItem
+    (BW5Stack, BW5Desc, BW5Name, BW5Ability, 256);
     //////////////////////////////////////////////////////////////////////////////////////////
 }
 

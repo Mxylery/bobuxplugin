@@ -13,13 +13,13 @@ public class PlayParticle extends BobuxAction {
     public PlayParticle(ParticleSequence particleSequence, boolean requiresCondition) {
         this.particleSequence = particleSequence;
         this.particleSequenceArray = null;
-        super.requiresCondition = true;
+        super.requiresCondition = requiresCondition;
     }
     
     public PlayParticle(ParticleSequence[] particleSequenceArray, int[] delays, boolean requiresCondition) {
         this.particleSequenceArray = particleSequenceArray;
         this.delays = delays;
-        super.requiresCondition = true;
+        super.requiresCondition = requiresCondition;
     }
 
     public void adjustPerc(double adjustment) {
@@ -34,7 +34,7 @@ public class PlayParticle extends BobuxAction {
         if (particleSequenceArray == null) {
             ParticlePlayer.spawnParticles(particleSequence, super.location, super.vector);
         } else {
-            ParticlePlayer.spawnParticles(particleSequenceArray, null, location, vector);
+            ParticlePlayer.spawnParticles(particleSequenceArray, delays, location, vector);
         }
     }
 
