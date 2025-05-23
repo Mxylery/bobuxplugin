@@ -3,6 +3,7 @@ package io.github.mxylery.bobuxplugin.core;
 import org.bukkit.Location;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
 public abstract class BobuxAction implements Runnable {
@@ -10,10 +11,12 @@ public abstract class BobuxAction implements Runnable {
 protected Location location;
 protected Vector vector;
 protected Entity[] entityList;
+protected Inventory inventory;
 protected boolean requiresCondition;
 protected boolean requiresEntity = false;
 protected boolean requiresVector = false;
 protected boolean requiresLocation = false;
+protected boolean requiresInventory = false;
 
 public abstract void run();
 public abstract void adjustFlat(double adjustment);
@@ -31,6 +34,10 @@ public void initializeLocation(Location location) {
     this.location = location;
 }
 
+public void initializeInventory(Inventory inventory) {
+    this.inventory = inventory;
+}
+
 public boolean requiresEntities() {
     return requiresEntity;
 }
@@ -45,6 +52,10 @@ public boolean requiresLocation() {
 
 public boolean requiresCondition() {
     return requiresCondition;
+}
+
+public boolean requiresInventory() {
+    return requiresInventory;
 }
     
 }

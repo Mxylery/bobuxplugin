@@ -1,4 +1,4 @@
-package io.github.mxylery.bobuxplugin.vectors;
+package io.github.mxylery.bobuxplugin.core;
 
 import java.util.ArrayList;
 
@@ -13,6 +13,7 @@ import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
+import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;
 
@@ -54,6 +55,24 @@ public class BobuxUtils {
 		return playerList;
 	}
 
+
+	//This is to excluse a center player
+	public static ArrayList<Player> getNearbyPlayers(Player player, double radius) {
+
+		Location loc = player.getLocation();
+		ArrayList<Entity> entityList = new ArrayList<Entity>();
+		entityList = (ArrayList<Entity>) loc.getWorld().getNearbyEntities(loc, radius, radius, radius);
+		ArrayList<Player> playerList = new ArrayList<Player>();
+
+		for (int i = 0; i < entityList.size(); i++) {
+			if (entityList.get(i) instanceof Player && !entityList.get(i).equals(player)) {
+				Player newPlayer = (Player) entityList.get(i);
+				playerList.add(newPlayer);
+			}
+		}
+		return playerList;
+	}
+
 	public static int[] checkTotalItems(Inventory inventory, ItemStack stack) {
         int itemTotal = 0;
         int size = -1;
@@ -61,7 +80,9 @@ public class BobuxUtils {
         for (int i = 0; i < 36; i++) {
             ItemStack currStack = inventory.getItem(i);
             if (currStack != null) {
+				System.out.println("Stack " + i + " " + currStack.getType());
                 if (BobuxUtils.checkWithoutDuraAmnt(currStack, stack)) {
+					System.out.println("Stack " + i + " " + currStack.getType() + " put!");
                     itemTotal += currStack.getAmount();
                     size++;
                     slotNums[size] = i;
@@ -69,6 +90,7 @@ public class BobuxUtils {
             }
         }
         if (size != -1) {
+			System.out.println("Size: " + size);
             int[] newSlots = new int[size+1];
             System.arraycopy(slotNums, 0, newSlots, 0, size+1);
             return newSlots;
@@ -79,6 +101,7 @@ public class BobuxUtils {
 
 	public static void removeTotalItems(Inventory inventory, ItemStack stack, int amount) {
 		int[] stackIndexList = checkTotalItems(inventory, stack);
+		System.out.println();
 		if (stackIndexList != null) {
 			int itemAmnt = amount;
 			ItemStack intermStack;
@@ -99,23 +122,6 @@ public class BobuxUtils {
 		} else {
 
 		}
-	}
-
-	//This is to excluse a center player
-	public static ArrayList<Player> getNearbyPlayers(Player player, double radius) {
-
-		Location loc = player.getLocation();
-		ArrayList<Entity> entityList = new ArrayList<Entity>();
-		entityList = (ArrayList<Entity>) loc.getWorld().getNearbyEntities(loc, radius, radius, radius);
-		ArrayList<Player> playerList = new ArrayList<Player>();
-
-		for (int i = 0; i < entityList.size(); i++) {
-			if (entityList.get(i) instanceof Player && !entityList.get(i).equals(player)) {
-				Player newPlayer = (Player) entityList.get(i);
-				playerList.add(newPlayer);
-			}
-		}
-		return playerList;
 	}
 
 	public static Location offsetLocation(Location location, Vector direction, double offset, double verticalOffset) {
@@ -148,7 +154,7 @@ public class BobuxUtils {
 		ItemStack tempStack1 = new ItemStack(item1);
 		tempStack1.setAmount(1);
 		ItemMeta tempMeta1 = tempStack1.getItemMeta();
-		ItemStack tempStack2 = new ItemStack(item1);
+		ItemStack tempStack2 = new ItemStack(item2);
 		tempStack2.setAmount(1);
 		ItemMeta tempMeta2 = tempStack2.getItemMeta();
 		if (tempMeta1 instanceof Damageable && tempMeta2 instanceof Damageable) {
@@ -191,25 +197,28 @@ public class BobuxUtils {
 			directionMatrix[1] = newYVector;
 			directionMatrix[2] = newZVector;
 		}
+		Vector oldX;
+		Vector oldY;
+		Vector oldZ;
         switch(orientation) {
             case NORMAL: 
             break;
             case DOWN:
-            Vector oldX = directionMatrix[0];
-            Vector oldY = directionMatrix[1];
-            Vector oldZ = directionMatrix[2];
+            oldX = directionMatrix[0];
+            oldY = directionMatrix[1];
+            oldZ = directionMatrix[2];
             directionMatrix[0] = oldY;
             directionMatrix[0].multiply(-1);
             directionMatrix[1] = oldX;
             directionMatrix[2] = oldZ;
             break;
             case UP: 
-            oldX = directionMatrix[0];
+			oldX = directionMatrix[0];
             oldY = directionMatrix[1];
             oldZ = directionMatrix[2];
             directionMatrix[0] = oldY;
             directionMatrix[1] = oldX;
-            directionMatrix[1].multiply(-1);
+			directionMatrix[1].multiply(-1);
             directionMatrix[2] = oldZ;
 			case RIGHT:
             oldX = directionMatrix[0];
@@ -225,6 +234,7 @@ public class BobuxUtils {
             oldY = directionMatrix[1];
             oldZ = directionMatrix[2];
             directionMatrix[0] = oldZ;
+			directionMatrix[0].multiply(-1);
             directionMatrix[1] = oldY;
             directionMatrix[2] = oldX;
             default:

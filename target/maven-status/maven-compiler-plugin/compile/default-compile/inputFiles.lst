@@ -17,7 +17,6 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\Bounty.
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\listeners\BobuxAbilityListener.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\listeners\BobuxCommands.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\SetFire.java
-c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\vectors\BobuxUtils.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\GiveItem.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\SpawnEntity.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\core\BobuxTransaction.java
@@ -27,6 +26,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\core\BobuxAct
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\WorldTransport.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\vectors\ParticlePlayer.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\core\BobuxAbility.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\core\BobuxUtils.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\MarketGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\core\ability_types\AbilityPassive.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\MainGUI.java
@@ -44,6 +44,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\vectors\Parti
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\BobuxPlugin.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\listeners\BobuxGUIGenerator.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\listeners\BobuxGUI.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\DeleteItem.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\listeners\BobuxGiver.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\ShopGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxItemInterface.java

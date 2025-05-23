@@ -25,7 +25,6 @@ import io.github.mxylery.bobuxplugin.core.ability_types.*;
 import io.github.mxylery.bobuxplugin.data_structures.*;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
-import io.github.mxylery.bobuxplugin.vectors.BobuxUtils;
 
 //This is where all cooldowns get registered to players and whatnot. Also take into account mobs, can have seperate methods or even a seperate class
 public class PlayerAbilityManager {
@@ -189,81 +188,8 @@ public class PlayerAbilityManager {
         } 
     }
 
-    private static boolean setTargetSettings(Player player, BobuxAbility ability, Entity[] entityList, Vector vector, Location location, Vector particleDir, Location particleLoc) {
-        if (ability instanceof AbilityOneTime) {
-            AbilityOneTime polyAbility = (AbilityOneTime) ability;
-            BobuxAction[] actionList = polyAbility.getActionList();
-            //Registeres the user of the ability as the entity list of the action
-            for (int i = 0; i < actionList.length; i++) {
-                if (actionList[i].requiresEntities()) {
-                    if (entityList == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeEntityList(entityList);
-                    }
-                }
-                //Default vector is where player is facing
-                if (actionList[i].requiresVector()) {
-                    if (vector == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeVector(vector);
-                    }
-                }
-                //Default location is player location
-                if (actionList[i].requiresLocation()) {
-                    if (location == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeLocation(location);
-                    }
-                }
-                if (actionList[i] instanceof PlayParticle) {
-                    actionList[i].initializeVector(particleDir);
-                    actionList[i].initializeLocation(particleLoc);
-                }
-            }
-            return true;
-        } else if (ability instanceof AbilityPassive) {
-            AbilityPassive polyAbility = (AbilityPassive) ability;
-            BobuxAction[] actionList = polyAbility.getActionList();
-            //Registeres the user of the ability as the entity list of the action
-            for (int i = 0; i < actionList.length; i++) {
-                if (actionList[i].requiresEntities()) {
-                    if (entityList == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeEntityList(entityList);
-                    }
-                }
-                //Default vector is where player is facing
-                if (actionList[i].requiresVector()) {
-                    if (vector == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeVector(vector);
-                    }
-                }
-                //Default location is player location
-                if (actionList[i].requiresLocation()) {
-                    if (location == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeLocation(location);
-                    }
-                }
-                if (actionList[i] instanceof PlayParticle) {
-                    actionList[i].initializeVector(particleDir);
-                    actionList[i].initializeLocation(particleLoc);
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private static boolean setTargetSettings(Player player, BobuxAbility ability, BobuxRegisterer registerer) {
+        int j = 0;
         if (ability instanceof AbilityOneTime) {
             AbilityOneTime polyAbility = (AbilityOneTime) ability;
             BobuxAction[] actionList = polyAbility.getActionList();
@@ -293,8 +219,9 @@ public class PlayerAbilityManager {
                     }
                 }
                 if (actionList[i] instanceof PlayParticle) {
-                    actionList[i].initializeVector(registerer.getParticleVector());
-                    actionList[i].initializeLocation(registerer.getParticleLocation());
+                    actionList[i].initializeVector(registerer.getParticleVector()[j]);
+                    actionList[i].initializeLocation(registerer.getParticleLocation()[j]);
+                    j++;
                 }
             }
             return true;
@@ -328,91 +255,9 @@ public class PlayerAbilityManager {
                     }
                 }
                 if (actionList[i] instanceof PlayParticle) {
-                    actionList[i].initializeVector(registerer.getParticleVector());
-                    actionList[i].initializeLocation(registerer.getParticleLocation());
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    //Leaving the playerList null will use the activating player; leaving the vector null will use the direction the player is facing.
-    private static boolean setTargetSettings(Player player, BobuxAbility ability, Entity[] entityList, Vector vector, Location location, Vector[] particleDir, Location[] particleLoc) {
-        int j = 0;
-        if (ability instanceof AbilityOneTime) {
-            AbilityOneTime polyAbility = (AbilityOneTime) ability;
-            BobuxAction[] actionList = polyAbility.getActionList();
-            //Registeres the user of the ability as the entity list of the action
-            for (int i = 0; i < actionList.length; i++) {
-                if (actionList[i].requiresEntities()) {
-                    if (entityList == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeEntityList(entityList);
-                    }
-                }
-                //Default vector is where player is facing
-                if (actionList[i].requiresVector()) {
-                    if (vector == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeVector(vector);
-                    }
-                }
-                //Default location is player location
-                if (actionList[i].requiresLocation()) {
-                    if (location == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeLocation(location);
-                    }
-                }
-                if (actionList[i] instanceof PlayParticle) {
-                    if (particleDir[j] != null && particleLoc[j] != null) {
-                        actionList[i].initializeVector(particleDir[j]);
-                        actionList[i].initializeLocation(particleLoc[j]);
-                        j++;
-                    } else {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private static boolean setTargetSettings(Player player, BobuxAbility ability, Entity[] entityList, Vector vector, Location location) {
-        if (ability instanceof AbilityOneTime) {
-            AbilityOneTime polyAbility = (AbilityOneTime) ability;
-            BobuxAction[] actionList = polyAbility.getActionList();
-            //Registeres the user of the ability as the entity list of the action
-            for (int i = 0; i < actionList.length; i++) {
-                if (actionList[i].requiresEntities()) {
-                    if (entityList == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeEntityList(entityList);
-                    }
-                }
-                //Default vector is where player is facing
-                if (actionList[i].requiresVector()) {
-                    if (vector == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeVector(vector);
-                    }
-                }
-                //Default location is player location
-                if (actionList[i].requiresLocation()) {
-                    if (location == null) {
-                        return false;
-                    } else {
-                        actionList[i].initializeLocation(location);
-                    }
+                    actionList[i].initializeVector(registerer.getParticleVector()[j]);
+                    actionList[i].initializeLocation(registerer.getParticleLocation()[j]);
+                    j++;
                 }
             }
             return true;
@@ -439,247 +284,6 @@ public class PlayerAbilityManager {
         } 
     }
 
-    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity[] entityList, boolean passive) {
-        PlayerInventory currentInventory = holder.getInventory();
-        if (currentInventory.getItem(slot) != null) {
-            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
-                BobuxItem item = bobuxitem;
-                BobuxAbility ability;
-                if (!passive) {
-                    ability = item.getAbility();
-                } else {
-                    ability = item.getPassive();
-                }
-                if (!passive) {
-                    if (setTargetSettings(holder, ability, entityList, null, null) && verifyItemCD(holder, ability)) {
-                        useAbility(holder, ability);
-                    }
-                } else {
-                    if (setTargetSettings(holder, ability, entityList, null, null) && verifyItemCD(holder, ability)) {
-                        usePassive(holder, ability);  
-                        Runnable passiveRunnable = new Runnable(){
-                            public void run() {
-                                checkForSlotMatch(bobuxitem, holder, slot, entityList, passive);
-                            }
-                        };
-                        scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
-                    }
-                }
-            }
-        }
-    }
-
-    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity[] entityList, Vector vector, boolean passive) {
-        PlayerInventory currentInventory = holder.getInventory();
-        if (currentInventory.getItem(slot) != null) {
-            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
-                BobuxItem item = bobuxitem;
-                BobuxAbility ability;
-                if (!passive) {
-                    ability = item.getAbility();
-                } else {
-                    ability = item.getPassive();
-                }
-                if (!passive) {
-                    if (setTargetSettings(holder, ability, entityList, vector, null) && verifyItemCD(holder, ability)) {
-                        useAbility(holder, ability);
-                    }
-                } else {
-                    if (setTargetSettings(holder, ability, entityList, vector, null) && verifyItemCD(holder, ability)) {
-                        usePassive(holder, ability);  
-                        Runnable passiveRunnable = new Runnable(){
-                            public void run() {
-                                checkForSlotMatch(bobuxitem, holder, slot, entityList, passive);
-                            }
-                        };
-                        scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
-                    }
-                }
-            }
-        }
-    }
-
-    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity[] entityList, Location location, boolean passive) {
-        PlayerInventory currentInventory = holder.getInventory();
-        if (currentInventory.getItem(slot) != null) {
-            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
-                BobuxItem item = bobuxitem;
-                BobuxAbility ability;
-                if (!passive) {
-                    ability = item.getAbility();
-                } else {
-                    ability = item.getPassive();
-                }
-                if (!passive) {
-                    if (setTargetSettings(holder, ability, entityList, null, location) && verifyItemCD(holder, ability)) {
-                        useAbility(holder, ability);
-                    }
-                } else {
-                    if (setTargetSettings(holder, ability, entityList, null, location) && verifyItemCD(holder, ability)) {
-                        usePassive(holder, ability);  
-                        Runnable passiveRunnable = new Runnable(){
-                            public void run() {
-                                checkForSlotMatch(bobuxitem, holder, slot, entityList, passive);
-                            }
-                        };
-                        scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
-                    }
-                }
-            }
-        }
-    }
-
-    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Location location, boolean passive) {
-        PlayerInventory currentInventory = holder.getInventory();
-        if (currentInventory.getItem(slot) != null) {
-            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
-                BobuxItem item = bobuxitem;
-                BobuxAbility ability;
-                if (!passive) {
-                    ability = item.getAbility();
-                } else {
-                    ability = item.getPassive();
-                }
-                if (!passive) {
-                    if (setTargetSettings(holder, ability, null, null, null) && verifyItemCD(holder, ability)) {
-                        useAbility(holder, ability);
-                    }
-                } else {
-                    if (setTargetSettings(holder, ability, null, null, null) && verifyItemCD(holder, ability)) {
-                        usePassive(holder, ability);  
-                        Runnable passiveRunnable = new Runnable(){
-                            public void run() {
-                                checkForSlotMatch(bobuxitem, holder, slot, location, passive);
-                            }
-                        };
-                        scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
-                    }
-                }
-            }
-        }
-    }
-
-    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Vector vector, boolean passive) {
-        PlayerInventory currentInventory = holder.getInventory();
-        if (currentInventory.getItem(slot) != null) {
-            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
-                BobuxItem item = bobuxitem;
-                BobuxAbility ability;
-                if (!passive) {
-                    ability = item.getAbility();
-                } else {
-                    ability = item.getPassive();
-                }
-                if (!passive) {
-                    if (setTargetSettings(holder, ability, null, vector, null) && verifyItemCD(holder, ability)) {
-                        useAbility(holder, ability);
-                    }
-                } else {
-                    if (setTargetSettings(holder, ability,null, vector, null) && verifyItemCD(holder, ability)) {
-                        usePassive(holder, ability);  
-                        Runnable passiveRunnable = new Runnable(){
-                            public void run() {
-                                checkForSlotMatch(bobuxitem, holder, slot, vector, passive);
-                            }
-                        };
-                        scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
-                    }
-                }
-            }
-        }
-    }
-
-    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Vector vector, Location location, boolean passive) {
-        PlayerInventory currentInventory = holder.getInventory();
-        if (currentInventory.getItem(slot) != null) {
-            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
-                BobuxItem item = bobuxitem;
-                BobuxAbility ability;
-                if (!passive) {
-                    ability = item.getAbility();
-                } else {
-                    ability = item.getPassive();
-                }
-                if (!passive) {
-                    if (setTargetSettings(holder, ability, null, vector, location) && verifyItemCD(holder, ability)) {
-                        useAbility(holder, ability);
-                    }
-                } else {
-                    if (setTargetSettings(holder, ability, null, vector, location) && verifyItemCD(holder, ability)) {
-                        usePassive(holder, ability);  
-                        Runnable passiveRunnable = new Runnable(){
-                            public void run() {
-                                checkForSlotMatch(bobuxitem, holder, slot, vector, location, passive);
-                            }
-                        };
-                        scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
-                    }
-                }
-            }
-        }
-    }
-
-
-    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity[] entityList, Vector vector, Location location, boolean passive) {
-        PlayerInventory currentInventory = holder.getInventory();
-        if (currentInventory.getItem(slot) != null) {
-            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
-                BobuxItem item = bobuxitem;
-                BobuxAbility ability;
-                if (!passive) {
-                    ability = item.getAbility();
-                } else {
-                    ability = item.getPassive();
-                }
-                if (!passive) {
-                    if (setTargetSettings(holder, ability, entityList, vector, location) && verifyItemCD(holder, ability)) {
-                        useAbility(holder, ability);
-                    }
-                } else {
-                    if (setTargetSettings(holder, ability, entityList, vector, location) && verifyItemCD(holder, ability)) {
-                        usePassive(holder, ability);  
-                        Runnable passiveRunnable = new Runnable(){
-                            public void run() {
-                                checkForSlotMatch(bobuxitem, holder, slot, entityList, vector, location, passive);
-                            }
-                        };
-                        scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
-                    }
-                }
-            }
-        }
-    }
-
-    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity[] entityList, Vector vector, Location location, Vector particleDir, Location particleLoc, boolean passive) {
-        PlayerInventory currentInventory = holder.getInventory();
-        if (currentInventory.getItem(slot) != null) {
-            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
-                BobuxItem item = bobuxitem;
-                BobuxAbility ability;
-                if (!passive) {
-                    ability = item.getAbility();
-                } else {
-                    ability = item.getPassive();
-                }
-                if (!passive) {
-                    if (setTargetSettings(holder, ability, entityList, vector, location, particleDir, particleLoc) && verifyItemCD(holder, ability)) {
-                        useAbility(holder, ability);
-                    }
-                } else {
-                    if (setTargetSettings(holder, ability, entityList, vector, location, particleDir, particleLoc) && verifyItemCD(holder, ability)) {
-                        usePassive(holder, ability);  
-                        Runnable passiveRunnable = new Runnable(){
-                            public void run() {
-                                checkForSlotMatch(bobuxitem, holder, slot, entityList, vector, location, particleDir, particleLoc, passive);
-                            }
-                        };
-                        scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
-                    }
-                }
-            }
-        }
-    }
-
     public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, BobuxRegisterer registerer, boolean passive) {
         PlayerInventory currentInventory = holder.getInventory();
         if (currentInventory.getItem(slot) != null) {
@@ -701,36 +305,6 @@ public class PlayerAbilityManager {
                         Runnable passiveRunnable = new Runnable(){
                             public void run() {
                                 checkForSlotMatch(bobuxitem, holder, slot, registerer, passive);
-                            }
-                        };
-                        scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
-                    }
-                }
-            }
-        }
-    }
-
-    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity[] entityList, Vector vector, Location location, Vector[] particleDir, Location[] particleLoc, boolean passive) {
-        PlayerInventory currentInventory = holder.getInventory();
-        if (currentInventory.getItem(slot) != null) {
-            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
-                BobuxItem item = bobuxitem;
-                BobuxAbility ability;
-                if (!passive) {
-                    ability = item.getAbility();
-                } else {
-                    ability = item.getPassive();
-                }
-                if (!passive) {
-                    if (setTargetSettings(holder, ability, entityList, vector, location, particleDir, particleLoc) && verifyItemCD(holder, ability)) {
-                        useAbility(holder, ability);
-                    }
-                } else {
-                    if (setTargetSettings(holder, ability, entityList, vector, location, particleDir, particleLoc) && verifyItemCD(holder, ability)) {
-                        usePassive(holder, ability);  
-                        Runnable passiveRunnable = new Runnable(){
-                            public void run() {
-                                checkForSlotMatch(bobuxitem, holder, slot, entityList, vector, location, particleDir, particleLoc, passive);
                             }
                         };
                         scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());

@@ -8,7 +8,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
-import io.github.mxylery.bobuxplugin.vectors.BobuxUtils;
 
 public class BobuxTransaction {
     

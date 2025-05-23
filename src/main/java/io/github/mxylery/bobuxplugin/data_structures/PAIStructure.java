@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
+import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.core.PlayerAbilityInstance;
-import io.github.mxylery.bobuxplugin.vectors.BobuxUtils;
 
 //Basically just a bag, maybe replace with doubly linked list implementation at some point
 public class PAIStructure {

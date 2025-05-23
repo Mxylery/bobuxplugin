@@ -7,7 +7,8 @@ public class RegistererOption {
 
         public enum RegistererType {
         LINE,
-        SPHERE
+        SPHERE,
+        NONE
         }
 
         public RegistererType registerType;

@@ -7,14 +7,7 @@ import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 public class PlayParticle extends BobuxAction {
     
     private ParticleSequence[] particleSequenceArray;
-    private ParticleSequence particleSequence;
     private int[] delays;
-
-    public PlayParticle(ParticleSequence particleSequence, boolean requiresCondition) {
-        this.particleSequence = particleSequence;
-        this.particleSequenceArray = null;
-        super.requiresCondition = requiresCondition;
-    }
     
     public PlayParticle(ParticleSequence[] particleSequenceArray, int[] delays, boolean requiresCondition) {
         this.particleSequenceArray = particleSequenceArray;
@@ -31,11 +24,7 @@ public class PlayParticle extends BobuxAction {
     }
 
     public void run() {
-        if (particleSequenceArray == null) {
-            ParticlePlayer.spawnParticles(particleSequence, super.location, super.vector);
-        } else {
-            ParticlePlayer.spawnParticles(particleSequenceArray, delays, location, vector);
-        }
+        ParticlePlayer.spawnParticles(particleSequenceArray, delays, location, vector);
     }
 
 }

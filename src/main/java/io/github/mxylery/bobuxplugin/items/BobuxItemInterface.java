@@ -211,10 +211,11 @@ public class BobuxItemInterface {
     private static String cleaverName = "§r§fCleaver";
     private static ParticleSequence cleaverParticleSequence = 
     new ParticleSequence(ParticleSequenceOptions.RING, ParticleSequenceOrientations.DOWN, Particle.DUST, 2, 0, 0, 3, 0, new DustOptions(Color.YELLOW, 2));
+    private static ParticleSequence[] cleaverParticleSequenceList = {cleaverParticleSequence};
     private static BobuxAction[] cleaverActionList = 
     {new DamageEntity(2,false), 
     new ChangeVelocity(0.5, false),
-    new PlayParticle(cleaverParticleSequence, false)};
+    new PlayParticle(cleaverParticleSequenceList, null, false)};
     private static BobuxAbility cleaverAbility = new AbilityOneTime
     (100, null, cleaverActionList, "Cleaver Ability", true);
     public static BobuxItem cleaver = new BobuxItem
@@ -230,8 +231,9 @@ public class BobuxItemInterface {
     private static String lineSpawnerName = "§r§fLine Spawner";
     private static ParticleSequence lineSpawnerParticleSequence = 
     new ParticleSequence(ParticleSequenceOrientations.NORMAL, Particle.ANGRY_VILLAGER, 5, 3, 0, null);
+    private static ParticleSequence[] lineSpawnerParticleSequenceList = {lineSpawnerParticleSequence};
     private static BobuxAction[] lineSpawnerPassiveActionList = 
-    {new PlayParticle(lineSpawnerParticleSequence, false)};
+    {new PlayParticle(lineSpawnerParticleSequenceList, null, false)};
     private static AbilityPassive lineSpawnerPassive = new AbilityPassive
     (5, null, lineSpawnerPassiveActionList, "Line Spawner Passive", false);
     public static BobuxItem lineSpawner = new BobuxItem
@@ -280,10 +282,10 @@ public class BobuxItemInterface {
     (ParticleSequenceOrientations.NORMAL, Particle.FLAME, 30, 5, 0, null);
     private static ParticleSequence theHotStickParticleSequence2 = new ParticleSequence
     (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.FLAME, 5, 5, 5, 5, 0, null);
+    private static ParticleSequence[] theHotStickParticleSequenceList = {theHotStickParticleSequence1, theHotStickParticleSequence2};
     private static BobuxAction[] theHotStickActionList = 
     {new DamageEntity(10, false), 
-    new PlayParticle(theHotStickParticleSequence1, false),
-    new PlayParticle(theHotStickParticleSequence2, false),
+    new PlayParticle(theHotStickParticleSequenceList, null, false),
     new SetFire(200, false)};
     private static BobuxAbility theHotStickAbility = 
     new AbilityOneTime(100, null, theHotStickActionList, "The Hot Stick Ability", false);
@@ -308,27 +310,23 @@ public class BobuxItemInterface {
     "§85s CD (Right click to use)"};
     private static String BW5Name = "§1BW-5 \"Nitro Express\"";
     private static ParticleSequence BW5ParticleSequence1 = new ParticleSequence
-    (ParticleSequenceOrientations.NORMAL, Particle.WHITE_SMOKE, 30, 3, 0, new DustOptions(Color.RED, 4));
+    (ParticleSequenceOrientations.NORMAL, Particle.WHITE_SMOKE, 30, 1, 0, null);
     private static ParticleSequence BW5ParticleSequence2 = new ParticleSequence
-    (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.DUST, 5, 5, 5, 5, 0, new DustOptions(Color.RED, 4));
+    (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.DUST, 5, 3, 2, 2, 0, new DustOptions(Color.RED, 2));
     private static ParticleSequence BW5ParticleSequence3 = new ParticleSequence
-    (ParticleSequenceOrientations.UP, Particle.DUST, 2.5, 3, 0, new DustOptions(Color.RED, 4));
+    (ParticleSequenceOrientations.UP, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
     private static ParticleSequence BW5ParticleSequence4 = new ParticleSequence
-    (ParticleSequenceOrientations.RIGHT, Particle.DUST, 2.5, 3, 0, new DustOptions(Color.RED, 4));
+    (ParticleSequenceOrientations.RIGHT, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
     private static ParticleSequence BW5ParticleSequence5 = new ParticleSequence
-    (ParticleSequenceOrientations.DOWN, Particle.DUST, 2.5, 3, 0, new DustOptions(Color.RED, 4));
+    (ParticleSequenceOrientations.DOWN, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
     private static ParticleSequence BW5ParticleSequence6 = new ParticleSequence
-    (ParticleSequenceOrientations.LEFT, Particle.DUST, 2.5, 3, 0, new DustOptions(Color.RED, 4));
+    (ParticleSequenceOrientations.LEFT, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
+    private static ParticleSequence[] BW5ParticleSequenceList = {BW5ParticleSequence1, BW5ParticleSequence2, BW5ParticleSequence3, BW5ParticleSequence4, BW5ParticleSequence5, BW5ParticleSequence6};
     private static BobuxAction[] BW5ActionList = 
     {new DamageEntity(30, false), 
-    new PlayParticle(BW5ParticleSequence1, false),
-    new PlayParticle(BW5ParticleSequence2, false),
-    new PlayParticle(BW5ParticleSequence3, false),
-    new PlayParticle(BW5ParticleSequence4, false),
-    new PlayParticle(BW5ParticleSequence5, false),
-    new PlayParticle(BW5ParticleSequence6, false),
+    new PlayParticle(BW5ParticleSequenceList, null, false),
     new PlaySound(Sound.ENTITY_GENERIC_EXPLODE, 0.4f, 0.5f, false),
-    new DeleteSelf(BobuxItemInterface.BW5AmmoStack, 1, false)};
+    new DeleteItem(BobuxItemInterface.BW5Ammo.getStack(), 1, false)};
     private static BobuxAbility BW5Ability = 
     new AbilityOneTime(100, null, BW5ActionList, "BW5 Ability", false);
     public static BobuxItem BW5 = new BobuxItem
