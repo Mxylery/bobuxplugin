@@ -1,0 +1,75 @@
+package io.github.mxylery.bobuxplugin.abilities;
+
+import org.bukkit.Color;
+import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
+import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.util.Vector;
+
+import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
+import io.github.mxylery.bobuxplugin.actions.DamageEntity;
+import io.github.mxylery.bobuxplugin.actions.DeleteItem;
+import io.github.mxylery.bobuxplugin.actions.PlayParticle;
+import io.github.mxylery.bobuxplugin.actions.PlaySound;
+import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.core.BobuxUtils;
+import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
+import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
+import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
+import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
+import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;
+import io.github.mxylery.bobuxplugin.vectors.RegistererOption;
+import io.github.mxylery.bobuxplugin.vectors.RegistererOption.RegistererType;
+
+public class BW5Ability extends AbilityOneTime {
+
+    public BW5Ability(String name, boolean muteCD, long cooldown) {
+        super(name, muteCD, cooldown);
+    }
+
+    //Ass8uming the player is a user
+    protected void assignVariables() {
+        Location elevatedPlayerLoc = new Location(user.getWorld(), user.getLocation().getX(), user.getLocation().getY() + 1, user.getLocation().getZ());
+        Vector playerDirection = user.getLocation().getDirection();
+        RegistererOption registererOption1 = new RegistererOption(RegistererType.LINE, elevatedPlayerLoc, 30, 1, 1, user.getEyeLocation().getDirection());
+        BobuxRegisterer registerer1 = new BobuxRegisterer(registererOption1, user);
+        Entity[][] targetList = {registerer1.getEntityList(),{},{},{},{},{},{},{},{}};
+        Vector[] vectorList = {null, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, null};
+        Location[] locationList = {null, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc};
+        Inventory[] inventoryList = {null, null, null, null, null, null, null, null, user.getInventory()};
+
+        super.targetList = targetList;
+        super.vectorList = vectorList;
+        super.locationList = locationList;
+        super.inventoryList = inventoryList;
+
+        ParticleSequence BW5ParticleSequence1 = new ParticleSequence
+        (ParticleSequenceOrientations.NORMAL, Particle.WHITE_SMOKE, 30, 1, 0, null);
+        ParticleSequence BW5ParticleSequence2 = new ParticleSequence
+        (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.DUST, 5, 3, 2, 2, 0, new DustOptions(Color.RED, 2));
+        ParticleSequence BW5ParticleSequence3 = new ParticleSequence
+        (ParticleSequenceOrientations.UP, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
+        ParticleSequence BW5ParticleSequence4 = new ParticleSequence
+        (ParticleSequenceOrientations.RIGHT, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
+        ParticleSequence BW5ParticleSequence5 = new ParticleSequence
+        (ParticleSequenceOrientations.DOWN, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
+        ParticleSequence BW5ParticleSequence6 = new ParticleSequence
+        (ParticleSequenceOrientations.LEFT, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
+        BobuxAction[] BW5ActionList = 
+        {new DamageEntity(30, false), 
+        new PlayParticle(BW5ParticleSequence1, false),
+        new PlayParticle(BW5ParticleSequence2, false),
+        new PlayParticle(BW5ParticleSequence3, false),
+        new PlayParticle(BW5ParticleSequence4, false),
+        new PlayParticle(BW5ParticleSequence5, false),
+        new PlayParticle(BW5ParticleSequence6, false),
+        new PlaySound(Sound.ENTITY_GENERIC_EXPLODE, 0.4f, 0.5f, false),
+        new DeleteItem(BobuxItemInterface.BW5Ammo.getStack(), 1, false)};
+        
+        super.actionList = BW5ActionList;
+    }
+
+}

@@ -1,4 +1,4 @@
-package io.github.mxylery.bobuxplugin.core.ability_types;
+package io.github.mxylery.bobuxplugin.abilities.ability_types;
 
 import io.github.mxylery.bobuxplugin.conditions.PlayerAbilityInstanceCondition;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
@@ -18,8 +18,8 @@ public class AbilityMultiStep extends BobuxAbility {
      * @param conditions Ability conditions to activate (if any)
      * @param steps Number of different steps/stages the ability has
      */
-    public AbilityMultiStep(long cooldown, PlayerAbilityInstanceCondition[] conditions, int steps, String name, boolean muteCD) {
-        super(cooldown, conditions, name, muteCD);
+    public AbilityMultiStep(int steps, String name, boolean muteCD, long cooldown) {
+        super(name, muteCD, cooldown);
         delays = new long[steps];
         delays[0] = 0;
         stepList = new BobuxAction[steps][10];
@@ -28,7 +28,6 @@ public class AbilityMultiStep extends BobuxAbility {
 
     public void addActionList(BobuxAction[] actionList) {
         if (actions == stepList[step].length - 1) {
-            super.updateListSize();
             stepList[step] = actionList;
         }
         stepList[step] = actionList;
@@ -50,6 +49,18 @@ public class AbilityMultiStep extends BobuxAbility {
     public void repeat() {
         stepList[step+1] = stepList[step];
         step++;
+    }
+
+    public void adjustPerc() {
+
+    }
+
+    public void adjustFlat() {
+
+    }
+
+    public void assignVariables() {
+
     }
 
 }

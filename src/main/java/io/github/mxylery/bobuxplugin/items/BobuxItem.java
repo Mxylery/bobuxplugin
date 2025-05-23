@@ -8,9 +8,9 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityPassive;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
-import io.github.mxylery.bobuxplugin.core.ability_types.AbilityPassive;
 
 public class BobuxItem {
     private int price;

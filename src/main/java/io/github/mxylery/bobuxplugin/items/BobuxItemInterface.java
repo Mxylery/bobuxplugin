@@ -13,12 +13,13 @@ import org.bukkit.Sound;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.enchantments.Enchantment;
 
+import io.github.mxylery.bobuxplugin.abilities.*;
+import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
+import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityPassive;
 import io.github.mxylery.bobuxplugin.actions.*;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
-import io.github.mxylery.bobuxplugin.core.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.core.ability_types.AbilityPassive;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;
@@ -60,13 +61,8 @@ public class BobuxItemInterface {
     private static String[] testingItemDesc = 
     {"§7§oBalls"};
     private static String testingItemName = "§r§fTesting Item";
-    private static BobuxAction[] testingItemActionList = 
-    {new DamageEntity(5, false)};
-    private static BobuxAbility testingItemAbility = new AbilityOneTime
-    (20, null, testingItemActionList, "Testing Item Abil", false);
-    
     public static BobuxItem testingItem = 
-    new BobuxItem(testingItemStack, testingItemDesc, testingItemName, testingItemAbility, 5000);
+    new BobuxItem(testingItemStack, testingItemDesc, testingItemName, new TestingItemAbility("Testing Item Ability", false, 40), 5000);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -77,11 +73,8 @@ public class BobuxItemInterface {
     private static String bouncingItemName = "§r§fBouncing Item";
     private static BobuxAction[] bouncingItemActionList = 
     {new ChangeVelocity(1, false), new DeleteSelf(EquipmentSlot.HAND, 1, false)};
-    private static BobuxAbility bouncingItemAbility = new AbilityOneTime
-    (100, null, bouncingItemActionList, "Bouncing Item Abil", false);
-
     public static BobuxItem bouncingItem = 
-    new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, bouncingItemAbility, 1);
+    new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, new BouncingItemAbility("Bouncing Item Ability", false, 20), 1);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -246,20 +239,8 @@ public class BobuxItemInterface {
     {"§7Shoot a beam that pierces enemies.",
     "§81s CD (Right Click)"};
     private static String railgunName = "§r§fRailgun";
-    private static ParticleSequence railgunParticleSequence1 = 
-    new ParticleSequence(ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 30, 2.0, 0.0, null);
-    private static ParticleSequence railgunParticleSequence2 = 
-    new ParticleSequence(ParticleSequenceOptions.SPIRAL, ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 5, 0, 1, 1, 30, null);
-    private static ParticleSequence[] railgunParticleSequenceList = 
-    {railgunParticleSequence1, railgunParticleSequence2};
-    private static BobuxAction[] railgunActionList = 
-    {new DamageEntity(10, false), 
-    new PlayParticle(railgunParticleSequenceList, null, false), 
-    new PlaySound(Sound.ENTITY_FIREWORK_ROCKET_BLAST, 0.1f, 1.0f, false)};
-    private static BobuxAbility railgunAbility = new AbilityOneTime
-    (100, null, railgunActionList, "Railgun Ability", false);
     public static BobuxItem railgun = new BobuxItem
-    (railgunStack, railgunDesc, railgunName, railgunAbility, true, 50);
+    (railgunStack, railgunDesc, railgunName, new RailgunAbility("Railgun Ability", false, 100), true, 50);
     //////////////////////////////////////////////////////////////////////////////////////////
      
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -278,19 +259,8 @@ public class BobuxItemInterface {
     {"§7Right click to launch a blazing line of pure fire!",
     "§85s CD (Right click)"};
     private static String theHotStickName = "§cTh§6e H§eot §6St§cick";
-    private static ParticleSequence theHotStickParticleSequence1 = new ParticleSequence
-    (ParticleSequenceOrientations.NORMAL, Particle.FLAME, 30, 5, 0, null);
-    private static ParticleSequence theHotStickParticleSequence2 = new ParticleSequence
-    (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.FLAME, 5, 5, 5, 5, 0, null);
-    private static ParticleSequence[] theHotStickParticleSequenceList = {theHotStickParticleSequence1, theHotStickParticleSequence2};
-    private static BobuxAction[] theHotStickActionList = 
-    {new DamageEntity(10, false), 
-    new PlayParticle(theHotStickParticleSequenceList, null, false),
-    new SetFire(200, false)};
-    private static BobuxAbility theHotStickAbility = 
-    new AbilityOneTime(100, null, theHotStickActionList, "The Hot Stick Ability", false);
     public static BobuxItem theHotStick = new BobuxItem
-    (theHotStickStack, theHotStickDesc, theHotStickName, theHotStickAbility, 50);
+    (theHotStickStack, theHotStickDesc, theHotStickName, new TheHotStickAbility("The Hot Stick Ability", false, 100), 50);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -309,28 +279,8 @@ public class BobuxItemInterface {
     {"§7Nowhere would anyone expect this...",
     "§85s CD (Right click to use)"};
     private static String BW5Name = "§1BW-5 \"Nitro Express\"";
-    private static ParticleSequence BW5ParticleSequence1 = new ParticleSequence
-    (ParticleSequenceOrientations.NORMAL, Particle.WHITE_SMOKE, 30, 1, 0, null);
-    private static ParticleSequence BW5ParticleSequence2 = new ParticleSequence
-    (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.DUST, 5, 3, 2, 2, 0, new DustOptions(Color.RED, 2));
-    private static ParticleSequence BW5ParticleSequence3 = new ParticleSequence
-    (ParticleSequenceOrientations.UP, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
-    private static ParticleSequence BW5ParticleSequence4 = new ParticleSequence
-    (ParticleSequenceOrientations.RIGHT, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
-    private static ParticleSequence BW5ParticleSequence5 = new ParticleSequence
-    (ParticleSequenceOrientations.DOWN, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
-    private static ParticleSequence BW5ParticleSequence6 = new ParticleSequence
-    (ParticleSequenceOrientations.LEFT, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
-    private static ParticleSequence[] BW5ParticleSequenceList = {BW5ParticleSequence1, BW5ParticleSequence2, BW5ParticleSequence3, BW5ParticleSequence4, BW5ParticleSequence5, BW5ParticleSequence6};
-    private static BobuxAction[] BW5ActionList = 
-    {new DamageEntity(30, false), 
-    new PlayParticle(BW5ParticleSequenceList, null, false),
-    new PlaySound(Sound.ENTITY_GENERIC_EXPLODE, 0.4f, 0.5f, false),
-    new DeleteItem(BobuxItemInterface.BW5Ammo.getStack(), 1, false)};
-    private static BobuxAbility BW5Ability = 
-    new AbilityOneTime(100, null, BW5ActionList, "BW5 Ability", false);
     public static BobuxItem BW5 = new BobuxItem
-    (BW5Stack, BW5Desc, BW5Name, BW5Ability, 256);
+    (BW5Stack, BW5Desc, BW5Name, new BW5Ability("BW5 Ability", false, 100), 256);
     //////////////////////////////////////////////////////////////////////////////////////////
 }
 

@@ -16,234 +16,32 @@ public class BobuxRegisterer {
     private Player player;
     private RegistererOption option;
     private Entity[] entityList;
-    private Vector vector;
-    private Location location;
-    private Inventory inventory;
-    private Vector[] particleDirArray;
-    private Location[] particleLocArray;
-    private boolean particleDirConst;
 
     //TODO ADD A BOOLEAN THAT DETERMINES IF THE RESGISTERER MUTATES EACH VALUE (e.g if the vector is a constant vector; don't change it; otherwise, use the player vector or a rotation of it);
     //TODO THIS WILL MAKE MOST CASES FINE.
 
     //ALSO 5/22 REMOVE THE ENTITY LIST AND REMOVE THE OPTION PARAM FOR ANY NON-ENTITY USING REGISTERERS
 
-    public BobuxRegisterer(Player player) {
-        this.player = player;
-        this.option = null;
-        Entity[] tempList = {player};
-        this.entityList = tempList;
-        this.vector = player.getEyeLocation().getDirection();
-        this.location = player.getLocation();
-        this.inventory = player.getInventory();
-        Vector[] tempDirList = {player.getEyeLocation().getDirection()};
-        this.particleDirArray = tempDirList;
-        Location[] tempLocList = {player.getEyeLocation()};
-        this.particleLocArray = tempLocList;
-        this.particleDirConst = false;
-    }
-
-    public BobuxRegisterer(Player player, Entity[] entityList) {
-        this.player = player;
-        this.option = null;
-        this.entityList = entityList;
-        this.vector = player.getEyeLocation().getDirection();
-        this.location = player.getLocation();
-        this.inventory = player.getInventory();
-        Vector[] tempDirList = {player.getEyeLocation().getDirection()};
-        this.particleDirArray = tempDirList;
-        Location[] tempLocList = {player.getEyeLocation()};
-        this.particleLocArray = tempLocList;
-        this.particleDirConst = false;
-    }
-
-    public BobuxRegisterer(Player player, Vector vector) {
-        this.player = player;
-        this.option = null;
-        Entity[] tempList = {player};
-        this.entityList = tempList;
-        this.vector = vector;
-        this.location = player.getLocation();
-        this.inventory = player.getInventory();
-        Vector[] tempDirList = {player.getEyeLocation().getDirection()};
-        this.particleDirArray = tempDirList;
-        Location[] tempLocList = {player.getEyeLocation()};
-        this.particleLocArray = tempLocList;
-        this.particleDirConst = false;
-    }
-
-    public BobuxRegisterer(Player player, Entity[] entityList, Vector vector) {
-        this.player = player;
-        this.option = null;
-        this.entityList = entityList;
-        this.vector = vector;
-        this.location = player.getLocation();
-        this.inventory = player.getInventory();
-        Vector[] tempDirList = {player.getEyeLocation().getDirection()};
-        this.particleDirArray = tempDirList;
-        Location[] tempLocList = {player.getEyeLocation()};
-        this.particleLocArray = tempLocList;
-        this.particleDirConst = false;
-    }
-
-    public BobuxRegisterer(Player player, Vector vector, Location location) {
-        this.player = player;
-        this.option = null;
-        Entity[] tempList = {player};
-        this.entityList = tempList;
-        this.vector = vector;
-        this.location = location;
-        this.inventory = player.getInventory();
-        Vector[] tempDirList = {player.getEyeLocation().getDirection()};
-        this.particleDirArray = tempDirList;
-        Location[] tempLocList = {player.getEyeLocation()};
-        this.particleLocArray = tempLocList;
-        this.particleDirConst = false;
-    }
-
-    public BobuxRegisterer(Player player, Vector vector, Location location, Inventory inventory) {
-        this.player = player;
-        this.option = null;
-        Entity[] tempList = {player};
-        this.entityList = tempList;
-        this.vector = vector;
-        this.location = location;
-        this.inventory = player.getInventory();
-        Vector[] tempDirList = {player.getEyeLocation().getDirection()};
-        this.particleDirArray = tempDirList;
-        Location[] tempLocList = {player.getEyeLocation()};
-        this.particleLocArray = tempLocList;
-        this.particleDirConst = false;
-    }
-
-    public BobuxRegisterer(Player player, Entity[] entityList, Vector vector, Location location) {
-        this.player = player;
-        this.option = null;
-        this.entityList = entityList;
-        this.vector = vector;
-        this.location = location;
-        this.inventory = player.getInventory();
-        Vector[] tempDirList = {player.getEyeLocation().getDirection()};
-        this.particleDirArray = tempDirList;
-        Location[] tempLocList = {player.getEyeLocation()};
-        this.particleLocArray = tempLocList;
-        this.particleDirConst = false;
-    }
-
-    public BobuxRegisterer(Player player, Entity[] entityList, Vector vector, Location location, Inventory inventory) {
-        this.player = player;
-        this.option = null;
-        this.entityList = entityList;
-        this.vector = vector;
-        this.location = location;
-        this.inventory = inventory;
-        Vector[] tempDirList = {player.getEyeLocation().getDirection()};
-        this.particleDirArray = tempDirList;
-        Location[] tempLocList = {player.getEyeLocation()};
-        this.particleLocArray = tempLocList;
-        this.particleDirConst = false;
-    }
-
     public BobuxRegisterer(RegistererOption option, Player player) {
         this.player = player;
         this.option = option;
         this.entityList = null;
-        this.vector = player.getEyeLocation().getDirection();
-        this.location = player.getLocation();
-        this.inventory = player.getInventory();
-        Vector[] tempDirList = {player.getEyeLocation().getDirection()};
-        this.particleDirArray = tempDirList;
-        Location[] tempLocList = {player.getEyeLocation()};
-        this.particleLocArray = tempLocList;
-        this.particleDirConst = false;
         updateTargeting();
     }
 
-    public BobuxRegisterer(RegistererOption option, Player player, Vector vector, Location location, Inventory inventory) {
-        this.player = player;
-        this.option = option;
-        this.entityList = null;
-        this.vector = vector;
-        this.location = location;
-        this.inventory = player.getInventory();
-        Vector[] tempDirList = {player.getEyeLocation().getDirection()};
-        this.particleDirArray = tempDirList;
-        Location[] tempLocList = {player.getEyeLocation()};
-        this.particleLocArray = tempLocList;
-        this.particleDirConst = false;
-        updateTargeting();
-    }
-
-    public BobuxRegisterer(RegistererOption option, Player player, Vector[] particleDirArray, Location[] particleDirLocArray) {
-        this.player = player;
-        this.option = option;
-        this.entityList = null;
-        this.vector = player.getEyeLocation().getDirection();
-        this.location = player.getLocation();
-        this.inventory = player.getInventory();
-        this.particleDirArray = particleDirArray;
-        this.particleLocArray = particleDirLocArray;
-        this.particleDirConst = false;
-        updateTargeting();
-    }
-
-    public BobuxRegisterer(RegistererOption option, Player player, Vector vector, Vector[] particleDirArray, Location[] particleDirLocArray) {
-        this.player = player;
-        this.option = option;
-        this.entityList = null;
-        this.vector = vector;
-        this.location = player.getLocation();
-        this.inventory = player.getInventory();
-        this.particleDirArray = particleDirArray;
-        this.particleLocArray = particleDirLocArray;
-        this.particleDirConst = false;
-        updateTargeting();
-    }
-
-    public BobuxRegisterer(RegistererOption option, Player player, Entity[] entityList, Vector vector, Vector[] particleDirArray, Location[] particleDirLocArray) {
+    public BobuxRegisterer(Entity[] entityList, Player player) {
         this.player = player;
         this.option = option;
         this.entityList = entityList;
-        this.vector = vector;
-        this.location = player.getLocation();
-        this.inventory = player.getInventory();
-        this.particleDirArray = particleDirArray;
-        this.particleLocArray = particleDirLocArray;
-        this.particleDirConst = false;
         updateTargeting();
+    }
+
+    public RegistererOption getOption() {
+        return option;
     }
 
     public Entity[] getEntityList() {
         return entityList;
-    }
-
-    public Vector getVector() {
-        return vector;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    public Vector[] getParticleVector() {
-        return particleDirArray;
-    }
-
-    public Location[] getParticleLocation() {
-        return particleLocArray;
-    }
-
-    public void updateSettings() {
-        this.vector = player.getEyeLocation().getDirection();
-        this.location = player.getEyeLocation();
-        Vector[] tempDirList = {player.getEyeLocation().getDirection()};
-        this.particleDirArray = tempDirList;
-        Location[] tempLocList = {player.getEyeLocation()};
-        this.particleLocArray = tempLocList;
     }
 
     public void updateTargeting() {
