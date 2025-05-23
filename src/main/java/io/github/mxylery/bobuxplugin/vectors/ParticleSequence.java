@@ -137,7 +137,6 @@ public class ParticleSequence implements Runnable {
     private void drawLine(Location thisLoc) {
         //d/dt<ax,by,cz> = <a,b,c>
         Location ogLoc = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ());
-        System.out.println("X: " + directionMatrix[0].toString() + "X: " + directionMatrix[1].toString() + "X: " + directionMatrix[2].toString() );
         for (double i = 0; i < length; i += 1/amount) {
             Location locAdjustment = new Location(world, directionMatrix[0].getX()/amount, directionMatrix[0].getY()/amount, directionMatrix[0].getZ()/amount);
             ogLoc.add(locAdjustment);

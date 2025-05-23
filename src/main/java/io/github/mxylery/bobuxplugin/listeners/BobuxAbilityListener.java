@@ -58,7 +58,7 @@ public class BobuxAbilityListener implements Listener {
         //This location is specifically for items that registers in lines and can accidentally include the player
         Location slightlyExtendedPlayerLoc = new Location(playerLocation.getWorld(), 
         playerLocation.getX() + playerEyeVector.getX(), 
-        playerLocation.getY() + playerEyeVector.getY(), 
+        playerLocation.getY() + playerEyeVector.getY() + 1, 
         playerLocation.getZ() + playerEyeVector.getZ());
         Inventory playerInventory = player.getInventory();
         if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
@@ -80,20 +80,20 @@ public class BobuxAbilityListener implements Listener {
             //Anything that plays particles needs the arrays
             Location[] railgunLocs = {playerEyeLoc, playerEyeLoc};
             Vector[] railgunVectors = {playerEyeVector, playerEyeVector};
-            RegistererOption railgunOption = new RegistererOption(RegistererType.LINE, playerEyeLoc, 30, 1, 10, playerEyeVector);
-            BobuxRegisterer railgunRegisterer = new BobuxRegisterer(railgunOption, player, railgunVectors, railgunLocs);=
+            RegistererOption railgunOption = new RegistererOption(RegistererType.LINE, slightlyExtendedPlayerLoc, 30, 1, 10, playerEyeVector);
+            BobuxRegisterer railgunRegisterer = new BobuxRegisterer(railgunOption, player, railgunVectors, railgunLocs);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.railgun, player, EquipmentSlot.HAND, railgunRegisterer, false);
 
-            Entity[] hotStickEntity = BobuxRegisterer.getEntitiesLine(slightlyExtendedPlayerLoc, 30, 1, 1, playerEyeVector);
+            Entity[] hotStickEntity = BobuxRegisterer.getEntitiesLine(player, slightlyExtendedPlayerLoc, 30, 1, 1, playerEyeVector, false);
             if (hotStickEntity != null) {
                 Vector[] theHotStickVectors = {playerEyeVector, playerEyeVector};
                 Location[] theHotStickLocs = {playerEyeLoc, hotStickEntity[0].getLocation()};
-                RegistererOption theHotStickOption = new RegistererOption(RegistererType.LINE, playerEyeLoc, 30, 1, 1, playerEyeVector);
-                BobuxRegisterer theHotStickRegisterer = new BobuxRegisterer(theHotStickOption, player, playerLocation, theHotStickVectors, theHotStickLocs);
+                RegistererOption theHotStickOption = new RegistererOption(RegistererType.LINE, slightlyExtendedPlayerLoc, 30, 1, 1, playerEyeVector);
+                BobuxRegisterer theHotStickRegisterer = new BobuxRegisterer(theHotStickOption, player, theHotStickVectors, theHotStickLocs);
                 PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.theHotStick, player, EquipmentSlot.HAND, theHotStickRegisterer, false);
             }
 
-            Entity[] BW5Entity = BobuxRegisterer.getEntitiesLine(slightlyExtendedPlayerLoc, 30, 1, 1, playerEyeVector);
+            Entity[] BW5Entity = BobuxRegisterer.getEntitiesLine(player, slightlyExtendedPlayerLoc, 30, 1, 1, playerEyeVector, false);
             if (BW5Entity != null && BobuxUtils.checkTotalItems(player.getInventory(), BobuxItemInterface.BW5Ammo.getStack()) != null) {
                 Vector[] BW5Vectors = {playerEyeVector, playerEyeVector, playerEyeVector, playerEyeVector, playerEyeVector, playerEyeVector};
                 Location elevatedEnemyLoc = new Location(player.getWorld(), 
@@ -102,7 +102,7 @@ public class BobuxAbilityListener implements Listener {
                 BW5Entity[0].getLocation().getZ());
                 Location[] BW5Locs = {playerEyeLoc, elevatedEnemyLoc, elevatedEnemyLoc, elevatedEnemyLoc, elevatedEnemyLoc, elevatedEnemyLoc};
                 RegistererOption BW5Option = new RegistererOption(RegistererType.LINE, playerEyeLoc, 30, 1, 1, playerEyeVector);
-                BobuxRegisterer BW5Registerer = new BobuxRegisterer(BW5Option, player, playerLocation, BW5Vectors, BW5Locs);
+                BobuxRegisterer BW5Registerer = new BobuxRegisterer(BW5Option, player, BW5Vectors, BW5Locs);
                 PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.BW5, player, EquipmentSlot.HAND, BW5Registerer, false);
             } 
         }
@@ -119,14 +119,17 @@ public class BobuxAbilityListener implements Listener {
             Vector playerEyeVector = player.getEyeLocation().getDirection();
             Location damagedEntityLoc = damagedEntity.getLocation();
 
-            BobuxRegisterer harmfulSubstanceRegisterer = new BobuxRegisterer(player, damagedEntity);
+            BobuxRegisterer harmfulSubstanceRegisterer = new BobuxRegisterer(player, damagedAsArray);
 
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.harmfulSubstance, player, EquipmentSlot.HAND, harmfulSubstanceRegisterer, false);
 
             //Set up for 
+
+            Vector[] cleaverVectors = {playerEyeVector};
+            Location[] cleaverLocs = {BobuxUtils.offsetLocation(damagedEntityLoc, playerEyeVector, 2, 0)};
             Vector slightKnockUp = new Vector(playerEyeVector.getX(), playerEyeVector.getY() + 1, playerEyeVector.getZ());
-            RegistererOption cleaverOption = new RegistererOption(RegistererType.SPHERE, damagedEntityLoc, 2, 3, 0, playerEyeVector);
-            BobuxRegisterer cleaverRegisterer = new BobuxRegisterer(player, damagedEntity);
+            RegistererOption cleaverOption = new RegistererOption(RegistererType.SPHERE, BobuxUtils.offsetLocation(damagedEntityLoc, playerEyeVector, 2, 0), 2, 3, 0, playerEyeVector);
+            BobuxRegisterer cleaverRegisterer = new BobuxRegisterer(cleaverOption, player, damagedAsArray, slightKnockUp, cleaverVectors, cleaverLocs);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND, cleaverRegisterer, false);
 
         }

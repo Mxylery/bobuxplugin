@@ -189,7 +189,6 @@ public class PlayerAbilityManager {
     }
 
     private static boolean setTargetSettings(Player player, BobuxAbility ability, BobuxRegisterer registerer) {
-        int j = 0;
         if (ability instanceof AbilityOneTime) {
             AbilityOneTime polyAbility = (AbilityOneTime) ability;
             BobuxAction[] actionList = polyAbility.getActionList();
@@ -218,14 +217,22 @@ public class PlayerAbilityManager {
                         actionList[i].initializeLocation(registerer.getLocation());
                     }
                 }
+                if (actionList[i].requiresInventory()) {
+                    if (registerer.getInventory() == null) {
+                        return false;
+                    } else {
+                        actionList[i].initializeInventory(registerer.getInventory());
+                    }
+                }
                 if (actionList[i] instanceof PlayParticle) {
-                    actionList[i].initializeVector(registerer.getParticleVector()[j]);
-                    actionList[i].initializeLocation(registerer.getParticleLocation()[j]);
-                    j++;
+                    PlayParticle newParticle = (PlayParticle) actionList[i];
+                    newParticle.setLocArray(registerer.getParticleLocation());
+                    newParticle.setVecArray(registerer.getParticleVector());
                 }
             }
             return true;
         } else if (ability instanceof AbilityPassive) {
+            int j = 0;
             AbilityPassive polyAbility = (AbilityPassive) ability;
             BobuxAction[] actionList = polyAbility.getActionList();
             registerer.updateSettings();
@@ -254,10 +261,17 @@ public class PlayerAbilityManager {
                         actionList[i].initializeLocation(registerer.getLocation());
                     }
                 }
+                if (actionList[i].requiresInventory()) {
+                    if (registerer.getInventory() == null) {
+                        return false;
+                    } else {
+                        actionList[i].initializeInventory(registerer.getInventory());
+                    }
+                }
                 if (actionList[i] instanceof PlayParticle) {
-                    actionList[i].initializeVector(registerer.getParticleVector()[j]);
-                    actionList[i].initializeLocation(registerer.getParticleLocation()[j]);
-                    j++;
+                    PlayParticle newParticle = (PlayParticle) actionList[i];
+                    newParticle.setLocArray(registerer.getParticleLocation());
+                    newParticle.setVecArray(registerer.getParticleVector());
                 }
             }
             return true;

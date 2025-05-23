@@ -74,23 +74,18 @@ public class BobuxUtils {
 	}
 
 	public static int[] checkTotalItems(Inventory inventory, ItemStack stack) {
-        int itemTotal = 0;
         int size = -1;
 		int[] slotNums = new int[36];
         for (int i = 0; i < 36; i++) {
             ItemStack currStack = inventory.getItem(i);
             if (currStack != null) {
-				System.out.println("Stack " + i + " " + currStack.getType());
                 if (BobuxUtils.checkWithoutDuraAmnt(currStack, stack)) {
-					System.out.println("Stack " + i + " " + currStack.getType() + " put!");
-                    itemTotal += currStack.getAmount();
                     size++;
                     slotNums[size] = i;
                 } 
             }
         }
         if (size != -1) {
-			System.out.println("Size: " + size);
             int[] newSlots = new int[size+1];
             System.arraycopy(slotNums, 0, newSlots, 0, size+1);
             return newSlots;
@@ -101,7 +96,6 @@ public class BobuxUtils {
 
 	public static void removeTotalItems(Inventory inventory, ItemStack stack, int amount) {
 		int[] stackIndexList = checkTotalItems(inventory, stack);
-		System.out.println();
 		if (stackIndexList != null) {
 			int itemAmnt = amount;
 			ItemStack intermStack;
