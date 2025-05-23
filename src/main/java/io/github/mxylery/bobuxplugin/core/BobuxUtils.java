@@ -214,6 +214,7 @@ public class BobuxUtils {
             directionMatrix[1] = oldX;
 			directionMatrix[1].multiply(-1);
             directionMatrix[2] = oldZ;
+			break;
 			case RIGHT:
             oldX = directionMatrix[0];
             oldY = directionMatrix[1];

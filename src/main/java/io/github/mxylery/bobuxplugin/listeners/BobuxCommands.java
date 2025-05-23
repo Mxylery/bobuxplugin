@@ -67,10 +67,10 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
         } else if (command.getName().equalsIgnoreCase("bobuxinfo")) {
             long ticksLeft = 1200 - BobuxTimer.getTicksPassed() % 1200;
             long seconds = ticksLeft/20;
-            player.sendMessage("Next market refresh:" + seconds + "s");
+            player.sendMessage("Next market refresh:" + seconds + " s");
             ticksLeft = 2400 - BobuxTimer.getTicksPassed() % 2400;
             seconds = ticksLeft/20;
-            player.sendMessage("Next bounty refresh:" + seconds + "s");
+            player.sendMessage("Next bounty refresh:" + seconds + " s");
             return true;
         } else {
             return false;
