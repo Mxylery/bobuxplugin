@@ -22,7 +22,6 @@ public class BobuxUtils {
     public static Vector getLocationDifference(Location loc1, Location loc2) {
 		
 		Vector result = new Vector(loc2.getX() - loc1.getX(), loc2.getY() - loc1.getY(), loc2.getZ() - loc1.getZ());
-		
 		return result;
 		
 	}
@@ -32,7 +31,6 @@ public class BobuxUtils {
 		double diffX = loc2.getX() - loc1.getX();
 		double diffY = loc2.getY() - loc1.getY();
 		double diffZ = loc2.getZ() - loc1.getZ();
-
 		double result = Math.sqrt(diffX*diffX + diffY*diffY + diffZ*diffZ);
 		
 		return Math.abs(result);

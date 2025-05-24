@@ -41,7 +41,9 @@ public class KungFuGlovesAbility extends AbilityOneTime {
         Vector eyeVector = user.getEyeLocation().getDirection();
         RegistererOption registererOption1 = new RegistererOption(RegistererType.LINE, 8, 2, 1, eyeVector);
         BobuxRegisterer registerer1 = new BobuxRegisterer(registererOption1, user);
-        Vector slightKnockUp = new Vector(eyeVector.getX(), eyeVector.getY() + 1.5, eyeVector.getZ());
+
+        Vector slightKnockUp = new Vector(eyeVector.getX()*0.1, 1, eyeVector.getZ()*0.1);
+        Vector slightLeap = new Vector(eyeVector.getX(), eyeVector.getY()*0.5 + 0.8, eyeVector.getZ());
         Entity[][] targetList;
         Vector[] vectorList;
         Location[] locationList;
@@ -54,36 +56,38 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             inventoryList = new Inventory[1];
             actionList = new BobuxAction[1];
             targetList[0][0] = user;
-            vectorList[0] = eyeVector;
+            vectorList[0] = slightLeap;
             locationList[0] = null;
             inventoryList[0] = null;
             actionList[0] = new ChangeVelocity(1, false);
             super.ignoreCD = false;
         } else {
-            targetList = new Entity[3][1];
-            vectorList = new Vector[3];
-            locationList = new Location[3];
-            inventoryList = new Inventory[3];
-            actionList = new BobuxAction[3];
+            targetList = new Entity[4][1];
+            vectorList = new Vector[4];
+            locationList = new Location[4];
+            inventoryList = new Inventory[4];
+            actionList = new BobuxAction[4];
             targetList[0][0] = user;
             targetList[1][0] = registerer1.getEntityList()[0];
             targetList[2][0] = registerer1.getEntityList()[0];
-            vectorList[0] = slightKnockUp;
+            targetList[3][0] = user;
+            vectorList[0] = slightLeap;
             vectorList[1] = slightKnockUp;
             vectorList[2] = slightKnockUp;
+            vectorList[3] = slightKnockUp;
             locationList[0] = null;
             locationList[1] = null;
             locationList[2] = null;
+            locationList[3] = user.getLocation();
             inventoryList[0] = null;
-            inventoryList[1]= null;
-            inventoryList[2]= null;
-            actionList[0] = new ChangeVelocity(0.7, false);
-            actionList[1] = new ChangeVelocity(0.8, false);
-            actionList[2] = new DamageEntity(5, false);
-            if (PlayerAbilityManager.verifyItemCD(user, this, muteCD)) {
-                super.ignoreCD = true;
-            }
-            retrigger(registerer1, user, BobuxItemInterface.kungFuGloves, 10);
+            inventoryList[1] = null;
+            inventoryList[2] = null;
+            inventoryList[3] = null;
+            actionList[0] = new ChangeVelocity(0.8, false);
+            actionList[1] = new ChangeVelocity(0.7, false);
+            actionList[2] = new DamageEntity(3, false);
+            actionList[3] = new PlaySound(Sound.BLOCK_WOOD_BREAK, 1.0f, 1.0f, false);
+            retrigger(registerer1, user, BobuxItemInterface.kungFuGloves, 15);
         }
         super.targetList = targetList;
         super.vectorList = vectorList;

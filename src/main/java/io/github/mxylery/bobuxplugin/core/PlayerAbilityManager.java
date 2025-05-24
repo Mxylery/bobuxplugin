@@ -36,7 +36,11 @@ public class PlayerAbilityManager {
     private static BukkitScheduler scheduler = BobuxTimer.getScheduler();
     private static Plugin plugin = BobuxTimer.getPlugin();
 
-    //Used in all of the listener methods below.
+    /**
+     * This method is statically used in the PlayerAbilityManager class to activate abilities.
+     * @param player
+     * @param ability
+     */
     private static void useAbility(Player player, BobuxAbility ability) {
 
         if (ability instanceof AbilityOneTime) {
@@ -273,12 +277,14 @@ public class PlayerAbilityManager {
                 } else {
                     if (ability.setActionList() && verifyItemCD(holder, ability)) {
                         usePassive(holder, ability);  
-                        Runnable passiveRunnable = new Runnable(){
-                            public void run() {
-                                checkForSlotMatch(bobuxitem, holder, slot, passive);
-                            }
-                        };
+                        if (ability.getCooldown() != 0) {
+                            Runnable passiveRunnable = new Runnable(){
+                                public void run() {
+                                    checkForSlotMatch(bobuxitem, holder, slot, passive);
+                                }
+                            };
                         scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
+                        }
                     }
                 }
             }

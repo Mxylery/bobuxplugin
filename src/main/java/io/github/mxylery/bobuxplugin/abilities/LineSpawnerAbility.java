@@ -23,8 +23,8 @@ import io.github.mxylery.bobuxplugin.vectors.RegistererOption.RegistererType;
 
 public class LineSpawnerAbility extends AbilityPassive {
 
-    public LineSpawnerAbility(String name, boolean muteCD, long cooldown) {
-        super(name, muteCD, cooldown);
+    public LineSpawnerAbility(String name, boolean muteCD, long cooldown, long period) {
+        super(name, muteCD, cooldown, period);
     }
 
     //Assuming the player is a user

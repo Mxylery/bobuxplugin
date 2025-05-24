@@ -36,6 +36,9 @@ public abstract class AbilityOneTime extends BobuxAbility {
 
     protected void retrigger(BobuxRegisterer registerer, Player user, BobuxItem bobuxitem, int delay) {
         BukkitScheduler scheduler = BobuxTimer.getScheduler();
+        if (PlayerAbilityManager.verifyItemCD(user, this, muteCD)) {
+                ignoreCD = true;
+        }
         if (PlayerAbilityManager.verifyItemCD(user, bobuxitem.getAbility(), true) || ignoreCD) {
             Runnable runnable = new Runnable(){
             public void run() {

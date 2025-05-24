@@ -1,9 +1,12 @@
 package io.github.mxylery.bobuxplugin.items;
 
+import javax.management.Attribute;
+
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFactory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -11,7 +14,10 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.Server;
 import org.bukkit.Sound;
 import org.bukkit.Particle.DustOptions;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.NamespacedKey;
 
 import io.github.mxylery.bobuxplugin.abilities.*;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
@@ -56,7 +62,6 @@ public class BobuxItemInterface {
     private static Server server = BobuxTimer.getServer();
     private static ItemFactory itemFactory = server.getItemFactory();
 
-    //Items start here
     private static ItemStack testingItemStack = new ItemStack(Material.IRON_INGOT);
     private static String[] testingItemDesc = 
     {"§7§oBalls"};
@@ -64,19 +69,15 @@ public class BobuxItemInterface {
     public static BobuxItem testingItem = 
     new BobuxItem(testingItemStack, testingItemDesc, testingItemName, new TestingItemAbility("Testing Item Ability", false, 40), 5000);
     //////////////////////////////////////////////////////////////////////////////////////////
-
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bouncingItemStack = new ItemStack(Material.SLIME_BALL);
     private static String[] bouncingItemDesc = 
     {"§7§oLegendary Bounce Ball", 
     "§7§oSecond Line Because Why Not"};
     private static String bouncingItemName = "§r§fBouncing Item";
-    private static BobuxAction[] bouncingItemActionList = 
-    {new ChangeVelocity(1, false), new DeleteSelf(EquipmentSlot.HAND, 1, false)};
     public static BobuxItem bouncingItem = 
     new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, new BouncingItemAbility("Bouncing Item Ability", false, 20), 1);
     //////////////////////////////////////////////////////////////////////////////////////////
-    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack hurriedStopwatchStack = new ItemStack(Material.CLOCK);
     private static String[] hurriedStopwatchDesc = 
@@ -89,7 +90,6 @@ public class BobuxItemInterface {
     (hurriedStopwatchStack, hurriedStopwatchDesc, hurriedStopwatchName, new HurriedStopwatchAbility("Hurried Stopwatch Ability", false, 600), 
     hurriedStopwatchEnchantList, hurriedStopwatchEnchantLevels, false, 15);
     //////////////////////////////////////////////////////////////////////////////////////////
-    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxStack = new ItemStack(Material.LIME_DYE);
     private static String[] bobuxDesc = 
@@ -99,7 +99,6 @@ public class BobuxItemInterface {
     public static BobuxItem bobux = new BobuxItem
     (bobuxStack, bobuxDesc, bobuxName, 1);
     //////////////////////////////////////////////////////////////////////////////////////////
-    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxSquareStack = new ItemStack(Material.LIME_WOOL);
     private static String[] bobuxSquareDesc = 
@@ -109,7 +108,6 @@ public class BobuxItemInterface {
     public static BobuxItem bobuxSquare = new BobuxItem
     (bobuxSquareStack, bobuxSquareDesc, bobuxSquareName, 8);
     //////////////////////////////////////////////////////////////////////////////////////////
-    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxCubeStack = new ItemStack(Material.LIME_TERRACOTTA);
     private static String[] bobuxCubeDesc = 
@@ -119,7 +117,6 @@ public class BobuxItemInterface {
     public static BobuxItem bobuxCube = new BobuxItem
     (bobuxCubeStack, bobuxCubeDesc, bobuxCubeName, 64);
     //////////////////////////////////////////////////////////////////////////////////////////
-
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxTesseractStack = new ItemStack(Material.EMERALD_BLOCK);
     private static String[] bobuxTesseractDesc = 
@@ -129,7 +126,6 @@ public class BobuxItemInterface {
     public static BobuxItem bobuxTesseract = new BobuxItem
     (bobuxTesseractStack, bobuxTesseractDesc, bobuxTesseractName, 512);
     //////////////////////////////////////////////////////////////////////////////////////////
-    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack marketStack = new ItemStack(Material.GOLDEN_HORSE_ARMOR);
     private static String[] marketDesc = 
@@ -139,7 +135,6 @@ public class BobuxItemInterface {
     public static BobuxItem market = new BobuxItem
     (marketStack, marketDesc, marketName);
     //////////////////////////////////////////////////////////////////////////////////////////
-    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack cleaverStack = new ItemStack(Material.GOLDEN_SWORD);
     private static String[] cleaverDesc = 
@@ -147,10 +142,8 @@ public class BobuxItemInterface {
     "§85s CD"};
     private static String cleaverName = "§r§fCleaver";
     public static BobuxItem cleaver = new BobuxItem
-    (cleaverStack, cleaverDesc, cleaverName, new CleaverAbility("Cleaver Ability", true, 100), 
-    null, null, true, 16);
+    (cleaverStack, cleaverDesc, cleaverName, new CleaverAbility("Cleaver Ability", true, 100), true, 16);
     //////////////////////////////////////////////////////////////////////////////////////////
-
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack lineSpawnerStack = new ItemStack(Material.END_ROD);
     private static String[] lineSpawnerDesc = 
@@ -158,9 +151,8 @@ public class BobuxItemInterface {
     "§71s CD"};
     private static String lineSpawnerName = "§r§fLine Spawner";
     public static BobuxItem lineSpawner = new BobuxItem
-    (lineSpawnerStack, lineSpawnerDesc, lineSpawnerName, new LineSpawnerAbility("Line Spawner Passive", false, 5), 16);
+    (lineSpawnerStack, lineSpawnerDesc, lineSpawnerName, new LineSpawnerAbility("Line Spawner Passive", false, 5, 0), 16);
     //////////////////////////////////////////////////////////////////////////////////////////
-    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack railgunStack = new ItemStack(Material.IRON_HOE);
     private static String[] railgunDesc = 
@@ -170,7 +162,6 @@ public class BobuxItemInterface {
     public static BobuxItem railgun = new BobuxItem
     (railgunStack, railgunDesc, railgunName, new RailgunAbility("Railgun Ability", false, 100), true, 50);
     //////////////////////////////////////////////////////////////////////////////////////////
-     
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bountyStack = new ItemStack(Material.PAPER);
     private static String[] bountyDesc = 
@@ -180,7 +171,6 @@ public class BobuxItemInterface {
     public static BobuxItem bounty = new BobuxItem
     (bountyStack, bountyDesc, bountyName);
     //////////////////////////////////////////////////////////////////////////////////////////
-    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack theHotStickStack = new ItemStack(Material.BLAZE_ROD);
     private static String[] theHotStickDesc = 
@@ -190,7 +180,6 @@ public class BobuxItemInterface {
     public static BobuxItem theHotStick = new BobuxItem
     (theHotStickStack, theHotStickDesc, theHotStickName, new TheHotStickAbility("The Hot Stick Ability", false, 100), 50);
     //////////////////////////////////////////////////////////////////////////////////////////
-    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack BW5AmmoStack = new ItemStack(Material.BLUE_WOOL);
     private static String[] BW5AmmoDesc = 
@@ -200,7 +189,6 @@ public class BobuxItemInterface {
     public static BobuxItem BW5Ammo = new BobuxItem
     (BW5AmmoStack, BW5AmmoDesc, BW5AmmoName, 4);
     //////////////////////////////////////////////////////////////////////////////////////////
-    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack BW5Stack = new ItemStack(Material.DIAMOND_HOE);
     private static String[] BW5Desc = 
@@ -210,15 +198,18 @@ public class BobuxItemInterface {
     public static BobuxItem BW5 = new BobuxItem
     (BW5Stack, BW5Desc, BW5Name, new BW5Ability("BW5 Ability", false, 100), 256);
     //////////////////////////////////////////////////////////////////////////////////////////
-    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack kungFuGlovesStack = new ItemStack(Material.BLACK_WOOL);
     private static String[] kungFuGlovesDesc = 
     {"§7Punch.",
     "§8Harness your inner zen..."};
-    private static String kungFuGlovesName = "§0Kung Fu Gloves";
+    private static String kungFuGlovesName = "§7Kung Fu Gloves";
+    private static BobuxAttributeSet kungFuGlovesAttributes = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ATTACK_DAMAGE, 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND);
+    private static BobuxAttributeSet[] kungFuGlovesAttributeList = {kungFuGlovesAttributes};
     public static BobuxItem kungFuGloves = new BobuxItem
-    (kungFuGlovesStack, kungFuGlovesDesc, kungFuGlovesName, new KungFuGlovesAbility("Kung Fu Gloves Ability", false, 100), 256);
+    (kungFuGlovesStack, kungFuGlovesDesc, kungFuGlovesName, new KungFuGlovesAbility("Kung Fu Gloves Ability", false, 100), new KungFuGlovesPassive("Kung Fu Gloves Passive", false, 0, 20), kungFuGlovesAttributeList, true, 256);
     //////////////////////////////////////////////////////////////////////////////////////////
+
+     
 }
 

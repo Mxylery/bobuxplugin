@@ -177,23 +177,19 @@ public class PAIStructure {
      */
     public long checkForAbilityCD(BobuxAbility ability, long timeFrame, Player player) {
         if (length == 0) {
-            System.out.println("Length zero");
             return -1;
         }
         PAIStructure tempHead = this;
-        while(tempHead.previous != this) {
+        while(tempHead.previous != this && BobuxTimer.getTicksPassed() - tempHead.previous.PAI.getTick() < timeFrame) {
             tempHead = tempHead.previous;
             //Checks if the ability of the checked PAI is the desired one
             if (tempHead.PAI.getAbility().equals(ability)) {
-                    if (tempHead.PAI.getPlayer().equals(player)) {
+                if (tempHead.PAI.getPlayer().equals(player)) {
                     if (BobuxTimer.getTicksPassed() - tempHead.PAI.getTick() < timeFrame) {
+                        System.out.println(BobuxTimer.getTicksPassed() - tempHead.PAI.getTick());
                         return BobuxTimer.getTicksPassed() - tempHead.PAI.getTick();
-                    } else {
-                        break;
-                    }
+                    } 
                 }  
-                //If the difference of the currentTime and the ability instance is
-                //lesser than the time difference desired, return this instance
             } 
         }
         return -1;
