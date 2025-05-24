@@ -30,15 +30,19 @@ public class BW5Ability extends AbilityOneTime {
         super(name, muteCD, cooldown);
     }
 
-    //Ass8uming the player is a user
-    protected void assignVariables() {
+    //Assuming the player is a user
+    protected boolean assignVariables() {
         Location elevatedPlayerLoc = new Location(user.getWorld(), user.getLocation().getX(), user.getLocation().getY() + 1, user.getLocation().getZ());
         Vector playerDirection = user.getLocation().getDirection();
-        RegistererOption registererOption1 = new RegistererOption(RegistererType.LINE, elevatedPlayerLoc, 30, 1, 1, user.getEyeLocation().getDirection());
+        RegistererOption registererOption1 = new RegistererOption(RegistererType.LINE, 30, 1, 1, user.getEyeLocation().getDirection());
         BobuxRegisterer registerer1 = new BobuxRegisterer(registererOption1, user);
+        if (registerer1.getEntityList() == null) {
+            return false;
+        }
         Entity[][] targetList = {registerer1.getEntityList(),{},{},{},{},{},{},{},{}};
+        Location enemyLocation = new Location(user.getWorld(), registerer1.getEntityList()[0].getLocation().getX(), registerer1.getEntityList()[0].getLocation().getY() + 1, registerer1.getEntityList()[0].getLocation().getZ());
         Vector[] vectorList = {null, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, null};
-        Location[] locationList = {null, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc};
+        Location[] locationList = {null, elevatedPlayerLoc, enemyLocation, enemyLocation, enemyLocation, enemyLocation, enemyLocation, enemyLocation, enemyLocation};
         Inventory[] inventoryList = {null, null, null, null, null, null, null, null, user.getInventory()};
 
         super.targetList = targetList;
@@ -70,6 +74,7 @@ public class BW5Ability extends AbilityOneTime {
         new DeleteItem(BobuxItemInterface.BW5Ammo.getStack(), 1, false)};
         
         super.actionList = BW5ActionList;
+        return true;
     }
 
 }

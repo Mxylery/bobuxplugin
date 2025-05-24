@@ -57,12 +57,14 @@ public class BobuxAbilityListener implements Listener {
 
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, false);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, false);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND, false);
 
         //Air right clicks
         } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
 
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.hurriedStopwatch, player, EquipmentSlot.HAND, false);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.railgun, player, EquipmentSlot.HAND, false);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.theHotStick, player, EquipmentSlot.HAND, false);
             if (BobuxUtils.checkTotalItems(player.getInventory(), BobuxItemInterface.BW5Ammo.getStack()) != null) {
                 PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.BW5, player, EquipmentSlot.HAND, false);
             } 
@@ -74,24 +76,9 @@ public class BobuxAbilityListener implements Listener {
     public void onDealingHit(EntityDamageEvent e) {
         if (e.getDamageSource().getCausingEntity() instanceof Player) {
             Player player = (Player) e.getDamageSource().getCausingEntity();
-            Entity[] playerAsArray = {player};
             Entity damagedEntity = e.getEntity();
-            Entity[] damagedAsArray = {damagedEntity};
-            Vector playerEyeVector = player.getEyeLocation().getDirection();
-            Location damagedEntityLoc = damagedEntity.getLocation();
 
-            BobuxRegisterer harmfulSubstanceRegisterer = new BobuxRegisterer(damagedAsArray, player);
-
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.harmfulSubstance, player, EquipmentSlot.HAND, false);
-
-            //Set up for 
-
-            Vector[] cleaverVectors = {playerEyeVector};
-            Location[] cleaverLocs = {BobuxUtils.offsetLocation(damagedEntityLoc, playerEyeVector, 2, 0)};
-            Vector slightKnockUp = new Vector(playerEyeVector.getX(), playerEyeVector.getY() + 1, playerEyeVector.getZ());
-            RegistererOption cleaverOption = new RegistererOption(RegistererType.SPHERE, BobuxUtils.offsetLocation(damagedEntityLoc, playerEyeVector, 2, 0), 2, 3, 0, playerEyeVector);
-            BobuxRegisterer cleaverRegisterer = new BobuxRegisterer(cleaverOption, player, damagedAsArray, slightKnockUp, cleaverVectors, cleaverLocs);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND, cleaverRegisterer, false);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND, damagedEntity, false);
 
         }
     }

@@ -28,8 +28,8 @@ public class BouncingItemAbility extends AbilityOneTime {
         super(name, muteCD, cooldown);
     }
 
-    //Ass8uming the player is a user
-    protected void assignVariables() {
+    //Assuming the player is a user
+    protected boolean assignVariables() {
         Entity[][] targetList = {{user}, {user}};
         Vector[] vectorList = {user.getLocation().getDirection(), null};
         Location[] locationList = {null, null};
@@ -45,6 +45,7 @@ public class BouncingItemAbility extends AbilityOneTime {
         new DeleteSelf(EquipmentSlot.HAND, 1, false)};
         
         super.actionList = actionList;
+        return true;
     }
 
 }

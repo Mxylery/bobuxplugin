@@ -32,6 +32,7 @@ public abstract class BobuxAbility {
     protected BobuxRegisterer[] registererList;
     protected String name;
     protected boolean muteCD;
+    protected Entity otherEntity;
 
     public BobuxAbility(String name, boolean muteCD, long cooldown) {
         this.name = name;
@@ -39,13 +40,13 @@ public abstract class BobuxAbility {
         this.cooldown = cooldown;
     }
 
-    protected abstract void assignVariables();
+    protected abstract boolean assignVariables();
     public abstract void adjustFlat();
     public abstract void adjustPerc();
 
     public boolean setActionList() {
-        assignVariables();
-        for (int i = 0; i < actionList.length; i++) {
+        if (assignVariables()) {
+            for (int i = 0; i < actionList.length; i++) {
             if (actionList[i].requiresEntity && targetList[i] != null) {
                 actionList[i].initializeEntityList(targetList[i]);
             } else if (actionList[i].requiresEntity) {
@@ -66,8 +67,10 @@ public abstract class BobuxAbility {
             } else if (actionList[i].requiresInventory) {
                 return false;
             }
+            }   return true;   
+        } else {
+            return false;
         }
-        return true;
     }
 
     public void use() {
@@ -94,6 +97,10 @@ public abstract class BobuxAbility {
 
     public void setUser(Player user) {
         this.user = user;
+    }
+
+    public void setOtherEntity(Entity entity) {
+        this.otherEntity = entity;
     }
 
 }

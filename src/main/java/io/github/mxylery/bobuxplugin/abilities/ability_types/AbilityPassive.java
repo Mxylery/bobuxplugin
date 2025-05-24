@@ -10,7 +10,7 @@ import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 //In the playerabilitymanager, these abilities will recursively call useAbility at later dates specified by the rep cycle until the condition is removed.
 public class AbilityPassive extends BobuxAbility {
 
-    public AbilityPassive(long cooldown, String name, boolean muteCD) {
+    public AbilityPassive(String name, boolean muteCD, long cooldown) {
         super(name, muteCD, cooldown);
     }
 
@@ -26,8 +26,8 @@ public class AbilityPassive extends BobuxAbility {
 
     }
 
-    protected void abilityVariables() {
-
+    protected boolean assignVariables() {
+        return false;
     }
 
 }

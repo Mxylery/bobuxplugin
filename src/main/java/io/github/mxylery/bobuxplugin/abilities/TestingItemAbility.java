@@ -25,9 +25,9 @@ public class TestingItemAbility extends AbilityOneTime {
         super(name, muteCD, cooldown);
     }
 
-    //Ass8uming the player is a user
-    protected void assignVariables() {
-        RegistererOption registererOption1 = new RegistererOption(RegistererType.SPHERE, user.getLocation(), 0, 5, 0, user.getEyeLocation().getDirection());
+    //Assuming the player is a user
+    protected boolean assignVariables() {
+        RegistererOption registererOption1 = new RegistererOption(RegistererType.SPHERE, 0, 5, 0, user.getEyeLocation().getDirection());
         BobuxRegisterer registerer1 = new BobuxRegisterer(registererOption1, user);
         Entity[][] targetList = {registerer1.getEntityList()};
         Vector[] vectorList = {null};
@@ -42,6 +42,7 @@ public class TestingItemAbility extends AbilityOneTime {
         BobuxAction[] railgunActionList = {new DamageEntity(10, false)};
         
         super.actionList = railgunActionList;
+        return true;
     }
 
 }

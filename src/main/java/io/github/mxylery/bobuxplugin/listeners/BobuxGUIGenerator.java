@@ -32,7 +32,7 @@ public class BobuxGUIGenerator implements Listener {
 
     public static HashMap<Player,BobuxBounty[]> playerBountyMap = new HashMap<Player,BobuxBounty[]>();
     public static BobuxItem[] marketMenu = new BobuxItem[3];
-    public static final int marketItemTotal = 10;
+    public static final int marketItemTotal = 9;
     //As of 0.2.3, generates 3 items randomly.
     public static void randomizeMarketItems() {
         int[] noDupe = new int[3];
@@ -45,11 +45,11 @@ public class BobuxGUIGenerator implements Listener {
                 }
             }
             switch(rng) {
-                case 0: marketMenu[i] = BobuxItemInterface.bounceBoots;
+                case 0: marketMenu[i] = BobuxItemInterface.BW5Ammo;
                 break;
-                case 1: marketMenu[i] = BobuxItemInterface.hurriedStopwatch;
+                case 1: marketMenu[i] = BobuxItemInterface.BW5; 
                 break;
-                case 2: marketMenu[i] = BobuxItemInterface.harmfulSubstance;
+                case 2: marketMenu[i] = BobuxItemInterface.hurriedStopwatch;
                 break;
                 case 3: marketMenu[i] = BobuxItemInterface.cleaver;
                 break;
@@ -61,9 +61,9 @@ public class BobuxGUIGenerator implements Listener {
                 break;
                 case 7: marketMenu[i] = BobuxItemInterface.theHotStick;
                 break;
-                case 8: marketMenu[i] = BobuxItemInterface.BW5;
+                case 8: marketMenu[i] = BobuxItemInterface.kungFuGloves;
                 break;
-                case 9: marketMenu[i] = BobuxItemInterface.BW5Ammo;
+                case 9: 
                 break;
                 case 10:
                 break;

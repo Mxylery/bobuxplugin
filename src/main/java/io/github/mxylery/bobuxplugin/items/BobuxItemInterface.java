@@ -76,58 +76,6 @@ public class BobuxItemInterface {
     public static BobuxItem bouncingItem = 
     new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, new BouncingItemAbility("Bouncing Item Ability", false, 20), 1);
     //////////////////////////////////////////////////////////////////////////////////////////
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack bounceBootsStack = new ItemStack(Material.LEATHER_BOOTS);
-    private static String[] bounceBootsDesc = 
-    {"§7§oThese boots make you bounce when you jump.",
-    "§7§oNo cooldown"};
-    private static String bounceBootsName = "§r§fBouncing Boots";
-    private static BobuxAction[] bounceBootsActionList = 
-    {new ChangeVelocity(0.8, false)};
-    private static BobuxAbility bounceBootsAbility = new AbilityOneTime
-    (1, null, bounceBootsActionList, "Bouncing Boots Abil", false);
-    private static Enchantment[] bounceBootsEnchantList = {Enchantment.FEATHER_FALLING};
-    private static int[] bounceBootsEnchantLevels = {3};
-    
-    public static BobuxItem bounceBoots = new BobuxItem
-    (bounceBootsStack, bounceBootsDesc, bounceBootsName, bounceBootsAbility,
-     bounceBootsEnchantList, bounceBootsEnchantLevels, true, 10);
-    //////////////////////////////////////////////////////////////////////////////////////////
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack harmfulSubstanceStack = new ItemStack(Material.FERMENTED_SPIDER_EYE);
-    private static String[] harmfulSubstanceDesc = 
-    {"§7Some say this substance can cause harm..."};
-    private static String harmfulSubstanceName = "§r§fHarmful Substance?";
-    //
-    // Example of making a random action
-    //
-    private static BobuxAction[][] randomHarmfulSubstanceActionList1 = 
-    {
-    {new EffectGive(PotionEffectType.POISON, 300, 0, false), 
-    new DamageEntity(4, false)
-    },
-    {new EffectGive(PotionEffectType.POISON, 300, 1, false), 
-    new DamageEntity(8, false)
-    }
-    };
-    private static double[] randomHarmfulSubstanceActionList1Weights = {0.2, 0.8};
-    //
-    //
-    //
-    private static BobuxAction[] harmfulSubstanceActionList = 
-    {new RandomAction(randomHarmfulSubstanceActionList1, 
-    randomHarmfulSubstanceActionList1Weights, 
-    false)};
-    private static BobuxAbility harmfulSubstanceAbility = new AbilityOneTime 
-    ((long) 250, null, harmfulSubstanceActionList, "Harmful Substance Abil", false);
-    private static Enchantment[] harmfulSubstanceEnchantList = {Enchantment.SHARPNESS};
-    private static int[] harmfulSubstanceEnchantLevels = {3};
-    public static BobuxItem harmfulSubstance = new BobuxItem
-    (harmfulSubstanceStack, harmfulSubstanceDesc, harmfulSubstanceName, harmfulSubstanceAbility, 
-    harmfulSubstanceEnchantList, harmfulSubstanceEnchantLevels, false, 8);
-    //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack hurriedStopwatchStack = new ItemStack(Material.CLOCK);
@@ -135,14 +83,10 @@ public class BobuxItemInterface {
     {"§7Gives the user Speed III for 5 seconds",
     "§815s CD (Right Click)"};
     private static String hurriedStopwatchName = "§r§fHurried Stopwatch";
-    private static BobuxAction[] hurriedStopwatchActionList = 
-    {new EffectGive(PotionEffectType.SPEED, 100, 2, false)};
-    private static BobuxAbility hurriedStopwatchAbility = new AbilityOneTime
-    (300, null, hurriedStopwatchActionList, hurriedStopwatchName, false);
     private static Enchantment[] hurriedStopwatchEnchantList = {Enchantment.UNBREAKING, Enchantment.CHANNELING};
     private static int[] hurriedStopwatchEnchantLevels = {2, 2};
     public static BobuxItem hurriedStopwatch = new BobuxItem
-    (hurriedStopwatchStack, hurriedStopwatchDesc, hurriedStopwatchName, hurriedStopwatchAbility, 
+    (hurriedStopwatchStack, hurriedStopwatchDesc, hurriedStopwatchName, new HurriedStopwatchAbility("Hurried Stopwatch Ability", false, 600), 
     hurriedStopwatchEnchantList, hurriedStopwatchEnchantLevels, false, 15);
     //////////////////////////////////////////////////////////////////////////////////////////
     
@@ -202,17 +146,8 @@ public class BobuxItemInterface {
     {"§7Hitting mobs with this sword cleaves the mobs behind it.",
     "§85s CD"};
     private static String cleaverName = "§r§fCleaver";
-    private static ParticleSequence cleaverParticleSequence = 
-    new ParticleSequence(ParticleSequenceOptions.RING, ParticleSequenceOrientations.DOWN, Particle.DUST, 2, 0, 0, 3, 0, new DustOptions(Color.YELLOW, 2));
-    private static ParticleSequence[] cleaverParticleSequenceList = {cleaverParticleSequence};
-    private static BobuxAction[] cleaverActionList = 
-    {new DamageEntity(2,false), 
-    new ChangeVelocity(0.5, false),
-    new PlayParticle(cleaverParticleSequenceList, null, false)};
-    private static BobuxAbility cleaverAbility = new AbilityOneTime
-    (100, null, cleaverActionList, "Cleaver Ability", true);
     public static BobuxItem cleaver = new BobuxItem
-    (cleaverStack, cleaverDesc, cleaverName, cleaverAbility, 
+    (cleaverStack, cleaverDesc, cleaverName, new CleaverAbility("Cleaver Ability", true, 100), 
     null, null, true, 16);
     //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -222,15 +157,8 @@ public class BobuxItemInterface {
     {"§7test",
     "§71s CD"};
     private static String lineSpawnerName = "§r§fLine Spawner";
-    private static ParticleSequence lineSpawnerParticleSequence = 
-    new ParticleSequence(ParticleSequenceOrientations.NORMAL, Particle.ANGRY_VILLAGER, 5, 3, 0, null);
-    private static ParticleSequence[] lineSpawnerParticleSequenceList = {lineSpawnerParticleSequence};
-    private static BobuxAction[] lineSpawnerPassiveActionList = 
-    {new PlayParticle(lineSpawnerParticleSequenceList, null, false)};
-    private static AbilityPassive lineSpawnerPassive = new AbilityPassive
-    (5, null, lineSpawnerPassiveActionList, "Line Spawner Passive", false);
     public static BobuxItem lineSpawner = new BobuxItem
-    (lineSpawnerStack, lineSpawnerDesc, lineSpawnerName, lineSpawnerPassive, 16);
+    (lineSpawnerStack, lineSpawnerDesc, lineSpawnerName, new LineSpawnerAbility("Line Spawner Passive", false, 5), 16);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -281,6 +209,16 @@ public class BobuxItemInterface {
     private static String BW5Name = "§1BW-5 \"Nitro Express\"";
     public static BobuxItem BW5 = new BobuxItem
     (BW5Stack, BW5Desc, BW5Name, new BW5Ability("BW5 Ability", false, 100), 256);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack kungFuGlovesStack = new ItemStack(Material.BLACK_WOOL);
+    private static String[] kungFuGlovesDesc = 
+    {"§7Punch.",
+    "§8Harness your inner zen..."};
+    private static String kungFuGlovesName = "§0Kung Fu Gloves";
+    public static BobuxItem kungFuGloves = new BobuxItem
+    (kungFuGlovesStack, kungFuGlovesDesc, kungFuGlovesName, new KungFuGlovesAbility("Kung Fu Gloves Ability", false, 100), 256);
     //////////////////////////////////////////////////////////////////////////////////////////
 }
 

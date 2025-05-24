@@ -59,8 +59,8 @@ public class AbilityMultiStep extends BobuxAbility {
 
     }
 
-    public void assignVariables() {
-
+    public boolean assignVariables() {
+        return false;
     }
 
 }

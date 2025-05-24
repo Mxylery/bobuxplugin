@@ -9,13 +9,13 @@ import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 
 public class PlayParticle extends BobuxAction {
     
-    private Vector vector;
-    private Location location;
     private ParticleSequence particleSequence;
     
     public PlayParticle(ParticleSequence particleSequence, boolean requiresCondition) {
         this.particleSequence = particleSequence;
         super.requiresCondition = requiresCondition;
+        super.requiresVector = true;
+        super.requiresLocation = true;
     }
 
     public void adjustPerc(double adjustment) {
@@ -35,7 +35,7 @@ public class PlayParticle extends BobuxAction {
     }
 
     public void run() {
-        ParticlePlayer.spawnParticles(particleSequence, location, vector);
+        ParticlePlayer.spawnParticles(particleSequence, super.location, super.vector);
     }
 
 }

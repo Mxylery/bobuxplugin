@@ -26,11 +26,14 @@ public class RailgunAbility extends AbilityOneTime {
         super(name, muteCD, cooldown);
     }
 
-    //Ass8uming the player is a user
-    protected void assignVariables() {
+    //Assuming the player is a user
+    protected boolean assignVariables() {
         Location elevatedPlayerLoc = new Location(user.getWorld(), user.getLocation().getX(), user.getLocation().getY() + 1, user.getLocation().getZ());
-        RegistererOption railgunRegistererOption1 = new RegistererOption(RegistererType.LINE, elevatedPlayerLoc, 30, 1, 10, user.getEyeLocation().getDirection());
+        RegistererOption railgunRegistererOption1 = new RegistererOption(RegistererType.LINE, 30, 1, 10, user.getEyeLocation().getDirection());
         BobuxRegisterer railgunRegisterer1 = new BobuxRegisterer(railgunRegistererOption1, user);
+        if (railgunRegisterer1.getEntityList() == null) {
+            return false;
+        }
         Entity[][] targetList = {railgunRegisterer1.getEntityList(),{},{},{}};
         Vector[] vectorList = {null, user.getEyeLocation().getDirection(), user.getEyeLocation().getDirection(), null};
         Location[] locationList = {null, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc};
@@ -52,6 +55,7 @@ public class RailgunAbility extends AbilityOneTime {
         new PlaySound(Sound.ENTITY_FIREWORK_ROCKET_BLAST, 0.1f, 1.0f, false)};
         
         super.actionList = railgunActionList;
+        return true;
     }
 
 }
