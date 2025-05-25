@@ -104,7 +104,7 @@ public class BobuxRegisterer {
 			Location tempLoc = new Location
 			(location.getWorld(), 
 			location.getX() + tempDirection.getX()*tempVecLength,
-			location.getY() + tempDirection.getY()*tempVecLength,
+			location.getY() + tempDirection.getY()*tempVecLength - 0.25,
 			location.getZ() + tempDirection.getZ()*tempVecLength);
 			double euclDist = BobuxUtils.getLocationDifferenceMagnitude(currentEntity.getLocation(), tempLoc);
 			if (euclDist < radius) {

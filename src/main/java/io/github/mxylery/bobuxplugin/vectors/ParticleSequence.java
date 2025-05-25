@@ -1,9 +1,14 @@
 package io.github.mxylery.bobuxplugin.vectors;
 
+import javax.swing.text.html.parser.Entity;
+
+import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.World;
+import org.bukkit.entity.Firework;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Vector;
 
@@ -118,7 +123,7 @@ public class ParticleSequence implements Runnable {
             break;
             case RECTANGLE:
             break;
-            case EXPLOSION:
+            case EXPLOSION: drawExplosion();
             break;
             default:
             break;
@@ -194,6 +199,10 @@ public class ParticleSequence implements Runnable {
             double zAdjustment = ogLoc.getZ() + xLoc.getZ() + yLoc.getZ() + zLoc.getZ();
             world.spawnParticle(particle,  xAdjustment, yAdjustment, zAdjustment, 0, 0, 0, speed, dustOption);
         }
+    }
+
+    private void drawExplosion() {
+        location.getWorld().spawnParticle(particle, location, (int) amount, length, length, length, dustOption);
     }
 
     private void drawSphere() {

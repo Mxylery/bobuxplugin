@@ -34,6 +34,7 @@ public abstract class AbilityOneTime extends BobuxAbility {
         return actionList;
     }
 
+    //If the ability was retriggered by the initial trigger: ignoreCD = on, until a retrigger triggers a non retrigger trigger.
     protected void retrigger(BobuxRegisterer registerer, Player user, BobuxItem bobuxitem, int delay) {
         BukkitScheduler scheduler = BobuxTimer.getScheduler();
         if (PlayerAbilityManager.verifyItemCD(user, this, muteCD)) {

@@ -80,8 +80,9 @@ public class BobuxAbilityListener implements Listener {
             Entity damagedEntity = e.getEntity();
 
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND, damagedEntity, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND, true);
-
+            if (!player.isSneaking()) {
+                PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND, true);            
+            }
         }
     }
 

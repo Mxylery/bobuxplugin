@@ -204,10 +204,11 @@ public class BobuxItemInterface {
     {"§7Punch.",
     "§8Harness your inner zen..."};
     private static String kungFuGlovesName = "§7Kung Fu Gloves";
-    private static BobuxAttributeSet kungFuGlovesAttributes = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ATTACK_DAMAGE, 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND);
-    private static BobuxAttributeSet[] kungFuGlovesAttributeList = {kungFuGlovesAttributes};
+    private static BobuxAttributeSet kungFuGlovesAttributes1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ATTACK_DAMAGE, 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND);
+    private static BobuxAttributeSet kungFuGlovesAttributes2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ATTACK_SPEED, -2.4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND);
+    private static BobuxAttributeSet[] kungFuGlovesAttributeList = {kungFuGlovesAttributes1, kungFuGlovesAttributes2};
     public static BobuxItem kungFuGloves = new BobuxItem
-    (kungFuGlovesStack, kungFuGlovesDesc, kungFuGlovesName, new KungFuGlovesAbility("Kung Fu Gloves Ability", false, 100), new KungFuGlovesPassive("Kung Fu Gloves Passive", false, 0, 20), kungFuGlovesAttributeList, true, 256);
+    (kungFuGlovesStack, kungFuGlovesDesc, kungFuGlovesName, new KungFuGlovesAbility("Kung Fu Gloves Ability", false, 200), new KungFuGlovesPassive("Kung Fu Gloves Passive", false, 0, 40), kungFuGlovesAttributeList, true, 256);
     //////////////////////////////////////////////////////////////////////////////////////////
 
      
