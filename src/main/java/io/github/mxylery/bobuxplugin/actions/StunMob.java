@@ -1,5 +1,5 @@
 package io.github.mxylery.bobuxplugin.actions;
 
-public class StackedAction {
+public class StunMob {
     
 }

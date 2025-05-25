@@ -74,7 +74,7 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             targetList[2][0] = registerer1.getEntityList()[0];
             targetList[3][0] = user;
             targetList[4][0] = null;
-            targetList[5][0] = null;
+            targetList[5][0] = user;
             vectorList[0] = slightLeap;
             vectorList[1] = slightKnockUp;
             vectorList[2] = slightKnockUp;
@@ -86,7 +86,7 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             locationList[2] = null;
             locationList[3] = user.getLocation();
             locationList[4] = registerer1.getEntityList()[0].getLocation();
-            locationList[4] = null;
+            locationList[5] = null;
             inventoryList[0] = null;
             inventoryList[1] = null;
             inventoryList[2] = null;
@@ -100,7 +100,6 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             ParticleSequence kungFuParticle = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.CRIT, 8, 1.0, 0, 0.0, 1,  null);
             actionList[4] = new PlayParticle(kungFuParticle, false);
             actionList[5] = new EffectGive(PotionEffectType.RESISTANCE, 60, 2, false);
-
             retrigger(registerer1, user, BobuxItemInterface.kungFuGloves, 15);
         }
         super.targetList = targetList;

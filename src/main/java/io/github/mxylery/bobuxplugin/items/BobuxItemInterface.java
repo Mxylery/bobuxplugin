@@ -210,7 +210,19 @@ public class BobuxItemInterface {
     public static BobuxItem kungFuGloves = new BobuxItem
     (kungFuGlovesStack, kungFuGlovesDesc, kungFuGlovesName, new KungFuGlovesAbility("Kung Fu Gloves Ability", false, 200), new KungFuGlovesPassive("Kung Fu Gloves Passive", false, 0, 40), kungFuGlovesAttributeList, true, 256);
     //////////////////////////////////////////////////////////////////////////////////////////
-
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack fruitcakeAndCookiesStack = new ItemStack(Material.BROWN_GLAZED_TERRACOTTA);
+    private static String[] fruitcakeAndCookiesDesc = 
+    {"§7Some fruitcake and cookies to ease your soul.",
+    "§860s CD (Right Click)",
+    "",
+    "§o§8Maybe tears are endless...",
+    "§o§8I just need some refreshment...",
+    "§o§8Just to cool my heart"};
+    private static String fruitcakeAndCookiesName = "§4Fruitcake §fand §6Cookies";
+    public static BobuxItem fruitcakeAndCookies = new BobuxItem
+    (fruitcakeAndCookiesStack, fruitcakeAndCookiesDesc, fruitcakeAndCookiesName, new FruitcakeAndCookiesAbility("Fruitcake And Cookies Ability", false, 900), true, 2048);
+    //////////////////////////////////////////////////////////////////////////////////////////
      
 }
 

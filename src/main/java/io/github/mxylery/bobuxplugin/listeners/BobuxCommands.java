@@ -54,6 +54,9 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 case "bw5_ammo": player.getInventory().addItem(BobuxItemInterface.BW5Ammo.getStack());
                 break;
                 case "kung_fu_gloves": player.getInventory().addItem(BobuxItemInterface.kungFuGloves.getStack());
+                break;
+                case "fruitcake_and_cookies": player.getInventory().addItem(BobuxItemInterface.fruitcakeAndCookies.getStack());
+                break;
                 default:
                 break;
             }

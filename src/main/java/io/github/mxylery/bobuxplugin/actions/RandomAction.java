@@ -28,22 +28,20 @@ public class RandomAction extends BobuxAction {
 
     public void run() {
         //Each index represents
-        double[] ranges = new double[randomList.length+1];
         double sumCheck = 0;
+        double[] ranges = new double[weights.length+1];
+        ranges[0] = 0;
         for (int i = 0; i < weights.length; i++) {
             sumCheck += weights[i];
-            if (i == weights.length - 2) {
-                ranges[i+1] = randomList.length;
-            } else {
-                ranges[i+1] = weights[i]*randomList.length;
-            }
+            ranges[i+1] = weights[i] + ranges[i];
         }
         if (sumCheck == 1) {
-            double randomNumber = Math.random()*randomList.length;
+            double randomNumber = Math.random();
             int selectedElement = 0;
-            for (int i = 0; i < weights.length; i++) {
+            for (int i = 0; i < ranges.length; i++) {
                 if (randomNumber < ranges[i+1]) {
                     selectedElement = i;
+                    break;
                 }
             }
             for (int i = 0; i < randomList[selectedElement].length; i++) {
