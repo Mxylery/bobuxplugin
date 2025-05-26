@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Mob;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
@@ -28,7 +29,7 @@ public class TestingItemAbility extends AbilityOneTime {
     //Assuming the player is a user
     protected boolean assignVariables() {
         RegistererOption registererOption1 = new RegistererOption(RegistererType.SPHERE, 0, 5, 0, user.getEyeLocation().getDirection());
-        BobuxRegisterer registerer1 = new BobuxRegisterer(registererOption1, user);
+        BobuxRegisterer<Mob> registerer1 = new BobuxRegisterer<Mob>(registererOption1, user, Mob.class);
         Entity[][] targetList = {registerer1.getEntityList()};
         Vector[] vectorList = {null};
         Location[] locationList = {null};

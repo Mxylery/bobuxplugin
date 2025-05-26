@@ -6,6 +6,7 @@ import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Mob;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
@@ -35,7 +36,7 @@ public class BW5Ability extends AbilityOneTime {
         Location elevatedPlayerLoc = new Location(user.getWorld(), user.getLocation().getX(), user.getLocation().getY() + 1, user.getLocation().getZ());
         Vector playerDirection = user.getLocation().getDirection();
         RegistererOption registererOption1 = new RegistererOption(RegistererType.LINE, 30, 1, 1, user.getEyeLocation().getDirection());
-        BobuxRegisterer registerer1 = new BobuxRegisterer(registererOption1, user);
+        BobuxRegisterer<Mob> registerer1 = new BobuxRegisterer<Mob>(registererOption1, user, Mob.class);
         if (registerer1.getEntityList() == null) {
             return false;
         }

@@ -28,12 +28,12 @@ import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 import io.github.mxylery.bobuxplugin.vectors.RegistererOption;
 import io.github.mxylery.bobuxplugin.vectors.RegistererOption.RegistererType;
 
-public class BobuxAbilityListener implements Listener {
+public class PlayerAbilityListener implements Listener {
 
     private BobuxPlugin plugin;
     private BukkitScheduler scheduler = BobuxTimer.getScheduler();  
 
-    public BobuxAbilityListener(BobuxPlugin plugin) {
+    public PlayerAbilityListener(BobuxPlugin plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
@@ -82,7 +82,7 @@ public class BobuxAbilityListener implements Listener {
 
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND, damagedEntity, false);
             if (!player.isSneaking()) {
-                PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND, true);            
+                PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND, damagedEntity, true);            
             }
         }
     }

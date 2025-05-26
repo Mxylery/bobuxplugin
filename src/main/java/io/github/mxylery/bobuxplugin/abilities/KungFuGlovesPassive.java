@@ -19,10 +19,10 @@ public class KungFuGlovesPassive extends AbilityPassive {
     //Assuming the player is a user
     protected boolean assignVariables() {
         if (verifyPassivePeriod()) {
-            Entity[][] targetList = {{user}};
-            Vector[] vectorList = {new Vector(0,1,0)};
-            Location[] locationList = {null};
-            Inventory[] inventoryList = {null};
+            Entity[][] targetList = {{user},{otherEntity}};
+            Vector[] vectorList = {new Vector(0,1,0), new Vector(0,1,0)};
+            Location[] locationList = {null, null};
+            Inventory[] inventoryList = {null, null};
 
             super.targetList = targetList;
             super.vectorList = vectorList;
@@ -30,7 +30,7 @@ public class KungFuGlovesPassive extends AbilityPassive {
             super.inventoryList = inventoryList;
 
             BobuxAction[] actionList = 
-            {new ChangeVelocity(0.5, false)};
+            {new ChangeVelocity(0.5, false), new ChangeVelocity(0.5, false)};
         
             super.actionList = actionList;
             return true;        

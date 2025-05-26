@@ -44,7 +44,7 @@ public abstract class AbilityOneTime extends BobuxAbility {
             Runnable runnable = new Runnable(){
             public void run() {
                 if (BobuxUtils.checkWithoutDuraAmnt(user.getInventory().getItemInMainHand(), bobuxitem) && registerer.getEntityList() != null) {
-                    registerer.updateTargeting(user);
+                    registerer.updateTargeting();
                     BobuxAbility ability = BobuxItemInterface.kungFuGloves.getAbility();
                     ability.setUser(user);
                     ability.setActionList();

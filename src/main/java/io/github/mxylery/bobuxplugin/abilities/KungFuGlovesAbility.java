@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffectType;
@@ -42,7 +43,7 @@ public class KungFuGlovesAbility extends AbilityOneTime {
     protected boolean assignVariables() {
         Vector eyeVector = user.getEyeLocation().getDirection();
         RegistererOption registererOption1 = new RegistererOption(RegistererType.LINE, 8, 2, 1, eyeVector);
-        BobuxRegisterer registerer1 = new BobuxRegisterer(registererOption1, user);
+        BobuxRegisterer registerer1 = new BobuxRegisterer(registererOption1, user, Mob.class);
 
         Vector slightKnockUp = new Vector(eyeVector.getX()*0.1, 1, eyeVector.getZ()*0.1);
         Vector slightLeap = new Vector(eyeVector.getX(), eyeVector.getY()*0.5 + 0.8, eyeVector.getZ());

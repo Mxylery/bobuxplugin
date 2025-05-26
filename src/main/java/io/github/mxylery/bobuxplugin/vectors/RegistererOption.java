@@ -17,11 +17,12 @@ public class RegistererOption {
         public int limit;
         public Vector direction;
 
-        public RegistererOption(RegistererType registerType, double length, double radius, int limit, Vector direction) {
+        public RegistererOption(RegistererType registerType, double length, double radius, int limit, Vector vector) {
             this.registerType = registerType;
             this.length = length;
             this.radius = radius;
             this.limit = limit;
-            this.direction = direction;
+            this.direction = vector;
     }
+
 }

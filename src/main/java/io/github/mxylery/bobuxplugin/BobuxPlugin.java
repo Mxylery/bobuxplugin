@@ -21,12 +21,14 @@ public final class BobuxPlugin extends JavaPlugin {
         scheduler.runTaskTimer(this, bobuxTimer, 0, 1);
 
         new BobuxGiver(this);
-        new BobuxAbilityListener(this);
+        new PlayerAbilityListener(this);
         new BobuxGUIGenerator(this);
+        new BobuxEntityListener(this);
         
         this.getCommand("bobuxgive").setExecutor(new BobuxCommands(this));
         this.getCommand("bobuxmenu").setExecutor(new BobuxCommands(this));
         this.getCommand("bobuxinfo").setExecutor(new BobuxCommands(this));
+
         
 	}
 

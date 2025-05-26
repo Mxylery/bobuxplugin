@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Mob;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
@@ -30,7 +31,7 @@ public class RailgunAbility extends AbilityOneTime {
     protected boolean assignVariables() {
         Location elevatedPlayerLoc = new Location(user.getWorld(), user.getLocation().getX(), user.getLocation().getY() + 1, user.getLocation().getZ());
         RegistererOption railgunRegistererOption1 = new RegistererOption(RegistererType.LINE, 30, 1, 10, user.getEyeLocation().getDirection());
-        BobuxRegisterer railgunRegisterer1 = new BobuxRegisterer(railgunRegistererOption1, user);
+        BobuxRegisterer<Mob> railgunRegisterer1 = new BobuxRegisterer<Mob>(railgunRegistererOption1, user, Mob.class);
         if (railgunRegisterer1.getEntityList() == null) {
             return false;
         }
