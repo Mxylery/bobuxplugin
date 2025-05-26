@@ -1,6 +1,5 @@
 package io.github.mxylery.bobuxplugin.actions;
 
-import org.bukkit.Location;
 import org.bukkit.Sound;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAction;

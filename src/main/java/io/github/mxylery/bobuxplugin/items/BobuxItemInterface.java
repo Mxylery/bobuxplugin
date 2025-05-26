@@ -1,34 +1,28 @@
 package io.github.mxylery.bobuxplugin.items;
 
-import javax.management.Attribute;
-
-import org.bukkit.Color;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFactory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.Server;
-import org.bukkit.Sound;
-import org.bukkit.Particle.DustOptions;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.NamespacedKey;
+
 
 import io.github.mxylery.bobuxplugin.abilities.*;
-import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityPassive;
-import io.github.mxylery.bobuxplugin.actions.*;
-import io.github.mxylery.bobuxplugin.core.BobuxAbility;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.BW5Ability;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.BouncingItemAbility;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.CleaverAbility;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.FruitcakeAndCookiesAbility;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.HurriedStopwatchAbility;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.KungFuGlovesAbility;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.KungFuGlovesPassive;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.LineSpawnerAbility;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.RailgunAbility;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.TestingItemAbility;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.TheHotStickAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
-import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
-import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
-import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;
+
 
 /**
  * The class where all items will be instantiated and retrieved. \n
@@ -221,7 +215,7 @@ public class BobuxItemInterface {
     "§o§8Just to cool my heart"};
     private static String fruitcakeAndCookiesName = "§4Fruitcake §fand §6Cookies";
     public static BobuxItem fruitcakeAndCookies = new BobuxItem
-    (fruitcakeAndCookiesStack, fruitcakeAndCookiesDesc, fruitcakeAndCookiesName, new FruitcakeAndCookiesAbility("Fruitcake And Cookies Ability", false, 900), true, 2048);
+    (fruitcakeAndCookiesStack, fruitcakeAndCookiesDesc, fruitcakeAndCookiesName, new FruitcakeAndCookiesAbility("Fruitcake And Cookies Ability", false, 600), true, 2048);
     //////////////////////////////////////////////////////////////////////////////////////////
      
 }

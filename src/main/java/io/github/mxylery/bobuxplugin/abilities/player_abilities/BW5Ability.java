@@ -1,4 +1,4 @@
-package io.github.mxylery.bobuxplugin.abilities;
+package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -16,7 +16,6 @@ import io.github.mxylery.bobuxplugin.actions.DeleteItem;
 import io.github.mxylery.bobuxplugin.actions.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.PlaySound;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
-import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;

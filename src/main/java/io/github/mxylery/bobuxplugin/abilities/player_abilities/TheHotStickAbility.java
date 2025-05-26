@@ -1,9 +1,7 @@
-package io.github.mxylery.bobuxplugin.abilities;
+package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
@@ -12,13 +10,10 @@ import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
 import io.github.mxylery.bobuxplugin.actions.DamageEntity;
-import io.github.mxylery.bobuxplugin.actions.DeleteItem;
 import io.github.mxylery.bobuxplugin.actions.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.PlaySound;
 import io.github.mxylery.bobuxplugin.actions.SetFire;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
-import io.github.mxylery.bobuxplugin.core.BobuxUtils;
-import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;

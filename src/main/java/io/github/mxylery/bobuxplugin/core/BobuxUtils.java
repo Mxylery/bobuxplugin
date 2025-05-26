@@ -13,8 +13,6 @@ import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
-import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
-import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;
 
 public class BobuxUtils {
@@ -284,36 +282,6 @@ public class BobuxUtils {
     	}
         return bbxTotal;
     }
-
-	//work on later
-	public static Entity[] getEntitiesEllipse(Location location, double length, double width, double height, double offset, Vector direction, Entity ignoredEntity) {
-		Vector[] matrix = getNormalizedMatrix(direction, ParticleSequenceOrientations.NORMAL);
-
-		Vector lengthVector = matrix[0];
-		Vector heightVector = matrix[1];
-		Vector widthVector = matrix[2];
-
-		Location newLocation = new Location
-		(location.getWorld(), 
-		location.getX() + lengthVector.length()*offset, 
-		location.getY() + heightVector.length()*offset,
-		location.getZ() + widthVector.length()*offset);
-
-		double biggestVal = Math.max(length, Math.max(height, width));
-		ArrayList<Entity> entityList = (ArrayList<Entity>) ignoredEntity.getNearbyEntities(biggestVal, biggestVal, biggestVal);
-
-		//x^2 + y^2 + z^2 = magnitude (of max); make equation for ax^2 + by^2 + cz^2 = n (depending on ratios), convert x, y, z to normalized coords.
-		//Maybe iterate along each axis. maybe express each variable as a ratio of the other ones (like ax^2 = n - by^2 - cz^2?), maybe just need one variable to base off
-		//in this case ^^^
-		for (int i = 0; i < entityList.size(); i++) {
-			Location entityLocation = entityList.get(i).getLocation();
-			double euclideanDist = BobuxUtils.getLocationDifferenceMagnitude(newLocation, entityLocation);
-			Location normalizedLoc = BobuxUtils.getLocationDifference(newLocation, entityLocation).toLocation(newLocation.getWorld());
-
-
-		}
-		return null;
-	}
 
 
 }

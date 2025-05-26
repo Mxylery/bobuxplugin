@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
@@ -24,6 +22,7 @@ public class BobuxRegisterer<T> {
 
     //ALSO 5/22 REMOVE THE ENTITY LIST AND REMOVE THE OPTION PARAM FOR ANY NON-ENTITY USING REGISTERERS
 
+    //Can i ditch the class<t> in constructor since by declaring bobuxregisterer<t>, im declaring the class type on runtime which then makes Class<T> into whatever the bobuxregisterer<T> was made into and it's defined as is?
     public BobuxRegisterer(RegistererOption option, Player player, Class<T> theClass) {
         this.player = player;
         this.option = option;

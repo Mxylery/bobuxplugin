@@ -1,16 +1,12 @@
-package io.github.mxylery.bobuxplugin.abilities;
-
-import java.util.HashMap;
+package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
@@ -19,12 +15,7 @@ import io.github.mxylery.bobuxplugin.actions.DamageEntity;
 import io.github.mxylery.bobuxplugin.actions.EffectGive;
 import io.github.mxylery.bobuxplugin.actions.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.PlaySound;
-import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
-import io.github.mxylery.bobuxplugin.core.BobuxTimer;
-import io.github.mxylery.bobuxplugin.core.BobuxUtils;
-import io.github.mxylery.bobuxplugin.core.PlayerAbilityManager;
-import io.github.mxylery.bobuxplugin.data_structures.PAIStructure;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
@@ -43,7 +34,7 @@ public class KungFuGlovesAbility extends AbilityOneTime {
     protected boolean assignVariables() {
         Vector eyeVector = user.getEyeLocation().getDirection();
         RegistererOption registererOption1 = new RegistererOption(RegistererType.LINE, 8, 2, 1, eyeVector);
-        BobuxRegisterer registerer1 = new BobuxRegisterer(registererOption1, user, Mob.class);
+        BobuxRegisterer<Mob> registerer1 = new BobuxRegisterer<Mob>(registererOption1, user, Mob.class);
 
         Vector slightKnockUp = new Vector(eyeVector.getX()*0.1, 1, eyeVector.getZ()*0.1);
         Vector slightLeap = new Vector(eyeVector.getX(), eyeVector.getY()*0.5 + 0.8, eyeVector.getZ());

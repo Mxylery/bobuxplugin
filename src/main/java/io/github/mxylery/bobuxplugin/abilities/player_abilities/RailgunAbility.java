@@ -1,4 +1,4 @@
-package io.github.mxylery.bobuxplugin.abilities;
+package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -13,7 +13,6 @@ import io.github.mxylery.bobuxplugin.actions.DamageEntity;
 import io.github.mxylery.bobuxplugin.actions.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.PlaySound;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
-import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;

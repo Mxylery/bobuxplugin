@@ -135,5 +135,10 @@ public final class BobuxGiver implements Listener {
 		    }
 	    }
     }
+
+	@EventHandler
+	public void onChestOpen() {
+		
+	}
 }
 

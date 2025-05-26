@@ -1,14 +1,11 @@
 package io.github.mxylery.bobuxplugin.actions;
 
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
-import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 
 //This class will be used very often for consumable-type items (one-time use)
 public class DeleteSelf extends BobuxAction {

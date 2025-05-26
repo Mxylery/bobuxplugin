@@ -186,7 +186,6 @@ public class PAIStructure {
             if (tempHead.PAI.getAbility().equals(ability)) {
                 if (tempHead.PAI.getPlayer().equals(player)) {
                     if (BobuxTimer.getTicksPassed() - tempHead.PAI.getTick() < timeFrame) {
-                        System.out.println(BobuxTimer.getTicksPassed() - tempHead.PAI.getTick());
                         return BobuxTimer.getTicksPassed() - tempHead.PAI.getTick();
                     } 
                 }  

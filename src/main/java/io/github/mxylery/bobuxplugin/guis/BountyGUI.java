@@ -11,7 +11,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxBounty;
 import io.github.mxylery.bobuxplugin.core.BobuxTransaction;
-import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.listeners.BobuxGUI;
 import io.github.mxylery.bobuxplugin.listeners.BobuxGUIGenerator;
 

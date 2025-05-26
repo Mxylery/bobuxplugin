@@ -7,7 +7,7 @@ import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
-import io.github.mxylery.bobuxplugin.abilities.StinkyMobAbilityOne;
+import io.github.mxylery.bobuxplugin.abilities.mob_abilities.StinkyMobAbilityOne;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;
 

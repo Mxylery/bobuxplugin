@@ -1,7 +1,6 @@
 package io.github.mxylery.bobuxplugin.guis;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,11 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
-import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxTransaction;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
-import io.github.mxylery.bobuxplugin.items.BobuxItem;
-import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.listeners.BobuxGUI;
 import io.github.mxylery.bobuxplugin.listeners.BobuxGUIGenerator;
 

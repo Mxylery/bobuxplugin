@@ -1,18 +1,12 @@
 package io.github.mxylery.bobuxplugin.vectors;
 
-import javax.swing.text.html.parser.Entity;
-
-import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.World;
-import org.bukkit.entity.Firework;
-import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Vector;
 
-import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 
@@ -28,7 +22,6 @@ public class ParticleSequence implements Runnable {
     private ParticleSequenceOptions option;
     private ParticleSequenceOrientations orientation;
     private boolean animated = false;
-    private boolean perpendicular;
     private double inRadius;
     private double outRadius;
     private DustOptions dustOption;

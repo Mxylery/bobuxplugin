@@ -1,13 +1,11 @@
-package io.github.mxylery.bobuxplugin.abilities;
+package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
-import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
-import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
@@ -15,7 +13,6 @@ import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
 import io.github.mxylery.bobuxplugin.actions.ChangeVelocity;
 import io.github.mxylery.bobuxplugin.actions.DamageEntity;
 import io.github.mxylery.bobuxplugin.actions.PlayParticle;
-import io.github.mxylery.bobuxplugin.actions.PlaySound;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
@@ -37,7 +34,7 @@ public class CleaverAbility extends AbilityOneTime {
         Vector userEyeVector = user.getEyeLocation().getDirection();
         Location sphereLoc = BobuxUtils.offsetLocation(otherEntity.getLocation(), userEyeVector, 3, 0);
         RegistererOption option = new RegistererOption(RegistererType.SPHERE, 2.5, 3, 0, user.getEyeLocation().getDirection());
-        BobuxRegisterer registerer = new BobuxRegisterer(option, otherEntity, user, Mob.class);
+        BobuxRegisterer<Mob> registerer = new BobuxRegisterer<Mob>(option, otherEntity, user, Mob.class);
         Vector slightKnockUp = new Vector(userEyeVector.getX(), userEyeVector.getY() + 1, userEyeVector.getZ());
 
         if (registerer.getEntityList() == null) {

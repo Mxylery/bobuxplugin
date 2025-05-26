@@ -1,7 +1,6 @@
 package io.github.mxylery.bobuxplugin.actions;
 
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 

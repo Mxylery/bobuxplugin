@@ -2,10 +2,8 @@ package io.github.mxylery.bobuxplugin.core;
 
 import org.bukkit.Server;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.listeners.BobuxGUIGenerator;
 
 /**

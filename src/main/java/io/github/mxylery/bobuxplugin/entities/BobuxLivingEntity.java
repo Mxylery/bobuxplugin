@@ -1,8 +1,6 @@
 package io.github.mxylery.bobuxplugin.entities;
 
 import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;

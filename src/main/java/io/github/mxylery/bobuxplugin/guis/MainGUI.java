@@ -1,13 +1,11 @@
 package io.github.mxylery.bobuxplugin.guis;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
-import io.github.mxylery.bobuxplugin.core.BobuxTransaction;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.listeners.BobuxGUI;
 

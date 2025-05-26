@@ -1,32 +1,25 @@
 package io.github.mxylery.bobuxplugin.listeners;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInputEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitScheduler;
-import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.core.PlayerAbilityManager;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
-import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
-import io.github.mxylery.bobuxplugin.vectors.RegistererOption;
-import io.github.mxylery.bobuxplugin.vectors.RegistererOption.RegistererType;
 
 public class PlayerAbilityListener implements Listener {
 
@@ -53,11 +46,8 @@ public class PlayerAbilityListener implements Listener {
         //Air left clicks
         Player player = e.getPlayer();
         if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
-            Entity[] playerAsArray = {player};
-
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, false);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, false);
-
 
         //Air right clicks
         } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
@@ -90,7 +80,6 @@ public class PlayerAbilityListener implements Listener {
     @EventHandler
     public void onSpace(PlayerInputEvent e) {
         Player player = e.getPlayer();
-        Vector playerEyeVector = player.getEyeLocation().getDirection();
         if (e.getInput().isJump()) {
            
         }

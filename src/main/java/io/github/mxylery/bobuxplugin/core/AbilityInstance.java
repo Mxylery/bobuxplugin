@@ -1,7 +1,6 @@
 package io.github.mxylery.bobuxplugin.core;
 
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 
 public class AbilityInstance {
     private Entity entity;

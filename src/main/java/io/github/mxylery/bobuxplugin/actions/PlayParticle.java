@@ -1,7 +1,5 @@
 package io.github.mxylery.bobuxplugin.actions;
 
-import org.bukkit.Location;
-import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.vectors.ParticlePlayer;

@@ -1,7 +1,5 @@
 package io.github.mxylery.bobuxplugin.core;
 
-import java.util.HashMap;
-
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

@@ -3,12 +3,8 @@ package io.github.mxylery.bobuxplugin.abilities.ability_types;
 import java.util.HashMap;
 
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitScheduler;
-
-import io.github.mxylery.bobuxplugin.conditions.PlayerAbilityInstanceCondition;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
-import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.PlayerAbilityManager;
 import io.github.mxylery.bobuxplugin.data_structures.PAIStructure;
 

@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.plugin.Plugin;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
@@ -21,7 +24,7 @@ import io.github.mxylery.bobuxplugin.entities.StinkyMob;
 public class BobuxEntityListener implements Listener {
 
     private BobuxPlugin plugin;
-    private ArrayList<BobuxEntity> bobuxEntityList;
+    private static ArrayList<BobuxEntity> bobuxEntityList;
 
     public BobuxEntityListener(BobuxPlugin plugin) {
         this.plugin = plugin;
@@ -29,7 +32,7 @@ public class BobuxEntityListener implements Listener {
         bobuxEntityList = new ArrayList<BobuxEntity>();
     }
 
-    private BobuxEntity isBobuxMob(Entity entity) {
+    public static BobuxEntity getBobuxEntity(Entity entity) {
         for (int i = 0; i < bobuxEntityList.size(); i++) {
             if (entity.equals(bobuxEntityList.get(i).getEntity())) {
                 return bobuxEntityList.get(i);
@@ -52,6 +55,25 @@ public class BobuxEntityListener implements Listener {
                 bobuxEntityList.add(stinkyMob);
                 e.setCancelled(true);
             }
+        }
+    }
+
+    @EventHandler
+    public void onMobHit(EntityDamageByEntityEvent e) {
+        if (e.getDamager() instanceof Player) {
+            Player player = (Player) e.getDamager();
+
+            MobAbilityManager.checkForMobMatch(0,0, e.getEntity(), player);
+
+        }
+    }
+
+    @EventHandler
+    public void onPlayerTarget(EntityTargetEvent e) {
+        if (e.getTarget() instanceof Player) {
+            Player player = (Player) e.getTarget();
+
+
         }
     }
 

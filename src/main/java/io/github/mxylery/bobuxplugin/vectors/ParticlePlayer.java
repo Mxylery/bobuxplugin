@@ -1,8 +1,6 @@
 package io.github.mxylery.bobuxplugin.vectors;
 
 import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.World;
 import org.bukkit.util.Vector;
 
 //This class will use the MatrixNormalizer and BobuxParticleShapes enums to generate various particles.
