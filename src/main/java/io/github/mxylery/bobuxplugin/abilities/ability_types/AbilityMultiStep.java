@@ -1,6 +1,5 @@
 package io.github.mxylery.bobuxplugin.abilities.ability_types;
 
-import io.github.mxylery.bobuxplugin.conditions.PlayerAbilityInstanceCondition;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 

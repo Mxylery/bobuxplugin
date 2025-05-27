@@ -1,9 +1,11 @@
 package io.github.mxylery.bobuxplugin.core;
 
 import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import io.github.mxylery.bobuxplugin.core.BobuxDay.DayType;
 import io.github.mxylery.bobuxplugin.listeners.BobuxGUIGenerator;
 
 /**
@@ -15,6 +17,8 @@ public class BobuxTimer implements Runnable {
     private static long ticksPassed;
     private static Server server;
     private static Plugin bobuxPlugin;
+    private static long time;
+    private static World world;
 
     public BobuxTimer(Server pluginServer, Plugin plugin) {
         ticksPassed = 0;
@@ -34,11 +38,24 @@ public class BobuxTimer implements Runnable {
                 BobuxGUIGenerator.randomizeBounties();
             }
         } 
+        if (world == null) {
+
+        } else if (world.getTime() == 0) {
+            rollDay();
+        }
+    }
+
+    private static void rollDay() {
+        BobuxDay.rollDay();
     }
 
     public void run() {
         BobuxTimer.refresh();
         ticksPassed++;
+    }
+
+    public static void setWorld() {
+
     }
 
     public static long getTicksPassed() {
@@ -51,6 +68,10 @@ public class BobuxTimer implements Runnable {
 
     public static BukkitScheduler getScheduler() {
         return server.getScheduler();
+    }
+
+    public static long getTime() {
+        return world.getTime();
     }
 
     public static Plugin getPlugin() {

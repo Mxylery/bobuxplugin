@@ -12,12 +12,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.plugin.Plugin;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntity;
+import io.github.mxylery.bobuxplugin.entities.BobuxLivingEntity;
 import io.github.mxylery.bobuxplugin.entities.BobuxMob;
 import io.github.mxylery.bobuxplugin.entities.StinkyMob;
 
@@ -54,6 +56,17 @@ public class BobuxEntityListener implements Listener {
                 StinkyMob stinkyMob = new StinkyMob(plugin, this, zombieLoc);
                 bobuxEntityList.add(stinkyMob);
                 e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler 
+    public void onEntityDeath(EntityDeathEvent e) {
+        Entity entity = e.getEntity();
+        if (getBobuxEntity(entity) != null) {
+            if (getBobuxEntity(entity) instanceof BobuxLivingEntity) {
+                BobuxLivingEntity bobuxEntity = (BobuxLivingEntity) getBobuxEntity(entity);
+                bobuxEntity.rollLootTable(entity.getLocation());
             }
         }
     }
