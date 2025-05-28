@@ -53,7 +53,7 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             vectorList[0] = slightLeap;
             locationList[0] = null;
             inventoryList[0] = null;
-            actionList[0] = new ChangeVelocity(1, false);
+            actionList[0] = new ChangeVelocity(10, false);
             super.ignoreCD = false;
         } else {
             targetList = new Entity[6][1];
@@ -85,8 +85,8 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             inventoryList[3] = null;
             inventoryList[4] = null;
             inventoryList[5] = null;
-            actionList[0] = new ChangeVelocity(0.8, false);
-            actionList[1] = new ChangeVelocity(0.7, false);
+            actionList[0] = new ChangeVelocity(8, false);
+            actionList[1] = new ChangeVelocity(7, false);
             actionList[2] = new DamageEntity(3, false);
             actionList[3] = new PlaySound(Sound.BLOCK_WOOD_BREAK, 1.0f, 1.0f, false);
             ParticleSequence kungFuParticle = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.CRIT, 8, 1.0, 0, 0.0, 1,  null);

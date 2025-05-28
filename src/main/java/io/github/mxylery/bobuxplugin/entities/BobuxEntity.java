@@ -3,21 +3,21 @@ package io.github.mxylery.bobuxplugin.entities;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.event.Listener;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;
 
-public abstract class BobuxEntity {
+public abstract class BobuxEntity implements Listener {
     
     protected BobuxPlugin plugin;
-    protected BobuxEntityListener listener;
     protected Entity entity;
-    protected EntityType entityType;
     protected Location location;
+    protected String name;
 
-    public BobuxEntity(BobuxPlugin plugin, BobuxEntityListener listener, Location location) {
-        this.listener = listener;
+    public BobuxEntity(BobuxPlugin plugin, Location location) {
         this.location = location;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
         setUpEntity();
     }
 
@@ -32,8 +32,12 @@ public abstract class BobuxEntity {
         return entity;
     }
 
-    public void disappear() {
+    public EntityType getEntityType() {
+        return entity.getType();
+    }
 
+    public String getName() {
+        return name;
     }
 
 }

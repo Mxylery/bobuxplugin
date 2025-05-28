@@ -3,10 +3,10 @@ package io.github.mxylery.bobuxplugin.data_structures;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
-import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.core.AbilityInstance;
+import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 
 //Basically just a bag, maybe replace with doubly linked list implementation at some point
 public class AbilityInstanceStructure {
@@ -175,7 +175,7 @@ public class AbilityInstanceStructure {
      * @param Entity
      * @return The remaining cooldown before using or -1 if not found
      */
-    public long checkForAbilityCD(BobuxAbility ability, long timeFrame, Entity Entity) {
+    public long checkForAbilityCD(BobuxAbility ability, long timeFrame, Entity entity) {
         if (length == 0) {
             return -1;
         }
@@ -184,7 +184,7 @@ public class AbilityInstanceStructure {
             tempHead = tempHead.previous;
             //Checks if the ability of the checked abilityInstance is the desired one
             if (tempHead.abilityInstance.getAbility().equals(ability)) {
-                if (tempHead.abilityInstance.getEntity().equals(Entity)) {
+                if (tempHead.abilityInstance.getEntity().equals(entity)) {
                     if (BobuxTimer.getTicksPassed() - tempHead.abilityInstance.getTick() < timeFrame) {
                         return BobuxTimer.getTicksPassed() - tempHead.abilityInstance.getTick();
                     } 

@@ -30,7 +30,7 @@ public class BouncingItemAbility extends AbilityOneTime {
         super.inventoryList = inventoryList;
 
         BobuxAction[] actionList = 
-        {new ChangeVelocity(1, false), 
+        {new ChangeVelocity(10, false), 
         new DeleteSelf(EquipmentSlot.HAND, 1, false)};
         
         super.actionList = actionList;

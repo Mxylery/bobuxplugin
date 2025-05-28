@@ -6,6 +6,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
+import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.listeners.BobuxGUI;
 
@@ -23,11 +24,20 @@ public class MainGUI extends BobuxGUI {
     }
 
     protected void slotHit(int slot) {
-        switch (slot) {
-            case 11: new MarketGUI(Bukkit.createInventory(player, 36), player, plugin);
-            break;
-            case 15: new BountyGUI(Bukkit.createInventory(player, 27), player, plugin);
-            break;
+        if (BobuxTimer.getDaysPassed() != -1) {
+            switch (slot) {
+                case 11: new MarketGUI(Bukkit.createInventory(player, 36), player, plugin);
+                break;
+                case 15: new BountyGUI(Bukkit.createInventory(player, 27), player, plugin);
+                break;
+            }
+        } else {
+            switch (slot) {
+                case 11: player.sendMessage("The market is currently closed...");
+                break;
+                case 15: new BountyGUI(Bukkit.createInventory(player, 27), player, plugin);
+                break;
+            }
         }
     }
 

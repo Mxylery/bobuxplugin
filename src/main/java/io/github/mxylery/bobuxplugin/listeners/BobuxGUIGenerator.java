@@ -11,6 +11,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxBounty;
+import io.github.mxylery.bobuxplugin.core.BobuxDay;
+import io.github.mxylery.bobuxplugin.core.BobuxDay.DayType;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
@@ -26,12 +28,18 @@ public class BobuxGUIGenerator implements Listener {
     }
 
     public static HashMap<Player,BobuxBounty[]> playerBountyMap = new HashMap<Player,BobuxBounty[]>();
-    public static BobuxItem[] marketMenu = new BobuxItem[3];
+    public static BobuxItem[] marketMenu = new BobuxItem[5];
+    public static int menuSize = 3;
     public static final int marketItemTotal = 10;
-    //As of 0.2.3, generates 3 items randomly.
+    //Can either generate 3 or 5 items depending on the day.
     public static void randomizeMarketItems() {
-        int[] noDupe = new int[3];
-        for (int i = 0; i < 3; i++) {
+        if (BobuxDay.getDay() != DayType.AVARICIOUS) {
+            menuSize = 3;
+        } else {
+            menuSize = 5;
+        }
+        int[] noDupe = new int[menuSize];
+        for (int i = 0; i < menuSize; i++) {
             int rng = (int) (Math.random()*marketItemTotal);
             for (int j = 0; j < i; j++) {
                 if (rng == noDupe[j]) {

@@ -9,7 +9,6 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 
 
-import io.github.mxylery.bobuxplugin.abilities.*;
 import io.github.mxylery.bobuxplugin.abilities.player_abilities.BW5Ability;
 import io.github.mxylery.bobuxplugin.abilities.player_abilities.BouncingItemAbility;
 import io.github.mxylery.bobuxplugin.abilities.player_abilities.CleaverAbility;
@@ -82,7 +81,7 @@ public class BobuxItemInterface {
     private static int[] hurriedStopwatchEnchantLevels = {2, 2};
     public static BobuxItem hurriedStopwatch = new BobuxItem
     (hurriedStopwatchStack, hurriedStopwatchDesc, hurriedStopwatchName, new HurriedStopwatchAbility("Hurried Stopwatch Ability", false, 600), 
-    hurriedStopwatchEnchantList, hurriedStopwatchEnchantLevels, false, 15);
+    hurriedStopwatchEnchantList, hurriedStopwatchEnchantLevels, true, false, 15);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxStack = new ItemStack(Material.LIME_DYE);
@@ -208,7 +207,7 @@ public class BobuxItemInterface {
     private static ItemStack fruitcakeAndCookiesStack = new ItemStack(Material.BROWN_GLAZED_TERRACOTTA);
     private static String[] fruitcakeAndCookiesDesc = 
     {"§7Some fruitcake and cookies to ease your soul.",
-    "§860s CD (Right Click)",
+    "§830s CD (Right Click)",
     "",
     "§o§8Maybe tears are endless...",
     "§o§8I just need some refreshment...",

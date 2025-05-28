@@ -7,7 +7,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.conditions.PlayerAbilityInstanceCondition;
-import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 
 /* This will be used for the ability manager and to 
 * give each bobux item a given ability (defining them 
@@ -29,7 +28,6 @@ public abstract class BobuxAbility {
     protected Location[] locationList;
     protected Vector[] vectorList;
     protected Entity[][] targetList;
-    protected BobuxRegisterer[] registererList;
     protected String name;
     protected boolean muteCD;
     protected Entity otherEntity;

@@ -65,12 +65,25 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
             MainGUI mainGUI = new MainGUI(Bukkit.createInventory(player, 27), player, plugin);
             return true;
         } else if (command.getName().equalsIgnoreCase("bobuxinfo")) {
-            long ticksLeft = 1200 - BobuxTimer.getTicksPassed() % 1200;
+            //Market info
+            long ticksLeft = 12000 - BobuxTimer.getTime() % 12000;
             long seconds = ticksLeft/20;
-            player.sendMessage("Next market refresh:" + seconds + " s");
-            ticksLeft = 2400 - BobuxTimer.getTicksPassed() % 2400;
+            int minutes = 0;
+            while (seconds > 60) {
+                minutes++;
+                seconds -= 60;
+            }
+            player.sendMessage("Next market refresh: " + minutes + "m, " + seconds + "s");
+
+            //Bounty info
+            ticksLeft = 24000 - BobuxTimer.getTime() % 24000;
             seconds = ticksLeft/20;
-            player.sendMessage("Next bounty refresh:" + seconds + " s");
+            minutes = 0;
+            while (seconds > 60) {
+                minutes++;
+                seconds -= 60;
+            }
+            player.sendMessage("Next bounty refresh: " + minutes + "m, " + seconds + "s");
             return true;
         } else {
             return false;

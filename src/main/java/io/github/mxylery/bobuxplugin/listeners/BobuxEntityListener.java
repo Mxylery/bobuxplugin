@@ -1,10 +1,15 @@
 package io.github.mxylery.bobuxplugin.listeners;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.block.Biome;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.Event;
@@ -15,23 +20,27 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.plugin.Plugin;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntity;
 import io.github.mxylery.bobuxplugin.entities.BobuxLivingEntity;
 import io.github.mxylery.bobuxplugin.entities.BobuxMob;
-import io.github.mxylery.bobuxplugin.entities.StinkyMob;
+import io.github.mxylery.bobuxplugin.entities.BobuxSpawnChances;
+import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
 
 public class BobuxEntityListener implements Listener {
 
     private BobuxPlugin plugin;
     private static ArrayList<BobuxEntity> bobuxEntityList;
+    private static BobuxSpawnChances spawnChances;
 
     public BobuxEntityListener(BobuxPlugin plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        bobuxEntityList = new ArrayList<BobuxEntity>();
+        this.bobuxEntityList = new ArrayList<BobuxEntity>();
+        this.spawnChances = new BobuxSpawnChances(plugin, bobuxEntityList);
     }
 
     public static BobuxEntity getBobuxEntity(Entity entity) {
@@ -43,51 +52,18 @@ public class BobuxEntityListener implements Listener {
         return null;
     }
 
-    public void spawnMob() {
-
-    }
-
     @EventHandler
-    public void onEntitySpawn(EntitySpawnEvent e) {
-        if (e.getEntity() instanceof Zombie) {
-            double randomChance = Math.random();
-            if (randomChance < 0.5) {
-                Location zombieLoc = e.getEntity().getLocation();
-                StinkyMob stinkyMob = new StinkyMob(plugin, this, zombieLoc);
-                bobuxEntityList.add(stinkyMob);
-                e.setCancelled(true);
-            }
-        }
+    public void onChunkLoad(ChunkLoadEvent e) {
+        Block block = e.getChunk().getBlock(8,8,8);
+        spawnChances.attemptToSpawn(block.getBiome(), block.getLocation());
     }
 
-    @EventHandler 
-    public void onEntityDeath(EntityDeathEvent e) {
-        Entity entity = e.getEntity();
-        if (getBobuxEntity(entity) != null) {
-            if (getBobuxEntity(entity) instanceof BobuxLivingEntity) {
-                BobuxLivingEntity bobuxEntity = (BobuxLivingEntity) getBobuxEntity(entity);
-                bobuxEntity.rollLootTable(entity.getLocation());
-            }
-        }
+    public static void spawnEntity() {
+
     }
 
-    @EventHandler
-    public void onMobHit(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player) {
-            Player player = (Player) e.getDamager();
-
-            MobAbilityManager.checkForMobMatch(0,0, e.getEntity(), player);
-
-        }
-    }
-
-    @EventHandler
-    public void onPlayerTarget(EntityTargetEvent e) {
-        if (e.getTarget() instanceof Player) {
-            Player player = (Player) e.getTarget();
-
-
-        }
+    public static ArrayList<BobuxEntity> getBobuxEntityList() {
+        return bobuxEntityList;
     }
 
 }

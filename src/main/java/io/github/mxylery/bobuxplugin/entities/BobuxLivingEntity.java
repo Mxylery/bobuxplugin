@@ -1,9 +1,23 @@
 package io.github.mxylery.bobuxplugin.entities;
 
+import java.util.HashMap;
+
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.block.Biome;
+import org.bukkit.block.Block;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
+import io.github.mxylery.bobuxplugin.core.BobuxTimer;
+import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
 import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;
 
 public abstract class BobuxLivingEntity extends BobuxEntity {
@@ -13,10 +27,20 @@ public abstract class BobuxLivingEntity extends BobuxEntity {
     protected ItemStack[] dropTable;
     protected double[] dropWeights;
     protected int[][] dropRanges;
+    protected BobuxAttributeSet[] attributeSet;
 
-    public BobuxLivingEntity(BobuxPlugin plugin, BobuxEntityListener listener, Location location) {
-        super(plugin, listener, location);
+    public BobuxLivingEntity(BobuxPlugin plugin, Location location) {
+        super(plugin, location);
         isDead = false;
+    }
+
+    @EventHandler
+    public void onDeath(EntityDeathEvent e) {
+        if (e.getEntity() == entity) {
+            HandlerList.unregisterAll(this);
+            this.rollLootTable(entity.getLocation());
+            BobuxEntityListener.getBobuxEntityList().remove(this);
+        }
     }
 
     public void rollLootTable(Location location) {
@@ -33,6 +57,31 @@ public abstract class BobuxLivingEntity extends BobuxEntity {
                     }
                 }
             }
+        }
+    }
+
+    protected void applyAttributes() {
+        if (attributeSet != null) {
+            String tempName = this.getName();
+            String[] noSpaces = tempName.split(" ", 0);
+            String attributeString = "";
+            LivingEntity livingEntity = (LivingEntity) entity;
+            for (int j = 0; j < noSpaces.length; j++) {
+                attributeString = attributeString + noSpaces[j];
+            }
+            for (int i = 0; i < attributeSet.length; i++) {
+                String tempAttributeString = attributeString + i;
+                livingEntity.getAttribute(attributeSet[i].getAttribute()).addModifier(new AttributeModifier
+                (new NamespacedKey(BobuxTimer.getPlugin(), tempAttributeString), attributeSet[i].getAmount(), attributeSet[i].getOperation(), attributeSet[i].getEquipmentSlotGroup()));
+            }
+            if (maxHealth != 0) {
+                int hpToAdd = (int) (maxHealth - livingEntity.getHealth());
+                livingEntity.getAttribute(Attribute.MAX_HEALTH).addModifier(new AttributeModifier
+                (new NamespacedKey(BobuxTimer.getPlugin(), attributeString + "health"), hpToAdd, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.ANY));
+                livingEntity.setHealth(maxHealth);
+                entity = livingEntity;
+            }
+            livingEntity.setCustomName(name);
         }
     }
 

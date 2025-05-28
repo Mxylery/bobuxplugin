@@ -5,6 +5,7 @@ import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxDay.DayType;
 import io.github.mxylery.bobuxplugin.listeners.BobuxGUIGenerator;
 
@@ -16,11 +17,13 @@ public class BobuxTimer implements Runnable {
     
     private static long ticksPassed;
     private static Server server;
-    private static Plugin bobuxPlugin;
-    private static long time;
+    private static BobuxPlugin bobuxPlugin;
     private static World world;
+    private static boolean daySet = false;
+    private static int numberOfDays = -1;
+    private static long startTick = -1;
 
-    public BobuxTimer(Server pluginServer, Plugin plugin) {
+    public BobuxTimer(Server pluginServer, BobuxPlugin plugin) {
         ticksPassed = 0;
         server = pluginServer;
         bobuxPlugin = plugin;
@@ -29,19 +32,21 @@ public class BobuxTimer implements Runnable {
     }
 
     private static void refresh() {
-        //Try to overlap as many possibilities as possible (least amount of if checks)
-        if (ticksPassed % 1200 == 0) {
-            server.broadcastMessage("The market has been reset! ");
-            BobuxGUIGenerator.randomizeMarketItems();
-            if (ticksPassed % 2400 == 0) {
-                server.broadcastMessage("New bounties are now available...");
-                BobuxGUIGenerator.randomizeBounties();
-            }
-        } 
         if (world == null) {
 
         } else if (world.getTime() == 0) {
+            if (startTick == -1) {
+                startTick = ticksPassed;
+            }
             rollDay();
+            server.broadcastMessage("The day market is now open.");
+            BobuxGUIGenerator.randomizeMarketItems();
+            server.broadcastMessage("New bounties are now available...");
+            BobuxGUIGenerator.randomizeBounties();
+            numberOfDays++;
+        } else if (world.getTime() == 12000) {
+            server.broadcastMessage("The night market is now open.");
+            BobuxGUIGenerator.randomizeMarketItems();
         }
     }
 
@@ -54,8 +59,13 @@ public class BobuxTimer implements Runnable {
         ticksPassed++;
     }
 
-    public static void setWorld() {
+    public static void setWorld(World overworld) {
+        world = overworld;
+        daySet = true;
+    }
 
+    public static boolean isDaySet() {
+        return daySet;
     }
 
     public static long getTicksPassed() {
@@ -71,11 +81,31 @@ public class BobuxTimer implements Runnable {
     }
 
     public static long getTime() {
-        return world.getTime();
+        if (world != null) {
+            return world.getTime();
+        } else {
+            return 0;
+        }
     }
 
-    public static Plugin getPlugin() {
+    public static boolean isDay() {
+        if (world != null) {
+            return world.getTime() < 12000;
+        } else {
+            return false;
+        }
+    }
+
+    public static BobuxPlugin getPlugin() {
         return bobuxPlugin;
+    }
+
+    public static long getStartTick() {
+        return startTick;
+    }
+
+    public static int getDaysPassed() {
+        return numberOfDays;
     }
 
 }

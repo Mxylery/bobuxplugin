@@ -205,7 +205,7 @@ public class BobuxItem {
     }
 
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, 
-    Enchantment[] enchants, int[] enchantLevels, boolean unbreakable, int price) {
+    Enchantment[] enchants, int[] enchantLevels, boolean unbreakable, boolean hideFlag, int price) {
         this.stack = stack;
         this.description = description;
         this.name = name;
@@ -230,7 +230,7 @@ public class BobuxItem {
     }
 
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, AbilityPassive passive,
-    Enchantment[] enchants, int[] enchantLevels, boolean unbreakable, int price) {
+    Enchantment[] enchants, int[] enchantLevels, boolean unbreakable, boolean hideFlag, int price) {
         this.stack = stack;
         this.description = description;
         this.name = name;
@@ -249,7 +249,7 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = passive;
-        this.hideFlag = false;
+        this.hideFlag = hideFlag;
         this.attributeSet = null;
         initializeStack();
     }

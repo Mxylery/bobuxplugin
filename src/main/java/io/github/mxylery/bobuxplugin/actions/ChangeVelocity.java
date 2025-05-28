@@ -26,7 +26,7 @@ public class ChangeVelocity extends BobuxAction {
 
     @Override
     public void run() {
-        vector.multiply(magnitude);
+        vector.multiply(magnitude*0.1);
         for (int i = 0; i < super.entityList.length; i++) {
             if (entityList[i] instanceof LivingEntity) {
                 entityList[i].setVelocity(vector);

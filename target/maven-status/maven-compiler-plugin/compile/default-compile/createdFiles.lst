@@ -1,9 +1,4 @@
-io\github\mxylery\bobuxplugin\abilities\TheHotStickAbility.class
-io\github\mxylery\bobuxplugin\abilities\TestingItemAbility.class
+io\github\mxylery\bobuxplugin\entities\QuestBoardEnums.class
 io\github\mxylery\bobuxplugin\vectors\BobuxRegisterer$1.class
-io\github\mxylery\bobuxplugin\abilities\KungFuGlovesAbility.class
-io\github\mxylery\bobuxplugin\abilities\KungFuGlovesPassive.class
-io\github\mxylery\bobuxplugin\abilities\LineSpawnerAbility.class
 io\github\mxylery\bobuxplugin\core\BobuxUtils$1.class
-io\github\mxylery\bobuxplugin\abilities\RailgunAbility.class
-io\github\mxylery\bobuxplugin\abilities\StinkyMobAbilityOne.class
+io\github\mxylery\bobuxplugin\entities\BobuxSpawnChances$1.class

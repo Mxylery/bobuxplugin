@@ -16,6 +16,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
+import io.github.mxylery.bobuxplugin.core.BobuxDay;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.core.PlayerAbilityManager;
@@ -90,6 +91,10 @@ public class PlayerAbilityListener implements Listener {
         Player player = e.getPlayer();
 
         PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.lineSpawner, player, EquipmentSlot.HAND, true);
+
+        if (!BobuxTimer.isDaySet()) {
+            BobuxTimer.setWorld(e.getPlayer().getWorld());
+        }
 
     }
 

@@ -18,9 +18,10 @@ public abstract class BobuxMob extends BobuxLivingEntity {
     protected boolean isDead;
     protected BobuxAbility[] abilityList;
     protected AbilityInstanceStructure abilityStructure;
+    protected Mob mob;
 
-    public BobuxMob(BobuxPlugin plugin, BobuxEntityListener listener, Location location) {
-        super(plugin, listener, location);
+    public BobuxMob(BobuxPlugin plugin, Location location) {
+        super(plugin, location);
         abilityStructure = new AbilityInstanceStructure();
     }
 
