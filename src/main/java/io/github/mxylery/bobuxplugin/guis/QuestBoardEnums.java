@@ -1,4 +1,4 @@
-package io.github.mxylery.bobuxplugin.entities;
+package io.github.mxylery.bobuxplugin.guis;
 
 public class QuestBoardEnums {
     

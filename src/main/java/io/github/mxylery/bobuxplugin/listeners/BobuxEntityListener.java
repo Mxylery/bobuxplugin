@@ -1,34 +1,19 @@
 package io.github.mxylery.bobuxplugin.listeners;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
-import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.event.world.ChunkUnloadEvent;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntity;
-import io.github.mxylery.bobuxplugin.entities.BobuxLivingEntity;
-import io.github.mxylery.bobuxplugin.entities.BobuxMob;
 import io.github.mxylery.bobuxplugin.entities.BobuxSpawnChances;
-import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
 
 public class BobuxEntityListener implements Listener {
 
@@ -58,9 +43,21 @@ public class BobuxEntityListener implements Listener {
         spawnChances.attemptToSpawn(block.getBiome(), block.getLocation());
     }
 
-    public static void spawnEntity() {
-
+    @EventHandler
+    public void onChunkUnload(ChunkUnloadEvent e) {
+        Chunk chunk = e.getChunk();
+        Location location = new Location(chunk.getWorld(), chunk.getX()+8, 192, chunk.getZ()+8);
+        ArrayList<Entity> entityList = (ArrayList<Entity>) location.getWorld().getNearbyEntities(location, 8, 192, 8);
+        for (int i = 0; i < entityList.size(); i++) {
+            if (getBobuxEntity(entityList.get(i)) != null) {
+                Entity entity = entityList.get(i);
+                BobuxEntity bobuxEntity = getBobuxEntity(entity);
+                bobuxEntityList.remove(bobuxEntity);
+                entity.remove();
+            }
+        }
     }
+
 
     public static ArrayList<BobuxEntity> getBobuxEntityList() {
         return bobuxEntityList;

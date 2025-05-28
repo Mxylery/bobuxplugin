@@ -12,14 +12,13 @@ import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxDay;
 import io.github.mxylery.bobuxplugin.core.BobuxDay.DayType;
+import io.github.mxylery.bobuxplugin.entities.mobs.ScoutZombie;
 import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
 import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;
 
 // no use
 public class BobuxSpawnChances {
     
-    //An estimate to how many spawnable blocks compared to non-spawnable blocks there are.
-    private final int spawnableNonspawnableRatio = 8;
     private BobuxPlugin plugin;
     private Block bloc;
     private Location loc;
@@ -39,7 +38,7 @@ public class BobuxSpawnChances {
     private boolean canSpawn(Location location) {
         Block block = location.getBlock();
         Block groundBlock = new Location(location.getWorld(), location.getX(), location.getY() - 1, location.getZ()).getBlock();
-        if (block.getType().equals(Material.AIR) && groundBlock.getType().equals(Material.AIR)) {
+        if (block.getType().equals(Material.AIR) && !groundBlock.getType().equals(Material.AIR)) {
             return true;
         }
         return false;
@@ -82,7 +81,15 @@ public class BobuxSpawnChances {
             //Deserty
         if (biome.equals(Biome.BADLANDS) || biome.equals(Biome.DESERT) || biome.equals(Biome.ERODED_BADLANDS)) {
 
-
+            int scoutZombieAmount = (int) (100*badModifier);
+            for (int i = 0; i < scoutZombieAmount; i++) {
+                Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 0 + Math.random()*160, location.getZ() -8 + Math.random()*16);
+                if (canSpawn(loc)) {
+                    ScoutZombie scoutZombie = new ScoutZombie(plugin, loc);
+                    list.add(scoutZombie);
+                }
+            }
+            
 
             //Jungle
         } else if (biome.equals(Biome.BAMBOO_JUNGLE) || biome.equals(Biome.JUNGLE)) {
@@ -100,7 +107,7 @@ public class BobuxSpawnChances {
 
             //Night mobs
             if (!BobuxTimer.isDay()) {
-                int stinkyMobAmount = (int) ((1+Math.random()*1)*badModifier*spawnableNonspawnableRatio);
+                int stinkyMobAmount = (int) ((20)*badModifier);
                 for (int i = 0; i < stinkyMobAmount; i++) {
                     Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*384, location.getZ() -8 + Math.random()*16);
                     if (canSpawn(loc)) {
@@ -119,7 +126,16 @@ public class BobuxSpawnChances {
         } else if (biome.equals(Biome.COLD_OCEAN) || biome.equals(Biome.DEEP_OCEAN) || biome.equals(Biome.DEEP_FROZEN_OCEAN) 
         || biome.equals(Biome.DEEP_COLD_OCEAN) || biome.equals(Biome.DEEP_LUKEWARM_OCEAN) || biome.equals(Biome.BEACH) || biome.equals(Biome.OCEAN)) {
 
-
+            if (biome.equals(Biome.BEACH)) {
+                int scoutZombieAmount = (int) ((300)*badModifier);
+                for (int i = 0; i < scoutZombieAmount; i++) {
+                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*80, location.getZ() -8 + Math.random()*16);
+                    if (canSpawn(loc)) {
+                        ScoutZombie scoutZombie = new ScoutZombie(plugin, loc);
+                        list.add(scoutZombie);
+                    }
+                }
+            }
 
             //Underground
         } else if (biome.equals(Biome.DEEP_DARK) || biome.equals(Biome.DRIPSTONE_CAVES) || biome.equals(Biome.LUSH_CAVES)) {
@@ -148,6 +164,19 @@ public class BobuxSpawnChances {
 
             //Overworld
         } else if (biome.equals(Biome.MEADOW) || biome.equals(Biome.PLAINS) || biome.equals(Biome.RIVER) || biome.equals(Biome.CHERRY_GROVE)) {
+
+            //Night mobs
+            if (!BobuxTimer.isDay()) {
+                int stinkyMobAmount = (int) ((3)*badModifier);
+                for (int i = 0; i < stinkyMobAmount; i++) {
+                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*384, location.getZ() -8 + Math.random()*16);
+                    if (canSpawn(loc)) {
+                        StinkyMob stinkyMob = new StinkyMob(plugin, loc);
+                        list.add(stinkyMob);
+                    }
+                }
+            //Day mobs
+            }
 
         } else if (biome.equals(Biome.MUSHROOM_FIELDS)) {
 

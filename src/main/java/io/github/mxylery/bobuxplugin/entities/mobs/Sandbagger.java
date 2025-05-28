@@ -20,15 +20,19 @@ import io.github.mxylery.bobuxplugin.entities.BobuxMob;
 import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
 import io.github.mxylery.bobuxplugin.listeners.MobAbilityManager;
 
-public class StinkyMob extends BobuxMob {
+public class Sandbagger extends BobuxMob {
     
-    public StinkyMob(BobuxPlugin plugin, Location location) {
+    public Sandbagger(BobuxPlugin plugin, Location location) {
         super(plugin, location);
     }
 
     protected void setUpEntity() {
         ItemStack bootStack = new ItemStack(Material.LEATHER_BOOTS);
         LeatherArmorMeta bootMeta = (LeatherArmorMeta) bootStack.getItemMeta();
+        bootMeta.setColor(Color.fromRGB(0,100,0));
+        bootStack.setItemMeta(bootMeta);
+        ItemStack leggingsStack = new ItemStack(Material.LEATHER_HELMET);
+        LeatherArmorMeta leggingsMeta = (LeatherArmorMeta) bootStack.getItemMeta();
         bootMeta.setColor(Color.fromRGB(0,100,0));
         bootStack.setItemMeta(bootMeta);
         ItemStack chestplateStack = new ItemStack(Material.LEATHER_CHESTPLATE);
@@ -47,7 +51,6 @@ public class StinkyMob extends BobuxMob {
         double[] dropWeights = {1};
         int[][] dropRanges = {{1,3}};
 
-        super.maxHealth = 20;
         super.dropTable = dropTable;
         super.dropWeights = dropWeights;
         super.dropRanges = dropRanges;
