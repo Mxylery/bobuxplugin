@@ -7,6 +7,10 @@ import org.bukkit.inventory.Inventory;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
+import io.github.mxylery.bobuxplugin.entities.entities.BobuxInvisArmorStand;
+import io.github.mxylery.bobuxplugin.entities.mobs.Sandbagger;
+import io.github.mxylery.bobuxplugin.entities.mobs.ScoutZombie;
+import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
 import io.github.mxylery.bobuxplugin.guis.MainGUI;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
@@ -85,6 +89,24 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
             }
             player.sendMessage("Next bounty refresh: " + minutes + "m, " + seconds + "s");
             return true;
+        } else if (command.getName().equalsIgnoreCase("bobuxspawn")) {
+            switch (args[0]) {
+                case "stinky_mob": StinkyMob stinkyMob = new StinkyMob(BobuxTimer.getPlugin(), player.getLocation());
+                BobuxEntityListener.getBobuxEntityList().add(stinkyMob);
+                break;
+                case "scout_zombie": ScoutZombie scoutZombie = new ScoutZombie(BobuxTimer.getPlugin(), player.getLocation());
+                BobuxEntityListener.getBobuxEntityList().add(scoutZombie);
+                break;
+                case "sandbagger": Sandbagger sandbagger = new Sandbagger(BobuxTimer.getPlugin(), player.getLocation());
+                BobuxEntityListener.getBobuxEntityList().add(sandbagger);
+                break;
+                case "invisible_armor_stand": 
+                if (args[1] != null) {
+                    BobuxInvisArmorStand invisStand = new BobuxInvisArmorStand(plugin, player.getLocation(), Integer.parseInt(args[1]), null, null);
+                    BobuxEntityListener.getBobuxEntityList().add(invisStand);
+                }
+                break;
+            }
         } else {
             return false;
         }

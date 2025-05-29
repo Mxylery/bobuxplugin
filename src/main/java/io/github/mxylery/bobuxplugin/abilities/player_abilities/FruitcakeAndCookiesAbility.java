@@ -27,10 +27,10 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
 
     //Assuming the player is a user
     protected boolean assignVariables() {
-        Entity[][] targetList = {{user}};
-        Vector[] vectorList = {user.getEyeLocation().getDirection()};
-        Location[] locationList = {user.getLocation()};
-        Inventory[] inventoryList = {user.getInventory()};
+        Entity[][] targetList = {{user},{user},{user},null,null};
+        Vector[] vectorList = {null,null,null,user.getEyeLocation().getDirection(),null};
+        Location[] locationList = {null,null,null,user.getLocation(),user.getLocation()};
+        Inventory[] inventoryList = {null,null,null,null,null};
 
         super.targetList = targetList;
         super.vectorList = vectorList;
@@ -39,36 +39,49 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
 
         float saturation = user.getSaturation();
         float hunger = user.getFoodLevel();
-        float randomAddition = 4 + (float) Math.random()*4;
-        float saturationTotal = (float) Math.min(saturation + 2*randomAddition, 20);
-        float hungerTotal = (float) Math.min(hunger + randomAddition, 20);
+        float saturationTotal = (float) Math.min(saturation + 8, 20);
+        float hungerTotal = (float) Math.min(hunger + 4, 20);
 
-        ParticleSequence eatParticleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.HEART, 8, 3, 0, 0, 1, null);
+        PotionEffectType potionEffectType1;
+        PotionEffectType potionEffectType2;
+        PotionEffectType potionEffectType3;
 
-        BobuxAction[][] randomActionList = {{new SaturateEntity(saturationTotal, hungerTotal, false), 
-        new EffectGive(PotionEffectType.REGENERATION, 100, 1, false), 
-        new EffectGive(PotionEffectType.SPEED, 100, 1, false),
-        new PlaySound(Sound.ENTITY_GENERIC_EAT, 1.0f, 1.5f, false),
-        new PlayParticle(eatParticleSequence, false)},
-        {new SaturateEntity(saturationTotal, hungerTotal, false), 
-        new EffectGive(PotionEffectType.RESISTANCE, 100, 1, false), 
-        new EffectGive(PotionEffectType.ABSORPTION, 100, 0, false),
-        new EffectGive(PotionEffectType.REGENERATION, 100, 1, false), 
-        new PlaySound(Sound.ENTITY_GENERIC_EAT, 1.0f, 1.5f, false),
-        new PlayParticle(eatParticleSequence, false)},
-        {new SaturateEntity(saturationTotal, hungerTotal, false), 
-        new EffectGive(PotionEffectType.STRENGTH, 200, 0, false), 
-        new EffectGive(PotionEffectType.SPEED, 200, 1, false),
-        new EffectGive(PotionEffectType.ABSORPTION, 200, 1, false),
-        new PlaySound(Sound.ENTITY_GENERIC_EAT, 1.5f, 2.0f, false),
-        new PlaySound(Sound.BLOCK_NOTE_BLOCK_CHIME, 1.5f, 1.5f, false),
-        new PlayParticle(eatParticleSequence, false)}};
-        double[] weights = {0.4,0.4,0.2};
+        double rng1 = Math.random();
+        if (rng1 < 0.5) {
+            potionEffectType1 = PotionEffectType.REGENERATION;
+        } else if (rng1 < 0.8) {
+            potionEffectType1 = PotionEffectType.ABSORPTION;
+        } else {
+            potionEffectType1 = PotionEffectType.RESISTANCE;
+        }
 
-        RandomAction randomAction = new RandomAction(randomActionList, weights, false);
+        double rng2 = Math.random();
+        if (rng2 < 0.5) {
+            potionEffectType2 = PotionEffectType.SPEED;
+        } else if (rng2 < 0.9) {
+            potionEffectType2 = PotionEffectType.HASTE;
+        } else {
+            potionEffectType2 = PotionEffectType.HUNGER;
+        }
 
-        BobuxAction[] actionList = {randomAction};
+        double rng3 = Math.random();
+        if (rng3 < 0.5) {
+            potionEffectType3 = PotionEffectType.STRENGTH;
+        } else if (rng3 < 0.9) {
+            potionEffectType3 = PotionEffectType.FIRE_RESISTANCE;
+        } else {
+            potionEffectType3 = PotionEffectType.WATER_BREATHING;
+        }
+
+        ParticleSequence eatParticleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.HEART, 8, 3, 0, 0, 0.5, null);
         
+        BobuxAction[] actionList =  
+        {new EffectGive(potionEffectType1, 200, 0, false),
+        new EffectGive(potionEffectType2, 200, 1, false),
+        new EffectGive(potionEffectType3, 200, 0, false),
+        new PlayParticle(eatParticleSequence, false),
+        new PlaySound(Sound.ENTITY_CAT_EAT, 1.0f, 1.0f, false)};
+
         super.actionList = actionList;
         return true;
     }

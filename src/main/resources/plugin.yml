@@ -16,3 +16,7 @@ commands:
     description: Shows bobux information related to timers, etc.
     aliases: bobuxinfo
     usage: "Usage: /<command>"
+  bobuxspawn:
+    description: Spawns a bobux mob
+    aliases: bobuxspawn
+    usage: "Usage: /<command> [bobuxmob]"

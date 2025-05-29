@@ -12,6 +12,8 @@ import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxDay;
 import io.github.mxylery.bobuxplugin.core.BobuxDay.DayType;
+import io.github.mxylery.bobuxplugin.entities.mobs.BigChicken;
+import io.github.mxylery.bobuxplugin.entities.mobs.Sandbagger;
 import io.github.mxylery.bobuxplugin.entities.mobs.ScoutZombie;
 import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
 import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;
@@ -38,7 +40,7 @@ public class BobuxSpawnChances {
     private boolean canSpawn(Location location) {
         Block block = location.getBlock();
         Block groundBlock = new Location(location.getWorld(), location.getX(), location.getY() - 1, location.getZ()).getBlock();
-        if (block.getType().equals(Material.AIR) && !groundBlock.getType().equals(Material.AIR)) {
+        if (block.getType().equals(Material.AIR) && !groundBlock.getType().equals(Material.AIR) && !groundBlock.getType().equals(Material.LAVA)) {
             return true;
         }
         return false;
@@ -46,6 +48,8 @@ public class BobuxSpawnChances {
 
     //done up to savanna_plateau alphabetically, too lazy to do more
     public void attemptToSpawn(Biome biome, Location location) {
+        //This rng is to regulate spawns, only a quarter of chunks will have mobs just for server
+        double rng = Math.random();
         if (BobuxDay.getDay() != null) {
         switch(BobuxDay.getDay()) {
             case NORMAL: 
@@ -73,22 +77,36 @@ public class BobuxSpawnChances {
             badModifier = 1.5;
             break;
             case ADVENTUROUS:
-            goodModifier = 1.0;
-            badModifier = 1.0;
+            goodModifier = 1.2;
+            badModifier = 1.5;
             break;
         }
 
+        if (rng < 0.25) {
             //Deserty
         if (biome.equals(Biome.BADLANDS) || biome.equals(Biome.DESERT) || biome.equals(Biome.ERODED_BADLANDS)) {
 
-            int scoutZombieAmount = (int) (100*badModifier);
+            int scoutZombieAmount = (int) (6*badModifier);
             for (int i = 0; i < scoutZombieAmount; i++) {
-                Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 0 + Math.random()*160, location.getZ() -8 + Math.random()*16);
+                Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*160, location.getZ() -8 + Math.random()*16);
                 if (canSpawn(loc)) {
                     ScoutZombie scoutZombie = new ScoutZombie(plugin, loc);
                     list.add(scoutZombie);
                 }
             }
+
+            double sandbaggerRng = Math.random();
+            if (sandbaggerRng < 0.1) {
+                int sandbaggerAmount = (int) (5*goodModifier);
+                for (int i = 0; i < sandbaggerAmount; i++) {
+                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 60 + Math.random()*324, location.getZ() -8 + Math.random()*16);
+                    if (canSpawn(loc)) {
+                        Sandbagger sandbagger = new Sandbagger(plugin, loc);
+                        list.add(sandbagger);
+                    }
+                }
+            }
+
             
 
             //Jungle
@@ -107,9 +125,9 @@ public class BobuxSpawnChances {
 
             //Night mobs
             if (!BobuxTimer.isDay()) {
-                int stinkyMobAmount = (int) ((20)*badModifier);
+                int stinkyMobAmount = (int) ((6)*badModifier);
                 for (int i = 0; i < stinkyMobAmount; i++) {
-                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*384, location.getZ() -8 + Math.random()*16);
+                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*320, location.getZ() -8 + Math.random()*16);
                     if (canSpawn(loc)) {
                         StinkyMob stinkyMob = new StinkyMob(plugin, loc);
                         list.add(stinkyMob);
@@ -127,7 +145,7 @@ public class BobuxSpawnChances {
         || biome.equals(Biome.DEEP_COLD_OCEAN) || biome.equals(Biome.DEEP_LUKEWARM_OCEAN) || biome.equals(Biome.BEACH) || biome.equals(Biome.OCEAN)) {
 
             if (biome.equals(Biome.BEACH)) {
-                int scoutZombieAmount = (int) ((300)*badModifier);
+                int scoutZombieAmount = (int) ((5)*badModifier);
                 for (int i = 0; i < scoutZombieAmount; i++) {
                     Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*80, location.getZ() -8 + Math.random()*16);
                     if (canSpawn(loc)) {
@@ -165,11 +183,20 @@ public class BobuxSpawnChances {
             //Overworld
         } else if (biome.equals(Biome.MEADOW) || biome.equals(Biome.PLAINS) || biome.equals(Biome.RIVER) || biome.equals(Biome.CHERRY_GROVE)) {
 
+            int bigChickenAmount = (int) ((6)*badModifier);
+            for (int i = 0; i < bigChickenAmount; i++) {
+                Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*320, location.getZ() -8 + Math.random()*16);
+                if (canSpawn(loc)) {
+                    BigChicken bigChicken = new BigChicken(plugin, loc);
+                    list.add(bigChicken);
+                }
+            }
+
             //Night mobs
             if (!BobuxTimer.isDay()) {
-                int stinkyMobAmount = (int) ((3)*badModifier);
+                int stinkyMobAmount = (int) ((5)*badModifier);
                 for (int i = 0; i < stinkyMobAmount; i++) {
-                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*384, location.getZ() -8 + Math.random()*16);
+                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*320, location.getZ() -8 + Math.random()*16);
                     if (canSpawn(loc)) {
                         StinkyMob stinkyMob = new StinkyMob(plugin, loc);
                         list.add(stinkyMob);
@@ -188,8 +215,8 @@ public class BobuxSpawnChances {
         } else if (biome.equals(Biome.SAVANNA) || biome.equals(Biome.SAVANNA_PLATEAU)) {
 
         } 
-    }
 
+        }
+        }
     }
-        
 }

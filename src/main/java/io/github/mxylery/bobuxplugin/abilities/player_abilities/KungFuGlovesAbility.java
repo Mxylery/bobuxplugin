@@ -15,6 +15,7 @@ import io.github.mxylery.bobuxplugin.actions.DamageEntity;
 import io.github.mxylery.bobuxplugin.actions.EffectGive;
 import io.github.mxylery.bobuxplugin.actions.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.PlaySound;
+import io.github.mxylery.bobuxplugin.actions.StunMob;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
@@ -56,17 +57,18 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             actionList[0] = new ChangeVelocity(10, false);
             super.ignoreCD = false;
         } else {
-            targetList = new Entity[6][1];
-            vectorList = new Vector[6];
-            locationList = new Location[6];
-            inventoryList = new Inventory[6];
-            actionList = new BobuxAction[6];
+            targetList = new Entity[7][1];
+            vectorList = new Vector[7];
+            locationList = new Location[7];
+            inventoryList = new Inventory[7];
+            actionList = new BobuxAction[7];
             targetList[0][0] = user;
             targetList[1][0] = registerer1.getEntityList()[0];
             targetList[2][0] = registerer1.getEntityList()[0];
             targetList[3][0] = user;
             targetList[4][0] = null;
             targetList[5][0] = user;
+            targetList[6][0] = registerer1.getEntityList()[0];
             vectorList[0] = slightLeap;
             vectorList[1] = slightKnockUp;
             vectorList[2] = slightKnockUp;
@@ -92,6 +94,7 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             ParticleSequence kungFuParticle = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.CRIT, 8, 1.0, 0, 0.0, 1,  null);
             actionList[4] = new PlayParticle(kungFuParticle, false);
             actionList[5] = new EffectGive(PotionEffectType.RESISTANCE, 60, 2, false);
+            actionList[6] = new StunMob(14, false);
             retrigger(registerer1, user, BobuxItemInterface.kungFuGloves, 15);
         }
         super.targetList = targetList;

@@ -1,16 +1,20 @@
 package io.github.mxylery.bobuxplugin.listeners;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInputEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -58,6 +62,7 @@ public class PlayerAbilityListener implements Listener {
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.theHotStick, player, EquipmentSlot.HAND, false);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND, false);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.fruitcakeAndCookies, player, EquipmentSlot.HAND, false);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bobuxinator, player, EquipmentSlot.HAND, false);
             if (BobuxUtils.checkTotalItems(player.getInventory(), BobuxItemInterface.BW5Ammo.getStack()) != null) {
                 PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.BW5, player, EquipmentSlot.HAND, false);
             } 
@@ -124,6 +129,32 @@ public class PlayerAbilityListener implements Listener {
                 }
             };
             scheduler.runTaskLater(plugin, passiveRunnable, 1);
+        }
+    }
+
+    @EventHandler
+    public void onConsume(PlayerItemConsumeEvent e) {
+        Player player = e.getPlayer();
+
+        PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bobuxBrew, player, EquipmentSlot.HAND, false);
+    }
+
+    @EventHandler
+    public void onItemGet(EntityPickupItemEvent e) {
+        if (e.getEntityType().equals(EntityType.PLAYER)) {
+            Player player = (Player) e.getEntity();
+
+            if (e.getItem().getItemStack().equals(BobuxItemInterface.bobuxBrewRemnants.getStack())) {
+                Runnable runnable = new Runnable(){
+                    public void run() {
+                        int[] indexList = BobuxUtils.checkTotalItems(player.getInventory(), BobuxItemInterface.bobuxBrewRemnants.getStack());
+                        if (indexList != null) {
+                            player.getInventory().setItem(indexList[0], BobuxItemInterface.bobuxBrew.getStack());
+                        }
+                    }
+                };
+                scheduler.runTaskLater(plugin, runnable, 600);
+            }
         }
     }
 }

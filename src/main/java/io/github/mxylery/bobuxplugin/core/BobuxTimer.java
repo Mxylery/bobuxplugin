@@ -90,7 +90,7 @@ public class BobuxTimer implements Runnable {
 
     public static boolean isDay() {
         if (world != null) {
-            return world.getTime() < 12000;
+            return world.getTime() < 13000;
         } else {
             return false;
         }

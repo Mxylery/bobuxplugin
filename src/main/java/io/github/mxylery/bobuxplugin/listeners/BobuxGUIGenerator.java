@@ -30,7 +30,7 @@ public class BobuxGUIGenerator implements Listener {
     public static HashMap<Player,BobuxBounty[]> playerBountyMap = new HashMap<Player,BobuxBounty[]>();
     public static BobuxItem[] marketMenu = new BobuxItem[5];
     public static int menuSize = 3;
-    public static final int marketItemTotal = 10;
+    public static final int marketItemTotal = 12;
     //Can either generate 3 or 5 items depending on the day.
     public static void randomizeMarketItems() {
         if (BobuxDay.getDay() != DayType.AVARICIOUS) {
@@ -68,9 +68,9 @@ public class BobuxGUIGenerator implements Listener {
                 break;
                 case 9: marketMenu[i] = BobuxItemInterface.fruitcakeAndCookies;
                 break;
-                case 10:
+                case 10: marketMenu[i] = BobuxItemInterface.bobuxinator;
                 break;
-                case 11:
+                case 11: marketMenu[i] = BobuxItemInterface.bobuxBrew;
                 break;
                 case 12:
                 break;

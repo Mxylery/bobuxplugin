@@ -4,6 +4,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDeathEvent;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.AbilityInstance;
@@ -16,8 +18,6 @@ public abstract class BobuxMob extends BobuxLivingEntity {
 
     protected double attackDamage;
     protected boolean isDead;
-    protected BobuxAbility[] abilityList;
-    protected AbilityInstanceStructure abilityStructure;
     protected Mob mob;
 
     public BobuxMob(BobuxPlugin plugin, Location location) {
@@ -25,37 +25,14 @@ public abstract class BobuxMob extends BobuxLivingEntity {
         abilityStructure = new AbilityInstanceStructure();
     }
 
-    //The roles are switched here; the user is the entity and the player is the victim.
-    public void useAbility(int index) {
-        abilityList[index].setOtherEntity(entity);
-        if (abilityList[index].setActionList() && abilityStructure.checkForAbilityCD(abilityList[index], abilityList[index].getCooldown(), entity) == -1) {
-            abilityList[index].use();
-            AbilityInstance abilityInstance = new AbilityInstance(entity, BobuxTimer.getTicksPassed(), abilityList[index]);
-            abilityStructure.addabilityInstanceLast(abilityInstance);
-        }
-    }
-
-    public void useAbility(int index, Player player) {
-        abilityList[index].setUser(player);
-        abilityList[index].setOtherEntity(entity);
-        if (abilityList[index].setActionList() && abilityStructure.checkForAbilityCD(abilityList[index], abilityList[index].getCooldown(), entity) == -1) {
-            abilityList[index].use();
-            AbilityInstance abilityInstance = new AbilityInstance(entity, BobuxTimer.getTicksPassed(), abilityList[index]);
-            abilityStructure.addabilityInstanceLast(abilityInstance);
-        }
+    @EventHandler
+    public void onDeath(EntityDeathEvent e) {
+        super.onDeath(e);
     }
 
     public void setTarget(LivingEntity target) {
         Mob mob = (Mob) entity;
         mob.setTarget(target);
-    }
-
-    public AbilityInstanceStructure getAbilityHistory() {
-        return abilityStructure;
-    }
-
-    public BobuxAbility getAbility(int index) {
-        return abilityList[index];
     }
     
 }
