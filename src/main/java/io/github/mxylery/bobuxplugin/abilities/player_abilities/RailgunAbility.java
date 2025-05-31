@@ -49,10 +49,10 @@ public class RailgunAbility extends AbilityOneTime {
         ParticleSequence railgunParticleSequence2 = 
         new ParticleSequence(ParticleSequenceOptions.SPIRAL, ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 5, 0, 1, 1, 30, null);
         BobuxAction[] railgunActionList = 
-        {new DamageEntity(10, false), 
-        new PlayParticle(railgunParticleSequence1,  false), 
-        new PlayParticle(railgunParticleSequence2,  false), 
-        new PlaySound(Sound.ENTITY_FIREWORK_ROCKET_BLAST, 0.1f, 1.0f, false)};
+        {new DamageEntity(10), 
+        new PlayParticle(railgunParticleSequence1), 
+        new PlayParticle(railgunParticleSequence2), 
+        new PlaySound(Sound.ENTITY_FIREWORK_ROCKET_BLAST, 0.1f, 1.0f)};
         
         super.actionList = railgunActionList;
         return true;

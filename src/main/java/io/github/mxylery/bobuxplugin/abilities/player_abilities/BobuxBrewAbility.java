@@ -29,7 +29,7 @@ public class BobuxBrewAbility extends AbilityOneTime {
         super.inventoryList = inventoryList;
 
         BobuxAction[] actionList = 
-        {new ReplaceItem(BobuxItemInterface.bobuxBrew.getStack(), BobuxItemInterface.bobuxBrewRemnants.getStack(), false)};
+        {new ReplaceItem(BobuxItemInterface.bobuxBrew.getStack(), BobuxItemInterface.bobuxBrewRemnants.getStack())};
         
         super.actionList = actionList;
         return true;

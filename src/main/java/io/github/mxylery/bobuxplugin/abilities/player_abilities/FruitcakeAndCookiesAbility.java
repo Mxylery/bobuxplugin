@@ -27,9 +27,9 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
 
     //Assuming the player is a user
     protected boolean assignVariables() {
-        Entity[][] targetList = {{user},{user},{user},null,null};
-        Vector[] vectorList = {null,null,null,user.getEyeLocation().getDirection(),null};
-        Location[] locationList = {null,null,null,user.getLocation(),user.getLocation()};
+        Entity[][] targetList = {{user},{user},{user},{user},null,null};
+        Vector[] vectorList = {null,null,null,null,user.getEyeLocation().getDirection(),null};
+        Location[] locationList = {null,null,null,null,user.getLocation(),user.getLocation()};
         Inventory[] inventoryList = {null,null,null,null,null};
 
         super.targetList = targetList;
@@ -39,48 +39,59 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
 
         float saturation = user.getSaturation();
         float hunger = user.getFoodLevel();
-        float saturationTotal = (float) Math.min(saturation + 8, 20);
-        float hungerTotal = (float) Math.min(hunger + 4, 20);
+        float endSat = Math.min(saturation + 10, 20);
+        float endHung = Math.min(hunger + 7, 20);
 
         PotionEffectType potionEffectType1;
         PotionEffectType potionEffectType2;
         PotionEffectType potionEffectType3;
+        int potionEffectStrength1;
+        int potionEffectStrength2;
+        int potionEffectStrength3;
 
         double rng1 = Math.random();
         if (rng1 < 0.5) {
             potionEffectType1 = PotionEffectType.REGENERATION;
+            potionEffectStrength1 = 1;
         } else if (rng1 < 0.8) {
             potionEffectType1 = PotionEffectType.ABSORPTION;
+            potionEffectStrength1 = 0;
         } else {
             potionEffectType1 = PotionEffectType.RESISTANCE;
+            potionEffectStrength1 = 2;
         }
 
         double rng2 = Math.random();
         if (rng2 < 0.5) {
             potionEffectType2 = PotionEffectType.SPEED;
-        } else if (rng2 < 0.9) {
+            potionEffectStrength2 = 1;
+        } else  {
             potionEffectType2 = PotionEffectType.HASTE;
-        } else {
-            potionEffectType2 = PotionEffectType.HUNGER;
-        }
+            potionEffectStrength2 = 1;
+        } 
 
         double rng3 = Math.random();
         if (rng3 < 0.5) {
             potionEffectType3 = PotionEffectType.STRENGTH;
+            potionEffectStrength3 = 0;
         } else if (rng3 < 0.9) {
             potionEffectType3 = PotionEffectType.FIRE_RESISTANCE;
+            potionEffectStrength3 = 0;
         } else {
-            potionEffectType3 = PotionEffectType.WATER_BREATHING;
+            potionEffectType3 = PotionEffectType.STRENGTH;
+            potionEffectStrength3 = 0;
+            potionEffectStrength2 = 1;
         }
 
         ParticleSequence eatParticleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.HEART, 8, 3, 0, 0, 0.5, null);
         
         BobuxAction[] actionList =  
-        {new EffectGive(potionEffectType1, 200, 0, false),
-        new EffectGive(potionEffectType2, 200, 1, false),
-        new EffectGive(potionEffectType3, 200, 0, false),
-        new PlayParticle(eatParticleSequence, false),
-        new PlaySound(Sound.ENTITY_CAT_EAT, 1.0f, 1.0f, false)};
+        {new EffectGive(potionEffectType1, 200, potionEffectStrength1),
+        new EffectGive(potionEffectType2, 200, potionEffectStrength2),
+        new EffectGive(potionEffectType3, 200, potionEffectStrength3),
+        new SaturateEntity(endHung, endSat),
+        new PlayParticle(eatParticleSequence),
+        new PlaySound(Sound.ENTITY_CAT_EAT, 1.0f, 1.0f)};
 
         super.actionList = actionList;
         return true;

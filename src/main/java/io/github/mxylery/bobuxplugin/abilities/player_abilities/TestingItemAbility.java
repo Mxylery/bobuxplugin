@@ -33,7 +33,7 @@ public class TestingItemAbility extends AbilityOneTime {
         super.locationList = locationList;
         super.inventoryList = inventoryList;
 
-        BobuxAction[] railgunActionList = {new DamageEntity(10, false)};
+        BobuxAction[] railgunActionList = {new DamageEntity(10)};
         
         super.actionList = railgunActionList;
         return true;

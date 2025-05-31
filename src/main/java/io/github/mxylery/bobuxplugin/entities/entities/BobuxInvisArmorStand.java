@@ -19,8 +19,8 @@ public class BobuxInvisArmorStand extends BobuxEntity {
     private BobuxAbility onSpawnAbil;
     private BobuxAbility onDeathAbil;
 
-    public BobuxInvisArmorStand(BobuxPlugin plugin, Location location, long lifetime, BobuxAbility onSpawnAbil, BobuxAbility onDeathAbil) {
-        super(plugin, location, lifetime);
+    public BobuxInvisArmorStand(Location location, long lifetime, BobuxAbility onSpawnAbil, BobuxAbility onDeathAbil) {
+        super(location, lifetime);
         this.onSpawnAbil = onSpawnAbil;
         this.onDeathAbil = onDeathAbil;
     }

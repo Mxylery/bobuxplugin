@@ -132,11 +132,16 @@ public class PlayerAbilityListener implements Listener {
         }
     }
 
+    /**
+     * This method handles player consume events (any item )
+     */
     @EventHandler
     public void onConsume(PlayerItemConsumeEvent e) {
         Player player = e.getPlayer();
 
-        PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bobuxBrew, player, EquipmentSlot.HAND, false);
+        if (PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bobuxBrew, player, EquipmentSlot.HAND, false)) {
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler
@@ -153,6 +158,7 @@ public class PlayerAbilityListener implements Listener {
                         }
                     }
                 };
+                System.out.println("Remnants gotten");
                 scheduler.runTaskLater(plugin, runnable, 600);
             }
         }

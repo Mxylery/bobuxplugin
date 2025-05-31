@@ -10,10 +10,9 @@ public class ReplaceItem extends BobuxAction {
     private ItemStack stackToReplace;
     private ItemStack stackToGive;
 
-    public ReplaceItem(ItemStack stackToReplace, ItemStack stackToGive, boolean requiresCondition) {
+    public ReplaceItem(ItemStack stackToReplace, ItemStack stackToGive) {
         this.stackToReplace = stackToReplace;
         this.stackToGive = stackToGive;
-        super.requiresCondition = requiresCondition;
         super.requiresInventory = true;
     }
 

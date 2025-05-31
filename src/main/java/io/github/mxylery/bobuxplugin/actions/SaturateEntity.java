@@ -13,9 +13,8 @@ public class SaturateEntity extends BobuxAction {
 private float saturate;
 
 //This action needs an entity to saturate and a number to saturate for
-public SaturateEntity(float hunger, float saturate, boolean requiresCondition) {
+public SaturateEntity(float hunger, float saturate) {
     this.saturate = saturate;
-    super.requiresCondition = requiresCondition;
     super.requiresEntity = true;
 }
 

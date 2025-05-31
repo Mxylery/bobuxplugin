@@ -86,41 +86,8 @@ public class PlayerAbilityManager {
             //Initializes the PAI Structure holding all of the ability instances
             PAIStructure abilityInstanceHistory = PAImap.get(player);
             BobuxAction[] actionList = polyAbility.getActionList();
-
-            //If it has PAI conditions (if it relies on other people using their abilities in a certain radius)
-            if (polyAbility.getConditionList() != null) {
-                PlayerAbilityInstanceCondition[] conditionList = polyAbility.getConditionList();
-                //Stops if conditions aren't met or if all conditions have been checked and are met
-                boolean conditionsMet = true;
-                for (int i = 0; i < conditionList.length && conditionsMet == true; i++) {
-                    
-                    BobuxAbility conditionAbility = conditionList[i].getAbility();
-                    double conditionRadius = conditionList[i].getRadius();
-                    long conditionTimeFrame = conditionList[i].getTimeFrame();
-                    
-                    //Only activates if condition abilities 
-                    if (conditionRadius == 0) {
-                        conditionsMet = abilityInstanceHistory.removeAbilityInstance(conditionAbility, conditionTimeFrame);
-                    } else {
-                        conditionsMet = abilityInstanceHistory.removeAbilityInstance(conditionAbility, conditionTimeFrame, conditionRadius);
-                    }
-                }
-                for (int i = 0; i < actionList.length; i++) {
-                    if (actionList[i].requiresCondition()) {
-                        if (conditionsMet) {
-                            actionList[i].run();
-                        }
-                    } else {
-                        actionList[i].run();
-                    }
-                }
-            } else {
-                /*
-                 * Runs each action of the ability with no conditions otherwise
-                 */
-                for (int i = 0; i < actionList.length; i++) {
-                    actionList[i].run();
-                }
+            for (int i = 0; i < actionList.length; i++) {
+                actionList[i].run();
             }
             
             //Registers the instance to the PAIStructure, which is then registered to the map.
@@ -211,7 +178,7 @@ public class PlayerAbilityManager {
         }
     }
 
-    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, boolean passive) {
+    public static boolean checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, boolean passive) {
         PlayerInventory currentInventory = holder.getInventory();
         if (currentInventory.getItem(slot) != null) {
             if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
@@ -226,10 +193,13 @@ public class PlayerAbilityManager {
                 if (!passive) {
                     if (ability.setActionList() && verifyItemCD(holder, ability)) {
                         useAbility(holder, ability);
+                        return true;
                     }
+                    return false;
                 } else {
                     if (ability.setActionList() && verifyItemCD(holder, ability)) {
                         usePassive(holder, ability);  
+                        //Cooldown is actually the delay, so if the delay isn't 0 (if it relies on a delay)
                         if (ability.getCooldown() != 0) {
                             Runnable passiveRunnable = new Runnable(){
                                 public void run() {
@@ -237,11 +207,13 @@ public class PlayerAbilityManager {
                                 }
                             };
                         scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
+                        return true;
                         }
                     }
+                    return false;
                 }
-            }
-        }
+            } return false;
+        } return false;
     }
 
     public static HashMap<Player, PAIStructure> getPAIMap() {

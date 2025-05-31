@@ -13,11 +13,10 @@ public class EffectGive extends BobuxAction {
     private int strength;
 
     //The effect strength is the strength + 1 (if you want level 1 effect, make the strength 0)
-    public EffectGive(PotionEffectType potionEffect, int length, int strength, boolean requiresCondition) {
+    public EffectGive(PotionEffectType potionEffect, int length, int strength) {
         this.potionEffect = potionEffect;
         this.length = length;
         this.strength = strength;
-        super.requiresCondition = requiresCondition;
         super.requiresEntity = true;
         super.requiresVector = false;
     }

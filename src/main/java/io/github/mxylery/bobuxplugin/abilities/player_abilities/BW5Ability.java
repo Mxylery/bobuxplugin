@@ -63,15 +63,15 @@ public class BW5Ability extends AbilityOneTime {
         ParticleSequence BW5ParticleSequence6 = new ParticleSequence
         (ParticleSequenceOrientations.LEFT, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
         BobuxAction[] BW5ActionList = 
-        {new DamageEntity(30, false), 
-        new PlayParticle(BW5ParticleSequence1, false),
-        new PlayParticle(BW5ParticleSequence2, false),
-        new PlayParticle(BW5ParticleSequence3, false),
-        new PlayParticle(BW5ParticleSequence4, false),
-        new PlayParticle(BW5ParticleSequence5, false),
-        new PlayParticle(BW5ParticleSequence6, false),
-        new PlaySound(Sound.ENTITY_GENERIC_EXPLODE, 0.4f, 0.5f, false),
-        new DeleteItem(BobuxItemInterface.BW5Ammo.getStack(), 1, false)};
+        {new DamageEntity(30), 
+        new PlayParticle(BW5ParticleSequence1),
+        new PlayParticle(BW5ParticleSequence2),
+        new PlayParticle(BW5ParticleSequence3),
+        new PlayParticle(BW5ParticleSequence4),
+        new PlayParticle(BW5ParticleSequence5),
+        new PlayParticle(BW5ParticleSequence6),
+        new PlaySound(Sound.ENTITY_GENERIC_EXPLODE, 0.4f, 0.5f),
+        new DeleteItem(BobuxItemInterface.BW5Ammo.getStack(), 1)};
         
         super.actionList = BW5ActionList;
         return true;

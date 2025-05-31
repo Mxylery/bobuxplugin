@@ -53,9 +53,9 @@ public class CleaverAbility extends AbilityOneTime {
         ParticleSequence particleSequence = new ParticleSequence
         (ParticleSequenceOptions.RING, ParticleSequenceOrientations.DOWN, Particle.DUST, 2, 0, 0, 3, 0, new DustOptions(Color.YELLOW, 2));
         BobuxAction[] actionList = 
-        {new DamageEntity(5,false), 
-        new ChangeVelocity(8, false), 
-        new PlayParticle(particleSequence, false)};
+        {new DamageEntity(5), 
+        new ChangeVelocity(8), 
+        new PlayParticle(particleSequence)};
         
         super.actionList = actionList;
         return true;

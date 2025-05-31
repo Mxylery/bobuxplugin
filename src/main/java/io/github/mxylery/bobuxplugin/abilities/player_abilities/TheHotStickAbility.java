@@ -52,11 +52,11 @@ public class TheHotStickAbility extends AbilityOneTime {
         (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.FLAME, 5, 5, 5, 5, 0, null);
 
         BobuxAction[] theHotStickActionList = 
-        {new DamageEntity(10, false), 
-        new PlayParticle(theHotStickParticleSequence1, false),
-        new PlayParticle(theHotStickParticleSequence2, false),
-        new SetFire(200, false),
-        new PlaySound(Sound.ITEM_FIRECHARGE_USE, 0.5f, 1.0f, false)};
+        {new DamageEntity(10), 
+        new PlayParticle(theHotStickParticleSequence1),
+        new PlayParticle(theHotStickParticleSequence2),
+        new SetFire(200),
+        new PlaySound(Sound.ITEM_FIRECHARGE_USE, 0.5f, 1.0f)};
         
         super.actionList = theHotStickActionList;
         return true;

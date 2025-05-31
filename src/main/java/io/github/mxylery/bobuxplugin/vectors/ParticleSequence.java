@@ -76,7 +76,7 @@ public class ParticleSequence implements Runnable {
      * This constructor is used for non-line non-animated particle sequences. 
      * @param option Particle sequence desired (line, ring, etc)
      * @param particle Type of particle desired
-     * @param amount Amount of particles per block (measured in lines drawn)
+     * @param amount Amount of particles per block (measured in unit lengths approx)
      * @param speed Speed of the particle (weather it will move a lot or not, also depends on the particle)
      * @param inRadius The inner radius of a sphere/ring/cylinder, and also used for the torsion of a spiral.
      * @param outRadius The outer radius of a sphere/ring/cylinder, and also used for the radius of a spiral.

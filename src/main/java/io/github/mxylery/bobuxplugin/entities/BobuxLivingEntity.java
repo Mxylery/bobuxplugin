@@ -5,6 +5,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Mob;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -13,21 +14,26 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
+import io.github.mxylery.bobuxplugin.data_structures.AbilityInstanceStructure;
 import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
 import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;
 
 public abstract class BobuxLivingEntity extends BobuxEntity {
 
+    protected LivingEntity livingEntity;
     protected int maxHealth;
     protected boolean isDead;
     protected ItemStack[] dropTable;
     protected double[] dropWeights;
     protected int[][] dropRanges;
     protected BobuxAttributeSet[] attributeSet;
+    protected boolean isHostile;
 
-    public BobuxLivingEntity(BobuxPlugin plugin, Location location) {
-        super(plugin, location);
+    public BobuxLivingEntity(Location location) {
+        super(location);
+        abilityStructure = new AbilityInstanceStructure();
         isDead = false;
+        this.livingEntity = (LivingEntity) super.entity;
     }
 
     @EventHandler
@@ -43,15 +49,11 @@ public abstract class BobuxLivingEntity extends BobuxEntity {
     public void rollLootTable(Location location) {
         Location dropLoc = new Location(location.getWorld(), location.getX() + 0.5, location.getY() + 0.5, location.getZ() + 0.5);
         if (dropTable == null || dropWeights == null || dropRanges == null) {
-            System.out.println("Drop Null");
         } else {
             for (int i = 0; i < dropTable.length; i++) {
-                System.out.println("DropTable Notification");
                 Double rng = Math.random();
                 if (rng < dropWeights[i]) {
-                    System.out.println("Weights Good");
                     int amount = (int) (dropRanges[i][0] + (int) (Math.random()*(dropRanges[i][1] - dropRanges[i][0])));
-                    System.out.println("Amount: " + amount);
                     for (int j = 0; j < amount; j++) {
                         dropLoc.getWorld().dropItem(dropLoc, dropTable[i]);
                     }
@@ -78,11 +80,20 @@ public abstract class BobuxLivingEntity extends BobuxEntity {
                 int hpToAdd = (int) (maxHealth - livingEntity.getHealth());
                 livingEntity.getAttribute(Attribute.MAX_HEALTH).addModifier(new AttributeModifier
                 (new NamespacedKey(BobuxTimer.getPlugin(), attributeString + "health"), hpToAdd, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.ANY));
-                livingEntity.setHealth(maxHealth);
+                if (maxHealth < livingEntity.getHealth()) {
+                    livingEntity.damage(-hpToAdd);
+                } else {
+                    livingEntity.setHealth(maxHealth);
+                }
                 entity = livingEntity;
             }
             livingEntity.setCustomName(name);
         }
+    }
+
+    public void setTarget(LivingEntity target) {
+        Mob mob = (Mob) entity;
+        mob.setTarget(target);
     }
 
     public boolean isDead() {
@@ -91,6 +102,10 @@ public abstract class BobuxLivingEntity extends BobuxEntity {
 
     public void setDead(boolean isDead) {
         this.isDead = isDead;
+    }
+
+    public boolean isHostile() {
+        return isHostile;
     }
     
 }

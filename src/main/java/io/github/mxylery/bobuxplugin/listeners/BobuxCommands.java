@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.entities.entities.BobuxInvisArmorStand;
+import io.github.mxylery.bobuxplugin.entities.livingentities.BigChicken;
 import io.github.mxylery.bobuxplugin.entities.mobs.Sandbagger;
 import io.github.mxylery.bobuxplugin.entities.mobs.ScoutZombie;
 import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
@@ -61,6 +62,12 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
                 case "fruitcake_and_cookies": player.getInventory().addItem(BobuxItemInterface.fruitcakeAndCookies.getStack());
                 break;
+                case "bobuxinator": player.getInventory().addItem(BobuxItemInterface.bobuxinator.getStack());
+                break;
+                case "bobux_brew": player.getInventory().addItem(BobuxItemInterface.bobuxBrew.getStack());
+                break;
+                case "bobux_brew_remnants": player.getInventory().addItem(BobuxItemInterface.bobuxBrewRemnants.getStack());
+                break;
                 default:
                 break;
             }
@@ -91,18 +98,21 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
             return true;
         } else if (command.getName().equalsIgnoreCase("bobuxspawn")) {
             switch (args[0]) {
-                case "stinky_mob": StinkyMob stinkyMob = new StinkyMob(BobuxTimer.getPlugin(), player.getLocation());
+                case "stinky_mob": StinkyMob stinkyMob = new StinkyMob(player.getLocation());
                 BobuxEntityListener.getBobuxEntityList().add(stinkyMob);
                 break;
-                case "scout_zombie": ScoutZombie scoutZombie = new ScoutZombie(BobuxTimer.getPlugin(), player.getLocation());
+                case "scout_zombie": ScoutZombie scoutZombie = new ScoutZombie(player.getLocation());
                 BobuxEntityListener.getBobuxEntityList().add(scoutZombie);
                 break;
-                case "sandbagger": Sandbagger sandbagger = new Sandbagger(BobuxTimer.getPlugin(), player.getLocation());
+                case "sandbagger": Sandbagger sandbagger = new Sandbagger(player.getLocation());
                 BobuxEntityListener.getBobuxEntityList().add(sandbagger);
+                break;
+                case "big_chicken": BigChicken bigChicken = new BigChicken(player.getLocation());
+                BobuxEntityListener.getBobuxEntityList().add(bigChicken);
                 break;
                 case "invisible_armor_stand": 
                 if (args[1] != null) {
-                    BobuxInvisArmorStand invisStand = new BobuxInvisArmorStand(plugin, player.getLocation(), Integer.parseInt(args[1]), null, null);
+                    BobuxInvisArmorStand invisStand = new BobuxInvisArmorStand(player.getLocation(), Integer.parseInt(args[1]), null, null);
                     BobuxEntityListener.getBobuxEntityList().add(invisStand);
                 }
                 break;

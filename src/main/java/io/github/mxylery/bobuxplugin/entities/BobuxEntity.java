@@ -4,18 +4,20 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.Listener;
+import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.AbilityInstance;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.data_structures.AbilityInstanceStructure;
-import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;
+import io.github.mxylery.bobuxplugin.entities.entities.BobuxProjectile;
 
 public abstract class BobuxEntity implements Listener {
     
-    protected BobuxPlugin plugin;
+    protected BobuxPlugin plugin = BobuxTimer.getPlugin();
     protected Entity entity;
     protected Location location;
     protected String name;
@@ -23,13 +25,13 @@ public abstract class BobuxEntity implements Listener {
     protected AbilityInstanceStructure abilityStructure;
     protected long lifetime;
 
-    public BobuxEntity(BobuxPlugin plugin, Location location) {
+    public BobuxEntity(Location location) {
         this.location = location;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         setUpEntity();
     }
 
-        public BobuxEntity(BobuxPlugin plugin, Location location, long lifetime) {
+    public BobuxEntity(Location location, long lifetime) {
         this.location = location;
         this.lifetime = lifetime;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);

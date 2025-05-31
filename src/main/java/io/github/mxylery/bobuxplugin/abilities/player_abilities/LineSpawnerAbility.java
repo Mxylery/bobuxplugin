@@ -33,7 +33,7 @@ public class LineSpawnerAbility extends AbilityPassive {
 
         ParticleSequence particleSequence1 = 
         new ParticleSequence(ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 30, 2.0, 0.0, null);
-        BobuxAction[] railgunActionList = {new PlayParticle(particleSequence1,  false)};
+        BobuxAction[] railgunActionList = {new PlayParticle(particleSequence1)};
         
         super.actionList = railgunActionList;
         return true;

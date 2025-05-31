@@ -6,8 +6,7 @@ import io.github.mxylery.bobuxplugin.core.BobuxAction;
 
 public class TeleportEntity extends BobuxAction {
     
-    public TeleportEntity(boolean requiresCondition) {
-        super.requiresCondition = requiresCondition;
+    public TeleportEntity() {
         super.requiresEntity = true;
         super.requiresVector = true;
         super.requiresLocation = true;

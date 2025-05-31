@@ -8,10 +8,9 @@ public class RandomAction extends BobuxAction {
     private double[] weights;
 
     //Weights have to add up to one
-    public RandomAction(BobuxAction[][] randomList, double[] weights, boolean requiresCondition) {
+    public RandomAction(BobuxAction[][] randomList, double[] weights) {
         this.randomList = randomList;
         this.weights = weights;
-        super.requiresCondition = requiresCondition;
         super.requiresEntity = true;
         super.requiresVector = true;
         super.requiresLocation = true;

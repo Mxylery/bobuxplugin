@@ -10,10 +10,9 @@ public class SpawnItem extends BobuxAction {
     private ItemStack stack;
     private int amount;
 
-    public SpawnItem(ItemStack stack, int amount, boolean requiresCondition) {
+    public SpawnItem(ItemStack stack, int amount) {
         this.stack = stack;
         this.amount = amount;
-        super.requiresCondition = requiresCondition;
         super.requiresLocation = true;
     }
 

@@ -13,10 +13,9 @@ public class DeleteSelf extends BobuxAction {
     private EquipmentSlot equSlot;
     private int amount;
     
-    public DeleteSelf(EquipmentSlot slot, int amount, boolean requiresCondition) {
+    public DeleteSelf(EquipmentSlot slot, int amount) {
         this.equSlot = slot;
         this.amount = amount;
-        super.requiresCondition = requiresCondition;
         super.requiresEntity = true;
     }
 

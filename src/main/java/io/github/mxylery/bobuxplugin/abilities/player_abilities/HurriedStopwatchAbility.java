@@ -30,8 +30,8 @@ public class HurriedStopwatchAbility extends AbilityOneTime {
         super.inventoryList = inventoryList;
 
         BobuxAction[] actionList = 
-        {new EffectGive(PotionEffectType.SPEED, 100, 2, false),
-        new PlaySound(Sound.BLOCK_END_PORTAL_FRAME_FILL, 0.5f, 0.5f, false)};
+        {new EffectGive(PotionEffectType.SPEED, 100, 2),
+        new PlaySound(Sound.BLOCK_END_PORTAL_FRAME_FILL, 0.5f, 0.5f)};
         
         super.actionList = actionList;
         return true;

@@ -1,6 +1,7 @@
 package io.github.mxylery.bobuxplugin.listeners;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -20,12 +21,14 @@ public class BobuxEntityListener implements Listener {
     private BobuxPlugin plugin;
     private static ArrayList<BobuxEntity> bobuxEntityList;
     private static BobuxSpawnChances spawnChances;
+    private static HashMap<Chunk, ArrayList<Entity>> chunkEntityMap;
 
     public BobuxEntityListener(BobuxPlugin plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.bobuxEntityList = new ArrayList<BobuxEntity>();
-        this.spawnChances = new BobuxSpawnChances(plugin, bobuxEntityList);
+        this.chunkEntityMap = new HashMap<Chunk, ArrayList<Entity>>();
+        this.spawnChances = new BobuxSpawnChances(plugin, bobuxEntityList, chunkEntityMap);
     }
 
     public static BobuxEntity getBobuxEntity(Entity entity) {
@@ -40,21 +43,24 @@ public class BobuxEntityListener implements Listener {
     @EventHandler
     public void onChunkLoad(ChunkLoadEvent e) {
         Block block = e.getChunk().getBlock(8,8,8);
-        spawnChances.attemptToSpawn(block.getBiome(), block.getLocation());
+        spawnChances.attemptToSpawn(e.getChunk(), block.getBiome(), block.getLocation());
     }
 
     @EventHandler
     public void onChunkUnload(ChunkUnloadEvent e) {
         Chunk chunk = e.getChunk();
-        Location location = new Location(chunk.getWorld(), chunk.getX()+8, 192, chunk.getZ()+8);
-        ArrayList<Entity> entityList = (ArrayList<Entity>) location.getWorld().getNearbyEntities(location, 8, 192, 8);
-        for (int i = 0; i < entityList.size(); i++) {
-            if (getBobuxEntity(entityList.get(i)) != null) {
-                Entity entity = entityList.get(i);
-                BobuxEntity bobuxEntity = getBobuxEntity(entity);
-                bobuxEntityList.remove(bobuxEntity);
-                entity.remove();
+        ArrayList<Entity> entityList = chunkEntityMap.get(chunk);
+        if (entityList != null) {
+            for (int i = 0; i < entityList.size(); i++) {
+                if (getBobuxEntity(entityList.get(i)) != null) {
+                    Entity entity = entityList.get(i);
+                    BobuxEntity bobuxEntity = getBobuxEntity(entity);
+                    bobuxEntityList.remove(bobuxEntity);
+                    entity.remove();
+                    System.out.println("Bobux Entity Removed");
+                }
             }
+        chunkEntityMap.remove(chunk);
         }
     }
 

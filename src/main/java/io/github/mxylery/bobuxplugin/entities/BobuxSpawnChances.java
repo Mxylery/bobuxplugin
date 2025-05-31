@@ -1,18 +1,20 @@
 package io.github.mxylery.bobuxplugin.entities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxDay;
 import io.github.mxylery.bobuxplugin.core.BobuxDay.DayType;
-import io.github.mxylery.bobuxplugin.entities.mobs.BigChicken;
+import io.github.mxylery.bobuxplugin.entities.livingentities.BigChicken;
 import io.github.mxylery.bobuxplugin.entities.mobs.Sandbagger;
 import io.github.mxylery.bobuxplugin.entities.mobs.ScoutZombie;
 import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
@@ -27,14 +29,16 @@ public class BobuxSpawnChances {
     private double goodModifier = 1.0;
     private double badModifier = 1.0;
     private ArrayList<BobuxEntity> list;
+    private HashMap<Chunk, ArrayList<Entity>> chunkEntityMap;
 
     /**
      * To make spawn chances (where the number is approx how many mobs per chunk)
      * xMobAmount = (int) ((min + Math.random()*(min - max))/spawnableNonspawnableRatio)
      */
-    public BobuxSpawnChances(BobuxPlugin plugin, ArrayList<BobuxEntity> list) {
+    public BobuxSpawnChances(BobuxPlugin plugin, ArrayList<BobuxEntity> list, HashMap<Chunk, ArrayList<Entity>> chunkEntityMap) {
         this.plugin = plugin;
         this.list = list;
+        this.chunkEntityMap = chunkEntityMap;
     }
 
     private boolean canSpawn(Location location) {
@@ -46,8 +50,21 @@ public class BobuxSpawnChances {
         return false;
     }
 
+    private void spawnMethod(BobuxEntity bobuxEntity, Chunk chunk) {
+        list.add(bobuxEntity);
+        if (!chunkEntityMap.containsKey(chunk)) {
+            ArrayList<Entity> entityArrayList = new ArrayList<Entity>();
+            Entity entity = bobuxEntity.getEntity();
+            entityArrayList.add(entity);
+            chunkEntityMap.put(chunk, entityArrayList);
+        }
+        ArrayList<Entity> entityArrayList = chunkEntityMap.get(chunk);
+        Entity entity = bobuxEntity.getEntity();
+        entityArrayList.add(entity);
+    }
+
     //done up to savanna_plateau alphabetically, too lazy to do more
-    public void attemptToSpawn(Biome biome, Location location) {
+    public void attemptToSpawn(Chunk chunk, Biome biome, Location location) { 
         //This rng is to regulate spawns, only a quarter of chunks will have mobs just for server
         double rng = Math.random();
         if (BobuxDay.getDay() != null) {
@@ -83,6 +100,7 @@ public class BobuxSpawnChances {
         }
 
         if (rng < 0.25) {
+            Entity[] entitiesAdded;
             //Deserty
         if (biome.equals(Biome.BADLANDS) || biome.equals(Biome.DESERT) || biome.equals(Biome.ERODED_BADLANDS)) {
 
@@ -90,19 +108,19 @@ public class BobuxSpawnChances {
             for (int i = 0; i < scoutZombieAmount; i++) {
                 Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*160, location.getZ() -8 + Math.random()*16);
                 if (canSpawn(loc)) {
-                    ScoutZombie scoutZombie = new ScoutZombie(plugin, loc);
-                    list.add(scoutZombie);
+                    ScoutZombie scoutZombie = new ScoutZombie(loc);
+                    spawnMethod(scoutZombie, chunk);
                 }
             }
 
             double sandbaggerRng = Math.random();
-            if (sandbaggerRng < 0.1) {
+            if (sandbaggerRng < 0.5) {
                 int sandbaggerAmount = (int) (5*goodModifier);
                 for (int i = 0; i < sandbaggerAmount; i++) {
-                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 60 + Math.random()*324, location.getZ() -8 + Math.random()*16);
+                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*160, location.getZ() -8 + Math.random()*16);
                     if (canSpawn(loc)) {
-                        Sandbagger sandbagger = new Sandbagger(plugin, loc);
-                        list.add(sandbagger);
+                        Sandbagger sandbagger = new Sandbagger(loc);
+                        spawnMethod(sandbagger, chunk);
                     }
                 }
             }
@@ -129,8 +147,8 @@ public class BobuxSpawnChances {
                 for (int i = 0; i < stinkyMobAmount; i++) {
                     Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*320, location.getZ() -8 + Math.random()*16);
                     if (canSpawn(loc)) {
-                        StinkyMob stinkyMob = new StinkyMob(plugin, loc);
-                        list.add(stinkyMob);
+                        StinkyMob stinkyMob = new StinkyMob(loc);
+                        spawnMethod(stinkyMob, chunk);
                     }
                 }
             //Day mobs
@@ -149,8 +167,8 @@ public class BobuxSpawnChances {
                 for (int i = 0; i < scoutZombieAmount; i++) {
                     Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*80, location.getZ() -8 + Math.random()*16);
                     if (canSpawn(loc)) {
-                        ScoutZombie scoutZombie = new ScoutZombie(plugin, loc);
-                        list.add(scoutZombie);
+                        ScoutZombie scoutZombie = new ScoutZombie(loc);
+                        spawnMethod(scoutZombie, chunk);
                     }
                 }
             }
@@ -185,10 +203,10 @@ public class BobuxSpawnChances {
 
             int bigChickenAmount = (int) ((6)*badModifier);
             for (int i = 0; i < bigChickenAmount; i++) {
-                Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*320, location.getZ() -8 + Math.random()*16);
+                Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*160, location.getZ() -8 + Math.random()*16);
                 if (canSpawn(loc)) {
-                    BigChicken bigChicken = new BigChicken(plugin, loc);
-                    list.add(bigChicken);
+                    BigChicken bigChicken = new BigChicken(loc);
+                    spawnMethod(bigChicken, chunk);
                 }
             }
 
@@ -198,8 +216,8 @@ public class BobuxSpawnChances {
                 for (int i = 0; i < stinkyMobAmount; i++) {
                     Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*320, location.getZ() -8 + Math.random()*16);
                     if (canSpawn(loc)) {
-                        StinkyMob stinkyMob = new StinkyMob(plugin, loc);
-                        list.add(stinkyMob);
+                        StinkyMob stinkyMob = new StinkyMob(loc);
+                        spawnMethod(stinkyMob, chunk);
                     }
                 }
             //Day mobs

@@ -3,29 +3,25 @@ package io.github.mxylery.bobuxplugin.entities.mobs;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Husk;
-import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.abilities.mob_abilities.SandbaggerAbilityOne;
-import io.github.mxylery.bobuxplugin.abilities.mob_abilities.StinkyMobAbilityOne;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.entities.BobuxMob;
-import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
 import io.github.mxylery.bobuxplugin.listeners.MobAbilityManager;
 
 public class Sandbagger extends BobuxMob {
     
-    public Sandbagger(BobuxPlugin plugin, Location location) {
-        super(plugin, location);
+    private int timesHit = 4;
+
+    public Sandbagger(Location location) {
+        super(location);
     }
 
     protected void setUpEntity() {
@@ -54,7 +50,7 @@ public class Sandbagger extends BobuxMob {
         double[] dropWeights = {1};
         int[][] dropRanges = {{1,3}};
 
-        super.maxHealth = 4;
+        super.maxHealth = 200;
         super.dropTable = dropTable;
         super.dropWeights = dropWeights;
         super.dropRanges = dropRanges;
@@ -68,7 +64,13 @@ public class Sandbagger extends BobuxMob {
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
         if (e.getEntity().equals(entity)) {
-            MobAbilityManager.verifyAbilityCD(this, 0);
+            if (timesHit != 0) {
+                MobAbilityManager.verifyAbilityCD(this,0);
+                timesHit--;
+            } else {
+                MobAbilityManager.verifyAbilityCD(this,0);
+                mob.setHealth(0);
+            }
         }
     }
 

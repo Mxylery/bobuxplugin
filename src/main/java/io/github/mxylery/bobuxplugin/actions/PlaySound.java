@@ -10,11 +10,10 @@ public class PlaySound extends BobuxAction {
     private float volume;
     private float pitch;
 
-    public PlaySound(Sound sound, float volume, float pitch, boolean requiresCondition) {
+    public PlaySound(Sound sound, float volume, float pitch) {
         this.sound = sound;
         this.volume = volume;
         this.pitch = pitch;
-        super.requiresCondition = requiresCondition;
         super.requiresLocation = true;
     }
 

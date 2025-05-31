@@ -1,11 +1,9 @@
 package io.github.mxylery.bobuxplugin.listeners;
 
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntity;
-import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
 
 //This is where all cooldowns get registered to players and whatnot. Also take into account mobs, can have seperate methods or even a seperate class
 public class MobAbilityManager {

@@ -1,0 +1,43 @@
+package io.github.mxylery.bobuxplugin.abilities.mob_abilities;
+
+import org.bukkit.Location;
+import org.bukkit.entity.Egg;
+import org.bukkit.entity.Entity;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.util.Vector;
+
+import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
+import io.github.mxylery.bobuxplugin.abilities.projectile_abilities.BigChickenEggHit;
+import io.github.mxylery.bobuxplugin.actions.DamageEntity;
+import io.github.mxylery.bobuxplugin.actions.SpawnProjectile;
+import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.core.BobuxUtils;
+
+public class BigChickenAbilityOne extends AbilityOneTime {
+
+    public BigChickenAbilityOne(String name, boolean muteCD, long cooldown) {
+        super(name, muteCD, cooldown);
+    }
+
+    //Assuming the player is a user
+    protected boolean assignVariables() {
+
+        Vector differenceVector = BobuxUtils.getLocationDifference(otherEntity.getLocation(), user.getLocation());
+
+        Entity[][] targetList = {{otherEntity}};
+        Vector[] vectorList = {differenceVector};
+        Location[] locationList = {otherEntity.getLocation()};
+        Inventory[] inventoryList = {null};
+
+        super.targetList = targetList;
+        super.vectorList = vectorList;
+        super.locationList = locationList;
+        super.inventoryList = inventoryList;
+
+        BobuxAction[] actionList = {new SpawnProjectile(Egg.class, 1.0, true, null, new BigChickenEggHit("Big Chicken Egg Hit Abil", true, 0))};
+        
+        super.actionList = actionList;
+        return true;
+    }
+
+}

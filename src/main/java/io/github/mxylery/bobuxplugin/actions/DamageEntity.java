@@ -13,18 +13,9 @@ public class DamageEntity extends BobuxAction {
 private double damage;
 
 //This action needs an entity to damage and a number to damage for
-public DamageEntity(double damage, boolean requiresCondition) {
+public DamageEntity(double damage) {
     this.damage = damage;
-    super.requiresCondition = requiresCondition;
     super.requiresEntity = true;
-}
-
-public void adjustFlat(double increase) {
-    this.damage += increase;
-}
-
-public void adjustPerc(double increase) {
-    this.damage = this.damage*(increase/100 + 1);
 }
 
 public void run() {

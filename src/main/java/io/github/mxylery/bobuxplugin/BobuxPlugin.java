@@ -28,7 +28,6 @@ public final class BobuxPlugin extends JavaPlugin {
         this.getCommand("bobuxinfo").setExecutor(new BobuxCommands(this));
         this.getCommand("bobuxspawn").setExecutor(new BobuxCommands(this));
 
-        
 	}
 
 	@Override 

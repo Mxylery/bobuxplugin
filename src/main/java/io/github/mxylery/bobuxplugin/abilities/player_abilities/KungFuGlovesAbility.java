@@ -54,7 +54,7 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             vectorList[0] = slightLeap;
             locationList[0] = null;
             inventoryList[0] = null;
-            actionList[0] = new ChangeVelocity(10, false);
+            actionList[0] = new ChangeVelocity(10);
             super.ignoreCD = false;
         } else {
             targetList = new Entity[7][1];
@@ -87,14 +87,14 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             inventoryList[3] = null;
             inventoryList[4] = null;
             inventoryList[5] = null;
-            actionList[0] = new ChangeVelocity(8, false);
-            actionList[1] = new ChangeVelocity(7, false);
-            actionList[2] = new DamageEntity(3, false);
-            actionList[3] = new PlaySound(Sound.BLOCK_WOOD_BREAK, 1.0f, 1.0f, false);
+            actionList[0] = new ChangeVelocity(8);
+            actionList[1] = new ChangeVelocity(7);
+            actionList[2] = new DamageEntity(3);
+            actionList[3] = new PlaySound(Sound.BLOCK_WOOD_BREAK, 1.0f, 1.0f);
             ParticleSequence kungFuParticle = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.CRIT, 8, 1.0, 0, 0.0, 1,  null);
-            actionList[4] = new PlayParticle(kungFuParticle, false);
-            actionList[5] = new EffectGive(PotionEffectType.RESISTANCE, 60, 2, false);
-            actionList[6] = new StunMob(14, false);
+            actionList[4] = new PlayParticle(kungFuParticle);
+            actionList[5] = new EffectGive(PotionEffectType.RESISTANCE, 60, 2);
+            actionList[6] = new StunMob(14);
             retrigger(registerer1, user, BobuxItemInterface.kungFuGloves, 15);
         }
         super.targetList = targetList;

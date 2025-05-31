@@ -66,7 +66,6 @@ public class SandbaggerAbilityOne extends AbilityOneTime {
             }
         } else {
             bobuxStack = BobuxItemInterface.bobuxCube.getStack();
-            double rngTwo = Math.random();
             bobuxAmnt = 1;
         }
 
@@ -78,9 +77,9 @@ public class SandbaggerAbilityOne extends AbilityOneTime {
         ParticleSequence particleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.DUST, 16, 1, 0, 0, 0.5, new DustOptions(Color.YELLOW, 3));
 
         BobuxAction[] actionList = 
-        {new SpawnItem(bobuxStack, bobuxAmnt, false),
-        new PlayParticle(particleSequence, false),
-        new PlaySound(Sound.ENTITY_VILLAGER_TRADE, 1.0f, 1.0f, false)};
+        {new SpawnItem(bobuxStack, bobuxAmnt),
+        new PlayParticle(particleSequence),
+        new PlaySound(Sound.ENTITY_VILLAGER_TRADE, 1.0f, 1.0f)};
         
         super.actionList = actionList;
         limit++;

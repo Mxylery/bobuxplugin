@@ -13,11 +13,10 @@ public class PullTowardsPoint extends BobuxAction {
     private double strength;
     private double bounce;
 
-    public PullTowardsPoint(double radius, double strength, double bounce, boolean requiresCondition) {
+    public PullTowardsPoint(double radius, double strength, double bounce) {
         this.radius = radius;
         this.strength = strength;
         this.bounce = bounce;
-        super.requiresCondition = requiresCondition;
         super.requiresEntity = true;
         super.requiresLocation = true;
     }
@@ -28,8 +27,8 @@ public class PullTowardsPoint extends BobuxAction {
             if (entityList[i] instanceof LivingEntity) {
                 Vector vector = BobuxUtils.getLocationDifference(super.entityList[i].getLocation(), super.location);
                 double euclDist = BobuxUtils.getLocationDifferenceMagnitude(entityList[i].getLocation(), super.location);
-                double sendStrength = Math.sqrt(Math.max(radius*radius - euclDist*euclDist,0));
-                ChangeVelocity velocityAction = new ChangeVelocity(sendStrength, false);
+                double sendStrength = strength*0.1*Math.sqrt(Math.max(radius*radius - euclDist*euclDist,0));
+                ChangeVelocity velocityAction = new ChangeVelocity(sendStrength);
                 Entity[] entityAsArray = {entityList[i]};
                 vector.add(new Vector(0,bounce,0));
                 velocityAction.initializeEntityList(entityAsArray);
@@ -37,16 +36,6 @@ public class PullTowardsPoint extends BobuxAction {
                 velocityAction.run();
             }
         }
-    }
-
-    @Override
-    public void adjustFlat(double adjustment) {
-
-    }
-
-    @Override
-    public void adjustPerc(double adjustment) {
-
     }
     
 }

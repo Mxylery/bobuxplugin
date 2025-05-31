@@ -2,13 +2,10 @@ package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.ChangeVelocity;
-import io.github.mxylery.bobuxplugin.actions.DeleteSelf;
 import io.github.mxylery.bobuxplugin.actions.GiveItem;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
@@ -32,7 +29,7 @@ public class BobuxinatorAbility extends AbilityOneTime {
         super.inventoryList = inventoryList;
 
         BobuxAction[] actionList = 
-        {new GiveItem(BobuxItemInterface.bobux.getStack(), 1, false)};
+        {new GiveItem(BobuxItemInterface.bobux.getStack(), 1)};
         
         super.actionList = actionList;
         return true;

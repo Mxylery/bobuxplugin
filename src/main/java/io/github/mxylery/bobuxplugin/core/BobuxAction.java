@@ -11,15 +11,12 @@ protected Location location;
 protected Vector vector;
 protected Entity[] entityList;
 protected Inventory inventory;
-protected boolean requiresCondition;
 protected boolean requiresEntity = false;
 protected boolean requiresVector = false;
 protected boolean requiresLocation = false;
 protected boolean requiresInventory = false;
 
 public abstract void run();
-public abstract void adjustFlat(double adjustment);
-public abstract void adjustPerc(double adjustment);
 
 public void initializeEntityList(Entity[] entityList) {
     this.entityList = entityList;
@@ -47,10 +44,6 @@ public boolean requiresVector() {
 
 public boolean requiresLocation() {
     return requiresLocation;
-}
-
-public boolean requiresCondition() {
-    return requiresCondition;
 }
 
 public boolean requiresInventory() {

@@ -3,17 +3,15 @@ package io.github.mxylery.bobuxplugin.actions;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
-import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 
 public class GiveItem extends BobuxAction {
     
     private ItemStack stack;
     private int amount;
 
-    public GiveItem(ItemStack stack, int amount, boolean requiresCondition) {
+    public GiveItem(ItemStack stack, int amount) {
         this.stack = stack;
         this.amount = amount;
-        super.requiresCondition = requiresCondition;
         super.requiresInventory = true;
     }
 

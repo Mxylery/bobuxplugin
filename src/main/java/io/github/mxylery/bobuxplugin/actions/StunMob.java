@@ -6,28 +6,18 @@ import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import org.bukkit.entity.*;
 import org.bukkit.scheduler.BukkitScheduler;
 
-/**
- * First example of a bobux action: all of the abilities will use them 
- * in conjunction to allow for as much expression as the creator wants 
- * and with relative ease
- */
 public class StunMob extends BobuxAction {
     
 private int time;
 
-//This action needs an entity to damage and a number to damage for
-public StunMob(int time, boolean requiresCondition) {
+/**
+ * Requires an entity.
+ * @param time
+ * @param requiresCondition
+ */
+public StunMob(int time) {
     this.time = time;
-    super.requiresCondition = requiresCondition;
     super.requiresEntity = true;
-}
-
-public void adjustFlat(double increase) {
-    this.time += increase;
-}
-
-public void adjustPerc(double increase) {
-    this.time = this.time*( (int) increase/100 + 1);
 }
 
 public void run() {

@@ -8,18 +8,9 @@ public class SetFire extends BobuxAction {
     
     private int ticks;
 
-    public SetFire(int ticks, boolean requiresCondition) {
+    public SetFire(int ticks) {
         this.ticks = ticks;
-        super.requiresCondition = requiresCondition;
         super.requiresEntity = true;
-    }
-
-    public void adjustPerc(double adjustment) {
-
-    }
-
-    public void adjustFlat(double adjustment) {
-
     }
     
     public void run() {

@@ -28,7 +28,7 @@ public class KungFuGlovesPassive extends AbilityPassive {
             super.inventoryList = inventoryList;
 
             BobuxAction[] actionList = 
-            {new ChangeVelocity(5, false), new ChangeVelocity(0.5, false)};
+            {new ChangeVelocity(5), new ChangeVelocity(0.5)};
         
             super.actionList = actionList;
             return true;        

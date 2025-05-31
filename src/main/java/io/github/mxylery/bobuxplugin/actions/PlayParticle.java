@@ -9,9 +9,8 @@ public class PlayParticle extends BobuxAction {
     
     private ParticleSequence particleSequence;
     
-    public PlayParticle(ParticleSequence particleSequence, boolean requiresCondition) {
+    public PlayParticle(ParticleSequence particleSequence) {
         this.particleSequence = particleSequence;
-        super.requiresCondition = requiresCondition;
         super.requiresVector = true;
         super.requiresLocation = true;
     }
