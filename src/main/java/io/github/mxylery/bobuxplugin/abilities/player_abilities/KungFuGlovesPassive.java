@@ -17,7 +17,7 @@ public class KungFuGlovesPassive extends AbilityPassive {
     //Assuming the player is a user
     protected boolean assignVariables() {
         if (verifyPassivePeriod()) {
-            Entity[][] targetList = {{user},{otherEntity}};
+            Entity[][] targetList = {{user},{singleTarget}};
             Vector[] vectorList = {new Vector(0,1,0), new Vector(0,1,0)};
             Location[] locationList = {null, null};
             Inventory[] inventoryList = {null, null};

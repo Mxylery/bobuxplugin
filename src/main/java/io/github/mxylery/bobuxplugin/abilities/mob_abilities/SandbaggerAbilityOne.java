@@ -40,7 +40,7 @@ public class SandbaggerAbilityOne extends AbilityOneTime {
 
         Entity[][] targetList = {null, null, null};
         Vector[] vectorList = {null, new Vector(0,1,0), null};
-        Location[] locationList = {otherEntity.getLocation(), otherEntity.getLocation(), otherEntity.getLocation()};
+        Location[] locationList = {user.getLocation(), user.getLocation(), user.getLocation()};
         Inventory[] inventoryList = {null, null, null};
 
         double rng = Math.random();

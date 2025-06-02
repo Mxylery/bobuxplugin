@@ -29,13 +29,13 @@ public class RailgunAbility extends AbilityOneTime {
     //Assuming the player is a user
     protected boolean assignVariables() {
         Location elevatedPlayerLoc = new Location(user.getWorld(), user.getLocation().getX(), user.getLocation().getY() + 1, user.getLocation().getZ());
-        RegistererOption railgunRegistererOption1 = new RegistererOption(RegistererType.LINE, 30, 1, 10, user.getEyeLocation().getDirection());
+        RegistererOption railgunRegistererOption1 = new RegistererOption(RegistererType.LINE, 30, 1, 10, user.getLocation().getDirection());
         BobuxRegisterer<Mob> railgunRegisterer1 = new BobuxRegisterer<Mob>(railgunRegistererOption1, user, Mob.class);
         if (railgunRegisterer1.getEntityList() == null) {
             return false;
         }
         Entity[][] targetList = {railgunRegisterer1.getEntityList(),{},{},{}};
-        Vector[] vectorList = {null, user.getEyeLocation().getDirection(), user.getEyeLocation().getDirection(), null};
+        Vector[] vectorList = {null, user.getLocation().getDirection(), user.getLocation().getDirection(), null};
         Location[] locationList = {null, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc};
         Inventory[] inventoryList = {null, null, null, null};
 

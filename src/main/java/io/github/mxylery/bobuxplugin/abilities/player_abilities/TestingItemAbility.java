@@ -21,7 +21,7 @@ public class TestingItemAbility extends AbilityOneTime {
 
     //Assuming the player is a user
     protected boolean assignVariables() {
-        RegistererOption registererOption1 = new RegistererOption(RegistererType.SPHERE, 0, 5, 0, user.getEyeLocation().getDirection());
+        RegistererOption registererOption1 = new RegistererOption(RegistererType.SPHERE, 0, 5, 0, user.getLocation().getDirection());
         BobuxRegisterer<Mob> registerer1 = new BobuxRegisterer<Mob>(registererOption1, user, Mob.class);
         Entity[][] targetList = {registerer1.getEntityList()};
         Vector[] vectorList = {null};

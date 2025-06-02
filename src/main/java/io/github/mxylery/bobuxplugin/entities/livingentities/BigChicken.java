@@ -74,7 +74,7 @@ public class BigChicken extends BobuxLivingEntity {
     @EventHandler
     public void onDetect(EntityTargetEvent e) {
         if (e.getEntity().equals(invisZombie) && e.getTarget() instanceof Player) {
-            MobAbilityManager.verifyAbilityCD(this, 0);
+            MobAbilityManager.verifyAbilityCD(this, 0, (Player) e.getTarget());
         }
     }
 

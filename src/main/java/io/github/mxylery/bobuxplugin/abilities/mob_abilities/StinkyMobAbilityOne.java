@@ -31,11 +31,11 @@ public class StinkyMobAbilityOne extends AbilityOneTime {
     //Assuming the player is a user
     protected boolean assignVariables() {
         RegistererOption option = new RegistererOption(RegistererType.SPHERE, 0.0, 4.0, 0, new Vector(0,1,0));
-        BobuxRegisterer<Player> registerer = new BobuxRegisterer<Player>(option, otherEntity, new Vector(0,0,0), Player.class);
+        BobuxRegisterer<Player> registerer = new BobuxRegisterer<Player>(option, user, new Vector(0,0,0), Player.class);
         if (registerer.getEntityList() != null) {
-            Entity[][] targetList = {{otherEntity}, null, registerer.getEntityList(), registerer.getEntityList()};
+            Entity[][] targetList = {{user}, null, registerer.getEntityList(), registerer.getEntityList()};
             Vector[] vectorList = {new Vector(0,1,0), new Vector(0,1,0), null, null};
-            Location[] locationList = {null, otherEntity.getLocation(), null, otherEntity.getLocation()};
+            Location[] locationList = {null, user.getLocation(), null, user.getLocation()};
             Inventory[] inventoryList = {null, null, null, null};
 
             super.targetList = targetList;

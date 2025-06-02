@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 
 public class BobuxRegisterer<T> {
 
-    private Player player;
+    private Entity entity;
     private RegistererOption option;
     private ArrayList<Entity> entityList;
     private Entity otherEntity;
@@ -20,30 +19,30 @@ public class BobuxRegisterer<T> {
     private World world;
     private Vector vector;
     
-    public BobuxRegisterer(RegistererOption option, Player player, Class<T> theClass) {
-        this.player = player;
+    public BobuxRegisterer(RegistererOption option, Entity entity, Class<T> theClass) {
+        this.entity = entity;
         this.option = option;
         this.entityList = null;
         this.otherEntity = null;
         this.theClass = theClass;
-        this.world = player.getWorld();
+        this.world = entity.getWorld();
         this.vector = null;
         updateTargeting();
     }
 
-    public BobuxRegisterer(RegistererOption option, Entity entity, Player player, Class<T> theClass) {
-        this.player = player;
+    public BobuxRegisterer(RegistererOption option, Entity entity, Entity otherEntity, Class<T> theClass) {
+        this.entity = entity;
         this.option = option;
         this.entityList = null;
         this.otherEntity = entity;
         this.theClass = theClass;
-        this.world = player.getWorld();
+        this.world = entity.getWorld();
         this.vector = null;
         updateTargeting();
     }
 
     public BobuxRegisterer(RegistererOption option, Entity entity, Vector vector, Class<T> theClass) {
-        this.player = null;
+        this.entity = null;
         this.option = option;
         this.entityList = null;
         this.otherEntity = entity;
@@ -77,19 +76,19 @@ public class BobuxRegisterer<T> {
         if (option != null) {
             switch (option.registerType) {
                 case LINE:
-                if (otherEntity != null && player == null) {
+                if (otherEntity != null && entity == null) {
                     entityList = getEntitiesLine(otherEntity, otherEntity.getLocation(), option.length, option.radius, option.limit, vector);
                 } else  {
-                    Location elevatedPlayerLoc = new Location(world, player.getLocation().getX(), player.getLocation().getY() + 1, player.getLocation().getZ());
-                    entityList = getEntitiesLine(player, elevatedPlayerLoc, option.length, option.radius, option.limit, player.getEyeLocation().getDirection());
+                    Location elevatedEntityLoc = new Location(world, entity.getLocation().getX(), entity.getLocation().getY() + 1, entity.getLocation().getZ());
+                    entityList = getEntitiesLine(entity, elevatedEntityLoc, option.length, option.radius, option.limit, entity.getLocation().getDirection());
                 }
                 break;
                 case SPHERE:
-                if (otherEntity != null && player == null) {
+                if (otherEntity != null && entity == null) {
                     entityList = getEntitiesSphere(otherEntity, otherEntity.getLocation(), option.radius, option.length, vector);                
                 } else {
-                    Location elevatedPlayerLoc = new Location(world, player.getLocation().getX(), player.getLocation().getY() + 1, player.getLocation().getZ());
-                    entityList = getEntitiesSphere(player, elevatedPlayerLoc, option.radius, option.length, player.getEyeLocation().getDirection());
+                    Location elevatedEntityLoc = new Location(world, entity.getLocation().getX(), entity.getLocation().getY() + 1, entity.getLocation().getZ());
+                    entityList = getEntitiesSphere(entity, elevatedEntityLoc, option.radius, option.length, entity.getLocation().getDirection());
                 }
                 break;
                 case NONE:

@@ -8,7 +8,7 @@ import io.github.mxylery.bobuxplugin.listeners.*;
 
 public final class BobuxPlugin extends JavaPlugin {
 
-    private BukkitScheduler scheduler;
+    private static BukkitScheduler scheduler;
 
     @Override
 	public void onEnable() {
@@ -40,5 +40,8 @@ public final class BobuxPlugin extends JavaPlugin {
 		getLogger().info("onDisable has been invoked!");
 	}
     
+    public static BukkitScheduler getScheduler() {
+        return scheduler;
+    }
 
 }

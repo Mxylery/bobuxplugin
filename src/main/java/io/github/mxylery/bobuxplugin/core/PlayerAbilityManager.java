@@ -11,15 +11,14 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.*;
-import io.github.mxylery.bobuxplugin.conditions.PlayerAbilityInstanceCondition;
 import io.github.mxylery.bobuxplugin.data_structures.*;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 
 //This is where all cooldowns get registered to players and whatnot. Also take into account mobs, can have seperate methods or even a seperate class
 public class PlayerAbilityManager {
     
-    //PAI = Player Ability Instance, ../core/PlayerAbilityInstance.java
-    private static HashMap<Player, PAIStructure> PAImap = new HashMap<Player, PAIStructure>();
+    //PAI = Player Ability Instance, ../core/AbilityInstance.java
+    private static HashMap<Player, AbilityInstanceStructure> abilityHistoryMap = new HashMap<Player, AbilityInstanceStructure>();
     //This number is the highest radius that a PAI will be put into nearby players' PAI maps.
     private static final double maxRegistrationRadius = 32;
     private static BukkitScheduler scheduler = BobuxTimer.getScheduler();
@@ -34,90 +33,87 @@ public class PlayerAbilityManager {
 
         if (ability instanceof AbilityOneTime) {
             //Registers the first-time player
-            if (!PAImap.containsKey(player)) {
-                PAIStructure newStruct = new PAIStructure();
+            if (!abilityHistoryMap.containsKey(player)) {
+                AbilityInstanceStructure newStruct = new AbilityInstanceStructure();
                 newStruct.setOwner(player);
-                PAImap.put(player, newStruct);
+                abilityHistoryMap.put(player, newStruct);
             }
 
             AbilityOneTime polyAbility = (AbilityOneTime) ability;
 
             //Initializes the PAI Structure holding all of the ability instances
-            PAIStructure abilityInstanceHistory = PAImap.get(player);
+            AbilityInstanceStructure abilityInstanceHistory = abilityHistoryMap.get(player);
             polyAbility.use();
             
-            //Registers the instance to the PAIStructure, which is then registered to the map.
-            PlayerAbilityInstance abilityInstance = new PlayerAbilityInstance(player, BobuxTimer.getTicksPassed(), ability);
+            //Registers the instance to the AbilityInstanceStructure, which is then registered to the map.
+            AbilityInstance abilityInstance = new AbilityInstance(player, BobuxTimer.getTicksPassed(), ability);
 
             //Puts this instance in the history of all players' historys within a radius of 32 blocks
             ArrayList<Player> playerList = BobuxUtils.getNearbyPlayers(player, maxRegistrationRadius);
             for (int i = 0; i < playerList.size(); i++) {
                 Player analyzedPlayer = playerList.get(i);
                 //If any of the players aren't registered yet
-                if (!PAImap.containsKey(analyzedPlayer)) {
-                    PAIStructure struct = new PAIStructure();
+                if (!abilityHistoryMap.containsKey(analyzedPlayer)) {
+                    AbilityInstanceStructure struct = new AbilityInstanceStructure();
                     struct.setOwner(analyzedPlayer);
-                    PAImap.put(analyzedPlayer, struct);
+                    abilityHistoryMap.put(analyzedPlayer, struct);
                 }
-                PAIStructure analyzedPlayerHistory = PAImap.get(analyzedPlayer);
-                analyzedPlayerHistory.addPAILast(abilityInstance);
-                PAImap.put(analyzedPlayer, analyzedPlayerHistory);
+                AbilityInstanceStructure analyzedPlayerHistory = abilityHistoryMap.get(analyzedPlayer);
+                analyzedPlayerHistory.addAbilityInstanceLast(abilityInstance);
+                abilityHistoryMap.put(analyzedPlayer, analyzedPlayerHistory);
             }   
              
-            abilityInstanceHistory.addPAILast(abilityInstance);
-            PAImap.put(player, abilityInstanceHistory);
-
-        } else if (ability instanceof AbilityMultiStep) {
-
+            abilityInstanceHistory.addAbilityInstanceLast(abilityInstance);
+            abilityHistoryMap.put(player, abilityInstanceHistory);
         } 
     }
 
     private static void usePassive(Player player, BobuxAbility ability) {
         if (ability instanceof AbilityPassive) {
             //Registers the first-time player
-            if (!PAImap.containsKey(player)) {
-                PAIStructure newStruct = new PAIStructure();
+            if (!abilityHistoryMap.containsKey(player)) {
+                AbilityInstanceStructure newStruct = new AbilityInstanceStructure();
                 newStruct.setOwner(player);
-                PAImap.put(player, newStruct);
+                abilityHistoryMap.put(player, newStruct);
             }
 
             AbilityPassive polyAbility = (AbilityPassive) ability;
 
             //Initializes the PAI Structure holding all of the ability instances
-            PAIStructure abilityInstanceHistory = PAImap.get(player);
+            AbilityInstanceStructure abilityInstanceHistory = abilityHistoryMap.get(player);
             BobuxAction[] actionList = polyAbility.getActionList();
             for (int i = 0; i < actionList.length; i++) {
                 actionList[i].run();
             }
             
-            //Registers the instance to the PAIStructure, which is then registered to the map.
-            PlayerAbilityInstance abilityInstance = new PlayerAbilityInstance(player, BobuxTimer.getTicksPassed(), ability);
+            //Registers the instance to the AbilityInstanceStructure, which is then registered to the map.
+            AbilityInstance abilityInstance = new AbilityInstance(player, BobuxTimer.getTicksPassed(), ability);
 
             //Puts this instance in the history of all players' historys within a radius of 32 blocks
             ArrayList<Player> playerList = BobuxUtils.getNearbyPlayers(player, maxRegistrationRadius);
             for (int i = 0; i < playerList.size(); i++) {
                 Player analyzedPlayer = playerList.get(i);
                 //If any of the players aren't registered yet
-                if (!PAImap.containsKey(analyzedPlayer)) {
-                    PAIStructure struct = new PAIStructure();
+                if (!abilityHistoryMap.containsKey(analyzedPlayer)) {
+                    AbilityInstanceStructure struct = new AbilityInstanceStructure();
                     struct.setOwner(analyzedPlayer);
-                    PAImap.put(analyzedPlayer, struct);
+                    abilityHistoryMap.put(analyzedPlayer, struct);
                 }
-                PAIStructure analyzedPlayerHistory = PAImap.get(analyzedPlayer);
-                analyzedPlayerHistory.addPAILast(abilityInstance);
-                PAImap.put(analyzedPlayer, analyzedPlayerHistory);
+                AbilityInstanceStructure analyzedPlayerHistory = abilityHistoryMap.get(analyzedPlayer);
+                analyzedPlayerHistory.addAbilityInstanceLast(abilityInstance);
+                abilityHistoryMap.put(analyzedPlayer, analyzedPlayerHistory);
             }   
-            abilityInstanceHistory.addPAILast(abilityInstance);
-            PAImap.put(player, abilityInstanceHistory);
+            abilityInstanceHistory.addAbilityInstanceLast(abilityInstance);
+            abilityHistoryMap.put(player, abilityInstanceHistory);
         } 
     }
 
     private static boolean verifyItemCD(Player player, BobuxAbility ability) {
         long cooldown = ability.getCooldown();
-        if (!PAImap.containsKey(player)) {
+        if (!abilityHistoryMap.containsKey(player)) {
             return true;
         } else {
-            PAIStructure playerAbilHistory = PAImap.get(player);
+            AbilityInstanceStructure playerAbilHistory = abilityHistoryMap.get(player);
             long lastUse = playerAbilHistory.checkForAbilityCD(ability, cooldown, player);
             //If no such ability was casted in the past #cooldown ticks
             if (lastUse == -1) {
@@ -130,13 +126,13 @@ public class PlayerAbilityManager {
         } 
     }
 
-    public static boolean verifyItemCD(Player player, BobuxAbility ability, boolean noCDActivate) {
+    public static boolean verifyItemCD(Entity entity, BobuxAbility ability, boolean noCDActivate) {
         long cooldown = ability.getCooldown();
-        if (!PAImap.containsKey(player)) {
+        if (!abilityHistoryMap.containsKey(entity)) {
             return true;
         } else {
-            PAIStructure playerAbilHistory = PAImap.get(player);
-            long lastUse = playerAbilHistory.checkForAbilityCD(ability, cooldown, player);
+            AbilityInstanceStructure playerAbilHistory = abilityHistoryMap.get(entity);
+            long lastUse = playerAbilHistory.checkForAbilityCD(ability, cooldown, entity);
             //If no such ability was casted in the past #cooldown ticks
             if (lastUse == -1) {
                  return true;
@@ -157,7 +153,7 @@ public class PlayerAbilityManager {
                 } else {
                     ability = item.getPassive();
                 }
-                ability.setOtherEntity(otherEntity);
+                ability.setTarget(otherEntity);
                 ability.setUser(holder);
                 if (!passive) {
                     if (ability.setActionList() && verifyItemCD(holder, ability)) {
@@ -216,8 +212,8 @@ public class PlayerAbilityManager {
         } return false;
     }
 
-    public static HashMap<Player, PAIStructure> getPAIMap() {
-        return PAImap;
+    public static HashMap<Player, AbilityInstanceStructure> getAbilityHistoryMap() {
+        return abilityHistoryMap;
     }
 
 }

@@ -6,8 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
-import io.github.mxylery.bobuxplugin.conditions.PlayerAbilityInstanceCondition;
-
 /* This will be used for the ability manager and to 
 * give each bobux item a given ability (defining them 
 * in their class def, not a random other managing class)
@@ -21,8 +19,7 @@ public abstract class BobuxAbility {
     
     protected int actionListLength;
     protected BobuxAction[] actionList;
-    protected PlayerAbilityInstanceCondition[] conditions;
-    protected Player user;
+    protected Entity user;
     protected long cooldown;
     protected Inventory[] inventoryList;
     protected Location[] locationList;
@@ -30,7 +27,7 @@ public abstract class BobuxAbility {
     protected Entity[][] targetList;
     protected String name;
     protected boolean muteCD;
-    protected Entity otherEntity;
+    protected Entity singleTarget;
 
     public BobuxAbility(String name, boolean muteCD, long cooldown) {
         this.name = name;
@@ -89,16 +86,12 @@ public abstract class BobuxAbility {
         return muteCD;
     }
 
-    public PlayerAbilityInstanceCondition[] getConditionList() {
-        return conditions;
-    }
-
-    public void setUser(Player user) {
+    public void setUser(Entity user) {
         this.user = user;
     }
 
-    public void setOtherEntity(Entity entity) {
-        this.otherEntity = entity;
+    public void setTarget(Entity entity) {
+        this.singleTarget = entity;
     }
 
 }

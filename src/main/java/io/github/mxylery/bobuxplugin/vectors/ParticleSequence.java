@@ -93,16 +93,6 @@ public class ParticleSequence implements Runnable {
         this.dustOption = dustOption;
     }
 
-    //For animations
-    public ParticleSequence(ParticleSequenceOptions option, ParticleSequenceOrientations orientation, Particle particle, double amount, double speed, boolean hollow, double duration) {
-        this.option = option;
-        this.orientation = orientation;
-        this.particle = particle;
-        this.amount = amount;
-        this.length = outRadius - inRadius;
-        this.animated = true;
-    }
-
     public void run() {
         //Left-hand: x is index, z is middle, y is thumb
         switch(option) {
@@ -120,15 +110,6 @@ public class ParticleSequence implements Runnable {
             break;
             default:
             break;
-        }
-    }
-
-    public void runLater(int ticks) {
-        if (ticks == 0) {
-            this.run();
-        } else {
-            BukkitScheduler scheduler = BobuxTimer.getScheduler();
-            scheduler.runTaskLater(BobuxTimer.getPlugin(), this, ticks);
         }
     }
 

@@ -94,7 +94,7 @@ public class AbilityInstanceStructure {
      * Sets the given node before the sentinel node.
      * @param abilityInstance Node to be set.
      */
-    public void addabilityInstanceLast(AbilityInstance abilityInstance) {
+    public void addAbilityInstanceLast(AbilityInstance abilityInstance) {
         if (length == 0) {
             AbilityInstanceStructure newElement = new AbilityInstanceStructure(abilityInstance);
             this.sentinel = this;

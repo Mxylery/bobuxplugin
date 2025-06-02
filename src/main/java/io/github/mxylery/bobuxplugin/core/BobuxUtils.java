@@ -116,7 +116,9 @@ public class BobuxUtils {
 
 	public static Location offsetLocation(Location location, Vector direction, double offset, double verticalOffset) {
 		Location newLocation = new Location(location.getWorld(), location.getX(), location.getY() + verticalOffset, location.getZ());
-		newLocation.add(direction.getX()*offset, direction.getY()*offset, direction.getZ()*offset);
+		Vector newVector = new Vector(direction.getX(), direction.getY(), direction.getZ());
+		newVector.normalize();
+		newLocation.add(newVector.getX()*offset, newVector.getY()*offset, newVector.getZ()*offset);
 		return newLocation;
 	}
 

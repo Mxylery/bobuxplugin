@@ -22,7 +22,7 @@ public class LineSpawnerAbility extends AbilityPassive {
     protected boolean assignVariables() {
         Location elevatedPlayerLoc = new Location(user.getWorld(), user.getLocation().getX(), user.getLocation().getY() + 1, user.getLocation().getZ());
         Entity[][] targetList = {null};
-        Vector[] vectorList = {user.getEyeLocation().getDirection()};
+        Vector[] vectorList = {user.getLocation().getDirection()};
         Location[] locationList = {elevatedPlayerLoc};
         Inventory[] inventoryList = {null};
 

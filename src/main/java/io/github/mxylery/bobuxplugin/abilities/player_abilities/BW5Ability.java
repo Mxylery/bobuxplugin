@@ -7,6 +7,7 @@ import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
@@ -30,20 +31,23 @@ public class BW5Ability extends AbilityOneTime {
         super(name, muteCD, cooldown);
     }
 
-    //Assuming the player is a user
+    //Assuming the player is a player
     protected boolean assignVariables() {
-        Location elevatedPlayerLoc = new Location(user.getWorld(), user.getLocation().getX(), user.getLocation().getY() + 1, user.getLocation().getZ());
-        Vector playerDirection = user.getLocation().getDirection();
-        RegistererOption registererOption1 = new RegistererOption(RegistererType.LINE, 30, 1, 1, user.getEyeLocation().getDirection());
-        BobuxRegisterer<Mob> registerer1 = new BobuxRegisterer<Mob>(registererOption1, user, Mob.class);
+
+        Player player = (Player) user;
+        
+        Location elevatedPlayerLoc = new Location(player.getWorld(), player.getLocation().getX(), player.getLocation().getY() + 1, player.getLocation().getZ());
+        Vector playerDirection = player.getLocation().getDirection();
+        RegistererOption registererOption1 = new RegistererOption(RegistererType.LINE, 30, 1, 1, player.getEyeLocation().getDirection());
+        BobuxRegisterer<Mob> registerer1 = new BobuxRegisterer<Mob>(registererOption1, player, Mob.class);
         if (registerer1.getEntityList() == null) {
             return false;
         }
         Entity[][] targetList = {registerer1.getEntityList(),{},{},{},{},{},{},{},{}};
-        Location enemyLocation = new Location(user.getWorld(), registerer1.getEntityList()[0].getLocation().getX(), registerer1.getEntityList()[0].getLocation().getY() + 1, registerer1.getEntityList()[0].getLocation().getZ());
+        Location enemyLocation = new Location(player.getWorld(), registerer1.getEntityList()[0].getLocation().getX(), registerer1.getEntityList()[0].getLocation().getY() + 1, registerer1.getEntityList()[0].getLocation().getZ());
         Vector[] vectorList = {null, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, null};
         Location[] locationList = {null, elevatedPlayerLoc, enemyLocation, enemyLocation, enemyLocation, enemyLocation, enemyLocation, enemyLocation, enemyLocation};
-        Inventory[] inventoryList = {null, null, null, null, null, null, null, null, user.getInventory()};
+        Inventory[] inventoryList = {null, null, null, null, null, null, null, null, player.getInventory()};
 
         super.targetList = targetList;
         super.vectorList = vectorList;

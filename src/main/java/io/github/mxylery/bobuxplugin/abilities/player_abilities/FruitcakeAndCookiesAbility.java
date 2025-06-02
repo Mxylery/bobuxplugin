@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
@@ -27,9 +28,12 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
 
     //Assuming the player is a user
     protected boolean assignVariables() {
-        Entity[][] targetList = {{user},{user},{user},{user},null,null};
-        Vector[] vectorList = {null,null,null,null,user.getEyeLocation().getDirection(),null};
-        Location[] locationList = {null,null,null,null,user.getLocation(),user.getLocation()};
+
+        Player player = (Player) user;
+
+        Entity[][] targetList = {{player},{player},{player},{player},null,null};
+        Vector[] vectorList = {null,null,null,null,player.getLocation().getDirection(),null};
+        Location[] locationList = {null,null,null,null,player.getLocation(),player.getLocation()};
         Inventory[] inventoryList = {null,null,null,null,null};
 
         super.targetList = targetList;
@@ -37,8 +41,8 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
         super.locationList = locationList;
         super.inventoryList = inventoryList;
 
-        float saturation = user.getSaturation();
-        float hunger = user.getFoodLevel();
+        float saturation = player.getSaturation();
+        float hunger = player.getFoodLevel();
         float endSat = Math.min(saturation + 10, 20);
         float endHung = Math.min(hunger + 7, 20);
 

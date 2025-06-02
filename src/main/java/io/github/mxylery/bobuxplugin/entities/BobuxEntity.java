@@ -42,21 +42,21 @@ public abstract class BobuxEntity implements Listener {
 
         //The roles are switched here; the user is the entity and the player is the victim.
     public void useAbility(int index) {
-        abilityList[index].setOtherEntity(entity);
+        abilityList[index].setTarget(entity);
         if (abilityList[index].setActionList() && abilityStructure.checkForAbilityCD(abilityList[index], abilityList[index].getCooldown(), entity) == -1) {
             abilityList[index].use();
             AbilityInstance abilityInstance = new AbilityInstance(entity, BobuxTimer.getTicksPassed(), abilityList[index]);
-            abilityStructure.addabilityInstanceLast(abilityInstance);
+            abilityStructure.addAbilityInstanceLast(abilityInstance);
         }
     }
 
-    public void useAbility(int index, Player player) {
-        abilityList[index].setUser(player);
-        abilityList[index].setOtherEntity(entity);
+    public void useAbility(int index, Entity target) {
+        abilityList[index].setUser(entity);
+        abilityList[index].setTarget(target);
         if (abilityList[index].setActionList() && abilityStructure.checkForAbilityCD(abilityList[index], abilityList[index].getCooldown(), entity) == -1) {
             abilityList[index].use();
             AbilityInstance abilityInstance = new AbilityInstance(entity, BobuxTimer.getTicksPassed(), abilityList[index]);
-            abilityStructure.addabilityInstanceLast(abilityInstance);
+            abilityStructure.addAbilityInstanceLast(abilityInstance);
         }
     }
 

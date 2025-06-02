@@ -1,6 +1,7 @@
 package io.github.mxylery.bobuxplugin.abilities.ability_types;
 
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
@@ -34,15 +35,15 @@ public abstract class AbilityOneTime extends BobuxAbility {
     }
 
     //If the ability was retriggered by the initial trigger: ignoreCD = on, until a retrigger triggers a non retrigger trigger.
-    protected void retrigger(BobuxRegisterer registerer, Player user, BobuxItem bobuxitem, int delay) {
+    protected void retrigger(BobuxRegisterer registerer, Player player, BobuxItem bobuxitem, int delay) {
         BukkitScheduler scheduler = BobuxTimer.getScheduler();
-        if (PlayerAbilityManager.verifyItemCD(user, this, muteCD)) {
+        if (PlayerAbilityManager.verifyItemCD(player, this, muteCD)) {
                 ignoreCD = true;
         }
         if (PlayerAbilityManager.verifyItemCD(user, bobuxitem.getAbility(), true) || ignoreCD) {
             Runnable runnable = new Runnable(){
             public void run() {
-                if (BobuxUtils.checkWithoutDuraAmnt(user.getInventory().getItemInMainHand(), bobuxitem) && registerer.getEntityList() != null) {
+                if (BobuxUtils.checkWithoutDuraAmnt(player.getInventory().getItemInMainHand(), bobuxitem) && registerer.getEntityList() != null) {
                     registerer.updateTargeting();
                     BobuxAbility ability = BobuxItemInterface.kungFuGloves.getAbility();
                     ability.setUser(user);

@@ -2,6 +2,7 @@ package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
@@ -18,10 +19,13 @@ public class BobuxinatorAbility extends AbilityOneTime {
 
     //Assuming the player is a user
     protected boolean assignVariables() {
+
+        Player player = (Player) user;
+        
         Entity[][] targetList = {{null}};
         Vector[] vectorList = {null};
         Location[] locationList = {null};
-        Inventory[] inventoryList = {user.getInventory()};
+        Inventory[] inventoryList = {player.getInventory()};
 
         super.targetList = targetList;
         super.vectorList = vectorList;

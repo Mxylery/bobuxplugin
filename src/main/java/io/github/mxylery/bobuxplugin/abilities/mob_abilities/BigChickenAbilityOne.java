@@ -8,7 +8,6 @@ import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
 import io.github.mxylery.bobuxplugin.abilities.projectile_abilities.BigChickenEggHit;
-import io.github.mxylery.bobuxplugin.actions.DamageEntity;
 import io.github.mxylery.bobuxplugin.actions.SpawnProjectile;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
@@ -22,11 +21,13 @@ public class BigChickenAbilityOne extends AbilityOneTime {
     //Assuming the player is a user
     protected boolean assignVariables() {
 
-        Vector differenceVector = BobuxUtils.getLocationDifference(otherEntity.getLocation(), user.getLocation());
+        Vector differenceVector = BobuxUtils.getLocationDifference(user.getLocation(), singleTarget.getLocation());
 
-        Entity[][] targetList = {{otherEntity}};
+        Location elevatedChickenLoc = new Location(user.getWorld(), user.getLocation().getX(), user.getLocation().getY() + 1, user.getLocation().getZ());
+
+        Entity[][] targetList = {{null}};
         Vector[] vectorList = {differenceVector};
-        Location[] locationList = {otherEntity.getLocation()};
+        Location[] locationList = {elevatedChickenLoc};
         Inventory[] inventoryList = {null};
 
         super.targetList = targetList;

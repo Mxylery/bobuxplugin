@@ -2,8 +2,14 @@ package io.github.mxylery.bobuxplugin.vectors;
 
 import org.bukkit.util.Vector;
 
+/**
+ * Used for the construction of bobux entity registerers
+ */
 public class RegistererOption {
 
+        /**
+         * What type of registerer it will be, if any.
+         */
         public enum RegistererType {
         LINE,
         SPHERE,

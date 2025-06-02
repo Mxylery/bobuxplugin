@@ -5,6 +5,7 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
@@ -33,9 +34,10 @@ public class KungFuGlovesAbility extends AbilityOneTime {
 
     //Assuming the player is a user
     protected boolean assignVariables() {
-        Vector eyeVector = user.getEyeLocation().getDirection();
+        Player player = (Player) user;
+        Vector eyeVector = player.getLocation().getDirection();
         RegistererOption registererOption1 = new RegistererOption(RegistererType.LINE, 8, 2, 1, eyeVector);
-        BobuxRegisterer<Mob> registerer1 = new BobuxRegisterer<Mob>(registererOption1, user, Mob.class);
+        BobuxRegisterer<Mob> registerer1 = new BobuxRegisterer<Mob>(registererOption1, player, Mob.class);
 
         Vector slightKnockUp = new Vector(eyeVector.getX()*0.1, 1, eyeVector.getZ()*0.1);
         Vector slightLeap = new Vector(eyeVector.getX(), eyeVector.getY()*0.5 + 0.8, eyeVector.getZ());
@@ -50,7 +52,7 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             locationList = new Location[1];
             inventoryList = new Inventory[1];
             actionList = new BobuxAction[1];
-            targetList[0][0] = user;
+            targetList[0][0] = player;
             vectorList[0] = slightLeap;
             locationList[0] = null;
             inventoryList[0] = null;
@@ -62,12 +64,12 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             locationList = new Location[7];
             inventoryList = new Inventory[7];
             actionList = new BobuxAction[7];
-            targetList[0][0] = user;
+            targetList[0][0] = player;
             targetList[1][0] = registerer1.getEntityList()[0];
             targetList[2][0] = registerer1.getEntityList()[0];
-            targetList[3][0] = user;
+            targetList[3][0] = player;
             targetList[4][0] = null;
-            targetList[5][0] = user;
+            targetList[5][0] = player;
             targetList[6][0] = registerer1.getEntityList()[0];
             vectorList[0] = slightLeap;
             vectorList[1] = slightKnockUp;
@@ -78,7 +80,7 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             locationList[0] = null;
             locationList[1] = null;
             locationList[2] = null;
-            locationList[3] = user.getLocation();
+            locationList[3] = player.getLocation();
             locationList[4] = registerer1.getEntityList()[0].getLocation();
             locationList[5] = null;
             inventoryList[0] = null;
@@ -95,7 +97,7 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             actionList[4] = new PlayParticle(kungFuParticle);
             actionList[5] = new EffectGive(PotionEffectType.RESISTANCE, 60, 2);
             actionList[6] = new StunMob(14);
-            retrigger(registerer1, user, BobuxItemInterface.kungFuGloves, 15);
+            retrigger(registerer1, player, BobuxItemInterface.kungFuGloves, 15);
         }
         super.targetList = targetList;
         super.vectorList = vectorList;

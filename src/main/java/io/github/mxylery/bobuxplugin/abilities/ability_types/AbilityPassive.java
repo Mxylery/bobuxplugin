@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.PlayerAbilityManager;
-import io.github.mxylery.bobuxplugin.data_structures.PAIStructure;
+import io.github.mxylery.bobuxplugin.data_structures.AbilityInstanceStructure;
 
 //In the playerabilitymanager, these abilities will recursively call useAbility at later dates specified by the rep cycle until the condition is removed.
 //Period and cooldown is swapped; if you want to make a cooldown, use the period to set it (the kung fu gloves have a 1 second cooldown for its left click, or a 20 tick period).
@@ -36,9 +36,9 @@ public class AbilityPassive extends BobuxAbility {
     }
 
     protected boolean verifyPassivePeriod() {
-        HashMap<Player,PAIStructure> theMap = PlayerAbilityManager.getPAIMap();
+        HashMap<Player,AbilityInstanceStructure> theMap = PlayerAbilityManager.getAbilityHistoryMap();
         if (theMap.containsKey(user)) {
-            PAIStructure playerStructure = theMap.get(user);
+            AbilityInstanceStructure playerStructure = theMap.get(user);
             if (playerStructure.checkForAbilityCD(this, period, user) == -1) {
                 return true;
             } else {

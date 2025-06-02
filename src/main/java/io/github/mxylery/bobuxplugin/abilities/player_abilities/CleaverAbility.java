@@ -31,17 +31,17 @@ public class CleaverAbility extends AbilityOneTime {
     //Assuming the player is a user
     protected boolean assignVariables() {
 
-        Vector userEyeVector = user.getEyeLocation().getDirection();
-        Location sphereLoc = BobuxUtils.offsetLocation(otherEntity.getLocation(), userEyeVector, 3, 0);
-        RegistererOption option = new RegistererOption(RegistererType.SPHERE, 2.5, 3, 0, user.getEyeLocation().getDirection());
-        BobuxRegisterer<Mob> registerer = new BobuxRegisterer<Mob>(option, otherEntity, user, Mob.class);
+        Vector userEyeVector = user.getLocation().getDirection();
+        Location sphereLoc = BobuxUtils.offsetLocation(singleTarget.getLocation(), userEyeVector, 3, 0);
+        RegistererOption option = new RegistererOption(RegistererType.SPHERE, 2.5, 3, 0, user.getLocation().getDirection());
+        BobuxRegisterer<Mob> registerer = new BobuxRegisterer<Mob>(option, singleTarget, user, Mob.class);
         Vector slightKnockUp = new Vector(userEyeVector.getX(), userEyeVector.getY() + 1, userEyeVector.getZ());
 
         if (registerer.getEntityList() == null) {
             return false;
         }
         Entity[][] targetList = {registerer.getEntityList(),registerer.getEntityList(),null};
-        Vector[] vectorList = {null, slightKnockUp, user.getEyeLocation().getDirection()};
+        Vector[] vectorList = {null, slightKnockUp, user.getLocation().getDirection()};
         Location[] locationList = {null, null, sphereLoc};
         Inventory[] inventoryList = {null, null, null};
 

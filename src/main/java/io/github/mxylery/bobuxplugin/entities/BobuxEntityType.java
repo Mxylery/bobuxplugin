@@ -8,11 +8,13 @@ import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
 
 public enum BobuxEntityType {
 
+    //Questboard entities go below this comment
     STINKY_MOB(StinkyMob.class),
     SCOUT_ZOMBIE(ScoutZombie.class),
     SANDBAGGER(Sandbagger.class),
     BIG_CHICKEN(BigChicken.class),
     CULTURAL_CULTIST(CulturalCultist.class);
+    //Non questboard entities go below this comment
 
     private Class<? extends BobuxEntity> clazz;
     private final int TOTALMOBS = 5;
