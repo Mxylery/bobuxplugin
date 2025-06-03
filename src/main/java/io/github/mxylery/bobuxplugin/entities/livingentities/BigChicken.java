@@ -50,6 +50,7 @@ public class BigChicken extends BobuxLivingEntity {
         invisZombie.setCustomName("invis zombie");
         invisZombie.setInvulnerable(true);
         invisZombie.setInvisible(true);
+        invisZombie.setSilent(true);
         System.out.println(chicken.addPassenger(invisZombie));
 
         super.maxHealth = 40;

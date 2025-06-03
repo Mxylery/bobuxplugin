@@ -18,7 +18,7 @@ public class BigChickenEggHit extends AbilityOneTime {
     //Assuming the player is a user
     protected boolean assignVariables() {
 
-        Entity[][] targetList = {{user}};
+        Entity[][] targetList = {{singleTarget}};
         Vector[] vectorList = {null};
         Location[] locationList = {null};
         Inventory[] inventoryList = {null};

@@ -8,7 +8,7 @@ import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
 import io.github.mxylery.bobuxplugin.abilities.projectile_abilities.BigChickenEggHit;
-import io.github.mxylery.bobuxplugin.actions.SpawnProjectile;
+import io.github.mxylery.bobuxplugin.actions.SpawnEgg;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 
@@ -35,7 +35,7 @@ public class BigChickenAbilityOne extends AbilityOneTime {
         super.locationList = locationList;
         super.inventoryList = inventoryList;
 
-        BobuxAction[] actionList = {new SpawnProjectile(Egg.class, 1.0, true, null, new BigChickenEggHit("Big Chicken Egg Hit Abil", true, 0))};
+        BobuxAction[] actionList = {new SpawnEgg(1.0, true, null, new BigChickenEggHit("Big Chicken Egg Hit Abil", true, 0))};
         
         super.actionList = actionList;
         return true;

@@ -17,6 +17,8 @@ public class MobAbilityManager {
             ability.setTarget(entity);
             if (ability.setActionList()) {
                 System.out.println("Success");
+                System.out.println("Victim: " + entity.toString());
+                System.out.println("User: " + bobuxEntity.getEntity().toString());
                 bobuxEntity.useAbility(index, entity);
                 return true;
             } else {

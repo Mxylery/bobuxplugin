@@ -248,5 +248,26 @@ public class BobuxItemInterface {
     public static BobuxItem bobuxBrewRemnants = new BobuxItem
     (bobuxBrewRemnantsStack, bobuxBrewRemnantsDesc, bobuxBrewRemnantsName);
     //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack exactoPearlStack = new ItemStack(Material.ENDER_PEARL);
+    private static String[] exactoPearlDesc = 
+    {"§7HHHHH",
+    "§8Just wait..."};
+    private static String exactoPearlName = "§7Exacto Pearl";
+    public static BobuxItem exactoPearl = new BobuxItem
+    (exactoPearlStack, exactoPearlDesc, exactoPearlName);
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack megaLongBowStack = new ItemStack(Material.ENDER_PEARL);
+    private static String[] megaLongBowDesc = 
+    {"§7HHHHH",
+    "§8Just wait..."};
+    private static String megaLongBowName = "§7Mega Long Bow";
+    public static BobuxItem megaLongBow = new BobuxItem
+    (megaLongBowStack, megaLongBowDesc, megaLongBowName);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
 }
 

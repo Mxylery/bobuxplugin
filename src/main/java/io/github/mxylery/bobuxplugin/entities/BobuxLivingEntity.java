@@ -12,7 +12,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.data_structures.AbilityInstanceStructure;
 import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;

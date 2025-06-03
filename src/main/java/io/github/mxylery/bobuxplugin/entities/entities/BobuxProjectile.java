@@ -1,9 +1,8 @@
 package io.github.mxylery.bobuxplugin.entities.entities;
 
 import org.bukkit.Location;
-import org.bukkit.entity.Egg;
+import org.bukkit.entity.*;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -16,26 +15,28 @@ import io.github.mxylery.bobuxplugin.listeners.MobAbilityManager;
 import io.github.mxylery.bobuxplugin.vectors.ParticlePlayer;
 
 //The generic is what class it will target.
-public class BobuxProjectile extends BobuxEntity {
+public abstract class BobuxProjectile extends BobuxEntity {
     
     protected Class<? extends Projectile> clazz;
     protected Vector velocity;
     protected double magnitude;
     protected boolean hasGravity;
-    protected BobuxAbility startAbility;
-    protected BobuxAbility endAbility;
     protected ParticlePlayer trail;
 
-    public BobuxProjectile(Class<? extends Projectile> clazz, Location location, Vector velocity, double magnitude, boolean hasGravity, BobuxAbility startAbility, BobuxAbility endAbility) {
+    public BobuxProjectile(Location location, Vector velocity, double magnitude, boolean hasGravity, BobuxAbility startAbility, BobuxAbility endAbility) {
         super(location);
         this.velocity = velocity;
         this.magnitude = magnitude;
         this.hasGravity = hasGravity;
-        this.clazz = clazz;
-        this.startAbility = startAbility;
-        this.endAbility = endAbility;
+        BobuxAbility[] abilityList = new BobuxAbility[2];
+        abilityList[0] = startAbility;
+        abilityList[1] = endAbility;
+        super.abilityList = abilityList;
         launchProjectile();
     }
+
+    //This defines 
+    protected abstract void setProjClass();
 
     @Override
     public void useAbility(int index) {
@@ -55,10 +56,9 @@ public class BobuxProjectile extends BobuxEntity {
     }
 
     public void setUpEntity() {
-        Projectile newProjectile = location.getWorld().spawn(location, Egg.class);
-        BobuxAbility[] abilityList = {startAbility, endAbility};
+        setProjClass();
+        Projectile newProjectile = (Projectile) location.getWorld().spawn(location, clazz);
         super.entity = newProjectile;
-        super.abilityList = abilityList;
     }
 
     private void launchProjectile() {
@@ -77,6 +77,10 @@ public class BobuxProjectile extends BobuxEntity {
         return hasGravity;
     }
 
+    public void setParticleTrail() {
+
+    }
+
     @EventHandler
     public void onLaunch(ProjectileLaunchEvent e) {
         if (e.getEntity().equals(entity)) {
@@ -89,13 +93,14 @@ public class BobuxProjectile extends BobuxEntity {
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent e) {
         if (e.getEntity().equals(entity)) {
-            System.out.println("Detected egg");
             if (abilityList[1] != null && e.getHitEntity() != null) {
                 Entity target = e.getHitEntity();
                 System.out.println("Hit player");
                 MobAbilityManager.verifyAbilityCD(this, 1, target);
             } else if (abilityList[1] != null) {
                 MobAbilityManager.verifyAbilityCD(this, 1);
+            } else {
+                System.out.println("Hit block!");
             }
         }
     }
