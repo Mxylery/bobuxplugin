@@ -6,8 +6,8 @@ import org.bukkit.entity.*;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
-import io.github.mxylery.bobuxplugin.entities.entities.BobuxEgg;
 import io.github.mxylery.bobuxplugin.entities.entities.BobuxProjectile;
+import io.github.mxylery.bobuxplugin.entities.entities.projectiles.BobuxEgg;
 
 
 public class SpawnEgg extends BobuxAction {
@@ -27,7 +27,6 @@ public class SpawnEgg extends BobuxAction {
     }   
 
     public void run() {
-        System.out.println("Bobux egg made!");
         BobuxEgg egg = new BobuxEgg(BobuxUtils.offsetLocation(location, vector, 1, 1), vector, magnitude, hasGravity, startAbility, endAbility);
     }
 }

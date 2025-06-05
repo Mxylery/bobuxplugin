@@ -11,10 +11,12 @@ import org.bukkit.entity.*;
 public class SaturateEntity extends BobuxAction {
     
 private float saturate;
+private float hunger;
 
 //This action needs an entity to saturate and a number to saturate for
 public SaturateEntity(float hunger, float saturate) {
     this.saturate = saturate;
+    this.hunger = hunger;
     super.requiresEntity = true;
 }
 
@@ -39,7 +41,7 @@ public void run() {
     for (int i = 0; i < j + 1; i++) {
         System.out.println("Saturate by: " + saturate);
         saturateArray[i].setSaturation(saturate);
-        saturateArray[i].setFoodLevel((int) saturate);
+        saturateArray[i].setFoodLevel((int) hunger);
     }
     
 }

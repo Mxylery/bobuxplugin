@@ -1,6 +1,9 @@
 package io.github.mxylery.bobuxplugin.actions;
 
 import io.github.mxylery.bobuxplugin.core.BobuxAction;
+
+import org.bukkit.attribute.Attributable;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 
 /**
@@ -19,17 +22,16 @@ public DamageEntity(double damage) {
 }
 
 public void run() {
-    int j = -1;
-    Damageable[] damageArray = new Damageable[super.entityList.length];
     //Filter through all of the non-damageable entities
     for (int i = 0; i < super.entityList.length; i++) {
-        if (super.entityList[i] instanceof Damageable) {
-            damageArray[j + 1] = (Damageable) super.entityList[i];
-            j++;
+        if (super.entityList[i] instanceof Attributable) {
+            Attributable attributable = (Attributable) super.entityList[i];
+            double multiplier = (1 - attributable.getAttribute(Attribute.ARMOR).getValue()*0.04);
+            if (super.entityList[i] instanceof Damageable) {
+                Damageable damageable = (Damageable) super.entityList[i];
+                damageable.damage(damage*multiplier);
+            }
         }
-    }
-    for (int i = 0; i < j + 1; i++) {
-        damageArray[i].damage(damage);
     }
     
 }

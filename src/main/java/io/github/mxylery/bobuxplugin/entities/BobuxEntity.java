@@ -3,17 +3,13 @@ package io.github.mxylery.bobuxplugin.entities;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.Listener;
-import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.AbilityInstance;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.data_structures.AbilityInstanceStructure;
-import io.github.mxylery.bobuxplugin.entities.entities.BobuxProjectile;
 
 public abstract class BobuxEntity implements Listener {
     
@@ -25,22 +21,25 @@ public abstract class BobuxEntity implements Listener {
     protected AbilityInstanceStructure abilityStructure;
     protected long lifetime;
 
+    /**
+     * Initializes a bobux entity at a given location.
+     * @param location Location where the entity will spawn.
+     */
     public BobuxEntity(Location location) {
         this.location = location;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         setUpEntity();
     }
 
-    public BobuxEntity(Location location, long lifetime) {
-        this.location = location;
-        this.lifetime = lifetime;
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        setUpEntity();
-    }
-
+    /**
+     * This method is used to make all of the instances of different bobux entities.
+     */
     protected abstract void setUpEntity();
 
-        //The roles are switched here; the user is the entity and the player is the victim.
+    /**
+     * Method for using an bobux entity's ability. Takes in the index of the ability to use of the ability list (initialized in setUpEntity()).
+     * @param index
+     */
     public void useAbility(int index) {
         abilityList[index].setTarget(entity);
         if (abilityList[index].setActionList() && abilityStructure.checkForAbilityCD(abilityList[index], abilityList[index].getCooldown(), entity) == -1) {
@@ -50,6 +49,10 @@ public abstract class BobuxEntity implements Listener {
         }
     }
 
+    /**
+     * Method for using an bobux entity's ability with a single target involved. Takes in the index of the ability to use of the ability list (initialized in setUpEntity()), and the target to intake.
+     * @param index
+     */
     public void useAbility(int index, Entity target) {
         abilityList[index].setUser(entity);
         abilityList[index].setTarget(target);

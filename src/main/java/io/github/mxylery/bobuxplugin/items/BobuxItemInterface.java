@@ -19,7 +19,9 @@ import io.github.mxylery.bobuxplugin.abilities.player_abilities.HurriedStopwatch
 import io.github.mxylery.bobuxplugin.abilities.player_abilities.KungFuGlovesAbility;
 import io.github.mxylery.bobuxplugin.abilities.player_abilities.KungFuGlovesPassive;
 import io.github.mxylery.bobuxplugin.abilities.player_abilities.LineSpawnerAbility;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.MegaLongBowAbility;
 import io.github.mxylery.bobuxplugin.abilities.player_abilities.RailgunAbility;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.StraightPearlAbility;
 import io.github.mxylery.bobuxplugin.abilities.player_abilities.TestingItemAbility;
 import io.github.mxylery.bobuxplugin.abilities.player_abilities.TheHotStickAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
@@ -67,8 +69,9 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bouncingItemStack = new ItemStack(Material.SLIME_BALL);
     private static String[] bouncingItemDesc = 
-    {"§7§oLegendary Bounce Ball", 
-    "§7§oSecond Line Because Why Not"};
+    {"§8Allows you to leap in the direction you are looking.", 
+    "§71s CD (Left Click)",
+    "§7Consumed on use"};
     private static String bouncingItemName = "§r§fBouncing Item";
     public static BobuxItem bouncingItem = 
     new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, new BouncingItemAbility("Bouncing Item Ability", false, 20), 1);
@@ -125,7 +128,7 @@ public class BobuxItemInterface {
     private static ItemStack marketStack = new ItemStack(Material.GOLDEN_HORSE_ARMOR);
     private static String[] marketDesc = 
     {"§7Access the daily market here.",
-    "§8(Left or right click)"};
+    "§8(Left/Right Click)"};
     private static String marketName = "§6§lMarket";
     public static BobuxItem market = new BobuxItem
     (marketStack, marketDesc, marketName);
@@ -161,7 +164,7 @@ public class BobuxItemInterface {
     private static ItemStack bountyStack = new ItemStack(Material.PAPER);
     private static String[] bountyDesc = 
     {"§7Access your bounties here.",
-    "§8(Left or right click)"};
+    "§8(Left/Right Click)"};
     private static String bountyName = "§c§lBounties";
     public static BobuxItem bounty = new BobuxItem
     (bountyStack, bountyDesc, bountyName);
@@ -170,7 +173,7 @@ public class BobuxItemInterface {
     private static ItemStack theHotStickStack = new ItemStack(Material.BLAZE_ROD);
     private static String[] theHotStickDesc = 
     {"§7Right click to launch a blazing line of pure fire!",
-    "§85s CD (Right click)"};
+    "§85s CD (Right Click)"};
     private static String theHotStickName = "§cTh§6e H§eot §6St§cick";
     public static BobuxItem theHotStick = new BobuxItem
     (theHotStickStack, theHotStickDesc, theHotStickName, new TheHotStickAbility("The Hot Stick Ability", false, 100), 64);
@@ -188,7 +191,7 @@ public class BobuxItemInterface {
     private static ItemStack BW5Stack = new ItemStack(Material.DIAMOND_HOE);
     private static String[] BW5Desc = 
     {"§7Nowhere would anyone expect this...",
-    "§85s CD (Right click to use)"};
+    "§85s CD (Right Click)"};
     private static String BW5Name = "§1BW-5 \"Nitro Express\"";
     public static BobuxItem BW5 = new BobuxItem
     (BW5Stack, BW5Desc, BW5Name, new BW5Ability("BW5 Ability", false, 100), 192);
@@ -250,23 +253,22 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack exactoPearlStack = new ItemStack(Material.ENDER_PEARL);
-    private static String[] exactoPearlDesc = 
-    {"§7HHHHH",
-    "§8Just wait..."};
-    private static String exactoPearlName = "§7Exacto Pearl";
-    public static BobuxItem exactoPearl = new BobuxItem
-    (exactoPearlStack, exactoPearlDesc, exactoPearlName);
+    private static ItemStack straightPearlStack = new ItemStack(Material.ENDER_PEARL);
+    private static String[] straightPearlDesc = 
+    {"§7This special ender pearl doesn't seem to have gravity..."};
+    private static String straightPearlName = "§7Straight Pearl";
+    public static BobuxItem straightPearl = new BobuxItem
+    (straightPearlStack, straightPearlDesc, straightPearlName, new StraightPearlAbility("Straight Pearl Ability", true, 1), 3);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack megaLongBowStack = new ItemStack(Material.ENDER_PEARL);
+    private static ItemStack megaLongBowStack = new ItemStack(Material.BOW);
     private static String[] megaLongBowDesc = 
-    {"§7HHHHH",
-    "§8Just wait..."};
+    {"§7Why is this here?",
+    "§82s CD (Right Click)"};
     private static String megaLongBowName = "§7Mega Long Bow";
     public static BobuxItem megaLongBow = new BobuxItem
-    (megaLongBowStack, megaLongBowDesc, megaLongBowName);
+    (megaLongBowStack, megaLongBowDesc, megaLongBowName, new MegaLongBowAbility("Mega Longbow Ability", true, 40), 512);
     //////////////////////////////////////////////////////////////////////////////////////////
     
 }

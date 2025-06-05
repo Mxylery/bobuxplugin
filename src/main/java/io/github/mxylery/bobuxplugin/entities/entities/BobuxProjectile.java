@@ -1,7 +1,6 @@
 package io.github.mxylery.bobuxplugin.entities.entities;
 
 import org.bukkit.Location;
-import org.bukkit.entity.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -95,13 +94,10 @@ public abstract class BobuxProjectile extends BobuxEntity {
         if (e.getEntity().equals(entity)) {
             if (abilityList[1] != null && e.getHitEntity() != null) {
                 Entity target = e.getHitEntity();
-                System.out.println("Hit player");
                 MobAbilityManager.verifyAbilityCD(this, 1, target);
             } else if (abilityList[1] != null) {
                 MobAbilityManager.verifyAbilityCD(this, 1);
-            } else {
-                System.out.println("Hit block!");
-            }
+            } 
         }
     }
 

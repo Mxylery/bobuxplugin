@@ -4,10 +4,8 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.World;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Vector;
 
-import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 
 public class ParticleSequence implements Runnable {

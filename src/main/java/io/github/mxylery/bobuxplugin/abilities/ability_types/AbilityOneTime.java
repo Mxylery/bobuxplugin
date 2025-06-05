@@ -26,6 +26,13 @@ public abstract class AbilityOneTime extends BobuxAbility {
 
     }
 
+    /**
+     * This is the method where the creator will make the ability: Four things must be initialized (as of 0.4.1):
+     * 1. Entity List
+     * 2. Vector List
+     * 3. Location List
+     * 4. Inventory List
+     */
     protected boolean assignVariables() {
         return false;
     }

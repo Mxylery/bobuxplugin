@@ -56,7 +56,7 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
         double rng1 = Math.random();
         if (rng1 < 0.5) {
             potionEffectType1 = PotionEffectType.REGENERATION;
-            potionEffectStrength1 = 1;
+            potionEffectStrength1 = 0;
         } else if (rng1 < 0.8) {
             potionEffectType1 = PotionEffectType.ABSORPTION;
             potionEffectStrength1 = 0;
@@ -90,9 +90,9 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
         ParticleSequence eatParticleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.HEART, 8, 3, 0, 0, 0.5, null);
         
         BobuxAction[] actionList =  
-        {new EffectGive(potionEffectType1, 200, potionEffectStrength1),
-        new EffectGive(potionEffectType2, 200, potionEffectStrength2),
-        new EffectGive(potionEffectType3, 200, potionEffectStrength3),
+        {new EffectGive(potionEffectType1, 160, potionEffectStrength1),
+        new EffectGive(potionEffectType2, 160, potionEffectStrength2),
+        new EffectGive(potionEffectType3, 160, potionEffectStrength3),
         new SaturateEntity(endHung, endSat),
         new PlayParticle(eatParticleSequence),
         new PlaySound(Sound.ENTITY_CAT_EAT, 1.0f, 1.0f)};

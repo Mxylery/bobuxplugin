@@ -28,6 +28,8 @@ public class RegistererOption {
             this.radius = radius;
             this.limit = limit;
             this.direction = vector;
-    }
+        }
+
+        
 
 }

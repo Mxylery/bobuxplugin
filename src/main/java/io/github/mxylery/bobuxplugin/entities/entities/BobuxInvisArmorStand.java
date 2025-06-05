@@ -2,11 +2,9 @@ package io.github.mxylery.bobuxplugin.entities.entities;
 
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntity;
@@ -18,9 +16,11 @@ public class BobuxInvisArmorStand extends BobuxEntity {
     
     private BobuxAbility onSpawnAbil;
     private BobuxAbility onDeathAbil;
+    private long lifetime;
 
     public BobuxInvisArmorStand(Location location, long lifetime, BobuxAbility onSpawnAbil, BobuxAbility onDeathAbil) {
-        super(location, lifetime);
+        super(location);
+        this.lifetime = lifetime;
         this.onSpawnAbil = onSpawnAbil;
         this.onDeathAbil = onDeathAbil;
     }

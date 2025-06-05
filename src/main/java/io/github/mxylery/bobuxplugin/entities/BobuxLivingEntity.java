@@ -35,6 +35,19 @@ public abstract class BobuxLivingEntity extends BobuxEntity {
         this.livingEntity = (LivingEntity) super.entity;
     }
 
+    /**
+     * Constructor used for Bobux Living Entities who are hostile and whose entities don't attack normally. abilityList[0] should be the hit ability.
+     * @param location Location where the living entity will spawn
+     * @param knockback Knockback taken on hit
+     * @param damage Damage taken on hit
+     */
+    public BobuxLivingEntity(Location location, double knockback, double damage, double range) {
+        super(location);
+        abilityStructure = new AbilityInstanceStructure();
+        isDead = false;
+        this.livingEntity = (LivingEntity) super.entity;
+    }
+
     @EventHandler
     public void onDeath(EntityDeathEvent e) {
         if (e.getEntity().equals(super.entity)) {

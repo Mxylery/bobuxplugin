@@ -13,12 +13,10 @@ import org.bukkit.entity.Entity;
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxDay;
-import io.github.mxylery.bobuxplugin.core.BobuxDay.DayType;
-import io.github.mxylery.bobuxplugin.entities.livingentities.BigChicken;
+import io.github.mxylery.bobuxplugin.entities.livingentities.hostiles.BigChicken;
 import io.github.mxylery.bobuxplugin.entities.mobs.Sandbagger;
 import io.github.mxylery.bobuxplugin.entities.mobs.ScoutZombie;
 import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
-import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;
 
 // no use
 public class BobuxSpawnChances {

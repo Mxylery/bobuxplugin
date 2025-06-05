@@ -1,6 +1,6 @@
 package io.github.mxylery.bobuxplugin.entities;
 
-import io.github.mxylery.bobuxplugin.entities.livingentities.BigChicken;
+import io.github.mxylery.bobuxplugin.entities.livingentities.hostiles.BigChicken;
 import io.github.mxylery.bobuxplugin.entities.mobs.CulturalCultist;
 import io.github.mxylery.bobuxplugin.entities.mobs.Sandbagger;
 import io.github.mxylery.bobuxplugin.entities.mobs.ScoutZombie;

@@ -119,8 +119,11 @@ public class PlayerAbilityManager {
             if (lastUse == -1) {
                  return true;
             } else {
-                if (!ability.isMuted() && !(ability instanceof AbilityPassive))
-                    player.sendMessage("You need to wait " + ( (double) cooldown / (double) 20 - (double) lastUse / (double) 20 ) + " more seconds until using this ability.");
+                if (!ability.isMuted() && !(ability instanceof AbilityPassive)) {
+                    double timeRemaining = (double) cooldown / (double) 20 - (double) lastUse / (double) 20;
+                    String numberString = String.format("§c%.2f", timeRemaining);
+                    player.sendMessage("You need to wait " + numberString + " §fmore seconds until using this ability."); 
+                }
                 return false;
             }
         } 
@@ -210,6 +213,19 @@ public class PlayerAbilityManager {
                 }
             } return false;
         } return false;
+    }
+
+    public static boolean checkForSlot(BobuxItem bobuxitem, Player holder, EquipmentSlot slot) {
+        PlayerInventory currentInventory = holder.getInventory();
+        if (currentInventory.getItem(slot) != null) {
+            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     public static HashMap<Player, AbilityInstanceStructure> getAbilityHistoryMap() {

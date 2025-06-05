@@ -18,7 +18,6 @@ public class EffectGive extends BobuxAction {
         this.length = length;
         this.strength = strength;
         super.requiresEntity = true;
-        super.requiresVector = false;
     }
 
     public void adjustFlat(double adjustment) {

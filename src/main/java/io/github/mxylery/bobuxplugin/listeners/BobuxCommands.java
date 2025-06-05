@@ -3,17 +3,15 @@ package io.github.mxylery.bobuxplugin.listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.entities.entities.BobuxInvisArmorStand;
-import io.github.mxylery.bobuxplugin.entities.livingentities.BigChicken;
+import io.github.mxylery.bobuxplugin.entities.livingentities.hostiles.BigChicken;
 import io.github.mxylery.bobuxplugin.entities.mobs.Sandbagger;
 import io.github.mxylery.bobuxplugin.entities.mobs.ScoutZombie;
 import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
 import io.github.mxylery.bobuxplugin.guis.MainGUI;
-import io.github.mxylery.bobuxplugin.items.BobuxItem;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class BobuxCommands implements CommandExecutor {
@@ -67,6 +65,10 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 case "bobux_brew": player.getInventory().addItem(BobuxItemInterface.bobuxBrew.getStack());
                 break;
                 case "bobux_brew_remnants": player.getInventory().addItem(BobuxItemInterface.bobuxBrewRemnants.getStack());
+                break;
+                case "straight_pearl": player.getInventory().addItem(BobuxItemInterface.straightPearl.getStack());
+                break;
+                case "mega_long_bow": player.getInventory().addItem(BobuxItemInterface.megaLongBow.getStack());
                 break;
                 default:
                 break;
