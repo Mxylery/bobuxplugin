@@ -56,8 +56,6 @@ import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 public class BobuxItemInterface {
 
     private static final int itemTotal = 13;
-    private static Server server = BobuxTimer.getServer();
-    private static ItemFactory itemFactory = server.getItemFactory();
 
     private static ItemStack testingItemStack = new ItemStack(Material.IRON_INGOT);
     private static String[] testingItemDesc = 
@@ -268,7 +266,7 @@ public class BobuxItemInterface {
     "§82s CD (Right Click)"};
     private static String megaLongBowName = "§7Mega Long Bow";
     public static BobuxItem megaLongBow = new BobuxItem
-    (megaLongBowStack, megaLongBowDesc, megaLongBowName, new MegaLongBowAbility("Mega Longbow Ability", true, 40), 512);
+    (megaLongBowStack, megaLongBowDesc, megaLongBowName, new MegaLongBowAbility("Mega Longbow Ability", true, 20), 512);
     //////////////////////////////////////////////////////////////////////////////////////////
     
 }

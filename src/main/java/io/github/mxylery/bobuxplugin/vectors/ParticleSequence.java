@@ -19,7 +19,6 @@ public class ParticleSequence implements Runnable {
     private double speed;
     private ParticleSequenceOptions option;
     private ParticleSequenceOrientations orientation;
-    private boolean animated = false;
     private double inRadius;
     private double outRadius;
     private DustOptions dustOption;

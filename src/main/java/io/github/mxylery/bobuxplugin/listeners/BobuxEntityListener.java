@@ -26,9 +26,9 @@ public class BobuxEntityListener implements Listener {
     public BobuxEntityListener(BobuxPlugin plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        this.bobuxEntityList = new ArrayList<BobuxEntity>();
-        this.chunkEntityMap = new HashMap<Chunk, ArrayList<Entity>>();
-        this.spawnChances = new BobuxSpawnChances(plugin, bobuxEntityList, chunkEntityMap);
+        bobuxEntityList = new ArrayList<BobuxEntity>();
+        chunkEntityMap = new HashMap<Chunk, ArrayList<Entity>>();
+        spawnChances = new BobuxSpawnChances(plugin, bobuxEntityList, chunkEntityMap);
     }
 
     public static BobuxEntity getBobuxEntity(Entity entity) {

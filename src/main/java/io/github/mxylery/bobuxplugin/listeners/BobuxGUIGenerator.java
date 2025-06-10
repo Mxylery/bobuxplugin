@@ -31,7 +31,6 @@ public class BobuxGUIGenerator implements Listener {
     public static BobuxItem[] marketMenu = new BobuxItem[5];
     public static int menuSize = 3;
     public static final int marketItemTotal = 14;
-    //Can either generate 3 or 5 items depending on the day.
     public static void randomizeMarketItems() {
         if (BobuxDay.getDay() != DayType.AVARICIOUS) {
             menuSize = 3;
@@ -106,7 +105,7 @@ public class BobuxGUIGenerator implements Listener {
 
     @EventHandler
     public void onLogin (PlayerLoginEvent e) {
-        OfflinePlayer[] playerList =  server.getOfflinePlayers();
+        OfflinePlayer[] playerList = server.getOfflinePlayers();
         boolean wasOnline = false;
         for (int i = 0; i < playerList.length; i++) {
             if (playerList[i].getUniqueId() == e.getPlayer().getUniqueId()) {

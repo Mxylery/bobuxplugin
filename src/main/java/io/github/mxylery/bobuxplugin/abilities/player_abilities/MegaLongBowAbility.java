@@ -35,7 +35,7 @@ public class MegaLongBowAbility extends AbilityOneTime {
         super.locationList = locationList;
         super.inventoryList = inventoryList;
 
-        BobuxAction[] actionList = {new SpawnArrow(1, true, null, null), 
+        BobuxAction[] actionList = {new SpawnArrow(4, true, null, null), 
             new DeleteItem(new ItemStack(Material.ARROW), 1), 
             new EffectGive(PotionEffectType.JUMP_BOOST, 40, 3)};
         

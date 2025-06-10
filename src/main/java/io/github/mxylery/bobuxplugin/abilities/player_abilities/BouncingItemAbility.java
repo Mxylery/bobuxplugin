@@ -21,8 +21,8 @@ public class BouncingItemAbility extends AbilityOneTime {
     protected boolean assignVariables() {
         Entity[][] targetList = {{user}, {user}};
         Vector[] vectorList = {user.getLocation().getDirection(), null};
-        Location[] locationList = {null, null};
-        Inventory[] inventoryList = {null, null};
+        Location[] locationList = new Location[2];
+        Inventory[] inventoryList = new Inventory[2];
 
         super.targetList = targetList;
         super.vectorList = vectorList;

@@ -102,7 +102,7 @@ public class BobuxSpawnChances {
             //Deserty
         if (biome.equals(Biome.BADLANDS) || biome.equals(Biome.DESERT) || biome.equals(Biome.ERODED_BADLANDS) || biome.equals(Biome.WOODED_BADLANDS)) {
 
-            int scoutZombieAmount = (int) (6*badModifier);
+            int scoutZombieAmount = (int) (12*badModifier);
             for (int i = 0; i < scoutZombieAmount; i++) {
                 Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*160, location.getZ() -8 + Math.random()*16);
                 if (canSpawn(loc)) {
@@ -141,7 +141,7 @@ public class BobuxSpawnChances {
 
             //Night mobs
             if (!BobuxTimer.isDay()) {
-                int stinkyMobAmount = (int) ((6)*badModifier);
+                int stinkyMobAmount = (int) ((12)*badModifier);
                 for (int i = 0; i < stinkyMobAmount; i++) {
                     Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*320, location.getZ() -8 + Math.random()*16);
                     if (canSpawn(loc)) {
@@ -161,7 +161,7 @@ public class BobuxSpawnChances {
         || biome.equals(Biome.DEEP_COLD_OCEAN) || biome.equals(Biome.DEEP_LUKEWARM_OCEAN) || biome.equals(Biome.BEACH) || biome.equals(Biome.OCEAN)) {
 
             if (biome.equals(Biome.BEACH)) {
-                int scoutZombieAmount = (int) ((5)*badModifier);
+                int scoutZombieAmount = (int) ((10)*badModifier);
                 for (int i = 0; i < scoutZombieAmount; i++) {
                     Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*80, location.getZ() -8 + Math.random()*16);
                     if (canSpawn(loc)) {
@@ -199,7 +199,7 @@ public class BobuxSpawnChances {
             //Overworld
         } else if (biome.equals(Biome.MEADOW) || biome.equals(Biome.PLAINS) || biome.equals(Biome.RIVER) || biome.equals(Biome.CHERRY_GROVE)) {
 
-            int bigChickenAmount = (int) ((6)*badModifier);
+            int bigChickenAmount = (int) ((12)*badModifier);
             for (int i = 0; i < bigChickenAmount; i++) {
                 Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*160, location.getZ() -8 + Math.random()*16);
                 if (canSpawn(loc)) {
@@ -210,7 +210,7 @@ public class BobuxSpawnChances {
 
             //Night mobs
             if (!BobuxTimer.isDay()) {
-                int stinkyMobAmount = (int) ((5)*badModifier);
+                int stinkyMobAmount = (int) ((10)*badModifier);
                 for (int i = 0; i < stinkyMobAmount; i++) {
                     Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*320, location.getZ() -8 + Math.random()*16);
                     if (canSpawn(loc)) {

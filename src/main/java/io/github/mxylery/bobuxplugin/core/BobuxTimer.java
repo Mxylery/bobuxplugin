@@ -2,11 +2,9 @@ package io.github.mxylery.bobuxplugin.core;
 
 import org.bukkit.Server;
 import org.bukkit.World;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
-import io.github.mxylery.bobuxplugin.core.BobuxDay.DayType;
 import io.github.mxylery.bobuxplugin.listeners.BobuxGUIGenerator;
 
 /**

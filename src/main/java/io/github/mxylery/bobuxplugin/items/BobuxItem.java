@@ -3,9 +3,6 @@ package io.github.mxylery.bobuxplugin.items;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.plaf.synth.ColorType;
-
-import org.bukkit.Color;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
@@ -15,7 +12,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityPassive;
 import io.github.mxylery.bobuxplugin.core.BobuxAbility;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 
 public class BobuxItem {
@@ -30,7 +26,6 @@ public class BobuxItem {
     private AbilityPassive passive;
     private boolean hideFlag;
     private BobuxAttributeSet[] attributeSet;
-    private Color nameColor;
 
     public BobuxItem (ItemStack stack, String[] description, String name) {
         this.stack = stack;
@@ -39,7 +34,7 @@ public class BobuxItem {
         this.ability = null;
         this.enchants = null;
         this.enchantLevels = null;
-        this.unbreakable = false;
+        this.unbreakable = true;
         this.price = 1;
         this.passive = null;
         this.hideFlag = true;

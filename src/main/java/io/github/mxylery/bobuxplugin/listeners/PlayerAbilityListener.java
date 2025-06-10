@@ -2,28 +2,25 @@ package io.github.mxylery.bobuxplugin.listeners;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.PrepareInventoryResultEvent;
 import org.bukkit.event.player.PlayerInputEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
-import io.github.mxylery.bobuxplugin.core.BobuxDay;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.core.PlayerAbilityManager;
@@ -154,34 +151,24 @@ public class PlayerAbilityListener implements Listener {
     }
 
     /**
-     * This method handles player consume events (any item )
+     * This method handles player consume events 
      */
     @EventHandler
     public void onConsume(PlayerItemConsumeEvent e) {
         Player player = e.getPlayer();
-
         if (PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bobuxBrew, player, EquipmentSlot.HAND, false)) {
             e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void onItemGet(EntityPickupItemEvent e) {
-        if (e.getEntityType().equals(EntityType.PLAYER)) {
-            Player player = (Player) e.getEntity();
-
-            if (e.getItem().getItemStack().equals(BobuxItemInterface.bobuxBrewRemnants.getStack())) {
-                Runnable runnable = new Runnable(){
-                    public void run() {
-                        int[] indexList = BobuxUtils.checkTotalItems(player.getInventory(), BobuxItemInterface.bobuxBrewRemnants.getStack());
-                        if (indexList != null) {
-                            player.getInventory().setItem(indexList[0], BobuxItemInterface.bobuxBrew.getStack());
-                        }
+            Runnable runnable = new Runnable(){
+                public void run() { 
+                    int[] indexList = BobuxUtils.checkTotalItems(player.getInventory(), BobuxItemInterface.bobuxBrewRemnants.getStack());
+                    if (indexList != null) {
+                        player.getInventory().setItem(indexList[0], BobuxItemInterface.bobuxBrew.getStack());
                     }
-                };
-                System.out.println("Remnants gotten");
-                scheduler.runTaskLater(plugin, runnable, 600);
-            }
+                    System.out.println("Happened");
+                }
+            };
+            scheduler.runTaskLater(plugin, runnable, 600);
         }
     }
 }
+

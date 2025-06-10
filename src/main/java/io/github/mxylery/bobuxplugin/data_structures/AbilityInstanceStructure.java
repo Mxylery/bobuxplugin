@@ -184,7 +184,9 @@ public class AbilityInstanceStructure {
             tempHead = tempHead.previous;
             //Checks if the ability of the checked abilityInstance is the desired one
             if (tempHead.abilityInstance.getAbility().equals(ability)) {
+                //Checks if the user is the same as the one being checked for
                 if (tempHead.abilityInstance.getEntity().equals(entity)) {
+                    //Checks for all abilities casted under the specified timeframe; true if it finds none, false otherwise
                     if (BobuxTimer.getTicksPassed() - tempHead.abilityInstance.getTick() < timeFrame) {
                         return BobuxTimer.getTicksPassed() - tempHead.abilityInstance.getTick();
                     } 
