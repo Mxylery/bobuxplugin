@@ -11,10 +11,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
+import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
+import io.github.mxylery.bobuxplugin.abilities.MobAbilityManager;
 import io.github.mxylery.bobuxplugin.abilities.mob_abilities.SandbaggerAbilityOne;
-import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.entities.BobuxMob;
-import io.github.mxylery.bobuxplugin.listeners.MobAbilityManager;
 
 public class Sandbagger extends BobuxMob {
     

@@ -7,9 +7,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.ChangeVelocity;
-import io.github.mxylery.bobuxplugin.actions.DeleteSelf;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.item.DeleteHeldItem;
+import io.github.mxylery.bobuxplugin.actions.velocity.ChangeVelocity;
 
 public class BouncingItemAbility extends AbilityOneTime {
 
@@ -31,7 +31,7 @@ public class BouncingItemAbility extends AbilityOneTime {
 
         BobuxAction[] actionList = 
         {new ChangeVelocity(10), 
-        new DeleteSelf(EquipmentSlot.HAND, 1)};
+        new DeleteHeldItem(EquipmentSlot.HAND, 1)};
         
         super.actionList = actionList;
         return true;

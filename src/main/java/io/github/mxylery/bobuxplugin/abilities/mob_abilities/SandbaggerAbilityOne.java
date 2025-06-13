@@ -6,30 +6,21 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.ChangeVelocity;
-import io.github.mxylery.bobuxplugin.actions.DamageEntity;
-import io.github.mxylery.bobuxplugin.actions.PlayParticle;
-import io.github.mxylery.bobuxplugin.actions.PlaySound;
-import io.github.mxylery.bobuxplugin.actions.RepulseFromPoint;
-import io.github.mxylery.bobuxplugin.actions.SpawnItem;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
+import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
+import io.github.mxylery.bobuxplugin.actions.spawn.SpawnItem;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
-import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;
-import io.github.mxylery.bobuxplugin.vectors.RegistererOption;
-import io.github.mxylery.bobuxplugin.vectors.RegistererOption.RegistererType;
 
 public class SandbaggerAbilityOne extends AbilityOneTime {
-
-    private int limit = 0;
 
     public SandbaggerAbilityOne(String name, boolean muteCD, long cooldown) {
         super(name, muteCD, cooldown);
@@ -82,7 +73,6 @@ public class SandbaggerAbilityOne extends AbilityOneTime {
         new PlaySound(Sound.ENTITY_VILLAGER_TRADE, 1.0f, 1.0f)};
         
         super.actionList = actionList;
-        limit++;
         return true;
         
     }

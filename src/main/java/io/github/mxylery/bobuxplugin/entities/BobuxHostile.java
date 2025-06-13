@@ -17,13 +17,12 @@ import org.bukkit.event.player.PlayerInputEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityInstance;
+import io.github.mxylery.bobuxplugin.abilities.MobAbilityManager;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.MobHitAbility;
-import io.github.mxylery.bobuxplugin.core.AbilityInstance;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.data_structures.AbilityInstanceStructure;
-import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;
-import io.github.mxylery.bobuxplugin.listeners.MobAbilityManager;
 
 public abstract class BobuxHostile extends BobuxLivingEntity {
     
@@ -82,7 +81,7 @@ public abstract class BobuxHostile extends BobuxLivingEntity {
     @Override
     @EventHandler
     public void onDeath(EntityDeathEvent e) {
-        if (e.getEntity().equals(entity)) {
+        if (e.getEntity().equals(super.entity)) {
             invisZombie.setInvulnerable(false);
             invisZombie.setHealth(0);
             invisZombie.damage(1000);

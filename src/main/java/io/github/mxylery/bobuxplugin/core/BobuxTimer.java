@@ -5,7 +5,7 @@ import org.bukkit.World;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
-import io.github.mxylery.bobuxplugin.listeners.BobuxGUIGenerator;
+import io.github.mxylery.bobuxplugin.guis.BobuxGUIGenerator;
 
 /**
  * This class keeps track of the ticks of the server and reports to the

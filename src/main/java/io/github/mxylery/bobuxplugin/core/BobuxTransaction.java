@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import io.github.mxylery.bobuxplugin.guis.bounty.BobuxBounty;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class BobuxTransaction {

@@ -177,7 +177,7 @@ public class BobuxItemInterface {
     (theHotStickStack, theHotStickDesc, theHotStickName, new TheHotStickAbility("The Hot Stick Ability", false, 100), 64);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack BW5AmmoStack = new ItemStack(Material.BLUE_WOOL);
+    private static ItemStack BW5AmmoStack = new ItemStack(Material.LIGHT_BLUE_DYE);
     private static String[] BW5AmmoDesc = 
     {"§7Ammunition used for the BW5 \"Nitro Express\" Rifle.",
     "§8This item will be consumed upon one use of the BW5."};
@@ -207,7 +207,7 @@ public class BobuxItemInterface {
     (kungFuGlovesStack, kungFuGlovesDesc, kungFuGlovesName, new KungFuGlovesAbility("Kung Fu Gloves Ability", false, 200), new KungFuGlovesPassive("Kung Fu Gloves Passive", false, 0, 40), kungFuGlovesAttributeList, true, 128);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack fruitcakeAndCookiesStack = new ItemStack(Material.BROWN_GLAZED_TERRACOTTA);
+    private static ItemStack fruitcakeAndCookiesStack = new ItemStack(Material.CAKE);
     private static String[] fruitcakeAndCookiesDesc = 
     {"§7Some fruitcake and cookies to ease your soul.",
     "§830s CD (Right Click)",

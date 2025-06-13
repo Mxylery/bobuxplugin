@@ -1,12 +1,20 @@
 package io.github.mxylery.bobuxplugin;
 
+import org.bukkit.World;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import io.github.mxylery.bobuxplugin.abilities.PlayerAbilityListener;
+import io.github.mxylery.bobuxplugin.core.BobuxCommands;
+import io.github.mxylery.bobuxplugin.core.BobuxGiver;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
-import io.github.mxylery.bobuxplugin.listeners.*;
+import io.github.mxylery.bobuxplugin.entities.BobuxEntityListener;
+import io.github.mxylery.bobuxplugin.guis.BobuxGUIGenerator;
 
-public final class BobuxPlugin extends JavaPlugin {
+public final class BobuxPlugin extends JavaPlugin implements Listener {
 
     private static BukkitScheduler scheduler;
 
@@ -30,15 +38,16 @@ public final class BobuxPlugin extends JavaPlugin {
 
 	}
 
-	@Override 
-    /* 
-     * Write something that saves bobux after server close,
-     * or maybe just implement SQL throughout so it doesn't 
-     * need to close?
-     */
+	@Override
 	public void onDisable() {
 		getLogger().info("onDisable has been invoked!");
 	}
+
+    //For bobuxhub stuff...
+    @EventHandler
+    public void onLogin(PlayerLoginEvent e) {
+
+    }
     
     public static BukkitScheduler getScheduler() {
         return scheduler;

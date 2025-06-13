@@ -1,14 +1,7 @@
 package io.github.mxylery.bobuxplugin.abilities.ability_types;
 
-
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitScheduler;
-
-import io.github.mxylery.bobuxplugin.core.*;
-import io.github.mxylery.bobuxplugin.items.BobuxItem;
-import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
-import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
+import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 
 public abstract class AbilityOneTime extends BobuxAbility {
 
@@ -16,14 +9,6 @@ public abstract class AbilityOneTime extends BobuxAbility {
 
     public AbilityOneTime(String name, boolean muteCD, long cooldown) {
         super(name, muteCD, cooldown);
-    }
-
-    public void adjustPerc() {
-
-    }
-
-    public void adjustFlat() {
-
     }
 
     /**
@@ -39,27 +24,5 @@ public abstract class AbilityOneTime extends BobuxAbility {
 
     public BobuxAction[] getActionList() {
         return actionList;
-    }
-
-    //If the ability was retriggered by the initial trigger: ignoreCD = on, until a retrigger triggers a non retrigger trigger.
-    protected void retrigger(BobuxRegisterer registerer, Player player, BobuxItem bobuxitem, int delay) {
-        BukkitScheduler scheduler = BobuxTimer.getScheduler();
-        if (PlayerAbilityManager.verifyItemCD(player, this, muteCD)) {
-                ignoreCD = true;
-        }
-        if (PlayerAbilityManager.verifyItemCD(user, bobuxitem.getAbility(), true) || ignoreCD) {
-            Runnable runnable = new Runnable(){
-            public void run() {
-                if (BobuxUtils.checkWithoutDuraAmnt(player.getInventory().getItemInMainHand(), bobuxitem) && registerer.getEntityList() != null) {
-                    registerer.updateTargeting();
-                    BobuxAbility ability = BobuxItemInterface.kungFuGloves.getAbility();
-                    ability.setUser(user);
-                    ability.setActionList();
-                    ability.use();
-                }
-            }
-        };    
-        scheduler.runTaskLater(BobuxTimer.getPlugin(), runnable, delay);    
-        }
     }
 }

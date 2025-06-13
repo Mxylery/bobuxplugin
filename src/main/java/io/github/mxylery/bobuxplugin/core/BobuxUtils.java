@@ -83,7 +83,6 @@ public class BobuxUtils {
                 } 
             }
         }
-		System.out.println("Size: " + size);
         if (size != -1) {
             int[] newSlots = new int[size+1];
             System.arraycopy(slotNums, 0, newSlots, 0, size+1);
@@ -152,8 +151,6 @@ public class BobuxUtils {
 		ItemStack tempStack2 = new ItemStack(item2);
 		tempStack2.setAmount(1);
 		ItemMeta tempMeta2 = tempStack2.getItemMeta();
-		System.out.println("ItemMeta 1: " + tempMeta1.toString());
-		System.out.println("ItemMeta 2: " + tempMeta2.toString());
 		if (tempMeta1 instanceof Damageable && tempMeta2 instanceof Damageable) {
 			Damageable damageable1 = (Damageable) tempMeta1;
 			damageable1.setDamage(0);

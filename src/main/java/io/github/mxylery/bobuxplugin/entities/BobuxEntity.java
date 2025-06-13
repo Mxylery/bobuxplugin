@@ -3,11 +3,15 @@ package io.github.mxylery.bobuxplugin.entities;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.EntityBlockFormEvent;
+import org.bukkit.event.entity.EntityUnleashEvent;
+import org.bukkit.event.world.EntitiesUnloadEvent;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
-import io.github.mxylery.bobuxplugin.core.AbilityInstance;
-import io.github.mxylery.bobuxplugin.core.BobuxAbility;
+import io.github.mxylery.bobuxplugin.abilities.AbilityInstance;
+import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.data_structures.AbilityInstanceStructure;
 

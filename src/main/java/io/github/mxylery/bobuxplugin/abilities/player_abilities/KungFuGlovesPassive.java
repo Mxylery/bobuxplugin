@@ -6,8 +6,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityPassive;
-import io.github.mxylery.bobuxplugin.actions.ChangeVelocity;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.velocity.ChangeVelocity;
 
 public class KungFuGlovesPassive extends AbilityPassive {
     public KungFuGlovesPassive(String name, boolean muteCD, long cooldown, long period) {

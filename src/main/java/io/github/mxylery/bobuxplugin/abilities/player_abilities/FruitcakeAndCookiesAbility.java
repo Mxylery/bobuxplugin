@@ -10,12 +10,12 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.EffectGive;
-import io.github.mxylery.bobuxplugin.actions.PlayParticle;
-import io.github.mxylery.bobuxplugin.actions.PlaySound;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.RandomAction;
-import io.github.mxylery.bobuxplugin.actions.SaturateEntity;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
+import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
+import io.github.mxylery.bobuxplugin.actions.entity.EffectGive;
+import io.github.mxylery.bobuxplugin.actions.entity.SaturateEntity;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;

@@ -44,9 +44,9 @@ public class ScoutZombie extends BobuxMob {
         zombie.getEquipment().setChestplate(chestplateStack);
         zombie.getEquipment().setHelmet(helmetStack);
 
-        BobuxAttributeSet[] attributeSet = {new BobuxAttributeSet(Attribute.MOVEMENT_SPEED, 1.0, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.ANY), new BobuxAttributeSet(Attribute.ATTACK_DAMAGE, 1.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.ANY)};
+        BobuxAttributeSet[] attributeSet = {new BobuxAttributeSet(Attribute.MOVEMENT_SPEED, 0.5, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.ANY), new BobuxAttributeSet(Attribute.ATTACK_DAMAGE, -1.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.ANY)};
 
-        ItemStack[] dropTable = {bootStack};
+        ItemStack[] dropTable = {new ItemStack(Material.SUGAR)};
         double[] dropWeights = {1};
         int[][] dropRanges = {{1,3}};
 

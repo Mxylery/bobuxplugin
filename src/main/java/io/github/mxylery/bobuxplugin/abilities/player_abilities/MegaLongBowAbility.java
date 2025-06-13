@@ -10,10 +10,10 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.DeleteItem;
-import io.github.mxylery.bobuxplugin.actions.EffectGive;
-import io.github.mxylery.bobuxplugin.actions.SpawnArrow;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.entity.EffectGive;
+import io.github.mxylery.bobuxplugin.actions.item.DeleteItem;
+import io.github.mxylery.bobuxplugin.actions.spawn.SpawnArrow;
 
 public class MegaLongBowAbility extends AbilityOneTime {
 

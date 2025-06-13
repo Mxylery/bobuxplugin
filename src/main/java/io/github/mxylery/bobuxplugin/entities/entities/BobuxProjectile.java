@@ -8,9 +8,9 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.util.Vector;
 
-import io.github.mxylery.bobuxplugin.core.BobuxAbility;
+import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
+import io.github.mxylery.bobuxplugin.abilities.MobAbilityManager;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntity;
-import io.github.mxylery.bobuxplugin.listeners.MobAbilityManager;
 import io.github.mxylery.bobuxplugin.vectors.ParticlePlayer;
 
 //The generic is what class it will target.

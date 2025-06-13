@@ -7,8 +7,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.GiveItem;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.item.GiveItem;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class BobuxinatorAbility extends AbilityOneTime {

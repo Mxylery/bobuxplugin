@@ -7,9 +7,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.DeleteItem;
-import io.github.mxylery.bobuxplugin.actions.SpawnPearl;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.item.DeleteItem;
+import io.github.mxylery.bobuxplugin.actions.spawn.SpawnPearl;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class StraightPearlAbility extends AbilityOneTime {

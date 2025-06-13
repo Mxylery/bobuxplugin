@@ -13,11 +13,11 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
+import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
+import io.github.mxylery.bobuxplugin.abilities.MobAbilityManager;
 import io.github.mxylery.bobuxplugin.abilities.mob_abilities.StinkyMobAbilityOne;
-import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.entities.BobuxMob;
 import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
-import io.github.mxylery.bobuxplugin.listeners.MobAbilityManager;
 
 public class StinkyMob extends BobuxMob {
     
@@ -42,7 +42,7 @@ public class StinkyMob extends BobuxMob {
         BobuxAttributeSet[] attributeSet = {new BobuxAttributeSet(Attribute.MOVEMENT_SPEED, -0.5, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.ANY)};
         BobuxAbility[] abilityList = {new StinkyMobAbilityOne("Stinky Mob Ability One", false, 100)};
 
-        ItemStack[] dropTable = {bootStack};
+        ItemStack[] dropTable = {new ItemStack(Material.GREEN_DYE)};
         double[] dropWeights = {1};
         int[][] dropRanges = {{1,3}};
 

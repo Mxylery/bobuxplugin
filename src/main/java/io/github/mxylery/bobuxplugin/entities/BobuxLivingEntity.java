@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.data_structures.AbilityInstanceStructure;
 import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
-import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;
 
 public abstract class BobuxLivingEntity extends BobuxEntity {
 

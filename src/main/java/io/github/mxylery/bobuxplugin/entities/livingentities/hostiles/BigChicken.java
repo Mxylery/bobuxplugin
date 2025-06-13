@@ -12,13 +12,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
+import io.github.mxylery.bobuxplugin.abilities.MobAbilityManager;
 import io.github.mxylery.bobuxplugin.abilities.mob_abilities.BigChickenAbilityOne;
-import io.github.mxylery.bobuxplugin.core.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.entities.BobuxHostile;
 import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
-import io.github.mxylery.bobuxplugin.listeners.MobAbilityManager;
 
 public class BigChicken extends BobuxHostile {
 

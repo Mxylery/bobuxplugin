@@ -8,9 +8,9 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.EffectGive;
-import io.github.mxylery.bobuxplugin.actions.PlaySound;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
+import io.github.mxylery.bobuxplugin.actions.entity.EffectGive;
 public class HurriedStopwatchAbility extends AbilityOneTime {
 
     public HurriedStopwatchAbility(String name, boolean muteCD, long cooldown) {

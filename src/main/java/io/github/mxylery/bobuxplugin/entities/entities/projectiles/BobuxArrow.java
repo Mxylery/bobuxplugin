@@ -4,7 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.util.Vector;
 
-import io.github.mxylery.bobuxplugin.core.BobuxAbility;
+import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 import io.github.mxylery.bobuxplugin.entities.entities.BobuxProjectile;
 
 //The generic is what class it will target.

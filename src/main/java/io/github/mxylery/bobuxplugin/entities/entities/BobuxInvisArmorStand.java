@@ -5,11 +5,11 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import io.github.mxylery.bobuxplugin.core.BobuxAbility;
+import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
+import io.github.mxylery.bobuxplugin.abilities.MobAbilityManager;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntity;
-import io.github.mxylery.bobuxplugin.listeners.BobuxEntityListener;
-import io.github.mxylery.bobuxplugin.listeners.MobAbilityManager;
+import io.github.mxylery.bobuxplugin.entities.BobuxEntityListener;
 
 //schedule a remove itself task basically which will be its lifetime.
 public class BobuxInvisArmorStand extends BobuxEntity {

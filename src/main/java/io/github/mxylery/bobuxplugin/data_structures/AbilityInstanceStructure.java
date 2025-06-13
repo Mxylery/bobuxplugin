@@ -5,8 +5,8 @@ import org.bukkit.entity.Entity;
 
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
-import io.github.mxylery.bobuxplugin.core.AbilityInstance;
-import io.github.mxylery.bobuxplugin.core.BobuxAbility;
+import io.github.mxylery.bobuxplugin.abilities.AbilityInstance;
+import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 
 //Basically just a bag, maybe replace with doubly linked list implementation at some point
 public class AbilityInstanceStructure {

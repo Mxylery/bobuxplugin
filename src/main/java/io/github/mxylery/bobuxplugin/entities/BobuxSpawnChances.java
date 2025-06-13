@@ -97,7 +97,7 @@ public class BobuxSpawnChances {
             break;
         }
 
-        if (rng < 0.25) {
+        if (rng < 0.3) {
             Entity[] entitiesAdded;
             //Deserty
         if (biome.equals(Biome.BADLANDS) || biome.equals(Biome.DESERT) || biome.equals(Biome.ERODED_BADLANDS) || biome.equals(Biome.WOODED_BADLANDS)) {

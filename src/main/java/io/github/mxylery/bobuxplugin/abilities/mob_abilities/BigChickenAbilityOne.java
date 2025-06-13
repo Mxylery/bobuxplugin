@@ -1,15 +1,14 @@
 package io.github.mxylery.bobuxplugin.abilities.mob_abilities;
 
 import org.bukkit.Location;
-import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
 import io.github.mxylery.bobuxplugin.abilities.projectile_abilities.BigChickenEggHit;
-import io.github.mxylery.bobuxplugin.actions.SpawnEgg;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.spawn.SpawnEgg;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 
 public class BigChickenAbilityOne extends AbilityOneTime {

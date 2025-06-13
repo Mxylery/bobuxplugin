@@ -1,7 +1,5 @@
 package io.github.mxylery.bobuxplugin.actions;
 
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
-
 public class RandomAction extends BobuxAction {
     
     private BobuxAction[][] randomList;
@@ -15,14 +13,6 @@ public class RandomAction extends BobuxAction {
         super.requiresVector = true;
         super.requiresLocation = true;
         super.requiresInventory = true;
-    }
-
-    public void adjustFlat(double adjustment) {
-
-    }
-
-    public void adjustPerc(double adjustment) {
-
     }
 
     public void run() {

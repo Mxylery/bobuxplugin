@@ -11,13 +11,14 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.ChangeVelocity;
-import io.github.mxylery.bobuxplugin.actions.DamageEntity;
-import io.github.mxylery.bobuxplugin.actions.EffectGive;
-import io.github.mxylery.bobuxplugin.actions.PlayParticle;
-import io.github.mxylery.bobuxplugin.actions.PlaySound;
-import io.github.mxylery.bobuxplugin.actions.StunMob;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.abilities.ability_types.PhaseAbility;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
+import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
+import io.github.mxylery.bobuxplugin.actions.entity.DamageEntity;
+import io.github.mxylery.bobuxplugin.actions.entity.EffectGive;
+import io.github.mxylery.bobuxplugin.actions.entity.StunMob;
+import io.github.mxylery.bobuxplugin.actions.velocity.ChangeVelocity;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
@@ -26,7 +27,7 @@ import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOr
 import io.github.mxylery.bobuxplugin.vectors.RegistererOption;
 import io.github.mxylery.bobuxplugin.vectors.RegistererOption.RegistererType;
 
-public class KungFuGlovesAbility extends AbilityOneTime {
+public class KungFuGlovesAbility extends PhaseAbility {
 
     public KungFuGlovesAbility(String name, boolean muteCD, long cooldown) {
         super(name, muteCD, cooldown);
@@ -46,6 +47,7 @@ public class KungFuGlovesAbility extends AbilityOneTime {
         Location[] locationList;
         Inventory[] inventoryList;
 
+        //phase 0
         if (registerer1.getEntityList() == null) {
             targetList = new Entity[1][1];
             vectorList = new Vector[1];
@@ -54,10 +56,10 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             actionList = new BobuxAction[1];
             targetList[0][0] = player;
             vectorList[0] = slightLeap;
-            locationList[0] = null;
-            inventoryList[0] = null;
             actionList[0] = new ChangeVelocity(10);
+            phase = 0;
             super.ignoreCD = false;
+        //phase 1
         } else {
             targetList = new Entity[7][1];
             vectorList = new Vector[7];
@@ -68,7 +70,6 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             targetList[1][0] = registerer1.getEntityList()[0];
             targetList[2][0] = registerer1.getEntityList()[0];
             targetList[3][0] = player;
-            targetList[4][0] = null;
             targetList[5][0] = player;
             targetList[6][0] = registerer1.getEntityList()[0];
             vectorList[0] = slightLeap;
@@ -76,19 +77,8 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             vectorList[2] = slightKnockUp;
             vectorList[3] = slightKnockUp;
             vectorList[4] = slightKnockUp;
-            vectorList[5] = null;
-            locationList[0] = null;
-            locationList[1] = null;
-            locationList[2] = null;
             locationList[3] = player.getLocation();
             locationList[4] = registerer1.getEntityList()[0].getLocation();
-            locationList[5] = null;
-            inventoryList[0] = null;
-            inventoryList[1] = null;
-            inventoryList[2] = null;
-            inventoryList[3] = null;
-            inventoryList[4] = null;
-            inventoryList[5] = null;
             actionList[0] = new ChangeVelocity(8);
             actionList[1] = new ChangeVelocity(7);
             actionList[2] = new DamageEntity(3);
@@ -97,8 +87,9 @@ public class KungFuGlovesAbility extends AbilityOneTime {
             actionList[4] = new PlayParticle(kungFuParticle);
             actionList[5] = new EffectGive(PotionEffectType.RESISTANCE, 60, 2);
             actionList[6] = new StunMob(14);
-            retrigger(registerer1, player, BobuxItemInterface.kungFuGloves, 15);
-        }
+            phase = 1;
+            triggerPhase(registerer1, player, BobuxItemInterface.kungFuGloves, 15);
+        } 
         super.targetList = targetList;
         super.vectorList = vectorList;
         super.locationList = locationList;
