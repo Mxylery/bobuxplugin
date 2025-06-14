@@ -10,11 +10,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.ChangeVelocity;
-import io.github.mxylery.bobuxplugin.actions.DamageEntity;
-import io.github.mxylery.bobuxplugin.actions.PlayParticle;
-import io.github.mxylery.bobuxplugin.actions.RepulseFromPoint;
-import io.github.mxylery.bobuxplugin.core.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
+import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
+import io.github.mxylery.bobuxplugin.actions.entity.DamageEntity;
+import io.github.mxylery.bobuxplugin.actions.velocity.ChangeVelocity;
+import io.github.mxylery.bobuxplugin.actions.velocity.RepulseFromPoint;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
