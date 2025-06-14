@@ -138,7 +138,7 @@ public class BobuxItemInterface {
     "§85s CD"};
     private static String cleaverName = "§r§fCleaver";
     public static BobuxItem cleaver = new BobuxItem
-    (cleaverStack, cleaverDesc, cleaverName, new CleaverAbility("Cleaver Ability", true, 100), true, 32);
+    (cleaverStack, cleaverDesc, cleaverName, new CleaverAbility("Cleaver Ability", true, 100), true, 64);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack lineSpawnerStack = new ItemStack(Material.END_ROD);
