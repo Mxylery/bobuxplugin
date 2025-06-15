@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityBreedEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -14,6 +15,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -76,6 +78,14 @@ public class PlayerAbilityListener implements Listener {
     }
 
     @EventHandler
+    public void onBreed(EntityBreedEvent e) {
+        ItemStack food = e.getBredWith();
+        Entity mother = e.getMother();
+        
+        PlayerAbilityManager.checkForItemUse(food, BobuxItemInterface.superFood, mother);
+    }
+
+    @EventHandler
     public void onProjThrow(ProjectileLaunchEvent e) {
         if (e.getEntity().getShooter() instanceof Player) {
             Player player = (Player) e.getEntity().getShooter();
@@ -83,6 +93,12 @@ public class PlayerAbilityListener implements Listener {
                 e.setCancelled(true);
             }
         }
+    }
+
+    @EventHandler
+    public void onSneak(PlayerToggleSneakEvent e) {
+        Player player = e.getPlayer();
+        PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.stinkyPants, player, EquipmentSlot.LEGS, false);
     }
 
     //Any abilities that should be activated when hitting an enemy

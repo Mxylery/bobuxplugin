@@ -279,12 +279,15 @@ public class BobuxItem {
                 (new NamespacedKey(BobuxTimer.getPlugin(), tempAttributeString), attributeSet[i].getAmount(), attributeSet[i].getOperation(), attributeSet[i].getEquipmentSlotGroup()));
             }
         }
+
         if (unbreakable) {
             meta.setUnbreakable(unbreakable);
         }
+
         if (hideFlag) {
             meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP, ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
         }
+
 		meta.setDisplayName(name);
 		meta.setLore(lore);
 		stack.setItemMeta(meta);

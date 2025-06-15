@@ -1,5 +1,7 @@
 package io.github.mxylery.bobuxplugin.items;
 
+import org.bukkit.Color;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlotGroup;

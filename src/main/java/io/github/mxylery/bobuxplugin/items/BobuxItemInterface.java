@@ -1,30 +1,15 @@
 package io.github.mxylery.bobuxplugin.items;
 
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
-import org.bukkit.inventory.ItemFactory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.Server;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 
 
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.BW5Ability;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.BobuxBrewAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.BobuxinatorAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.BouncingItemAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.CleaverAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.FruitcakeAndCookiesAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.HurriedStopwatchAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.KungFuGlovesAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.KungFuGlovesPassive;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.LineSpawnerAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.MegaLongBowAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.RailgunAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.StraightPearlAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.TestingItemAbility;
-import io.github.mxylery.bobuxplugin.abilities.player_abilities.TheHotStickAbility;
-import io.github.mxylery.bobuxplugin.core.BobuxTimer;
+import io.github.mxylery.bobuxplugin.abilities.player_abilities.*;
 
 
 /**
@@ -153,7 +138,7 @@ public class BobuxItemInterface {
     private static ItemStack railgunStack = new ItemStack(Material.IRON_HOE);
     private static String[] railgunDesc = 
     {"§7Shoot a beam that pierces enemies.",
-    "§81s CD (Right Click)"};
+    "§85s CD (Right Click)"};
     private static String railgunName = "§r§fRailgun";
     public static BobuxItem railgun = new BobuxItem
     (railgunStack, railgunDesc, railgunName, new RailgunAbility("Railgun Ability", false, 100), true, 128);
@@ -192,7 +177,7 @@ public class BobuxItemInterface {
     "§85s CD (Right Click)"};
     private static String BW5Name = "§1BW-5 \"Nitro Express\"";
     public static BobuxItem BW5 = new BobuxItem
-    (BW5Stack, BW5Desc, BW5Name, new BW5Ability("BW5 Ability", false, 100), 192);
+    (BW5Stack, BW5Desc, BW5Name, new BW5Ability("BW5 Ability", false, 100), 384);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack kungFuGlovesStack = new ItemStack(Material.BLACK_WOOL);
@@ -237,14 +222,14 @@ public class BobuxItemInterface {
     "§830s CD (Right Click)"};
     private static String bobuxBrewName = "§6Bobux Brew";
     public static BobuxItem bobuxBrew = new BobuxItem
-    (bobuxBrewStack, bobuxBrewDesc, bobuxBrewName, new BobuxBrewAbility("Bobux Brew Ability", false, 600), false, 768);
+    (bobuxBrewStack, bobuxBrewDesc, bobuxBrewName, new BobuxBrewAbility("Bobux Brew Ability", false, 600), false, 400);
     //////////////////////////////////////////////////////////////////////////////////////////
    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bobuxBrewRemnantsStack = new ItemStack(Material.HONEY_BLOCK);
     private static String[] bobuxBrewRemnantsDesc = 
-    {"§7HHHHH",
-    "§8Just wait..."};
+    {"§7Bobux Brew will reappear in this slot.",
+    "§830s CD"};
     private static String bobuxBrewRemnantsName = "§7Bobux Brew Remnants";
     public static BobuxItem bobuxBrewRemnants = new BobuxItem
     (bobuxBrewRemnantsStack, bobuxBrewRemnantsDesc, bobuxBrewRemnantsName);
@@ -256,7 +241,7 @@ public class BobuxItemInterface {
     {"§7This special ender pearl doesn't seem to have gravity..."};
     private static String straightPearlName = "§7Straight Pearl";
     public static BobuxItem straightPearl = new BobuxItem
-    (straightPearlStack, straightPearlDesc, straightPearlName, new StraightPearlAbility("Straight Pearl Ability", true, 1), 3);
+    (straightPearlStack, straightPearlDesc, straightPearlName, new StraightPearlAbility("Straight Pearl Ability", true, 1), 8);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -269,5 +254,46 @@ public class BobuxItemInterface {
     (megaLongBowStack, megaLongBowDesc, megaLongBowName, new MegaLongBowAbility("Mega Longbow Ability", true, 20), 512);
     //////////////////////////////////////////////////////////////////////////////////////////
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack superFoodStack = new ItemStack(Material.WHEAT);
+    private static String[] superFoodDesc = 
+    {"§7When breeding with this food, ",
+    "§82s CD (Right Click)"};
+    private static String superFoodName = "§eSuper Food";
+    public static BobuxItem superFood = new BobuxItem
+    (superFoodStack, superFoodDesc, superFoodName, new SuperFoodAbility("Super Food Ability", true, 1), 8);
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack stinkyPantsStack = new ItemStack(Material.LEATHER_LEGGINGS);
+    private static BobuxArmorManipulator stinkyPantsColorManip = new BobuxArmorManipulator
+    (stinkyPantsStack, (LeatherArmorMeta) stinkyPantsStack.getItemMeta(), Color.fromRGB(0, 100, 0));
+    private static String[] stinkyPantsDesc = 
+    {"§7Eww...",
+    "§85s CD (Sneak)"};
+    private static String stinkyPantsName = "§2Stinky Pants";
+    public static BobuxItem stinkyPants = new BobuxItem
+    (stinkyPantsStack, stinkyPantsDesc, stinkyPantsName, new StinkyPantsAbility("Stinky Pants Ability", true, 100), 32);
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 

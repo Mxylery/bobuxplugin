@@ -20,3 +20,7 @@ commands:
     description: Spawns a bobux mob
     aliases: bobuxspawn
     usage: "Usage: /<command> [bobuxmob]"
+  bobuxhub:
+    description: Teleports user to the bobux hub
+    aliases: bobuxhub
+    usage: "Usage: /<command>"

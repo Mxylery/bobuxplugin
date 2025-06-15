@@ -1,16 +1,22 @@
 package io.github.mxylery.bobuxplugin;
 
 import java.io.File;
+import java.rmi.server.UID;
+import java.util.HashMap;
+import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
@@ -23,19 +29,23 @@ import io.github.mxylery.bobuxplugin.guis.BobuxGUIGenerator;
 
 public final class BobuxPlugin extends JavaPlugin implements Listener {
 
-    private static File[] worldFolder;
     private static BukkitScheduler scheduler;
     private static Server server;
     private static World hubWorld;
     private static World overworld;
+    private static HashMap<UUID, Location> playerLocMap;
 
     @Override
 	public void onEnable() {
 		getLogger().info("onEnable has been invoked!");
-        worldFolder = this.getServer().getWorldContainer().listFiles();
 
         server = this.getServer();
         scheduler = this.getServer().getScheduler();
+        hubWorld = Bukkit.getWorld("bobuxhub");
+        WorldCreator creator = new WorldCreator("world");
+        creator.createWorld();
+        overworld = Bukkit.getWorld("world");
+        server.getPluginManager().registerEvents(this, this);
         BobuxTimer bobuxTimer = new BobuxTimer(this.getServer(), this);
         scheduler.runTaskTimer(this, bobuxTimer, 0, 1);
 
@@ -48,6 +58,7 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
         this.getCommand("bobuxmenu").setExecutor(new BobuxCommands(this));
         this.getCommand("bobuxinfo").setExecutor(new BobuxCommands(this));
         this.getCommand("bobuxspawn").setExecutor(new BobuxCommands(this));
+        this.getCommand("bobuxhub").setExecutor(new BobuxCommands(this));
 
 	}
 
@@ -58,23 +69,26 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
 
     //For bobuxhub stuff...
     @EventHandler
-    public void onLogin(PlayerLoginEvent e) {
-        Location spawnLoc;
-        if (hubWorld == null) {
-            hubWorld = server.getWorld("bobux_hub");
-        } 
-        spawnLoc = hubWorld.getSpawnLocation();
-        e.getPlayer().teleport(spawnLoc);
-        e.getPlayer().setGameMode(GameMode.ADVENTURE);
-    }
-
-    @EventHandler
-    public void onWorld(PlayerInteractEvent e) {
-        
+    public void onSignRightClick(PlayerInteractEvent e) {
+        if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getPlayer().getWorld().equals(hubWorld)) {
+            if (e.getClickedBlock().getBlockData().getMaterial().equals(Material.OAK_SIGN)) {
+                Player player = e.getPlayer();
+                Location lastPlayerLoc = overworld.getSpawnLocation();
+                player.teleport(lastPlayerLoc);
+            }
+        }
     }
     
     public static BukkitScheduler getScheduler() {
         return scheduler;
+    }
+
+    public static World getOverworld() {
+        return overworld;
+    }
+
+    public static World getBobuxHub() {
+        return hubWorld;
     }
 
 }

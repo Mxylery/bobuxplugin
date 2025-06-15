@@ -33,7 +33,7 @@ public abstract class BobuxGUI implements Listener {
         generateGUI();
         openGUI();
     }
-
+    
     @EventHandler
     public void onInvInteract(InventoryClickEvent e) {
         if (e.getInventory().equals(inventory)) {

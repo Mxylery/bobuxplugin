@@ -70,6 +70,10 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
                 case "mega_long_bow": player.getInventory().addItem(BobuxItemInterface.megaLongBow.getStack());
                 break;
+                case "super_food": player.getInventory().addItem(BobuxItemInterface.superFood.getStack());
+                break;
+                case "stinky_pants": player.getInventory().addItem(BobuxItemInterface.stinkyPants.getStack());
+                break;
                 default:
                 break;
             }
@@ -120,6 +124,8 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 }
                 break;
             }
+        } else if (command.getName().equalsIgnoreCase("bobuxhub")) {
+            player.teleport(BobuxPlugin.getBobuxHub().getSpawnLocation());
         } else {
             return false;
         }

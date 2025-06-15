@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -223,6 +224,19 @@ public class PlayerAbilityManager {
             } else {
                 return false;
             }
+        } else {
+            return false;
+        }
+    }
+
+    //For items that affect entities which don't need tracking or the player involved
+    public static boolean checkForItemUse(ItemStack stack, BobuxItem bobuxitem, Entity entity) {
+        if (BobuxUtils.checkWithoutDuraAmnt(stack, bobuxitem)) {
+            BobuxAbility ability = bobuxitem.getAbility();
+            ability.setTarget(entity);
+            ability.setActionList();
+            ability.use();
+            return true;
         } else {
             return false;
         }
