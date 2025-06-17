@@ -30,7 +30,7 @@ public class BobuxGUIGenerator implements Listener {
     public static HashMap<Player,BobuxBounty[]> playerBountyMap = new HashMap<Player,BobuxBounty[]>();
     public static BobuxItem[] marketMenu = new BobuxItem[5];
     public static int menuSize = 3;
-    public static final int marketItemTotal = 15;
+    public static final int marketItemTotal = 16;
     public static void randomizeMarketItems() {
         if (BobuxDay.getDay() != DayType.AVARICIOUS) {
             menuSize = 3;
@@ -57,25 +57,27 @@ public class BobuxGUIGenerator implements Listener {
                 break;
                 case 4: marketMenu[i] = BobuxItemInterface.bouncingItem;
                 break;
-                case 5: marketMenu[i] = BobuxItemInterface.lineSpawner;
+                case 5: marketMenu[i] = BobuxItemInterface.railgun;
                 break;
-                case 6: marketMenu[i] = BobuxItemInterface.railgun;
+                case 6: marketMenu[i] = BobuxItemInterface.theHotStick;
                 break;
-                case 7: marketMenu[i] = BobuxItemInterface.theHotStick;
+                case 7: marketMenu[i] = BobuxItemInterface.kungFuGloves;
                 break;
-                case 8: marketMenu[i] = BobuxItemInterface.kungFuGloves;
+                case 8: marketMenu[i] = BobuxItemInterface.fruitcakeAndCookies;
                 break;
-                case 9: marketMenu[i] = BobuxItemInterface.fruitcakeAndCookies;
+                case 9: marketMenu[i] = BobuxItemInterface.bobuxinator;
                 break;
-                case 10: marketMenu[i] = BobuxItemInterface.bobuxinator;
+                case 10: marketMenu[i] = BobuxItemInterface.bobuxBrew;
                 break;
-                case 11: marketMenu[i] = BobuxItemInterface.bobuxBrew;
+                case 11: marketMenu[i] = BobuxItemInterface.straightPearl;
                 break;
-                case 12: marketMenu[i] = BobuxItemInterface.straightPearl;
+                case 12: marketMenu[i] = BobuxItemInterface.megaLongBow;
                 break;
-                case 13: marketMenu[i] = BobuxItemInterface.megaLongBow;
+                case 13: marketMenu[i] = BobuxItemInterface.superWheat;
                 break;
-                case 14: marketMenu[i] = BobuxItemInterface.superFood;
+                case 14: marketMenu[i] = BobuxItemInterface.superCarrot;
+                break;
+                case 15: marketMenu[i] = BobuxItemInterface.superSeeds;
                 break;
             }
             noDupe[i] = rng;

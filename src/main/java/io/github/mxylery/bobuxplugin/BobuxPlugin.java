@@ -1,12 +1,9 @@
 package io.github.mxylery.bobuxplugin;
 
-import java.io.File;
-import java.rmi.server.UID;
 import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Server;
@@ -16,7 +13,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
@@ -26,6 +27,7 @@ import io.github.mxylery.bobuxplugin.core.BobuxGiver;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntityListener;
 import io.github.mxylery.bobuxplugin.guis.BobuxGUIGenerator;
+import io.github.mxylery.bobuxplugin.io.PlayerLocationData;
 
 public final class BobuxPlugin extends JavaPlugin implements Listener {
 
@@ -60,12 +62,21 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
         this.getCommand("bobuxspawn").setExecutor(new BobuxCommands(this));
         this.getCommand("bobuxhub").setExecutor(new BobuxCommands(this));
 
+        playerLocMap = new HashMap<UUID, Location>();
+        PlayerLocationData.loadDataToGame();
+
 	}
 
 	@Override
 	public void onDisable() {
 		getLogger().info("onDisable has been invoked!");
+        PlayerLocationData.saveDataToFile();
 	}
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent e) {
+        e.getPlayer().teleport(hubWorld.getSpawnLocation());
+    }
 
     //For bobuxhub stuff...
     @EventHandler
@@ -73,10 +84,39 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
         if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getPlayer().getWorld().equals(hubWorld)) {
             if (e.getClickedBlock().getBlockData().getMaterial().equals(Material.OAK_SIGN)) {
                 Player player = e.getPlayer();
-                Location lastPlayerLoc = overworld.getSpawnLocation();
+                Location lastPlayerLoc = playerLocMap.get(player.getUniqueId());
+                if (lastPlayerLoc == null) {
+                    lastPlayerLoc = overworld.getSpawnLocation();
+                }
                 player.teleport(lastPlayerLoc);
             }
         }
+    }
+
+    @EventHandler
+    public void onQuitEvent(PlayerQuitEvent e) {
+        if (!e.getPlayer().getWorld().equals(hubWorld)) {
+            PlayerLocationData.saveDataToFile();
+            PlayerLocationData.loadDataToGame();
+        }
+    }
+
+    @EventHandler
+    public void onDeath(PlayerDeathEvent e) {
+        if (!e.getEntity().getWorld().equals(hubWorld)) {
+            Player player = e.getEntity();
+            Location respawnLoc = player.getRespawnLocation();
+            if (respawnLoc != null) {
+                playerLocMap.put(player.getUniqueId(), overworld.getSpawnLocation());
+                PlayerLocationData.saveDataToFile();
+                PlayerLocationData.loadDataToGame();
+            }
+        }
+    }
+
+    @EventHandler
+    public void onSpawn(PlayerRespawnEvent e) {
+        e.getPlayer().teleport(hubWorld.getSpawnLocation());
     }
     
     public static BukkitScheduler getScheduler() {
@@ -89,6 +129,10 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
 
     public static World getBobuxHub() {
         return hubWorld;
+    }
+
+    public static void setPlayerLocMap(HashMap<UUID, Location> map) {
+        playerLocMap = map;
     }
 
 }

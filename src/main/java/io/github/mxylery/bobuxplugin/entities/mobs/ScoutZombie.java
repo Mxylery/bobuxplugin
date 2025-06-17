@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import io.github.mxylery.bobuxplugin.entities.BobuxMob;
 import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
+import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class ScoutZombie extends BobuxMob {
     
@@ -46,9 +47,9 @@ public class ScoutZombie extends BobuxMob {
 
         BobuxAttributeSet[] attributeSet = {new BobuxAttributeSet(Attribute.MOVEMENT_SPEED, 0.5, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.ANY), new BobuxAttributeSet(Attribute.ATTACK_DAMAGE, -1.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.ANY)};
 
-        ItemStack[] dropTable = {new ItemStack(Material.SUGAR)};
-        double[] dropWeights = {1};
-        int[][] dropRanges = {{1,3}};
+        ItemStack[] dropTable = {BobuxItemInterface.cinnamonSquare.getStack()};
+        double[] dropWeights = {0.5};
+        int[][] dropRanges = {{1,1}};
 
         super.maxHealth = 16;
         super.dropTable = dropTable;

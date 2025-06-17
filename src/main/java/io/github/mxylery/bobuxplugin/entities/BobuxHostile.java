@@ -1,6 +1,7 @@
 package io.github.mxylery.bobuxplugin.entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -10,10 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityDismountEvent;
-import org.bukkit.event.player.PlayerInputEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -23,6 +22,7 @@ import io.github.mxylery.bobuxplugin.abilities.ability_types.MobHitAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.data_structures.AbilityInstanceStructure;
+import io.github.mxylery.bobuxplugin.events.BobuxEntityWithinRangeEvent;
 
 public abstract class BobuxHostile extends BobuxLivingEntity {
     
@@ -53,6 +53,7 @@ public abstract class BobuxHostile extends BobuxLivingEntity {
         invisZombie.setInvulnerable(true);
         invisZombie.setInvisible(true);
         invisZombie.setSilent(true);
+        invisZombie.setVisualFire(false);
         invisZombie.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 100000, 0));
         this.invisZombie = invisZombie;
         entity.addPassenger(invisZombie);
@@ -60,13 +61,6 @@ public abstract class BobuxHostile extends BobuxLivingEntity {
 
     public MobHitAbility getHitAbility() {
         return hitAbility;
-    }
-
-    @EventHandler
-    public void onZombieHit(EntityDamageByEntityEvent e) {
-        if (e.getDamager().equals(invisZombie)) {
-            e.setCancelled(true);
-        }
     }
 
     @EventHandler
@@ -114,20 +108,12 @@ public abstract class BobuxHostile extends BobuxLivingEntity {
                 abilityStructure.addAbilityInstanceLast(abilityInstance);
             }
         }
-
     }
     
     /**
      * Since the playerinputevent listener is taken, whatever that would be needs to go here instead
      */
-    protected void normalAction() {
-
-    }
-
-    /**
-     * Since the entityhitbyentityaction listener is taken, whatever that would be needs to go here instead
-     */
-    protected void entityHitByEntityAction() {
+    protected void normalAction(List<Entity> entityList) {
 
     }
 
@@ -136,12 +122,21 @@ public abstract class BobuxHostile extends BobuxLivingEntity {
      * @param e 
      */
     @EventHandler
-    public void meleeAttack(PlayerInputEvent e) {
-        ArrayList<Player> playerList = BobuxUtils.getNearbyPlayers(entity.getLocation(), range);
-        if (playerList.size() != 0) {
-            Player player = playerList.get(0);
-            MobAbilityManager.verifyAbilityCD(this, -1, player);
+    public void meleeAttack(BobuxEntityWithinRangeEvent e) {
+        if (e.getEntity().equals(super.livingEntity) && hitAbility != null) {
+            ArrayList<Player> playerList = new ArrayList<Player>();
+            for (Entity entity : e.getEntitiesInRange()) {
+                if (entity instanceof Player && BobuxUtils.getLocationDifferenceMagnitude(entity.getLocation(), this.getEntity().getLocation()) < range) {
+                    playerList.add((Player) entity);
+                }
+            }
+            if (playerList.size() != 0) {
+                Player player = playerList.get(0);
+                MobAbilityManager.verifyAbilityCD(this, -1, player);
+            }
+            normalAction(e.getEntitiesInRange());
+        } else if (e.getEntity().equals(super.livingEntity)) {
+            normalAction(e.getEntitiesInRange());
         }
-        normalAction();
     }
 }

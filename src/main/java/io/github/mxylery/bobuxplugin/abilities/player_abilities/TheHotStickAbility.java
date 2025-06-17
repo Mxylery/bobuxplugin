@@ -46,9 +46,11 @@ public class TheHotStickAbility extends AbilityOneTime {
         super.inventoryList = inventoryList;
 
         ParticleSequence theHotStickParticleSequence1 = new ParticleSequence
-        (ParticleSequenceOrientations.NORMAL, Particle.FLAME, 30, 5, 0, null);
+        (ParticleSequenceOptions.LINE, ParticleSequenceOrientations.NORMAL, Particle.FLAME, null);
+        theHotStickParticleSequence1.setLineOptions(30, cooldown, actionListLength);
         ParticleSequence theHotStickParticleSequence2 = new ParticleSequence
-        (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.FLAME, 5, 5, 5, 5, 0, null);
+        (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.FLAME, null);
+        theHotStickParticleSequence2.setRingOptions(3, 0, 5, 5);
 
         BobuxAction[] theHotStickActionList = 
         {new DamageEntity(10), 

@@ -87,7 +87,8 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
             potionEffectStrength2 = 1;
         }
 
-        ParticleSequence eatParticleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.HEART, 8, 3, 0, 0, 0.5, null);
+        ParticleSequence eatParticleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.HEART, null);
+        eatParticleSequence.setExplosionOptions(8, 2, 1);
         
         BobuxAction[] actionList =  
         {new EffectGive(potionEffectType1, 160, potionEffectStrength1),

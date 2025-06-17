@@ -37,7 +37,6 @@ public class SandbaggerAbilityOne extends AbilityOneTime {
         double rng = Math.random();
         ItemStack bobuxStack;
         int bobuxAmnt;
-        ItemStack otherStack;
 
         if (rng < 0.6) {
             bobuxStack = BobuxItemInterface.bobux.getStack();
@@ -65,7 +64,8 @@ public class SandbaggerAbilityOne extends AbilityOneTime {
         super.locationList = locationList;
         super.inventoryList = inventoryList;
 
-        ParticleSequence particleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.DUST, 16, 1, 0, 0, 0.5, new DustOptions(Color.YELLOW, 3));
+        ParticleSequence particleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.DUST, new DustOptions(Color.YELLOW, 3));
+        particleSequence.setExplosionOptions(1, 16, 1);
 
         BobuxAction[] actionList = 
         {new SpawnItem(bobuxStack, bobuxAmnt),

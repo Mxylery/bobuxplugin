@@ -5,15 +5,19 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import io.github.mxylery.bobuxplugin.BobuxPlugin;
+
 //this will do things on the bobuxgiver stats and bobuxmob spawning
 //I also rlly wanna do day events
 public class BobuxDay {
     
+    private static World world = BobuxPlugin.getOverworld();
     private static DayType day;
     private static Server server = BobuxTimer.getServer();
     private static double bobuxModifier = 1.0;
     private static double spawnModifier = 1.0;
     private static double shopModifier = 1.0;
+    private static boolean eventHappened = false;
 
     public enum DayType {
         NORMAL,
@@ -38,7 +42,7 @@ public class BobuxDay {
         }
         if (rng < 0.4) {
             day = DayType.NORMAL;
-            server.broadcastMessage("Today seems to be a normal day.");
+            server.broadcastMessage("§oToday seems to be a normal day.\n");
             for (int i = 0; i < playerList.length; i++) {
                 playerList[i].playSound(playerList[i], Sound.BLOCK_BELL_USE, 1.0f, 1.0f);
             }
@@ -47,7 +51,7 @@ public class BobuxDay {
             shopModifier = 1.0;
         } else if (rng < 0.6) {
             day = DayType.HAPPY;
-            server.broadcastMessage("As the sun rises, you feel delighted.");
+            server.broadcastMessage("§oAs the sun rises, you feel delighted.\n");
             for (int i = 0; i < playerList.length; i++) {
                 playerList[i].playSound(playerList[i], Sound.BLOCK_NOTE_BLOCK_CHIME, 1.0f, 1.0f);
             }
@@ -56,7 +60,7 @@ public class BobuxDay {
             shopModifier = 1.0;            
         } else if (rng < 0.8) {
             day = DayType.AVARICIOUS;
-            server.broadcastMessage("There seems to be a lot of activity in the marketplace today...");
+            server.broadcastMessage("§oThere seems to be a lot of activity in the marketplace today...\n");
             for (int i = 0; i < playerList.length; i++) {
                 playerList[i].playSound(playerList[i], Sound.ENTITY_VILLAGER_AMBIENT, 1.0f, 1.0f);
             }
@@ -65,13 +69,13 @@ public class BobuxDay {
             shopModifier = 0.9;           
         } else if (rng < 0.95) {
             day = DayType.SUSPICIOUS;
-            server.broadcastMessage("Unease settles over you as dusk fades away...");
+            server.broadcastMessage("Unease settles over you as dusk fades away...\n");
             for (int i = 0; i < playerList.length; i++) {
                 playerList[i].playSound(playerList[i], Sound.BLOCK_NOTE_BLOCK_CHIME, 1.0f, 1.0f);
             }
         } else {
             day = DayType.BLOOD;
-            server.broadcastMessage("Hide.");
+            server.broadcastMessage("Hide.\n");
             for (int i = 0; i < playerList.length; i++) {
                 playerList[i].playSound(playerList[i], Sound.BLOCK_NOTE_BLOCK_CHIME, 1.0f, 1.0f);
             }

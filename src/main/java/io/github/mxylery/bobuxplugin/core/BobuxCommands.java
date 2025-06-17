@@ -8,10 +8,13 @@ import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntityListener;
 import io.github.mxylery.bobuxplugin.entities.entities.BobuxInvisArmorStand;
 import io.github.mxylery.bobuxplugin.entities.livingentities.hostiles.BigChicken;
+import io.github.mxylery.bobuxplugin.entities.mobs.CulturalCultist;
+import io.github.mxylery.bobuxplugin.entities.mobs.JumpySkeleton;
 import io.github.mxylery.bobuxplugin.entities.mobs.Sandbagger;
 import io.github.mxylery.bobuxplugin.entities.mobs.ScoutZombie;
 import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
 import io.github.mxylery.bobuxplugin.guis.core.MainGUI;
+import io.github.mxylery.bobuxplugin.io.PlayerLocationData;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class BobuxCommands implements CommandExecutor {
@@ -70,9 +73,13 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
                 case "mega_long_bow": player.getInventory().addItem(BobuxItemInterface.megaLongBow.getStack());
                 break;
-                case "super_food": player.getInventory().addItem(BobuxItemInterface.superFood.getStack());
+                case "super_carrot": player.getInventory().addItem(BobuxItemInterface.superCarrot.getStack());
                 break;
                 case "stinky_pants": player.getInventory().addItem(BobuxItemInterface.stinkyPants.getStack());
+                break;
+                case "super_wheat": player.getInventory().addItem(BobuxItemInterface.superWheat.getStack());
+                break;
+                case "super_seeds": player.getInventory().addItem(BobuxItemInterface.superSeeds.getStack());
                 break;
                 default:
                 break;
@@ -117,6 +124,12 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 case "big_chicken": BigChicken bigChicken = new BigChicken(player.getLocation());
                 BobuxEntityListener.getBobuxEntityList().add(bigChicken);
                 break;
+                case "cultural_cultist": CulturalCultist culturalCultist = new CulturalCultist(player.getLocation());
+                BobuxEntityListener.getBobuxEntityList().add(culturalCultist);
+                break;
+                case "jumpy_skeleton": JumpySkeleton jumpySkeleton = new JumpySkeleton(player.getLocation());
+                BobuxEntityListener.getBobuxEntityList().add(jumpySkeleton);
+                break;
                 case "invisible_armor_stand": 
                 if (args[1] != null) {
                     BobuxInvisArmorStand invisStand = new BobuxInvisArmorStand(player.getLocation(), Integer.parseInt(args[1]), null, null);
@@ -125,7 +138,15 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
             }
         } else if (command.getName().equalsIgnoreCase("bobuxhub")) {
-            player.teleport(BobuxPlugin.getBobuxHub().getSpawnLocation());
+            if (player.getWorld().equals(BobuxPlugin.getOverworld())) {
+                PlayerLocationData.saveDataToFile();
+                PlayerLocationData.loadDataToGame();
+                player.teleport(BobuxPlugin.getBobuxHub().getSpawnLocation());
+            } else {
+                player.sendMessage("You're already in the Bobux Hub!");
+            }
+        } else if (command.getName().equalsIgnoreCase("bobuxconvert")) {
+             
         } else {
             return false;
         }

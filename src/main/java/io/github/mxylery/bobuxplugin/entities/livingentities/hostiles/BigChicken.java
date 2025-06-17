@@ -1,12 +1,14 @@
 package io.github.mxylery.bobuxplugin.entities.livingentities.hostiles;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Chicken;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlotGroup;
@@ -36,6 +38,8 @@ public class BigChicken extends BobuxHostile {
         double[] dropWeights = {1, 0.5, 0.25};
         int[][] dropRanges = {{3,8}, {2,6}, {1,2}};
 
+        super.nearbyEntityRadius = 10;
+
         super.maxHealth = 40;
         super.dropTable = dropTable;
         super.dropWeights = dropWeights;
@@ -47,8 +51,14 @@ public class BigChicken extends BobuxHostile {
         applyAttributes();
     }
 
-    protected void normalAction() {
-        ArrayList<Player> playerList = BobuxUtils.getNearbyPlayers(entity.getLocation(), 10);
+    @Override
+    protected void normalAction(List<Entity> entityList) {
+        ArrayList<Player> playerList = new ArrayList<Player>();
+        for (Entity entity : entityList) {
+            if (entity instanceof Player) {
+                playerList.add((Player) entity);
+            }
+        }
         if (playerList.size() != 0) {
             Player player = playerList.get(0);
             if (player.getLocation().distance(entity.getLocation()) > 5) {

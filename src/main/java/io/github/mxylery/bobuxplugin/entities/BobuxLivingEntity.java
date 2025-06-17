@@ -52,6 +52,9 @@ public abstract class BobuxLivingEntity extends BobuxEntity {
         if (e.getEntity().equals(super.entity)) {
             rollLootTable(super.entity.getLocation());
             BobuxEntityListener.getBobuxEntityList().remove(this);
+            if (super.nearbyEntityRadius != 0) {
+                super.scheduler.cancelTask(nearbyEntityTaskID);
+            }
             HandlerList.unregisterAll(this);
         }
     }

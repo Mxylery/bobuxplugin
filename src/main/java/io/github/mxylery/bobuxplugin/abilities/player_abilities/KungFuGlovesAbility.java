@@ -83,7 +83,8 @@ public class KungFuGlovesAbility extends PhaseAbility {
             actionList[1] = new ChangeVelocity(7);
             actionList[2] = new DamageEntity(3);
             actionList[3] = new PlaySound(Sound.BLOCK_WOOD_BREAK, 1.0f, 1.0f);
-            ParticleSequence kungFuParticle = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.CRIT, 8, 1.0, 0, 0.0, 1,  null);
+            ParticleSequence kungFuParticle = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.CRIT,  null);
+            kungFuParticle.setExplosionOptions(8, 1, 1);
             actionList[4] = new PlayParticle(kungFuParticle);
             actionList[5] = new EffectGive(PotionEffectType.RESISTANCE, 60, 2);
             actionList[6] = new StunMob(14);

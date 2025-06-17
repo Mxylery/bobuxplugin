@@ -18,10 +18,10 @@ public class SuperFoodAbility extends AbilityOneTime {
     //Assuming the player is a user
     protected boolean assignVariables() {
         
-        Entity[][] targetList = {{null}};
-        Vector[] vectorList = {null};
-        Location[] locationList = {singleTarget.getLocation()};
-        Inventory[] inventoryList = {null};
+        Entity[][] targetList = {{null},{null}};
+        Vector[] vectorList = {null,null};
+        Location[] locationList = {singleTarget.getLocation(), singleTarget.getLocation()};
+        Inventory[] inventoryList = {null, null};
 
         super.targetList = targetList;
         super.vectorList = vectorList;
@@ -29,7 +29,7 @@ public class SuperFoodAbility extends AbilityOneTime {
         super.inventoryList = inventoryList;
 
         BobuxAction[] actionList = 
-        {new SpawnEntity(singleTarget.getType(), true)};
+        {new SpawnEntity(singleTarget.getType(), true), new SpawnEntity(singleTarget.getType(), true)};
         
         super.actionList = actionList;
         return true;

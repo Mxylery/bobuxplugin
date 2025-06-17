@@ -51,43 +51,40 @@ public class ParticleSequence implements Runnable {
         directionMatrix = BobuxUtils.getNormalizedMatrix(direction, orientation);
     }
 
-    /**
-     * This constructor is used for non-animated line sequences.
-     * @param option Particle sequence desired (line, ring, etc)
-     * @param particle Type of particle desired
-     * @param amount Amount of particles per block (measured in lines drawn)
-     * @param speed Speed of the particle (weather it will move a lot or not, also depends on the particle)
-     * @param dustOption DustOption if using redstone dust particles
-     */
-    public ParticleSequence(ParticleSequenceOrientations orientation, Particle particle, double length, double amount, double speed, DustOptions dustOption) {
-        this.option = ParticleSequenceOptions.LINE;
-        this.orientation = orientation;
-        this.particle = particle;
-        this.amount = amount;
-        this.speed = speed;
-        this.length = length;
-        this.dustOption = dustOption;
-    }
-
-    /**
-     * This constructor is used for non-line non-animated particle sequences. 
-     * @param option Particle sequence desired (line, ring, etc)
-     * @param particle Type of particle desired
-     * @param amount Amount of particles per block (measured in unit lengths approx)
-     * @param speed Speed of the particle (weather it will move a lot or not, also depends on the particle)
-     * @param inRadius The inner radius of a sphere/ring/cylinder, and also used for the torsion of a spiral.
-     * @param outRadius The outer radius of a sphere/ring/cylinder, and also used for the radius of a spiral.
-     * @param dustOption DustOption if using redstone dust particles
-     */
-    public ParticleSequence(ParticleSequenceOptions option, ParticleSequenceOrientations orientation, Particle particle, double amount, double speed, double inRadius, double outRadius, double length, DustOptions dustOption) {
+    public ParticleSequence(ParticleSequenceOptions option, ParticleSequenceOrientations orientation, Particle particle, DustOptions dustOption) {
         this.option = option;
         this.orientation = orientation;
         this.particle = particle;
-        this.amount = amount;
-        this.outRadius = outRadius;
-        this.inRadius = inRadius;
-        this.length = length;
         this.dustOption = dustOption;
+    }
+
+
+
+    public void setLineOptions(double length, double amount, double speed) {
+        this.length = length;
+        this.amount = amount;
+        this.speed = speed;
+    }
+
+    public void setSpiralOptions(double length, double amount, double speed, double inRadius, double outRadius) {
+        this.length = length;
+        this.amount = amount;
+        this.speed = speed;
+        this.inRadius = inRadius;
+        this.outRadius = outRadius;
+    }
+
+    public void setRingOptions(double amount, double speed, double inRadius, double outRadius) {
+        this.amount = amount;
+        this.speed = speed;
+        this.inRadius = inRadius;
+        this.outRadius = outRadius;
+    }
+
+    public void setExplosionOptions(double length, double amount, double speed) {
+        this.length = length;
+        this.amount = amount;
+        this.speed = speed;
     }
 
     public void run() {

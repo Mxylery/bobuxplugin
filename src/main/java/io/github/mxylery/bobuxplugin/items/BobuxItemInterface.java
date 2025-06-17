@@ -52,9 +52,9 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bouncingItemStack = new ItemStack(Material.SLIME_BALL);
     private static String[] bouncingItemDesc = 
-    {"§8Allows you to leap in the direction you are looking.", 
-    "§71s CD (Left Click)",
-    "§7Consumed on use"};
+    {"§7Allows you to leap in the direction you are looking.", 
+    "§81s CD (Left Click)",
+    "§8Consumed on use"};
     private static String bouncingItemName = "§r§fBouncing Item";
     public static BobuxItem bouncingItem = 
     new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, new BouncingItemAbility("Bouncing Item Ability", false, 20), 1);
@@ -129,7 +129,7 @@ public class BobuxItemInterface {
     private static ItemStack lineSpawnerStack = new ItemStack(Material.END_ROD);
     private static String[] lineSpawnerDesc = 
     {"§7test",
-    "§71s CD"};
+    "§81s CD"};
     private static String lineSpawnerName = "§r§fLine Spawner";
     public static BobuxItem lineSpawner = new BobuxItem
     (lineSpawnerStack, lineSpawnerDesc, lineSpawnerName, new LineSpawnerAbility("Line Spawner Passive", false, 5, 0), 16);
@@ -238,7 +238,7 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack straightPearlStack = new ItemStack(Material.ENDER_PEARL);
     private static String[] straightPearlDesc = 
-    {"§7This special ender pearl doesn't seem to have gravity..."};
+    {"§8This special ender pearl doesn't seem to have gravity..."};
     private static String straightPearlName = "§7Straight Pearl";
     public static BobuxItem straightPearl = new BobuxItem
     (straightPearlStack, straightPearlDesc, straightPearlName, new StraightPearlAbility("Straight Pearl Ability", true, 1), 8);
@@ -255,13 +255,13 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack superFoodStack = new ItemStack(Material.WHEAT);
-    private static String[] superFoodDesc = 
-    {"§7When breeding with this food, ",
-    "§82s CD (Right Click)"};
-    private static String superFoodName = "§eSuper Food";
-    public static BobuxItem superFood = new BobuxItem
-    (superFoodStack, superFoodDesc, superFoodName, new SuperFoodAbility("Super Food Ability", true, 1), 8);
+    private static ItemStack superCarrotStack = new ItemStack(Material.CARROT);
+    private static String[] superCarrotDesc = 
+    {"§7When breeding with this carrot, animals will make three children instead of one.",
+    "§8No CD (Right Click)"};
+    private static String superCarrotName = "§6Super Carrot";
+    public static BobuxItem superCarrot = new BobuxItem
+    (superCarrotStack, superCarrotDesc, superCarrotName, new SuperFoodAbility("Super Carrot Ability", true, 1), 8);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -276,10 +276,61 @@ public class BobuxItemInterface {
     (stinkyPantsStack, stinkyPantsDesc, stinkyPantsName, new StinkyPantsAbility("Stinky Pants Ability", true, 100), 32);
     //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack superWheatStack = new ItemStack(Material.WHEAT);
+    private static String[] superWheatDesc = 
+    {"§7When breeding with this wheat, animals will make three children instead of one.",
+    "§8No CD (Right Click)"};
+    private static String superWheatName = "§eSuper Wheat";
+    public static BobuxItem superWheat = new BobuxItem
+    (superWheatStack, superWheatDesc, superWheatName, new SuperFoodAbility("Super Wheat Ability", true, 1), 8);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack superSeedsStack = new ItemStack(Material.WHEAT_SEEDS);
+    private static String[] superSeedsDesc = 
+    {"§7When breeding with these seeds, animals will make three children instead of one.",
+    "§8No CD (Right Click)"};
+    private static String superSeedsName = "§aSuper Seeds";
+    public static BobuxItem superSeeds = new BobuxItem
+    (superSeedsStack, superSeedsDesc, superSeedsName, new SuperFoodAbility("Super Seeds Ability", true, 1), 8);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack stinkyResidueStack = new ItemStack(Material.GREEN_DYE);
+    private static String[] stinkyResidueDesc = 
+    {"§8The stinkiest of smells..."};
+    private static String stinkyResidueName = "§2Stinky Residue";
+    public static BobuxItem stinkyResidue = new BobuxItem
+    (stinkyResidueStack, stinkyResidueDesc, stinkyResidueName);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack cinnamonSquareStack = new ItemStack(Material.BROWN_CARPET);
+    private static String[] cinnamonSquareDesc = 
+    {"§8This square seems to produce a lot of energy when ingested."};
+    private static String cinnamonSquareName = "§2Cinnamon Square";
+    public static BobuxItem cinnamonSquare = new BobuxItem
+    (cinnamonSquareStack, cinnamonSquareDesc, cinnamonSquareName);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack abcBloodStack = new ItemStack(Material.REDSTONE);
+    private static String[] abcBloodDesc = 
+    {"§8This shouldn't exist..."};
+    private static String abcBloodName = "§eABC Blood";
+    public static BobuxItem abcBlood = new BobuxItem
+    (abcBloodStack, abcBloodDesc, abcBloodName);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack mutantOrbStack = new ItemStack(Material.HEART_OF_THE_SEA);
+    private static String[] mutantOrbDesc = 
+    {"§8This orb seems to have been the reason behind such an odd creature."};
+    private static String mutantOrbName = "§bMutant Orb";
+    public static BobuxItem mutantOrb = new BobuxItem
+    (mutantOrbStack, mutantOrbDesc, mutantOrbName);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
 
 

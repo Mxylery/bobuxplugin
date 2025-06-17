@@ -43,7 +43,8 @@ public class StinkyMobAbilityOne extends AbilityOneTime {
             super.locationList = locationList;
             super.inventoryList = inventoryList;
 
-            ParticleSequence particleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.DUST, 16, 1, 0, 0, 0.5, new DustOptions(Color.GREEN, 3));
+            ParticleSequence particleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.DUST, new DustOptions(Color.GREEN, 3));
+            particleSequence.setExplosionOptions(1, 16, 1);
 
             BobuxAction[] actionList = 
             {new ChangeVelocity(8),

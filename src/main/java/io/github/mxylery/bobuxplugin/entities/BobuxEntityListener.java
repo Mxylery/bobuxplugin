@@ -2,6 +2,7 @@ package io.github.mxylery.bobuxplugin.entities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -11,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
+import org.bukkit.event.world.EntitiesUnloadEvent;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 
@@ -19,14 +21,12 @@ public class BobuxEntityListener implements Listener {
     private BobuxPlugin plugin;
     private static ArrayList<BobuxEntity> bobuxEntityList;
     private static BobuxSpawnChances spawnChances;
-    private static HashMap<Chunk, ArrayList<Entity>> chunkEntityMap;
 
     public BobuxEntityListener(BobuxPlugin plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         bobuxEntityList = new ArrayList<BobuxEntity>();
-        chunkEntityMap = new HashMap<Chunk, ArrayList<Entity>>();
-        spawnChances = new BobuxSpawnChances(plugin, bobuxEntityList, chunkEntityMap);
+        spawnChances = new BobuxSpawnChances(plugin, bobuxEntityList);
     }
 
     public static BobuxEntity getBobuxEntity(Entity entity) {
@@ -45,9 +45,8 @@ public class BobuxEntityListener implements Listener {
     }
 
     @EventHandler
-    public void onChunkUnload(ChunkUnloadEvent e) {
-        Chunk chunk = e.getChunk();
-        ArrayList<Entity> entityList = chunkEntityMap.get(chunk);
+    public void onEntityUnload(EntitiesUnloadEvent e) {
+        List<Entity> entityList = e.getEntities();
         if (entityList != null) {
             for (int i = 0; i < entityList.size(); i++) {
                 if (getBobuxEntity(entityList.get(i)) != null) {
@@ -58,7 +57,6 @@ public class BobuxEntityListener implements Listener {
                     System.out.println("Bobux Entity Removed");
                 }
             }
-        chunkEntityMap.remove(chunk);
         }
     }
 

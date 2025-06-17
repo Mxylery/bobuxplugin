@@ -55,17 +55,23 @@ public class BW5Ability extends AbilityOneTime {
         super.inventoryList = inventoryList;
 
         ParticleSequence BW5ParticleSequence1 = new ParticleSequence
-        (ParticleSequenceOrientations.NORMAL, Particle.WHITE_SMOKE, 30, 1, 0, null);
+        (ParticleSequenceOptions.LINE, ParticleSequenceOrientations.NORMAL, Particle.WHITE_SMOKE, null);
+        BW5ParticleSequence1.setLineOptions(30, 1, 0);
         ParticleSequence BW5ParticleSequence2 = new ParticleSequence
-        (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.DUST, 5, 3, 2, 2, 0, new DustOptions(Color.RED, 2));
+        (ParticleSequenceOptions.RING, ParticleSequenceOrientations.NORMAL, Particle.DUST, new DustOptions(Color.RED, 2));
+        BW5ParticleSequence2.setRingOptions(5, 3, 2, 2);
         ParticleSequence BW5ParticleSequence3 = new ParticleSequence
-        (ParticleSequenceOrientations.UP, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
+        (ParticleSequenceOptions.LINE, ParticleSequenceOrientations.UP, Particle.DUST, new DustOptions(Color.RED, 2));
+        BW5ParticleSequence3.setLineOptions(2,3,1);
         ParticleSequence BW5ParticleSequence4 = new ParticleSequence
-        (ParticleSequenceOrientations.RIGHT, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
+        (ParticleSequenceOptions.LINE, ParticleSequenceOrientations.RIGHT, Particle.DUST, new DustOptions(Color.RED, 2));
+        BW5ParticleSequence4.setLineOptions(2,3,1);
         ParticleSequence BW5ParticleSequence5 = new ParticleSequence
-        (ParticleSequenceOrientations.DOWN, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
+        (ParticleSequenceOptions.LINE, ParticleSequenceOrientations.DOWN, Particle.DUST, new DustOptions(Color.RED, 2));
+        BW5ParticleSequence5.setLineOptions(2,3,1);
         ParticleSequence BW5ParticleSequence6 = new ParticleSequence
-        (ParticleSequenceOrientations.LEFT, Particle.DUST, 2, 3, 1, new DustOptions(Color.RED, 2));
+        (ParticleSequenceOptions.LINE, ParticleSequenceOrientations.LEFT, Particle.DUST, new DustOptions(Color.RED, 2));
+        BW5ParticleSequence6.setLineOptions(2,3,1);
         BobuxAction[] BW5ActionList = 
         {new DamageEntity(30), 
         new PlayParticle(BW5ParticleSequence1),

@@ -14,6 +14,8 @@ import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxDay;
 import io.github.mxylery.bobuxplugin.entities.livingentities.hostiles.BigChicken;
+import io.github.mxylery.bobuxplugin.entities.mobs.CulturalCultist;
+import io.github.mxylery.bobuxplugin.entities.mobs.JumpySkeleton;
 import io.github.mxylery.bobuxplugin.entities.mobs.Sandbagger;
 import io.github.mxylery.bobuxplugin.entities.mobs.ScoutZombie;
 import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
@@ -27,16 +29,14 @@ public class BobuxSpawnChances {
     private double goodModifier = 1.0;
     private double badModifier = 1.0;
     private ArrayList<BobuxEntity> list;
-    private HashMap<Chunk, ArrayList<Entity>> chunkEntityMap;
 
     /**
      * To make spawn chances (where the number is approx how many mobs per chunk)
      * xMobAmount = (int) ((min + Math.random()*(min - max))/spawnableNonspawnableRatio)
      */
-    public BobuxSpawnChances(BobuxPlugin plugin, ArrayList<BobuxEntity> list, HashMap<Chunk, ArrayList<Entity>> chunkEntityMap) {
+    public BobuxSpawnChances(BobuxPlugin plugin, ArrayList<BobuxEntity> list) {
         this.plugin = plugin;
         this.list = list;
-        this.chunkEntityMap = chunkEntityMap;
     }
 
     private boolean canSpawn(Location location) {
@@ -48,17 +48,24 @@ public class BobuxSpawnChances {
         return false;
     }
 
-    private void spawnMethod(BobuxEntity bobuxEntity, Chunk chunk) {
+    private void spawnMethod(BobuxEntity bobuxEntity) {
         list.add(bobuxEntity);
-        if (!chunkEntityMap.containsKey(chunk)) {
-            ArrayList<Entity> entityArrayList = new ArrayList<Entity>();
-            Entity entity = bobuxEntity.getEntity();
-            entityArrayList.add(entity);
-            chunkEntityMap.put(chunk, entityArrayList);
-        }
-        ArrayList<Entity> entityArrayList = chunkEntityMap.get(chunk);
+        ArrayList<Entity> entityArrayList = new ArrayList<Entity>();
         Entity entity = bobuxEntity.getEntity();
         entityArrayList.add(entity);
+    }
+
+    private ArrayList<Location> possibleLocations(int count, Location location, int minHeight, int maxHeight) {
+        ArrayList<Location> locList = new ArrayList<Location>();
+        int min = Math.max(-64, minHeight);
+        int max = Math.min(320, maxHeight);
+        for (int i = 0; i < count; i++) {
+            Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + min + Math.random()*(max - min), location.getZ() -8 + Math.random()*16);
+            if (canSpawn(loc)) {
+                locList.add(loc);
+            }
+        }
+        return locList;
     }
 
     //done up to savanna_plateau alphabetically, too lazy to do more
@@ -98,40 +105,46 @@ public class BobuxSpawnChances {
         }
 
         if (rng < 0.3) {
-            Entity[] entitiesAdded;
+            int bigChickenAmount = (int) ((8)*badModifier);
+            int stinkyMobAmount = (int) ((10)*badModifier);
+            int jumpySkeletonAmount = (int) ((12)*badModifier);
+            int scoutZombieAmount = (int) (8*badModifier);
+            int sandbaggerAmount = (int) (2*goodModifier);
+            int culturalCultistAmount = (int) (5*badModifier);
+
             //Deserty
         if (biome.equals(Biome.BADLANDS) || biome.equals(Biome.DESERT) || biome.equals(Biome.ERODED_BADLANDS) || biome.equals(Biome.WOODED_BADLANDS)) {
 
-            int scoutZombieAmount = (int) (12*badModifier);
-            for (int i = 0; i < scoutZombieAmount; i++) {
-                Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*160, location.getZ() -8 + Math.random()*16);
-                if (canSpawn(loc)) {
-                    ScoutZombie scoutZombie = new ScoutZombie(loc);
-                    spawnMethod(scoutZombie, chunk);
-                }
+            for (Location loc : possibleLocations(scoutZombieAmount, location, 40, 90)) {
+                ScoutZombie scoutZombie = new ScoutZombie(loc);
+                spawnMethod(scoutZombie);
             }
 
-            double sandbaggerRng = Math.random();
-            if (sandbaggerRng < 0.5) {
-                int sandbaggerAmount = (int) (5*goodModifier);
-                for (int i = 0; i < sandbaggerAmount; i++) {
-                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*160, location.getZ() -8 + Math.random()*16);
-                    if (canSpawn(loc)) {
-                        Sandbagger sandbagger = new Sandbagger(loc);
-                        spawnMethod(sandbagger, chunk);
-                    }
-                }
+            for (Location loc : possibleLocations(sandbaggerAmount, location, 50, 80)) {
+                Sandbagger sandbagger = new Sandbagger(loc);
+                spawnMethod(sandbagger);
             }
+
+            
+
+
 
             
 
             //Jungle
         } else if (biome.equals(Biome.BAMBOO_JUNGLE) || biome.equals(Biome.JUNGLE)) {
 
+            for (Location loc : possibleLocations(culturalCultistAmount, location, 40, 90)) {
+                CulturalCultist culturalCultist = new CulturalCultist(loc);
+                spawnMethod(culturalCultist);
+            }
+
 
 
             //Nether
         } else if (biome.equals(Biome.BASALT_DELTAS) || biome.equals(Biome.CRIMSON_FOREST) || biome.equals(Biome.NETHER_WASTES)) {
+
+
 
 
 
@@ -141,14 +154,18 @@ public class BobuxSpawnChances {
 
             //Night mobs
             if (!BobuxTimer.isDay()) {
-                int stinkyMobAmount = (int) ((12)*badModifier);
-                for (int i = 0; i < stinkyMobAmount; i++) {
-                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*320, location.getZ() -8 + Math.random()*16);
-                    if (canSpawn(loc)) {
-                        StinkyMob stinkyMob = new StinkyMob(loc);
-                        spawnMethod(stinkyMob, chunk);
-                    }
+
+                for (Location loc : possibleLocations(stinkyMobAmount, location, 0, 100)) {
+                    StinkyMob stinkyMob = new StinkyMob(loc);
+                    spawnMethod(stinkyMob);
                 }
+
+                for (Location loc : possibleLocations(jumpySkeletonAmount, location, 0, 100)) {
+                    JumpySkeleton jumpySkeleton = new JumpySkeleton(loc);
+                    spawnMethod(jumpySkeleton);
+                }
+
+
             //Day mobs
             } else {
 
@@ -156,25 +173,20 @@ public class BobuxSpawnChances {
         
 
 
+
             //Ocean
         } else if (biome.equals(Biome.COLD_OCEAN) || biome.equals(Biome.DEEP_OCEAN) || biome.equals(Biome.DEEP_FROZEN_OCEAN) 
         || biome.equals(Biome.DEEP_COLD_OCEAN) || biome.equals(Biome.DEEP_LUKEWARM_OCEAN) || biome.equals(Biome.BEACH) || biome.equals(Biome.OCEAN)) {
 
-            if (biome.equals(Biome.BEACH)) {
-                int scoutZombieAmount = (int) ((10)*badModifier);
-                for (int i = 0; i < scoutZombieAmount; i++) {
-                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*80, location.getZ() -8 + Math.random()*16);
-                    if (canSpawn(loc)) {
-                        ScoutZombie scoutZombie = new ScoutZombie(loc);
-                        spawnMethod(scoutZombie, chunk);
-                    }
-                }
-            }
+           
 
             //Underground
         } else if (biome.equals(Biome.DEEP_DARK) || biome.equals(Biome.DRIPSTONE_CAVES) || biome.equals(Biome.LUSH_CAVES)) {
 
-
+            for (Location loc : possibleLocations(culturalCultistAmount, location, 40, 90)) {
+                CulturalCultist culturalCultist = new CulturalCultist(loc);
+                spawnMethod(culturalCultist);
+            }
 
             //End
         } else if (biome.equals(Biome.END_BARRENS) || biome.equals(Biome.END_HIGHLANDS) || biome.equals(Biome.SMALL_END_ISLANDS)) {
@@ -194,31 +206,41 @@ public class BobuxSpawnChances {
 
         } else if (biome.equals(Biome.MANGROVE_SWAMP)) {
 
-
+            for (Location loc : possibleLocations(culturalCultistAmount, location, 40, 90)) {
+                CulturalCultist culturalCultist = new CulturalCultist(loc);
+                spawnMethod(culturalCultist);
+            }
 
             //Overworld
         } else if (biome.equals(Biome.MEADOW) || biome.equals(Biome.PLAINS) || biome.equals(Biome.RIVER) || biome.equals(Biome.CHERRY_GROVE)) {
 
-            int bigChickenAmount = (int) ((12)*badModifier);
-            for (int i = 0; i < bigChickenAmount; i++) {
-                Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + 40 + Math.random()*160, location.getZ() -8 + Math.random()*16);
-                if (canSpawn(loc)) {
-                    BigChicken bigChicken = new BigChicken(loc);
-                    spawnMethod(bigChicken, chunk);
-                }
+            for (Location loc : possibleLocations(bigChickenAmount, location, 50, 70)) {
+                BigChicken bigChicken = new BigChicken(loc);
+                spawnMethod(bigChicken);
             }
 
-            //Night mobs
+            for (Location loc : possibleLocations(culturalCultistAmount-3, location, 40, 90)) {
+                CulturalCultist culturalCultist = new CulturalCultist(loc);
+                spawnMethod(culturalCultist);
+            }
+            
+                //Night mobs
             if (!BobuxTimer.isDay()) {
-                int stinkyMobAmount = (int) ((10)*badModifier);
-                for (int i = 0; i < stinkyMobAmount; i++) {
-                    Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() -64 + Math.random()*320, location.getZ() -8 + Math.random()*16);
-                    if (canSpawn(loc)) {
-                        StinkyMob stinkyMob = new StinkyMob(loc);
-                        spawnMethod(stinkyMob, chunk);
-                    }
+
+                for (Location loc : possibleLocations(stinkyMobAmount, location, 0, 100)) {
+                    StinkyMob stinkyMob = new StinkyMob(loc);
+                    spawnMethod(stinkyMob);
                 }
-            //Day mobs
+
+                for (Location loc : possibleLocations(jumpySkeletonAmount, location, 0, 100)) {
+                    JumpySkeleton jumpySkeleton = new JumpySkeleton(loc);
+                    spawnMethod(jumpySkeleton);
+                }
+
+
+                //Day mobs
+            } else {
+
             }
 
         } else if (biome.equals(Biome.MUSHROOM_FIELDS)) {

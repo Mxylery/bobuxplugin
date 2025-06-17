@@ -16,8 +16,7 @@ public class BobuxTimer implements Runnable {
     private static long ticksPassed;
     private static Server server;
     private static BobuxPlugin bobuxPlugin;
-    private static World world;
-    private static boolean daySet = false;
+    private static World world = BobuxPlugin.getOverworld();
     private static int numberOfDays = -1;
     private static long startTick = -1;
 
@@ -27,6 +26,8 @@ public class BobuxTimer implements Runnable {
         bobuxPlugin = plugin;
         //for some reason there needs to be an initialized BobuxItemInterface to use the static method BobuxItemInterface.randomizeMarketItems
         //even though static methods by definition literally should be used statically, but it completely breaks everything if not so.
+        BobuxDay.rollDay();
+        BobuxGUIGenerator.randomizeMarketItems();
     }
 
     private static void refresh() {
@@ -36,34 +37,21 @@ public class BobuxTimer implements Runnable {
             if (startTick == -1) {
                 startTick = ticksPassed;
             }
-            rollDay();
-            server.broadcastMessage("The day market is now open.");
+            BobuxDay.rollDay();
+            server.broadcastMessage("The day §6market §fis now open.");
             BobuxGUIGenerator.randomizeMarketItems();
-            server.broadcastMessage("New bounties are now available...");
+            server.broadcastMessage("New §cbounties §fare now available...");
             BobuxGUIGenerator.randomizeBounties();
             numberOfDays++;
-        } else if (world.getTime() == 12000) {
-            server.broadcastMessage("The night market is now open.");
+        } else if (world.getTime() == 13000) {
+            server.broadcastMessage("The night §6market §fis now open.");
             BobuxGUIGenerator.randomizeMarketItems();
         }
-    }
-
-    private static void rollDay() {
-        BobuxDay.rollDay();
     }
 
     public void run() {
         BobuxTimer.refresh();
         ticksPassed++;
-    }
-
-    public static void setWorld(World overworld) {
-        world = overworld;
-        daySet = true;
-    }
-
-    public static boolean isDaySet() {
-        return daySet;
     }
 
     public static long getTicksPassed() {
@@ -79,19 +67,11 @@ public class BobuxTimer implements Runnable {
     }
 
     public static long getTime() {
-        if (world != null) {
-            return world.getTime();
-        } else {
-            return 0;
-        }
+        return world.getTime();
     }
 
     public static boolean isDay() {
-        if (world != null) {
-            return world.getTime() < 13000;
-        } else {
-            return false;
-        }
+        return world.getTime() < 13000;
     }
 
     public static BobuxPlugin getPlugin() {

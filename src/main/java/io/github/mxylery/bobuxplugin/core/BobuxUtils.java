@@ -1,6 +1,7 @@
 package io.github.mxylery.bobuxplugin.core;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -53,6 +54,26 @@ public class BobuxUtils {
 		return playerList;
 	}
 
+	public static void dropBobux(double chance, Entity entity, ItemStack stack, int extra) {
+		double random = Math.random();
+		if (random < chance) {
+			entity.getWorld().dropItem(entity.getLocation(), stack);
+			int extraRandom = (int) Math.random()*extra;
+			while (extraRandom > 0) {
+				entity.getWorld().dropItem(entity.getLocation(), stack);
+			}
+		}
+	}
+
+	public static ArrayList<Entity> filterEntities(List<Entity> entityList, Class<? extends Entity> clazz) {
+		ArrayList<Entity> newList = new ArrayList<Entity>();
+		for (Entity entity : entityList) {
+			if (clazz.isInstance(entity)) {
+				newList.add(entity);
+			}
+		}
+		return newList;
+	}
 
 	//This is to excluse a center player
 	public static ArrayList<Player> getNearbyPlayers(Player player, double radius) {

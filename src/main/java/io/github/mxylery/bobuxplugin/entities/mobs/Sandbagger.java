@@ -10,7 +10,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
-import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 import io.github.mxylery.bobuxplugin.abilities.MobAbilityManager;
 import io.github.mxylery.bobuxplugin.abilities.mob_abilities.SandbaggerAbilityOne;

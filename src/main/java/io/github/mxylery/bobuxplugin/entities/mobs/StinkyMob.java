@@ -18,6 +18,7 @@ import io.github.mxylery.bobuxplugin.abilities.MobAbilityManager;
 import io.github.mxylery.bobuxplugin.abilities.mob_abilities.StinkyMobAbilityOne;
 import io.github.mxylery.bobuxplugin.entities.BobuxMob;
 import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
+import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class StinkyMob extends BobuxMob {
     
@@ -42,9 +43,9 @@ public class StinkyMob extends BobuxMob {
         BobuxAttributeSet[] attributeSet = {new BobuxAttributeSet(Attribute.MOVEMENT_SPEED, -0.5, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.ANY)};
         BobuxAbility[] abilityList = {new StinkyMobAbilityOne("Stinky Mob Ability One", false, 100)};
 
-        ItemStack[] dropTable = {new ItemStack(Material.GREEN_DYE)};
-        double[] dropWeights = {0.25};
-        int[][] dropRanges = {{1,1}};
+        ItemStack[] dropTable = {BobuxItemInterface.stinkyResidue.getStack(), BobuxItemInterface.stinkyPants.getStack()};
+        double[] dropWeights = {0.5, 0.05};
+        int[][] dropRanges = {{1,1},{1,1}};
 
         super.maxHealth = 20;
         super.dropTable = dropTable;

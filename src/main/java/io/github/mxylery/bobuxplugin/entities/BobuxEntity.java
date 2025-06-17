@@ -1,19 +1,21 @@
 package io.github.mxylery.bobuxplugin.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.EntityBlockFormEvent;
-import org.bukkit.event.entity.EntityUnleashEvent;
-import org.bukkit.event.world.EntitiesUnloadEvent;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.abilities.AbilityInstance;
 import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.data_structures.AbilityInstanceStructure;
+import io.github.mxylery.bobuxplugin.events.BobuxEntityWithinRangeEvent;
 
 public abstract class BobuxEntity implements Listener {
     
@@ -24,6 +26,10 @@ public abstract class BobuxEntity implements Listener {
     protected BobuxAbility[] abilityList;
     protected AbilityInstanceStructure abilityStructure;
     protected long lifetime;
+    protected double nearbyEntityRadius;
+    protected int nearbyEntityTaskID;
+    protected List<Entity> nearbyEntityList;
+    protected BukkitScheduler scheduler = BobuxPlugin.getScheduler();
 
     /**
      * Initializes a bobux entity at a given location.
@@ -33,6 +39,21 @@ public abstract class BobuxEntity implements Listener {
         this.location = location;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         setUpEntity();
+        if (nearbyEntityRadius != 0) {
+            nearbyEntityTaskID = scheduler.runTaskTimer(plugin, new Runnable() {
+                public void run() {
+                    if (entity.isDead()) {
+                        scheduler.cancelTask(nearbyEntityTaskID);
+                    }
+                    nearbyEntityList = entity.getNearbyEntities(nearbyEntityRadius, nearbyEntityRadius, nearbyEntityRadius);
+                    if (nearbyEntityList.size() != 0) {
+                        BobuxEntityWithinRangeEvent event = new BobuxEntityWithinRangeEvent(entity, nearbyEntityList);
+                        Bukkit.getPluginManager().callEvent(event);
+                    }
+                }
+            }, 0, 20).getTaskId();
+        }
+
     }
 
     /**
@@ -90,6 +111,10 @@ public abstract class BobuxEntity implements Listener {
 
     public String getName() {
         return name;
+    }
+
+    public double getRegistrationRadius() {
+        return nearbyEntityRadius;
     }
 
 }

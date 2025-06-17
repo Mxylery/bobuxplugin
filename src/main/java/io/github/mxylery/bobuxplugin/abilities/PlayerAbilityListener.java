@@ -82,7 +82,9 @@ public class PlayerAbilityListener implements Listener {
         ItemStack food = e.getBredWith();
         Entity mother = e.getMother();
         
-        PlayerAbilityManager.checkForItemUse(food, BobuxItemInterface.superFood, mother);
+        PlayerAbilityManager.checkForItemUse(food, BobuxItemInterface.superCarrot, mother);
+        PlayerAbilityManager.checkForItemUse(food, BobuxItemInterface.superWheat, mother);
+        PlayerAbilityManager.checkForItemUse(food, BobuxItemInterface.superSeeds, mother);
     }
 
     @EventHandler
@@ -121,18 +123,6 @@ public class PlayerAbilityListener implements Listener {
         if (e.getInput().isJump()) {
            
         }
-    }
-
-    @EventHandler
-    public void onLogin(PlayerLoginEvent e) {
-        Player player = e.getPlayer();
-
-        PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.lineSpawner, player, EquipmentSlot.HAND, true);
-
-        if (!BobuxTimer.isDaySet()) {
-            BobuxTimer.setWorld(e.getPlayer().getWorld());
-        }
-
     }
 
     @EventHandler

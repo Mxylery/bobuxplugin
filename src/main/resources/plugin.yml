@@ -1,6 +1,6 @@
 name: BobuxPlugin
 main: io.github.mxylery.bobuxplugin.BobuxPlugin
-version: 0.4.0
+version: 0.5.0
 api-version: '1.20.5'
 
 commands:
@@ -23,4 +23,8 @@ commands:
   bobuxhub:
     description: Teleports user to the bobux hub
     aliases: bobuxhub
+    usage: "Usage: /<command>"
+  bobuxconvert:
+    description: Converts user's bobux to greater forms
+    aliases: bobuxconvert
     usage: "Usage: /<command>"

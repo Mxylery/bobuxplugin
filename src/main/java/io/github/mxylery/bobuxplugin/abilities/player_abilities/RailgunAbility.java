@@ -45,9 +45,11 @@ public class RailgunAbility extends AbilityOneTime {
         super.inventoryList = inventoryList;
 
         ParticleSequence railgunParticleSequence1 = 
-        new ParticleSequence(ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 30, 2.0, 0.0, null);
+        new ParticleSequence(ParticleSequenceOptions.LINE, ParticleSequenceOrientations.NORMAL, Particle.END_ROD, null);
+        railgunParticleSequence1.setLineOptions(30, 2, 0);
         ParticleSequence railgunParticleSequence2 = 
-        new ParticleSequence(ParticleSequenceOptions.SPIRAL, ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 5, 0, 1, 1, 30, null);
+        new ParticleSequence(ParticleSequenceOptions.SPIRAL, ParticleSequenceOrientations.NORMAL, Particle.END_ROD, null);
+        railgunParticleSequence2.setSpiralOptions(30, 5, 0, 1, 1);
         BobuxAction[] railgunActionList = 
         {new DamageEntity(10), 
         new PlayParticle(railgunParticleSequence1), 

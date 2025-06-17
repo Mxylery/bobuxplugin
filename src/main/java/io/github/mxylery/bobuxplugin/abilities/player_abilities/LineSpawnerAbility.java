@@ -10,6 +10,7 @@ import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityPassive;
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
+import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;
 
 public class LineSpawnerAbility extends AbilityPassive {
@@ -32,7 +33,8 @@ public class LineSpawnerAbility extends AbilityPassive {
         super.inventoryList = inventoryList;
 
         ParticleSequence particleSequence1 = 
-        new ParticleSequence(ParticleSequenceOrientations.NORMAL, Particle.END_ROD, 30, 2.0, 0.0, null);
+        new ParticleSequence(ParticleSequenceOptions.LINE, ParticleSequenceOrientations.NORMAL, Particle.END_ROD, null);
+        particleSequence1.setLineOptions(30, 2, 0);
         BobuxAction[] railgunActionList = {new PlayParticle(particleSequence1)};
         
         super.actionList = railgunActionList;
