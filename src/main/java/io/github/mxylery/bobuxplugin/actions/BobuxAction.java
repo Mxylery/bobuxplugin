@@ -3,7 +3,11 @@ package io.github.mxylery.bobuxplugin.actions;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Vector;
+
+import io.github.mxylery.bobuxplugin.BobuxPlugin;
+import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 
 public abstract class BobuxAction implements Runnable {
 
@@ -15,6 +19,11 @@ protected boolean requiresEntity = false;
 protected boolean requiresVector = false;
 protected boolean requiresLocation = false;
 protected boolean requiresInventory = false;
+
+public void runLater(long delay) {
+    BukkitScheduler scheduler = BobuxPlugin.getScheduler();
+    scheduler.runTaskLater(BobuxTimer.getPlugin(), this, delay);
+}
 
 public abstract void run();
 

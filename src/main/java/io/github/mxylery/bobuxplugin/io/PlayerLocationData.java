@@ -68,7 +68,20 @@ public class PlayerLocationData implements Serializable {
                 playerList.add(player);
             }
         }
-        playerList.forEach(player -> playerLocMap.put(player.getUniqueId(), player.getLocation()));    
+
+        playerList.forEach(player -> playerLocMap.put(player.getUniqueId(), player.getLocation()));
+
+        for (Player player : playerList) {
+            if (player.isDead()) {
+                Location respawnLoc = player.getRespawnLocation();
+                if (respawnLoc != null) {
+                    playerLocMap.put(player.getUniqueId(), BobuxPlugin.getOverworld().getSpawnLocation());
+                } else {
+                    playerLocMap.put(player.getUniqueId(), respawnLoc);
+                }
+            }
+        }
+
         new PlayerLocationData(playerLocMap).saveData();
         Bukkit.getServer().getLogger().log(Level.INFO, "Data saved");
     }

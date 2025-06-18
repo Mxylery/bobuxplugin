@@ -72,13 +72,15 @@ public abstract class BobuxHostile extends BobuxLivingEntity {
         }
     }
 
+    public void removeInvisZombie() {
+        invisZombie.remove();
+    }
+
     @Override
     @EventHandler
     public void onDeath(EntityDeathEvent e) {
         if (e.getEntity().equals(super.entity)) {
-            invisZombie.setInvulnerable(false);
-            invisZombie.setHealth(0);
-            invisZombie.damage(1000);
+            removeInvisZombie();
             rollLootTable(super.entity.getLocation());
             BobuxEntityListener.getBobuxEntityList().remove(this);
             HandlerList.unregisterAll(this);

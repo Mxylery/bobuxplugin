@@ -1,5 +1,6 @@
 package io.github.mxylery.bobuxplugin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -9,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,7 +27,9 @@ import io.github.mxylery.bobuxplugin.abilities.PlayerAbilityListener;
 import io.github.mxylery.bobuxplugin.core.BobuxCommands;
 import io.github.mxylery.bobuxplugin.core.BobuxGiver;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
+import io.github.mxylery.bobuxplugin.entities.BobuxEntity;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntityListener;
+import io.github.mxylery.bobuxplugin.entities.BobuxHostile;
 import io.github.mxylery.bobuxplugin.guis.BobuxGUIGenerator;
 import io.github.mxylery.bobuxplugin.io.PlayerLocationData;
 
@@ -71,6 +75,17 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
 	public void onDisable() {
 		getLogger().info("onDisable has been invoked!");
         PlayerLocationData.saveDataToFile();
+        ArrayList<BobuxEntity> entityList = BobuxEntityListener.getBobuxEntityList();
+        for (int i = 0; i < entityList.size(); i++) {
+            if (entityList.get(i).getEntity() != null) {
+                Entity entity = entityList.get(i).getEntity();
+                entity.remove();
+                if (entityList.get(i) instanceof BobuxHostile) {
+                    BobuxHostile hostile = (BobuxHostile) entityList.get(i);
+                    hostile.removeInvisZombie();
+                }
+            }
+        }
 	}
 
     @EventHandler
@@ -116,7 +131,7 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onSpawn(PlayerRespawnEvent e) {
-        e.getPlayer().teleport(hubWorld.getSpawnLocation());
+        System.out.println(e.getPlayer().teleport(hubWorld.getSpawnLocation()));
     }
     
     public static BukkitScheduler getScheduler() {

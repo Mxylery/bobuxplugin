@@ -24,10 +24,6 @@ import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
 public class BobuxSpawnChances {
     
     private BobuxPlugin plugin;
-    private Block bloc;
-    private Location loc;
-    private double goodModifier = 1.0;
-    private double badModifier = 1.0;
     private ArrayList<BobuxEntity> list;
 
     /**
@@ -42,7 +38,7 @@ public class BobuxSpawnChances {
     private boolean canSpawn(Location location) {
         Block block = location.getBlock();
         Block groundBlock = new Location(location.getWorld(), location.getX(), location.getY() - 1, location.getZ()).getBlock();
-        if (block.getType().equals(Material.AIR) && !groundBlock.getType().equals(Material.AIR) && !groundBlock.getType().equals(Material.LAVA)) {
+        if (block.getType().equals(Material.AIR) && !groundBlock.getType().equals(Material.AIR) && !groundBlock.getType().equals(Material.LAVA) && !groundBlock.getType().equals(Material.WATER)) {
             return true;
         }
         return false;
@@ -55,14 +51,16 @@ public class BobuxSpawnChances {
         entityArrayList.add(entity);
     }
 
-    private ArrayList<Location> possibleLocations(int count, Location location, int minHeight, int maxHeight) {
+    private ArrayList<Location> possibleLocations(int count, Location location, int minHeight, int maxHeight, boolean aquatic) {
         ArrayList<Location> locList = new ArrayList<Location>();
         int min = Math.max(-64, minHeight);
         int max = Math.min(320, maxHeight);
         for (int i = 0; i < count; i++) {
             Location loc = new Location(location.getWorld(), location.getX() -8 + Math.random()*16, location.getY() + min + Math.random()*(max - min), location.getZ() -8 + Math.random()*16);
-            if (canSpawn(loc)) {
-                locList.add(loc);
+            if (!aquatic) {
+                if (canSpawn(loc)) {
+                    locList.add(loc);
+                }
             }
         }
         return locList;
@@ -72,42 +70,13 @@ public class BobuxSpawnChances {
     public void attemptToSpawn(Chunk chunk, Biome biome, Location location) { 
         //This rng is to regulate spawns, only a quarter of chunks will have mobs just for server
         double rng = Math.random();
-        if (BobuxDay.getDay() != null) {
-        switch(BobuxDay.getDay()) {
-            case NORMAL: 
-            goodModifier = 1.0;
-            badModifier = 1.0;
-            break;
-            case HAPPY:
-            goodModifier = 1.2;
-            badModifier = 0.8;
-            break;
-            case AVARICIOUS:
-            goodModifier = 1.2;
-            badModifier = 1.2;
-            break;
-            case SUSPICIOUS:
-            goodModifier = 0.8;
-            badModifier = 1.2;
-            break;
-            case BLOOD:
-            goodModifier = 0.0;
-            badModifier = 2.0;
-            break;
-            case DANGEROUS:
-            goodModifier = 1.0;
-            badModifier = 1.5;
-            break;
-            case ADVENTUROUS:
-            goodModifier = 1.2;
-            badModifier = 1.5;
-            break;
-        }
+        double goodModifier = BobuxDay.getGoodSpawnModifier();
+        double badModifier = BobuxDay.getBadSpawnModifier();
 
-        if (rng < 0.3) {
-            int bigChickenAmount = (int) ((8)*badModifier);
+        if (rng < 0.2) {
+            int bigChickenAmount = (int) ((5)*badModifier);
             int stinkyMobAmount = (int) ((10)*badModifier);
-            int jumpySkeletonAmount = (int) ((12)*badModifier);
+            int jumpySkeletonAmount = (int) ((10)*badModifier);
             int scoutZombieAmount = (int) (8*badModifier);
             int sandbaggerAmount = (int) (2*goodModifier);
             int culturalCultistAmount = (int) (5*badModifier);
@@ -115,26 +84,20 @@ public class BobuxSpawnChances {
             //Deserty
         if (biome.equals(Biome.BADLANDS) || biome.equals(Biome.DESERT) || biome.equals(Biome.ERODED_BADLANDS) || biome.equals(Biome.WOODED_BADLANDS)) {
 
-            for (Location loc : possibleLocations(scoutZombieAmount, location, 40, 90)) {
+            for (Location loc : possibleLocations(scoutZombieAmount, location, 40, 90, false)) {
                 ScoutZombie scoutZombie = new ScoutZombie(loc);
                 spawnMethod(scoutZombie);
             }
 
-            for (Location loc : possibleLocations(sandbaggerAmount, location, 50, 80)) {
+            for (Location loc : possibleLocations(sandbaggerAmount, location, 50, 80, false)) {
                 Sandbagger sandbagger = new Sandbagger(loc);
                 spawnMethod(sandbagger);
             }
-
             
-
-
-
-            
-
             //Jungle
         } else if (biome.equals(Biome.BAMBOO_JUNGLE) || biome.equals(Biome.JUNGLE)) {
 
-            for (Location loc : possibleLocations(culturalCultistAmount, location, 40, 90)) {
+            for (Location loc : possibleLocations(culturalCultistAmount, location, 40, 90, false)) {
                 CulturalCultist culturalCultist = new CulturalCultist(loc);
                 spawnMethod(culturalCultist);
             }
@@ -155,12 +118,12 @@ public class BobuxSpawnChances {
             //Night mobs
             if (!BobuxTimer.isDay()) {
 
-                for (Location loc : possibleLocations(stinkyMobAmount, location, 0, 100)) {
+                for (Location loc : possibleLocations(stinkyMobAmount, location, 0, 100, false)) {
                     StinkyMob stinkyMob = new StinkyMob(loc);
                     spawnMethod(stinkyMob);
                 }
 
-                for (Location loc : possibleLocations(jumpySkeletonAmount, location, 0, 100)) {
+                for (Location loc : possibleLocations(jumpySkeletonAmount, location, 0, 100, false)) {
                     JumpySkeleton jumpySkeleton = new JumpySkeleton(loc);
                     spawnMethod(jumpySkeleton);
                 }
@@ -183,7 +146,7 @@ public class BobuxSpawnChances {
             //Underground
         } else if (biome.equals(Biome.DEEP_DARK) || biome.equals(Biome.DRIPSTONE_CAVES) || biome.equals(Biome.LUSH_CAVES)) {
 
-            for (Location loc : possibleLocations(culturalCultistAmount, location, 40, 90)) {
+            for (Location loc : possibleLocations(culturalCultistAmount, location, 40, 90, false)) {
                 CulturalCultist culturalCultist = new CulturalCultist(loc);
                 spawnMethod(culturalCultist);
             }
@@ -206,7 +169,7 @@ public class BobuxSpawnChances {
 
         } else if (biome.equals(Biome.MANGROVE_SWAMP)) {
 
-            for (Location loc : possibleLocations(culturalCultistAmount, location, 40, 90)) {
+            for (Location loc : possibleLocations(culturalCultistAmount, location, 40, 90, false)) {
                 CulturalCultist culturalCultist = new CulturalCultist(loc);
                 spawnMethod(culturalCultist);
             }
@@ -214,12 +177,12 @@ public class BobuxSpawnChances {
             //Overworld
         } else if (biome.equals(Biome.MEADOW) || biome.equals(Biome.PLAINS) || biome.equals(Biome.RIVER) || biome.equals(Biome.CHERRY_GROVE)) {
 
-            for (Location loc : possibleLocations(bigChickenAmount, location, 50, 70)) {
+            for (Location loc : possibleLocations(bigChickenAmount, location, 50, 70, false)) {
                 BigChicken bigChicken = new BigChicken(loc);
                 spawnMethod(bigChicken);
             }
 
-            for (Location loc : possibleLocations(culturalCultistAmount-3, location, 40, 90)) {
+            for (Location loc : possibleLocations(culturalCultistAmount-3, location, 40, 90, false)) {
                 CulturalCultist culturalCultist = new CulturalCultist(loc);
                 spawnMethod(culturalCultist);
             }
@@ -227,12 +190,12 @@ public class BobuxSpawnChances {
                 //Night mobs
             if (!BobuxTimer.isDay()) {
 
-                for (Location loc : possibleLocations(stinkyMobAmount, location, 0, 100)) {
+                for (Location loc : possibleLocations(stinkyMobAmount, location, 0, 100, false)) {
                     StinkyMob stinkyMob = new StinkyMob(loc);
                     spawnMethod(stinkyMob);
                 }
 
-                for (Location loc : possibleLocations(jumpySkeletonAmount, location, 0, 100)) {
+                for (Location loc : possibleLocations(jumpySkeletonAmount, location, 0, 100, false)) {
                     JumpySkeleton jumpySkeleton = new JumpySkeleton(loc);
                     spawnMethod(jumpySkeleton);
                 }
@@ -255,6 +218,6 @@ public class BobuxSpawnChances {
         } 
 
         }
-        }
     }
 }
+

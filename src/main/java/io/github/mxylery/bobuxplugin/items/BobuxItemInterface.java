@@ -255,13 +255,13 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack superCarrotStack = new ItemStack(Material.CARROT);
-    private static String[] superCarrotDesc = 
+    private static ItemStack freakyCarrotStack = new ItemStack(Material.CARROT);
+    private static String[] freakyCarrotDesc = 
     {"§7When breeding with this carrot, animals will make three children instead of one.",
     "§8No CD (Right Click)"};
-    private static String superCarrotName = "§6Super Carrot";
-    public static BobuxItem superCarrot = new BobuxItem
-    (superCarrotStack, superCarrotDesc, superCarrotName, new SuperFoodAbility("Super Carrot Ability", true, 1), 8);
+    private static String freakyCarrotName = "§6Freaky Carrot";
+    public static BobuxItem freakyCarrot = new BobuxItem
+    (freakyCarrotStack, freakyCarrotDesc, freakyCarrotName, new FreakyFoodAbility("Freaky Carrot Ability", true, 1), 8);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -277,23 +277,23 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack superWheatStack = new ItemStack(Material.WHEAT);
-    private static String[] superWheatDesc = 
+    private static ItemStack freakyWheatStack = new ItemStack(Material.WHEAT);
+    private static String[] freakyWheatDesc = 
     {"§7When breeding with this wheat, animals will make three children instead of one.",
     "§8No CD (Right Click)"};
-    private static String superWheatName = "§eSuper Wheat";
-    public static BobuxItem superWheat = new BobuxItem
-    (superWheatStack, superWheatDesc, superWheatName, new SuperFoodAbility("Super Wheat Ability", true, 1), 8);
+    private static String freakyWheatName = "§eFreaky Wheat";
+    public static BobuxItem freakyWheat = new BobuxItem
+    (freakyWheatStack, freakyWheatDesc, freakyWheatName, new FreakyFoodAbility("Freaky Wheat Ability", true, 1), 8);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack superSeedsStack = new ItemStack(Material.WHEAT_SEEDS);
-    private static String[] superSeedsDesc = 
+    private static ItemStack freakySeedsStack = new ItemStack(Material.WHEAT_SEEDS);
+    private static String[] freakySeedsDesc = 
     {"§7When breeding with these seeds, animals will make three children instead of one.",
     "§8No CD (Right Click)"};
-    private static String superSeedsName = "§aSuper Seeds";
-    public static BobuxItem superSeeds = new BobuxItem
-    (superSeedsStack, superSeedsDesc, superSeedsName, new SuperFoodAbility("Super Seeds Ability", true, 1), 8);
+    private static String freakySeedsName = "§aFreaky Seeds";
+    public static BobuxItem freakySeeds = new BobuxItem
+    (freakySeedsStack, freakySeedsDesc, freakySeedsName, new FreakyFoodAbility("Freaky Seeds Ability", true, 1), 8);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////

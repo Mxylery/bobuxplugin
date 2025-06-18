@@ -54,7 +54,7 @@ public class RailgunAbility extends AbilityOneTime {
         {new DamageEntity(10), 
         new PlayParticle(railgunParticleSequence1), 
         new PlayParticle(railgunParticleSequence2), 
-        new PlaySound(Sound.ENTITY_FIREWORK_ROCKET_BLAST, 0.1f, 1.0f)};
+        new PlaySound(Sound.ENTITY_FIREWORK_ROCKET_BLAST, 1.0f, 1.0f)};
         
         super.actionList = railgunActionList;
         return true;

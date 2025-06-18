@@ -73,13 +73,13 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
                 case "mega_long_bow": player.getInventory().addItem(BobuxItemInterface.megaLongBow.getStack());
                 break;
-                case "super_carrot": player.getInventory().addItem(BobuxItemInterface.superCarrot.getStack());
+                case "freaky_carrot": player.getInventory().addItem(BobuxItemInterface.freakyCarrot.getStack());
                 break;
                 case "stinky_pants": player.getInventory().addItem(BobuxItemInterface.stinkyPants.getStack());
                 break;
-                case "super_wheat": player.getInventory().addItem(BobuxItemInterface.superWheat.getStack());
+                case "freaky_wheat": player.getInventory().addItem(BobuxItemInterface.freakyWheat.getStack());
                 break;
-                case "super_seeds": player.getInventory().addItem(BobuxItemInterface.superSeeds.getStack());
+                case "freaky_seeds": player.getInventory().addItem(BobuxItemInterface.freakySeeds.getStack());
                 break;
                 default:
                 break;

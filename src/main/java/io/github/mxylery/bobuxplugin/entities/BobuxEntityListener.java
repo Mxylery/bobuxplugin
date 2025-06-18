@@ -40,8 +40,10 @@ public class BobuxEntityListener implements Listener {
 
     @EventHandler
     public void onChunkLoad(ChunkLoadEvent e) {
-        Block block = e.getChunk().getBlock(8,8,8);
-        spawnChances.attemptToSpawn(e.getChunk(), block.getBiome(), block.getLocation());
+        if (e.getWorld().equals(BobuxPlugin.getOverworld())) {
+            Block block = e.getChunk().getBlock(8,8,8);
+            spawnChances.attemptToSpawn(e.getChunk(), block.getBiome(), block.getLocation());
+        }
     }
 
     @EventHandler
@@ -54,6 +56,10 @@ public class BobuxEntityListener implements Listener {
                     BobuxEntity bobuxEntity = getBobuxEntity(entity);
                     bobuxEntityList.remove(bobuxEntity);
                     entity.remove();
+                    if (bobuxEntity instanceof BobuxHostile) {
+                        BobuxHostile hostile = (BobuxHostile) bobuxEntity;
+                        hostile.removeInvisZombie();
+                    }
                     System.out.println("Bobux Entity Removed");
                 }
             }

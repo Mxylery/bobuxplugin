@@ -9,9 +9,9 @@ import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.spawn.SpawnEntity;
 
-public class SuperFoodAbility extends AbilityOneTime {
+public class FreakyFoodAbility extends AbilityOneTime {
 
-    public SuperFoodAbility(String name, boolean muteCD, long cooldown) {
+    public FreakyFoodAbility(String name, boolean muteCD, long cooldown) {
         super(name, muteCD, cooldown);
     }
 

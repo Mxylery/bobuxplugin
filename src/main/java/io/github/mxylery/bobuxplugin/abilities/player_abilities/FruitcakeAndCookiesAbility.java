@@ -11,11 +11,11 @@ import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
-import io.github.mxylery.bobuxplugin.actions.RandomAction;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
 import io.github.mxylery.bobuxplugin.actions.entity.EffectGive;
 import io.github.mxylery.bobuxplugin.actions.entity.SaturateEntity;
+import io.github.mxylery.bobuxplugin.actions.misc.RandomAction;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;
@@ -88,7 +88,7 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
         }
 
         ParticleSequence eatParticleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.HEART, null);
-        eatParticleSequence.setExplosionOptions(8, 2, 1);
+        eatParticleSequence.setExplosionOptions(1, 4, 1);
         
         BobuxAction[] actionList =  
         {new EffectGive(potionEffectType1, 160, potionEffectStrength1),

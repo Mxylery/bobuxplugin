@@ -82,9 +82,9 @@ public class PlayerAbilityListener implements Listener {
         ItemStack food = e.getBredWith();
         Entity mother = e.getMother();
         
-        PlayerAbilityManager.checkForItemUse(food, BobuxItemInterface.superCarrot, mother);
-        PlayerAbilityManager.checkForItemUse(food, BobuxItemInterface.superWheat, mother);
-        PlayerAbilityManager.checkForItemUse(food, BobuxItemInterface.superSeeds, mother);
+        PlayerAbilityManager.checkForItemUse(food, BobuxItemInterface.freakyCarrot, mother);
+        PlayerAbilityManager.checkForItemUse(food, BobuxItemInterface.freakyWheat, mother);
+        PlayerAbilityManager.checkForItemUse(food, BobuxItemInterface.freakySeeds, mother);
     }
 
     @EventHandler

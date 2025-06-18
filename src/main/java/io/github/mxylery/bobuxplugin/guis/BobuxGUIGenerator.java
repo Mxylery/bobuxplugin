@@ -74,11 +74,11 @@ public class BobuxGUIGenerator implements Listener {
                 break;
                 case 12: marketMenu[i] = BobuxItemInterface.megaLongBow;
                 break;
-                case 13: marketMenu[i] = BobuxItemInterface.superWheat;
+                case 13: marketMenu[i] = BobuxItemInterface.freakyWheat;
                 break;
-                case 14: marketMenu[i] = BobuxItemInterface.superCarrot;
+                case 14: marketMenu[i] = BobuxItemInterface.freakyCarrot;
                 break;
-                case 15: marketMenu[i] = BobuxItemInterface.superSeeds;
+                case 15: marketMenu[i] = BobuxItemInterface.freakySeeds;
                 break;
             }
             noDupe[i] = rng;
