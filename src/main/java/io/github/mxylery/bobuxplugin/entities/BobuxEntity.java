@@ -25,7 +25,6 @@ public abstract class BobuxEntity implements Listener {
     protected String name;
     protected BobuxAbility[] abilityList;
     protected AbilityInstanceStructure abilityStructure;
-    protected long lifetime;
     protected double nearbyEntityRadius;
     protected int nearbyEntityTaskID;
     protected List<Entity> nearbyEntityList;

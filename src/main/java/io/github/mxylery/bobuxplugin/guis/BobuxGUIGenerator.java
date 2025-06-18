@@ -13,6 +13,8 @@ import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxDay;
 import io.github.mxylery.bobuxplugin.core.BobuxDay.DayType;
 import io.github.mxylery.bobuxplugin.guis.bounty.BobuxBounty;
+import io.github.mxylery.bobuxplugin.guis.questboard.BobuxBeginnerQuest;
+import io.github.mxylery.bobuxplugin.guis.questboard.BobuxQuest;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
@@ -27,7 +29,6 @@ public class BobuxGUIGenerator implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    public static HashMap<Player,BobuxBounty[]> playerBountyMap = new HashMap<Player,BobuxBounty[]>();
     public static BobuxItem[] marketMenu = new BobuxItem[5];
     public static int menuSize = 3;
     public static final int marketItemTotal = 16;
@@ -84,6 +85,8 @@ public class BobuxGUIGenerator implements Listener {
         }
     }
 
+    public static HashMap<Player,BobuxBounty[]> playerBountyMap = new HashMap<Player,BobuxBounty[]>();
+
     public static void randomizeBounties() {
         Object[] objectList = (Object[]) server.getOnlinePlayers().toArray();
         Player[] playerList = new Player[objectList.length];
@@ -105,6 +108,18 @@ public class BobuxGUIGenerator implements Listener {
         bountyList[1] = new BobuxBounty();
         bountyList[2] = new BobuxBounty();
         playerBountyMap.put(player, bountyList);
+    }
+
+    public static BobuxQuest[] questMenu = new BobuxQuest[3];
+
+    public static void randomizeQuests() {
+        questMenu[0] = new BobuxBeginnerQuest(3);
+        questMenu[1] = new BobuxBeginnerQuest(3);
+        questMenu[2] = new BobuxBeginnerQuest(3);
+    }
+
+    public static void randomizeQuest(int index, int amount) {
+        questMenu[index] = new BobuxBeginnerQuest(amount);
     }
 
     @EventHandler

@@ -15,6 +15,8 @@ public class BobuxDay {
     private static DayType day;
     private static Server server = BobuxTimer.getServer();
     private static double bobuxModifier = 1.0;
+    private static double goodSpawnModifier;
+    private static double badSpawnModifier;
     private static double spawnModifier = 1.0;
     private static double shopModifier = 1.0;
     private static boolean eventHappened = false;

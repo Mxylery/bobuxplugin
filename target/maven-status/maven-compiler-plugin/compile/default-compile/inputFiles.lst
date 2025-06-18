@@ -55,6 +55,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\BobuxGUI
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\BobuxPlugin.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\mob_abilities\BigChickenAbilityOne.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\ability_types\MobHitAbility.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\events\BobuxTransactionEvent.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\bounty\BountyGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\ability_types\PhaseAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\item\AddDurability.java
@@ -96,8 +97,8 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\Bobux
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\KungFuGlovesAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\StraightPearlAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\PlayerAbilityManager.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\questboard\BobuxBeginnerQuest.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\RailgunAbility.java
-c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\questboard\QuestBoardEnums.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\CleaverAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxEquipment.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\mobs\CulturalCultist.java
@@ -115,3 +116,4 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxAr
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\projectile_abilities\BigChickenEggHit.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\data_structures\AbilityInstanceStructure.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\velocity\AddVelocity.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\questboard\Quest.java

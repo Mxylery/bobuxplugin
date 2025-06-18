@@ -47,7 +47,7 @@ public class Sandbagger extends BobuxMob {
 
         ItemStack[] dropTable = {bootStack};
         double[] dropWeights = {1};
-        int[][] dropRanges = {{1,3}};
+        int[][] dropRanges = {{1,1}};
 
         super.maxHealth = 200;
         super.dropTable = dropTable;

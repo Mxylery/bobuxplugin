@@ -43,6 +43,6 @@ public class BobuxInvisArmorStand extends BobuxEntity {
             }
         };
         BukkitScheduler scheduler = BobuxTimer.getScheduler();
-        scheduler.runTaskLater(BobuxTimer.getPlugin(), runnable, super.lifetime);
+        scheduler.runTaskLater(BobuxTimer.getPlugin(), runnable, lifetime);
     }
 }

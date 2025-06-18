@@ -17,7 +17,6 @@ import org.bukkit.inventory.ItemStack;
 import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 import io.github.mxylery.bobuxplugin.abilities.MobAbilityManager;
 import io.github.mxylery.bobuxplugin.abilities.mob_abilities.BigChickenAbilityOne;
-import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.entities.BobuxHostile;
 import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
@@ -34,9 +33,9 @@ public class BigChicken extends BobuxHostile {
         BobuxAttributeSet[] attributeSet = {new BobuxAttributeSet(Attribute.SCALE, 3.0, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.ANY)};
         BobuxAbility[] abilityList = {new BigChickenAbilityOne("Big Chicken Ability One", true, 100)};
 
-        ItemStack[] dropTable = {new ItemStack(Material.CHICKEN), new ItemStack(Material.FEATHER), BobuxItemInterface.bouncingItem.getStack()};
-        double[] dropWeights = {1, 0.5, 0.25};
-        int[][] dropRanges = {{3,8}, {2,6}, {1,2}};
+        ItemStack[] dropTable = {new ItemStack(Material.CHICKEN), new ItemStack(Material.FEATHER), BobuxItemInterface.bouncingItem.getStack(), BobuxItemInterface.mutantOrb.getStack()};
+        double[] dropWeights = {1, 0.5, 0.25, 1};
+        int[][] dropRanges = {{3,8}, {2,6}, {1,2}, {1,1}};
 
         super.nearbyEntityRadius = 10;
 

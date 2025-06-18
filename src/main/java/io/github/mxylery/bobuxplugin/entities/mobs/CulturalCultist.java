@@ -20,6 +20,7 @@ import io.github.mxylery.bobuxplugin.abilities.mob_abilities.CulturalCultistAbil
 import io.github.mxylery.bobuxplugin.entities.BobuxMob;
 import io.github.mxylery.bobuxplugin.events.BobuxEntityWithinRangeEvent;
 import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
+import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class CulturalCultist extends BobuxMob {
     
@@ -33,8 +34,8 @@ public class CulturalCultist extends BobuxMob {
         BobuxAttributeSet[] attributeSet = {new BobuxAttributeSet(Attribute.SCALE, -0.2, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.ANY)};
 
         //maybe cultural rabbit fragments
-        ItemStack[] dropTable = {new ItemStack(Material.CAULDRON)};
-        double[] dropWeights = {0.5};
+        ItemStack[] dropTable = {BobuxItemInterface.culturalShard.getStack()};
+        double[] dropWeights = {1};
         int[][] dropRanges = {{1,1}};
 
         BobuxAbility[] abilityList = {new CulturalCultistAbilityOne("Cultural Cultist Ability One", true, 1000)};
@@ -55,10 +56,10 @@ public class CulturalCultist extends BobuxMob {
     @EventHandler
     public void onPlayerNear(BobuxEntityWithinRangeEvent e) {
         if (e.getEntity().equals(super.entity)) {
-            ArrayList<Player> playerList = new ArrayList<Player>();
             for (Entity entity : nearbyEntityList) {
                 if (entity instanceof Player) {
                     MobAbilityManager.verifyAbilityCD(this, 0);
+                    break;
                 }
             }
         }

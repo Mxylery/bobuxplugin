@@ -309,7 +309,7 @@ public class BobuxItemInterface {
     private static ItemStack cinnamonSquareStack = new ItemStack(Material.BROWN_CARPET);
     private static String[] cinnamonSquareDesc = 
     {"§8This square seems to produce a lot of energy when ingested."};
-    private static String cinnamonSquareName = "§2Cinnamon Square";
+    private static String cinnamonSquareName = "§6Cinnamon Square";
     public static BobuxItem cinnamonSquare = new BobuxItem
     (cinnamonSquareStack, cinnamonSquareDesc, cinnamonSquareName);
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -318,7 +318,7 @@ public class BobuxItemInterface {
     private static ItemStack abcBloodStack = new ItemStack(Material.REDSTONE);
     private static String[] abcBloodDesc = 
     {"§8This shouldn't exist..."};
-    private static String abcBloodName = "§eABC Blood";
+    private static String abcBloodName = "§cABC Blood";
     public static BobuxItem abcBlood = new BobuxItem
     (abcBloodStack, abcBloodDesc, abcBloodName);
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -331,6 +331,26 @@ public class BobuxItemInterface {
     public static BobuxItem mutantOrb = new BobuxItem
     (mutantOrbStack, mutantOrbDesc, mutantOrbName);
     //////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack questboardStack = new ItemStack(Material.OAK_SIGN);
+    private static String[] questboardDesc = 
+    {"§8(Left Click/Right Click)"};
+    private static String questboardName = "§c§lQuestboard";
+    public static BobuxItem questboard = new BobuxItem
+    (questboardStack, questboardDesc, questboardName);
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack culturalShardStack = new ItemStack(Material.RAW_COPPER);
+    private static String[] culturalShardDesc = 
+    {"§8An odd artifact left by strange cultists... it could be capable of many things"};
+    private static String culturalShardName = "§5Cultural Shard";
+    public static BobuxItem culturalShard = new BobuxItem
+    (culturalShardStack, culturalShardDesc, culturalShardName);
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 

@@ -18,7 +18,6 @@ public class BobuxTimer implements Runnable {
     private static BobuxPlugin bobuxPlugin;
     private static World world = BobuxPlugin.getOverworld();
     private static int numberOfDays = -1;
-    private static long startTick = -1;
 
     public BobuxTimer(Server pluginServer, BobuxPlugin plugin) {
         ticksPassed = 0;
@@ -27,6 +26,7 @@ public class BobuxTimer implements Runnable {
         //for some reason there needs to be an initialized BobuxItemInterface to use the static method BobuxItemInterface.randomizeMarketItems
         //even though static methods by definition literally should be used statically, but it completely breaks everything if not so.
         BobuxDay.rollDay();
+        BobuxGUIGenerator.randomizeQuests();
         BobuxGUIGenerator.randomizeMarketItems();
     }
 
@@ -34,14 +34,13 @@ public class BobuxTimer implements Runnable {
         if (world == null) {
 
         } else if (world.getTime() == 0) {
-            if (startTick == -1) {
-                startTick = ticksPassed;
-            }
             BobuxDay.rollDay();
             server.broadcastMessage("The day §6market §fis now open.");
             BobuxGUIGenerator.randomizeMarketItems();
             server.broadcastMessage("New §cbounties §fare now available...");
             BobuxGUIGenerator.randomizeBounties();
+            server.broadcastMessage("New §cquests §fare now available...");
+            BobuxGUIGenerator.randomizeQuests();
             numberOfDays++;
         } else if (world.getTime() == 13000) {
             server.broadcastMessage("The night §6market §fis now open.");
@@ -76,10 +75,6 @@ public class BobuxTimer implements Runnable {
 
     public static BobuxPlugin getPlugin() {
         return bobuxPlugin;
-    }
-
-    public static long getStartTick() {
-        return startTick;
     }
 
     public static int getDaysPassed() {

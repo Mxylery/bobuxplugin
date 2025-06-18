@@ -48,7 +48,7 @@ public class ScoutZombie extends BobuxMob {
         BobuxAttributeSet[] attributeSet = {new BobuxAttributeSet(Attribute.MOVEMENT_SPEED, 0.5, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.ANY), new BobuxAttributeSet(Attribute.ATTACK_DAMAGE, -1.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.ANY)};
 
         ItemStack[] dropTable = {BobuxItemInterface.cinnamonSquare.getStack()};
-        double[] dropWeights = {0.5};
+        double[] dropWeights = {1};
         int[][] dropRanges = {{1,1}};
 
         super.maxHealth = 16;
@@ -57,7 +57,7 @@ public class ScoutZombie extends BobuxMob {
         super.dropRanges = dropRanges;
         super.attributeSet = attributeSet;
         super.abilityList = abilityList;
-        super.name = "Scout Mob";
+        super.name = "Scout Zombie";
         super.entity = zombie;
         applyAttributes();
     }

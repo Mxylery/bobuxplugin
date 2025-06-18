@@ -41,24 +41,17 @@ public final class BobuxGiver implements Listener {
 			case "ZOMBIE": 
 			case "SPIDER":
 			case "SKELETON":
-			case "CREEPER": 
-			BobuxUtils.dropBobux(0.25, entity, bobux, 3);
-			BobuxUtils.dropBobux(0.05, entity, bobuxSquare, 0);
+			case "CREEPER": BobuxUtils.dropBobux(0.25, entity, bobux, 2); BobuxUtils.dropBobux(0.05, entity, bobuxSquare, 0);
 			break;
 			case "VINDICATOR":
 			case "ENDERMAN":
 			case "WITHER_SKELETON":
-			case "BLAZE": 
-			BobuxUtils.dropBobux(0.3, entity, bobux, 5);
-			BobuxUtils.dropBobux(0.1, entity, bobuxSquare, 1);
+			case "BLAZE": BobuxUtils.dropBobux(0.3, entity, bobux, 5); BobuxUtils.dropBobux(0.1, entity, bobuxSquare, 1);
 			break;
 			case "ENDER_DRAGON": 
-			case "WITHER": 
-			BobuxUtils.dropBobux(1, entity, bobux, 24);
-			BobuxUtils.dropBobux(1, entity, bobuxSquare, 4);
-			default: if (rngNum <= 0.1) {
-				e.getEntity().getWorld().dropItem(dropLoc, bobux);
-			}
+			case "WITHER": BobuxUtils.dropBobux(1, entity, bobux, 24); BobuxUtils.dropBobux(1, entity, bobuxSquare, 4);
+			break;
+			default: BobuxUtils.dropBobux(0.2, entity, bobux, 0);
 			break;
 		    }
 	    }

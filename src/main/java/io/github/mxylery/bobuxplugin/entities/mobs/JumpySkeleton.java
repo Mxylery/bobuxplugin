@@ -40,7 +40,7 @@ public class JumpySkeleton extends BobuxMob {
         BobuxAttributeSet[] attributeSet = {new BobuxAttributeSet(Attribute.MOVEMENT_SPEED, 0.2, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.ANY), new BobuxAttributeSet(Attribute.ATTACK_DAMAGE, -1.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.ANY)};
 
         ItemStack[] dropTable = {BobuxItemInterface.abcBlood.getStack()};
-        double[] dropWeights = {0.5};
+        double[] dropWeights = {1};
         int[][] dropRanges = {{1,1}};
 
         super.maxHealth = 14;
@@ -56,7 +56,7 @@ public class JumpySkeleton extends BobuxMob {
 
     @EventHandler
     public void whenHit(EntityDamageByEntityEvent e) {
-        if (BobuxUtils.getLocationDifferenceMagnitude(e.getEntity().getLocation(), e.getDamager().getLocation()) < 4) {
+        if (BobuxUtils.getLocationDifferenceMagnitude(e.getEntity().getLocation(), e.getDamager().getLocation()) < 4 && e.getEntity().equals(super.entity)) {
             if (MobAbilityManager.verifyAbilityCD(this, 0, e.getDamager())) {
                 e.setCancelled(true);
             }
