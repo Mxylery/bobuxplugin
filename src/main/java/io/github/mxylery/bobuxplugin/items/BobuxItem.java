@@ -26,6 +26,7 @@ public class BobuxItem {
     private AbilityPassive passive;
     private boolean hideFlag;
     private BobuxAttributeSet[] attributeSet;
+    private static int attributeNameID = 0;
 
     public BobuxItem (ItemStack stack, String[] description, String name) {
         this.stack = stack;
@@ -68,6 +69,7 @@ public class BobuxItem {
         this.price = price;
         this.passive = null;
         this.hideFlag = false;
+        this.attributeSet = attributeSet;
         initializeStack();
     }
 
@@ -100,6 +102,21 @@ public class BobuxItem {
         this.passive = null;
         this.hideFlag = false;
         this.attributeSet = null;
+        initializeStack();
+    }
+
+    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, BobuxAttributeSet[] attributeSet, int price) {
+        this.stack = stack;
+        this.description = description;
+        this.name = name;
+        this.ability = ability;
+        this.enchants = null;
+        this.enchantLevels = null;
+        this.unbreakable = false;
+        this.price = price;
+        this.passive = null;
+        this.hideFlag = false;
+        this.attributeSet = attributeSet;
         initializeStack();
     }
      
@@ -267,16 +284,10 @@ public class BobuxItem {
             }
         }
         if (attributeSet != null) {
-            String tempName = this.getAbility().getName();
-            String[] noSpaces = tempName.split(" ", 0);
-            String attributeString = "";
-            for (int j = 0; j < noSpaces.length; j++) {
-                attributeString = attributeString + noSpaces[j];
-            }
             for (int i = 0; i < attributeSet.length; i++) {
-                String tempAttributeString = attributeString + i;
                 meta.addAttributeModifier(attributeSet[i].getAttribute(), new AttributeModifier
-                (new NamespacedKey(BobuxTimer.getPlugin(), tempAttributeString), attributeSet[i].getAmount(), attributeSet[i].getOperation(), attributeSet[i].getEquipmentSlotGroup()));
+                (new NamespacedKey(BobuxTimer.getPlugin(), "" + attributeNameID), attributeSet[i].getAmount(), attributeSet[i].getOperation(), attributeSet[i].getEquipmentSlotGroup()));
+                attributeNameID++;
             }
         }
 

@@ -22,10 +22,6 @@ public class MarketGUI extends BobuxGUI {
         super(inventory, player, plugin);
     }
 
-    protected void specialGUIOption() {
-
-    }
-
     protected void slotHit(int slot) {
         if (BobuxDay.getDay() == DayType.AVARICIOUS) {
             switch (slot) {
@@ -74,9 +70,12 @@ public class MarketGUI extends BobuxGUI {
                 buyButtonStack.setItemMeta(buyButtonMeta);
                 finalList[2*i + 1] = buyButtonStack;
             }
-            super.slotList = finalList; 
-            int[] finalIndices = {10, 19, 13, 22, 16, 25};
-            super.slotIndex = finalIndices;
+            guiStructure.addSlot(10, finalList[0]);
+            guiStructure.addSlot(19, finalList[1]);
+            guiStructure.addSlot(13, finalList[2]);
+            guiStructure.addSlot(22, finalList[3]);
+            guiStructure.addSlot(16, finalList[4]);
+            guiStructure.addSlot(25, finalList[5]);
         } else {
             ItemStack[] finalList = new ItemStack[10];
             for (int i = 0; i < 5; i++) {
@@ -98,9 +97,16 @@ public class MarketGUI extends BobuxGUI {
                 buyButtonStack.setItemMeta(buyButtonMeta);
                 finalList[2*i + 1] = buyButtonStack;
             }
-            super.slotList = finalList; 
-            int[] finalIndices = {9, 18, 11, 20, 13, 22, 15, 24, 17, 26};
-            super.slotIndex = finalIndices;
+            guiStructure.addSlot(9, finalList[0]);
+            guiStructure.addSlot(18, finalList[1]);
+            guiStructure.addSlot(11, finalList[2]);
+            guiStructure.addSlot(20, finalList[3]);
+            guiStructure.addSlot(13, finalList[4]);
+            guiStructure.addSlot(22, finalList[5]);
+            guiStructure.addSlot(15, finalList[6]);
+            guiStructure.addSlot(24, finalList[7]);
+            guiStructure.addSlot(17, finalList[8]);
+            guiStructure.addSlot(26, finalList[9]);
         }
     }
 }

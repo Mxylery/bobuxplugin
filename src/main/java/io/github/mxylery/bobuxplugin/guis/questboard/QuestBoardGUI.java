@@ -57,9 +57,17 @@ public class QuestBoardGUI extends BobuxGUI {
         for (int i = 3; i < 11; i++) {
             finalList[i] = paneStack;
         }
-        super.slotList = finalList; 
-        int[] finalIndices = {11, 20, 29, 14, 15, 16, 23, 25, 32, 33, 34};
-        super.slotIndex = finalIndices;
+        guiStructure.addSlot(11, finalList[0]);
+        guiStructure.addSlot(20, finalList[1]);
+        guiStructure.addSlot(29, finalList[2]);
+        guiStructure.addSlot(14, finalList[3]);
+        guiStructure.addSlot(15, finalList[4]);
+        guiStructure.addSlot(16, finalList[5]);
+        guiStructure.addSlot(23, finalList[6]);
+        guiStructure.addSlot(25, finalList[7]);
+        guiStructure.addSlot(32, finalList[8]);
+        guiStructure.addSlot(33, finalList[9]);
+        guiStructure.addSlot(34, finalList[10]);
     }
 
     protected void slotHit(int slot) {

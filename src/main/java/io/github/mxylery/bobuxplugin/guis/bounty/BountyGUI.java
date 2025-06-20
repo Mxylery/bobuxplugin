@@ -55,9 +55,9 @@ public class BountyGUI extends BobuxGUI {
             finalList[i] = bountyStack;
             compensation = 0;
         }
-        super.slotList = finalList; 
-        int[] finalIndices = {10, 13, 16};
-        super.slotIndex = finalIndices;
+        guiStructure.addSlot(10, finalList[0]);
+        guiStructure.addSlot(13, finalList[1]);
+        guiStructure.addSlot(16, finalList[2]);
     }
 
     protected void slotHit(int slot) {
@@ -69,9 +69,5 @@ public class BountyGUI extends BobuxGUI {
             case 16: new BobuxTransaction(player, bounties[2]);
             break;
         }
-    }
-
-    protected void specialGUIOption() {
-        
     }
 }

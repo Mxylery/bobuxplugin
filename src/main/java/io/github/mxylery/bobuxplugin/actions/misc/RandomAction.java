@@ -1,4 +1,6 @@
-package io.github.mxylery.bobuxplugin.actions;
+package io.github.mxylery.bobuxplugin.actions.misc;
+
+import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 
 public class RandomAction extends BobuxAction {
     

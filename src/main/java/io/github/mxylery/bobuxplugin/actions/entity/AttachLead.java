@@ -15,7 +15,6 @@ public AttachLead() {
 }
 
 public void run() {
-    //Filter through all of the non-damageable entities
     LivingEntity leasher = (LivingEntity) super.entityList[0];
     for (int i = 1; i < super.entityList.length; i++) {
         LivingEntity leashed = (LivingEntity) super.entityList[i];

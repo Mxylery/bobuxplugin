@@ -89,7 +89,7 @@ public class KungFuGlovesAbility extends PhaseAbility {
             actionList[5] = new EffectGive(PotionEffectType.RESISTANCE, 60, 2);
             actionList[6] = new StunMob(14);
             phase = 1;
-            triggerPhase(registerer1, player, BobuxItemInterface.kungFuGloves, 15);
+            triggerPhase(player, BobuxItemInterface.kungFuGloves, 15);
         } 
         super.targetList = targetList;
         super.vectorList = vectorList;

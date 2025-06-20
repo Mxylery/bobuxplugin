@@ -3,28 +3,27 @@ package io.github.mxylery.bobuxplugin.guis;
 import org.bukkit.inventory.*;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
+import io.github.mxylery.bobuxplugin.data_structures.GUIStructure;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public abstract class BobuxGUI implements Listener {
 
     protected BobuxPlugin plugin;
     protected Inventory inventory;
-    protected int inventorySize;
-    protected ItemStack[] slotList;
-    protected int[] slotIndex;
+    protected GUIStructure guiStructure;
     protected Player player;
 
     protected abstract void setGUI();
     protected abstract void slotHit(int slot);
-    protected abstract void specialGUIOption();
 
     //When making a GUI, the player 
     public BobuxGUI(Inventory inventory, Player player, BobuxPlugin plugin) {
         this.inventory = inventory;
-        this.inventorySize = inventory.getSize();
+        this.guiStructure = new GUIStructure(inventory.getSize());
         this.player = player;
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -44,9 +43,22 @@ public abstract class BobuxGUI implements Listener {
         }
     }
 
+    @EventHandler
+    public void onClose(InventoryCloseEvent e) {
+        if (e.getInventory().equals(inventory)) {
+
+            
+
+        }
+    }
+
     protected void generateGUI() {
-        for (int i = 0; i < slotList.length; i++) {
-            inventory.setItem(slotIndex[i], slotList[i]);
+        for (int i = 0; i < inventory.getSize(); i++) {
+            if (guiStructure.hasSlot(i)) {
+                inventory.setItem(i, guiStructure.getStack(i));
+            } else {
+                inventory.setItem(i, null);
+            }
         }
     }
 
@@ -54,10 +66,25 @@ public abstract class BobuxGUI implements Listener {
         player.openInventory(inventory);
     }
 
-    public void adjustSlots(ItemStack[] slotList, int[] slotIndex) {
-        this.slotList = slotList;
-        this.slotIndex = slotIndex;
+    protected void deleteSlots(int[] slotsToDelete) {
+        for (int i = 0; i < slotsToDelete.length; i++) {
+            guiStructure.removeSlot(slotsToDelete[i]);
+        }
         generateGUI();
+    }
+
+    protected void deleteSlot(int slotToDelete) {
+        guiStructure.removeSlot(slotToDelete);
+        generateGUI();
+    }
+
+    public void adjustSlots(GUIStructure guiStructure) {
+        this.guiStructure = guiStructure;
+        generateGUI();
+    }
+
+    protected void specialGUIOption() {
+
     }
     
 }

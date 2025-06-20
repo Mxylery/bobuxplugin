@@ -10,8 +10,6 @@ import io.github.mxylery.bobuxplugin.abilities.PlayerAbilityManager;
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.*;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
-import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
-import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 
 //The first phase is the initial trigger
 public abstract class PhaseAbility extends BobuxAbility {
@@ -51,15 +49,14 @@ public abstract class PhaseAbility extends BobuxAbility {
     }
 
     //If the ability was retriggered by the initial trigger: ignoreCD = on, until a retrigger triggers a non retrigger trigger.
-    protected void triggerPhase(BobuxRegisterer registerer, Player player, BobuxItem bobuxitem, int delay) {
+    protected void triggerPhase(Player player, BobuxItem bobuxitem, int delay) {
         BukkitScheduler scheduler = BobuxTimer.getScheduler();
         ignoreCDTrigger(phase, bobuxitem);
         if (PlayerAbilityManager.verifyItemCD(user, bobuxitem.getAbility(), true) || ignoreCD) {
             Runnable runnable = new Runnable(){
             public void run() {
                 if (BobuxUtils.checkWithoutDuraAmnt(player.getInventory().getItemInMainHand(), bobuxitem)) {
-                    registerer.updateTargeting();
-                    BobuxAbility ability = BobuxItemInterface.kungFuGloves.getAbility();
+                    BobuxAbility ability = bobuxitem.getAbility();
                     ability.setUser(user);
                     ability.setActionList();
                     ability.use();

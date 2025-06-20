@@ -81,6 +81,18 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
                 case "freaky_seeds": player.getInventory().addItem(BobuxItemInterface.freakySeeds.getStack());
                 break;
+                case "lesser_lootbox": player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
+                break;
+                case "bard_vest": player.getInventory().addItem(BobuxItemInterface.bardVest.getStack());
+                break;
+                case "bard_cap": player.getInventory().addItem(BobuxItemInterface.bardCap.getStack());
+                break;
+                case "bard_kicks": player.getInventory().addItem(BobuxItemInterface.bardKicks.getStack());
+                break;
+                case "bard_leggings": player.getInventory().addItem(BobuxItemInterface.bardLeggings.getStack());
+                break;
+                case "mini_pick": player.getInventory().addItem(BobuxItemInterface.miniPick.getStack());
+                break;
                 default:
                 break;
             }

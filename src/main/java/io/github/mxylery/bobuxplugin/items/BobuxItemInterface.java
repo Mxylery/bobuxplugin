@@ -4,7 +4,10 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ArmorMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.trim.TrimMaterial;
+import org.bukkit.inventory.meta.trim.TrimPattern;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 
@@ -57,7 +60,7 @@ public class BobuxItemInterface {
     "§8Consumed on use"};
     private static String bouncingItemName = "§r§fBouncing Item";
     public static BobuxItem bouncingItem = 
-    new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, new BouncingItemAbility("Bouncing Item Ability", false, 20), 1);
+    new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, new BouncingItemAbility("Bouncing Item Ability", false, 20), 3);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack hurriedStopwatchStack = new ItemStack(Material.CLOCK);
@@ -266,7 +269,7 @@ public class BobuxItemInterface {
 
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack stinkyPantsStack = new ItemStack(Material.LEATHER_LEGGINGS);
-    private static BobuxArmorManipulator stinkyPantsColorManip = new BobuxArmorManipulator
+    private static BobuxMetaManipulator stinkyPantsColorManip = new BobuxMetaManipulator
     (stinkyPantsStack, (LeatherArmorMeta) stinkyPantsStack.getItemMeta(), Color.fromRGB(0, 100, 0));
     private static String[] stinkyPantsDesc = 
     {"§7Eww...",
@@ -350,11 +353,79 @@ public class BobuxItemInterface {
     (culturalShardStack, culturalShardDesc, culturalShardName);
     //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack lesserLootboxStack = new ItemStack(Material.REDSTONE);
+    private static String[] lesserLootboxDesc = 
+    {"§7Gives you three pieces of Lesser Bobux Loot"};
+    private static String lesserLootboxName = "§cLesser Lootbox";
+    public static BobuxItem lesserLootbox = new BobuxItem
+    (lesserLootboxStack, lesserLootboxDesc, lesserLootboxName, new LesserLootBoxAbility("Lesser Lootbox Ability", true, 100), 64);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack bardCapStack = new ItemStack(Material.LEATHER_HELMET);
+    private static String[] bardCapDesc = 
+    {"§8This handy cap assures a great time for all nearby players.",
+    "§7(If full set is worn, allies and user receive a variety of buffs.)"};
+    private static String bardCapName = "§dBard Cap";
+    public static BobuxItem bardCap = new BobuxItem
+    (bardCapStack, bardCapDesc, bardCapName, 100);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack bardVestStack = new ItemStack(Material.IRON_CHESTPLATE);
+    private static BobuxMetaManipulator bardVestManip = new BobuxMetaManipulator((ArmorMeta) bardVestStack.getItemMeta(), TrimMaterial.LAPIS, TrimPattern.DUNE);
+    private static String[] bardVestDesc = 
+    {"§8This handy cap assures a great time for all nearby players.",
+    "§7(If full set is worn, allies and user receive a variety of buffs.)"};
+    private static String bardVestName = "§dBard Vest";
+    public static BobuxItem bardVest = new BobuxItem
+    (bardVestStack, bardVestDesc, bardVestName, 150);
+    //////////////////////////////////////////////////////////////////////////////////////////
+   
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack bardLeggingsStack = new ItemStack(Material.IRON_LEGGINGS);
+    private static BobuxMetaManipulator bardLeggingsManip = new BobuxMetaManipulator((ArmorMeta) bardLeggingsStack.getItemMeta(), TrimMaterial.LAPIS, TrimPattern.DUNE);
+    private static String[] bardLeggingsDesc = 
+    {"§8This handy cap assures a great time for all nearby players.",
+    "§7(If full set is worn, allies and user receive a variety of buffs.)"};
+    private static String bardLeggingsName = "§dBard Leggings";
+    public static BobuxItem bardLeggings = new BobuxItem
+    (bardLeggingsStack, bardLeggingsDesc, bardLeggingsName,  150);
+    //////////////////////////////////////////////////////////////////////////////////////////
+   
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack bardKicksStack = new ItemStack(Material.LEATHER_BOOTS);
+    private static BobuxAttributeSet bardKicksAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.MOVEMENT_SPEED, 0.1, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.FEET);
+    private static BobuxAttributeSet[] bardKicksAttributeList = {bardKicksAttribute1};
+    private static String[] bardKicksDesc = 
+    {"§8This handy cap assures a great time for all nearby players.",
+    "§7(If full set is worn, allies and user receive a variety of buffs.)"};
+    private static String bardKicksName = "§dBard Kicks";
+    public static BobuxItem bardKicks = new BobuxItem
+    (bardKicksStack, bardKicksDesc, bardKicksName, bardKicksAttributeList, 128);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack miniPickStack = new ItemStack(Material.IRON_PICKAXE);
+    private static BobuxAttributeSet miniPickAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.SCALE, -0.5, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.MAINHAND);
+    private static BobuxAttributeSet[] miniPickAttributeList = {miniPickAttribute1};
+    private static String[] miniPickDesc = 
+    {"§7Shrinks you down to half size when holding."};
+    private static String miniPickName = "§dMini Pick";
+    public static BobuxItem miniPick = new BobuxItem
+    (miniPickStack, miniPickDesc, miniPickName, miniPickAttributeList, 128);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
-
-
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack flockingFeatherStack = new ItemStack(Material.FEATHER);
+    private static String[] flockingFeatherDesc = 
+    {"§7Great way to swiftly escape a bad situation.",
+    "§85s CD (Right Click)"};
+    private static String flockingFeatherName = "§7Flocking Feather";
+    public static BobuxItem flockingFeather = new BobuxItem
+    (flockingFeatherStack, flockingFeatherDesc, flockingFeatherName, 8);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
 
 

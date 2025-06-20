@@ -19,14 +19,12 @@ public class MainGUI extends BobuxGUI {
     }
 
     protected void setGUI() {
-        ItemStack[] slotList = {BobuxItemInterface.market.getStack(), BobuxItemInterface.questboard.getStack(), BobuxItemInterface.bounty.getStack()};
-        super.slotList = slotList;
-        int[] slotIndex = {11, 13, 15};
-        super.slotIndex = slotIndex;
+        guiStructure.addSlot(11, BobuxItemInterface.market.getStack());
+        guiStructure.addSlot(13, BobuxItemInterface.questboard.getStack());
+        guiStructure.addSlot(15, BobuxItemInterface.bounty.getStack());
     }
 
     protected void slotHit(int slot) {
-        
         switch (slot) {
             case 11: new MarketGUI(Bukkit.createInventory(player, 36), player, plugin);
             break;
@@ -35,10 +33,6 @@ public class MainGUI extends BobuxGUI {
             case 15: new BountyGUI(Bukkit.createInventory(player, 27), player, plugin);
             break;
         }
-    }
-
-    protected void specialGUIOption() {
-        
     }
 
 
