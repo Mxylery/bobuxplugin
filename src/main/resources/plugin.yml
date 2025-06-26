@@ -28,3 +28,7 @@ commands:
     description: Converts user's bobux to greater forms
     aliases: bobuxconvert
     usage: "Usage: /<command>"
+  bobuxattribute:
+    description: tttt
+    aliases: bobuxattribute
+    usage: "Usage: /<command>"

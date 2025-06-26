@@ -1,18 +1,14 @@
 package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
-import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.PhaseAbility;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
 import io.github.mxylery.bobuxplugin.actions.entity.DamageEntity;
@@ -34,7 +30,7 @@ public class KungFuGlovesAbility extends PhaseAbility {
     }
 
     //Assuming the player is a user
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
         Player player = (Player) user;
         Vector eyeVector = player.getLocation().getDirection();
         RegistererOption registererOption1 = new RegistererOption(RegistererType.LINE, 8, 2, 1, eyeVector);
@@ -42,60 +38,32 @@ public class KungFuGlovesAbility extends PhaseAbility {
 
         Vector slightKnockUp = new Vector(eyeVector.getX()*0.1, 1, eyeVector.getZ()*0.1);
         Vector slightLeap = new Vector(eyeVector.getX(), eyeVector.getY()*0.5 + 0.8, eyeVector.getZ());
-        Entity[][] targetList;
-        Vector[] vectorList;
-        Location[] locationList;
-        Inventory[] inventoryList;
 
         //phase 0
         if (registerer1.getEntityList() == null) {
-            targetList = new Entity[1][1];
-            vectorList = new Vector[1];
-            locationList = new Location[1];
-            inventoryList = new Inventory[1];
-            actionList = new BobuxAction[1];
-            targetList[0][0] = player;
-            vectorList[0] = slightLeap;
-            actionList[0] = new ChangeVelocity(10);
-            phase = 0;
-            super.ignoreCD = false;
+            componentHead = new AbilityComponent(new ChangeVelocity(10), player, slightLeap);
         //phase 1
         } else {
-            targetList = new Entity[7][1];
-            vectorList = new Vector[7];
-            locationList = new Location[7];
-            inventoryList = new Inventory[7];
-            actionList = new BobuxAction[7];
-            targetList[0][0] = player;
-            targetList[1][0] = registerer1.getEntityList()[0];
-            targetList[2][0] = registerer1.getEntityList()[0];
-            targetList[3][0] = player;
-            targetList[5][0] = player;
-            targetList[6][0] = registerer1.getEntityList()[0];
-            vectorList[0] = slightLeap;
-            vectorList[1] = slightKnockUp;
-            vectorList[2] = slightKnockUp;
-            vectorList[3] = slightKnockUp;
-            vectorList[4] = slightKnockUp;
-            locationList[3] = player.getLocation();
-            locationList[4] = registerer1.getEntityList()[0].getLocation();
-            actionList[0] = new ChangeVelocity(8);
-            actionList[1] = new ChangeVelocity(7);
-            actionList[2] = new DamageEntity(3);
-            actionList[3] = new PlaySound(Sound.BLOCK_WOOD_BREAK, 1.0f, 1.0f);
             ParticleSequence kungFuParticle = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.CRIT,  null);
             kungFuParticle.setExplosionOptions(8, 1, 1);
-            actionList[4] = new PlayParticle(kungFuParticle);
-            actionList[5] = new EffectGive(PotionEffectType.RESISTANCE, 60, 2);
-            actionList[6] = new StunMob(14);
-            phase = 1;
-            triggerPhase(player, BobuxItemInterface.kungFuGloves, 15);
+
+            componentHead = new AbilityComponent
+            (new ChangeVelocity(8), player, slightLeap);
+            componentHead.addComponent(new AbilityComponent
+            (new ChangeVelocity(7), registerer1.getEntityList()[0], slightKnockUp));
+            componentHead.addComponent(new AbilityComponent
+            (new DamageEntity(3), registerer1.getEntityList()[0]));
+            componentHead.addComponent(new AbilityComponent
+            (new PlaySound(Sound.BLOCK_WOOD_BREAK, 1.0f, 1.0f), player.getLocation()));
+            componentHead.addComponent(new AbilityComponent
+            (new PlayParticle(kungFuParticle), slightKnockUp, registerer1.getEntityList()[0].getLocation()));
+            componentHead.addComponent(new AbilityComponent
+            (new EffectGive(PotionEffectType.RESISTANCE, 60, 2), player));
+            componentHead.addComponent(new AbilityComponent
+            (new StunMob(14), registerer1.getEntityList()[0]));
+            
+            triggerPhase(player, BobuxItemInterface.kungFuGloves, 15, 1);
         } 
-        super.targetList = targetList;
-        super.vectorList = vectorList;
-        super.locationList = locationList;
-        super.inventoryList = inventoryList;
-        super.actionList = actionList;
         return true;
     }
 

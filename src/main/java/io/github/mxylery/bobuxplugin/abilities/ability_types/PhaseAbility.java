@@ -5,6 +5,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 import io.github.mxylery.bobuxplugin.abilities.PlayerAbilityManager;
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
@@ -14,15 +15,12 @@ import io.github.mxylery.bobuxplugin.items.BobuxItem;
 //The first phase is the initial trigger
 public abstract class PhaseAbility extends BobuxAbility {
 
-    protected boolean ignoreCD;
     protected int phase;
     protected int phaseCount;
-    protected int[] phaseTickMap;
 
     public PhaseAbility(String name, boolean muteCD, long cooldown) {
         super(name, muteCD, cooldown);
         this.phase = 0;
-        this.phaseTickMap = new int[phaseCount];
     }
 
     /**
@@ -32,38 +30,33 @@ public abstract class PhaseAbility extends BobuxAbility {
      * 3. Location List
      * 4. Inventory List
      */
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
         return false;
     }
 
-    public BobuxAction[] getActionList() {
-        return actionList;
+    public AbilityComponent getComponentHead() {
+        return componentHead;
     }
 
-    private void ignoreCDTrigger(int phase, BobuxItem bobuxitem) {
-        if (phase != 0 && PlayerAbilityManager.verifyItemCD(user, bobuxitem.getAbility(), false)) {
-            ignoreCD = true;
-        } else {
-            ignoreCD = false;
-        }
-    }
-
-    //If the ability was retriggered by the initial trigger: ignoreCD = on, until a retrigger triggers a non retrigger trigger.
-    protected void triggerPhase(Player player, BobuxItem bobuxitem, int delay) {
+    //If the ability was retriggered by the initial trigger: triggeredNormally = false, until a retrigger triggers a non retrigger trigger.
+    protected void triggerPhase(Player player, BobuxItem bobuxitem, int delay, int phase) {
+        this.phase = phase;
         BukkitScheduler scheduler = BobuxTimer.getScheduler();
-        ignoreCDTrigger(phase, bobuxitem);
-        if (PlayerAbilityManager.verifyItemCD(user, bobuxitem.getAbility(), true) || ignoreCD) {
-            Runnable runnable = new Runnable(){
-            public void run() {
-                if (BobuxUtils.checkWithoutDuraAmnt(player.getInventory().getItemInMainHand(), bobuxitem)) {
-                    BobuxAbility ability = bobuxitem.getAbility();
-                    ability.setUser(user);
-                    ability.setActionList();
-                    ability.use();
+        if (!triggeredNormally || PlayerAbilityManager.verifyItemCD(player, bobuxitem.getAbility(), true)) {
+            if (phase != 0) {
+                Runnable runnable = new Runnable(){
+                public void run() {
+                    if (BobuxUtils.checkWithoutDuraAmnt(player.getInventory().getItemInMainHand(), bobuxitem)) {
+                        BobuxAbility ability = bobuxitem.getAbility();
+                        ability.setTriggeredNormally(false);
+                        ability.setUser(user);
+                        ability.assignVariables();
+                        ability.use();
+                    }
                 }
+            };    
+            scheduler.runTaskLater(BobuxTimer.getPlugin(), runnable, delay);    
             }
-        };    
-        scheduler.runTaskLater(BobuxTimer.getPlugin(), runnable, delay);    
         }
     }
 }

@@ -1,15 +1,13 @@
 package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
-import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.util.Vector;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.item.DeleteItem;
-import io.github.mxylery.bobuxplugin.actions.spawn.SpawnPearl;
+import io.github.mxylery.bobuxplugin.actions.velocity.ConstantVelocity;
+import io.github.mxylery.bobuxplugin.core.BobuxUtils;
+import io.github.mxylery.bobuxplugin.entities.entities.projectiles.BobuxPearl;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 
 public class StraightPearlAbility extends AbilityOneTime {
@@ -19,22 +17,17 @@ public class StraightPearlAbility extends AbilityOneTime {
     }
 
     //Assuming the player is a user
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
         Player player = (Player) user;
 
-        Entity[][] targetList = {{user},null};
-        Vector[] vectorList = {user.getLocation().getDirection(),null};
-        Location[] locationList = {user.getLocation(),null};
-        Inventory[] inventoryList = {null, player.getInventory()};
+        BobuxPearl pearl = new BobuxPearl(BobuxUtils.offsetLocation(user.getLocation(), player.getLocation().getDirection(), 1, 1), player.getLocation().getDirection(), 1, false, null, null);
+        pearl.setOwner(player);
 
-        super.targetList = targetList;
-        super.vectorList = vectorList;
-        super.locationList = locationList;
-        super.inventoryList = inventoryList;
+        componentHead = new AbilityComponent
+        (new ConstantVelocity(1, 80), pearl.getEntity(), user.getLocation().getDirection());
+        componentHead.addComponent(new AbilityComponent
+        (new DeleteItem(BobuxItemInterface.straightPearl.getStack(), 1), player.getInventory()));
 
-        BobuxAction[] actionList = {new SpawnPearl(1, false, null, null), new DeleteItem(BobuxItemInterface.straightPearl.getStack(), 1)};
-        
-        super.actionList = actionList;
         return true;
     }
 

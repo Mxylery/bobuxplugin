@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.bukkit.entity.Player;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 import io.github.mxylery.bobuxplugin.abilities.PlayerAbilityManager;
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
@@ -20,20 +21,12 @@ public class AbilityPassive extends BobuxAbility {
         this.period = period;
     }
 
-    public BobuxAction[] getActionList() {
-        return actionList;
-    }
-
-    public void adjustPerc() {
-
-    }
-
-    public void adjustFlat() {
-
-    }
-
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
         return false;
+    }
+
+    public AbilityComponent getComponentHead() {
+        return componentHead;
     }
 
     protected boolean verifyPassivePeriod() {

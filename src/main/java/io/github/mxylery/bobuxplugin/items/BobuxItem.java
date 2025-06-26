@@ -3,8 +3,6 @@ package io.github.mxylery.bobuxplugin.items;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -12,7 +10,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityPassive;
-import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 
 public class BobuxItem {
     private int price;
@@ -26,7 +23,6 @@ public class BobuxItem {
     private AbilityPassive passive;
     private boolean hideFlag;
     private BobuxAttributeSet[] attributeSet;
-    private static int attributeNameID = 0;
 
     public BobuxItem (ItemStack stack, String[] description, String name) {
         this.stack = stack;
@@ -285,9 +281,7 @@ public class BobuxItem {
         }
         if (attributeSet != null) {
             for (int i = 0; i < attributeSet.length; i++) {
-                meta.addAttributeModifier(attributeSet[i].getAttribute(), new AttributeModifier
-                (new NamespacedKey(BobuxTimer.getPlugin(), "" + attributeNameID), attributeSet[i].getAmount(), attributeSet[i].getOperation(), attributeSet[i].getEquipmentSlotGroup()));
-                attributeNameID++;
+                meta.addAttributeModifier(attributeSet[i].getAttribute(), attributeSet[i].getModifier());
             }
         }
 

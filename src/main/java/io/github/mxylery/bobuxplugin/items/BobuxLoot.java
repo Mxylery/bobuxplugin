@@ -1,11 +1,13 @@
 package io.github.mxylery.bobuxplugin.items;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 public class BobuxLoot {
 
-    private final static int LESSER_LOOT_AMNT = 8;
+    private final static int LESSER_LOOT_AMNT = 16;
     
     public static ItemStack[] generateLesserStack(int amount) {
         int[] noDupe = new int[amount];
@@ -24,7 +26,7 @@ public class BobuxLoot {
                 break;
                 case 1: finalArray[i] = new ItemStack(Material.IRON_INGOT, 4);
                 break;
-                case 2: int logRng = (int) Math.random()*9;
+                case 2: int logRng = (int) (Math.random()*9);
                 Material material;
                 switch (logRng) {
                     case 0: material = Material.OAK_LOG;
@@ -62,7 +64,35 @@ public class BobuxLoot {
                 case 6: finalArray[i] = new ItemStack(Material.DIAMOND);
                 break;
                 case 7: finalArray[i] = new ItemStack(Material.COOKED_BEEF);
-                finalArray[i].setAmount(8);
+                finalArray[i].setAmount(16);
+                break;
+                case 8: finalArray[i] = BobuxItemInterface.abcBlood.getStack();
+                finalArray[i].setAmount(3);
+                break;
+                case 9: finalArray[i] = BobuxItemInterface.stinkyResidue.getStack();
+                finalArray[i].setAmount(3);
+                break;
+                case 10: finalArray[i] = BobuxItemInterface.BW5Ammo.getStack();
+                finalArray[i].setAmount(4);
+                break;
+                case 11: finalArray[i] = BobuxItemInterface.bobux.getStack();
+                finalArray[i].setAmount(4);
+                break;
+                case 12: finalArray[i] = BobuxItemInterface.bobuxSquare.getStack();
+                finalArray[i].setAmount(2);
+                break;
+                case 13: finalArray[i] = new ItemStack(Material.QUARTZ);
+                finalArray[i].setAmount(64);
+                break;
+                case 14: finalArray[i] = new ItemStack(Material.ENDER_EYE);
+                finalArray[i].setAmount(2);
+                break;
+                case 15: finalArray[i] = new ItemStack(Material.ENCHANTED_BOOK);
+                EnchantmentStorageMeta meta = (EnchantmentStorageMeta) finalArray[i].getItemMeta();
+                meta.addStoredEnchant(Enchantment.SHARPNESS, 1, true);
+                meta.addStoredEnchant(Enchantment.EFFICIENCY, 1, true);
+                meta.addStoredEnchant(Enchantment.PROTECTION, 1, true);
+                finalArray[i].setItemMeta(meta);
                 break;
                 default:
                 break;

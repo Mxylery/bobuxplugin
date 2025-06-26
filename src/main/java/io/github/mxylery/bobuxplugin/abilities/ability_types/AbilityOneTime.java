@@ -1,5 +1,6 @@
 package io.github.mxylery.bobuxplugin.abilities.ability_types;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 
@@ -18,11 +19,11 @@ public abstract class AbilityOneTime extends BobuxAbility {
      * 3. Location List
      * 4. Inventory List
      */
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
         return false;
     }
 
-    public BobuxAction[] getActionList() {
-        return actionList;
+    public AbilityComponent getComponentHead() {
+        return componentHead;
     }
 }

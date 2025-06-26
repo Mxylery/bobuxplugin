@@ -66,7 +66,7 @@ public abstract class BobuxEntity implements Listener {
      */
     public void useAbility(int index) {
         abilityList[index].setTarget(entity);
-        if (abilityList[index].setActionList() && abilityStructure.checkForAbilityCD(abilityList[index], abilityList[index].getCooldown(), entity) == -1) {
+        if (abilityList[index].assignVariables() && abilityStructure.checkForAbilityCD(abilityList[index], abilityList[index].getCooldown(), entity) == -1) {
             abilityList[index].use();
             AbilityInstance abilityInstance = new AbilityInstance(entity, BobuxTimer.getTicksPassed(), abilityList[index]);
             abilityStructure.addAbilityInstanceLast(abilityInstance);
@@ -80,7 +80,7 @@ public abstract class BobuxEntity implements Listener {
     public void useAbility(int index, Entity target) {
         abilityList[index].setUser(entity);
         abilityList[index].setTarget(target);
-        if (abilityList[index].setActionList() && abilityStructure.checkForAbilityCD(abilityList[index], abilityList[index].getCooldown(), entity) == -1) {
+        if (abilityList[index].assignVariables() && abilityStructure.checkForAbilityCD(abilityList[index], abilityList[index].getCooldown(), entity) == -1) {
             abilityList[index].use();
             AbilityInstance abilityInstance = new AbilityInstance(entity, BobuxTimer.getTicksPassed(), abilityList[index]);
             abilityStructure.addAbilityInstanceLast(abilityInstance);

@@ -1,21 +1,17 @@
 package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
-import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
 import io.github.mxylery.bobuxplugin.actions.entity.EffectGive;
 import io.github.mxylery.bobuxplugin.actions.entity.SaturateEntity;
-import io.github.mxylery.bobuxplugin.actions.misc.RandomAction;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOrientations;
@@ -27,19 +23,10 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
     }
 
     //Assuming the player is a user
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
 
         Player player = (Player) user;
-
-        Entity[][] targetList = {{player},{player},{player},{player},null,null};
-        Vector[] vectorList = {null,null,null,null,player.getLocation().getDirection(),null};
-        Location[] locationList = {null,null,null,null,player.getLocation(),player.getLocation()};
-        Inventory[] inventoryList = {null,null,null,null,null};
-
-        super.targetList = targetList;
-        super.vectorList = vectorList;
-        super.locationList = locationList;
-        super.inventoryList = inventoryList;
+        Entity[] playerAsArray = {player};
 
         float saturation = player.getSaturation();
         float hunger = player.getFoodLevel();
@@ -89,16 +76,20 @@ public class FruitcakeAndCookiesAbility extends AbilityOneTime {
 
         ParticleSequence eatParticleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.HEART, null);
         eatParticleSequence.setExplosionOptions(1, 4, 1);
-        
-        BobuxAction[] actionList =  
-        {new EffectGive(potionEffectType1, 160, potionEffectStrength1),
-        new EffectGive(potionEffectType2, 160, potionEffectStrength2),
-        new EffectGive(potionEffectType3, 160, potionEffectStrength3),
-        new SaturateEntity(endHung, endSat),
-        new PlayParticle(eatParticleSequence),
-        new PlaySound(Sound.ENTITY_CAT_EAT, 1.0f, 1.0f)};
 
-        super.actionList = actionList;
+        componentHead = new AbilityComponent
+        (new EffectGive(potionEffectType1, 160, potionEffectStrength1), playerAsArray);
+        componentHead.addComponent(new AbilityComponent
+        (new EffectGive(potionEffectType2, 160, potionEffectStrength2), playerAsArray));
+        componentHead.addComponent(new AbilityComponent
+        (new EffectGive(potionEffectType3, 160, potionEffectStrength3), playerAsArray));
+        componentHead.addComponent(new AbilityComponent
+        (new SaturateEntity(endHung, endSat), playerAsArray));
+        componentHead.addComponent(new AbilityComponent
+        (new PlayParticle(eatParticleSequence), player.getLocation().getDirection(), player.getLocation()));
+        componentHead.addComponent(new AbilityComponent
+        (new PlaySound(Sound.ENTITY_CAT_EAT, 1.0f, 1.0f), player.getLocation()));
+        
         return true;
     }
 

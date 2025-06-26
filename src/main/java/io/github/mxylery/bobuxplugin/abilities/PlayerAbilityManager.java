@@ -82,10 +82,7 @@ public class PlayerAbilityManager {
 
             //Initializes the PAI Structure holding all of the ability instances
             AbilityInstanceStructure abilityInstanceHistory = abilityHistoryMap.get(player);
-            BobuxAction[] actionList = polyAbility.getActionList();
-            for (int i = 0; i < actionList.length; i++) {
-                actionList[i].run();
-            }
+            polyAbility.use();
             
             //Registers the instance to the AbilityInstanceStructure, which is then registered to the map.
             AbilityInstance abilityInstance = new AbilityInstance(player, BobuxTimer.getTicksPassed(), ability);
@@ -157,14 +154,15 @@ public class PlayerAbilityManager {
                 } else {
                     ability = item.getPassive();
                 }
+                ability.setTriggeredNormally(true);
                 ability.setTarget(otherEntity);
                 ability.setUser(holder);
                 if (!passive) {
-                    if (ability.setActionList() && verifyItemCD(holder, ability)) {
+                    if (ability.assignVariables() && verifyItemCD(holder, ability)) {
                         useAbility(holder, ability);
                     }
                 } else {
-                    if (ability.setActionList() && verifyItemCD(holder, ability)) {
+                    if (ability.assignVariables() && verifyItemCD(holder, ability)) {
                         usePassive(holder, ability);  
                         Runnable passiveRunnable = new Runnable(){
                             public void run() {
@@ -189,15 +187,16 @@ public class PlayerAbilityManager {
                 } else {
                     ability = item.getPassive();
                 }
+                ability.setTriggeredNormally(true);
                 ability.setUser(holder);
                 if (!passive) {
-                    if (ability.setActionList() && verifyItemCD(holder, ability)) {
+                    if (ability.assignVariables() && verifyItemCD(holder, ability)) {
                         useAbility(holder, ability);
                         return true;
                     }
                     return false;
                 } else {
-                    if (ability.setActionList() && verifyItemCD(holder, ability)) {
+                    if (ability.assignVariables() && verifyItemCD(holder, ability)) {
                         usePassive(holder, ability);  
                         //Cooldown is actually the delay, so if the delay isn't 0 (if it relies on a delay)
                         if (ability.getCooldown() != 0) {
@@ -233,8 +232,9 @@ public class PlayerAbilityManager {
     public static boolean checkForItemUse(ItemStack stack, BobuxItem bobuxitem, Entity entity) {
         if (BobuxUtils.checkWithoutDuraAmnt(stack, bobuxitem)) {
             BobuxAbility ability = bobuxitem.getAbility();
+            ability.setTriggeredNormally(true);
             ability.setTarget(entity);
-            ability.setActionList();
+            ability.assignVariables();
             ability.use();
             return true;
         } else {

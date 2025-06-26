@@ -96,7 +96,7 @@ public abstract class BobuxHostile extends BobuxLivingEntity {
         if (index == -1) {
             hitAbility.setUser(entity);
             hitAbility.setTarget(target);
-            if (hitAbility.setActionList() && abilityStructure.checkForAbilityCD(hitAbility, hitAbility.getCooldown(), entity) == -1) {
+            if (hitAbility.assignVariables() && abilityStructure.checkForAbilityCD(hitAbility, hitAbility.getCooldown(), entity) == -1) {
                 hitAbility.use();
                 AbilityInstance abilityInstance = new AbilityInstance(entity, BobuxTimer.getTicksPassed(), hitAbility);
                 abilityStructure.addAbilityInstanceLast(abilityInstance);
@@ -104,7 +104,7 @@ public abstract class BobuxHostile extends BobuxLivingEntity {
         } else {
             abilityList[index].setUser(entity);
             abilityList[index].setTarget(target);
-            if (abilityList[index].setActionList() && abilityStructure.checkForAbilityCD(abilityList[index], abilityList[index].getCooldown(), entity) == -1) {
+            if (abilityList[index].assignVariables() && abilityStructure.checkForAbilityCD(abilityList[index], abilityList[index].getCooldown(), entity) == -1) {
                 abilityList[index].use();
                 AbilityInstance abilityInstance = new AbilityInstance(entity, BobuxTimer.getTicksPassed(), abilityList[index]);
                 abilityStructure.addAbilityInstanceLast(abilityInstance);

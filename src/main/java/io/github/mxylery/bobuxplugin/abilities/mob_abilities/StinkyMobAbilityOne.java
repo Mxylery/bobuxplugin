@@ -4,15 +4,19 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
+import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
 import io.github.mxylery.bobuxplugin.actions.entity.DamageEntity;
+import io.github.mxylery.bobuxplugin.actions.spawn.SpawnItem;
 import io.github.mxylery.bobuxplugin.actions.velocity.ChangeVelocity;
 import io.github.mxylery.bobuxplugin.actions.velocity.RepulseFromPoint;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
@@ -29,30 +33,22 @@ public class StinkyMobAbilityOne extends AbilityOneTime {
     }
 
     //Assuming the player is a user
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
         RegistererOption option = new RegistererOption(RegistererType.SPHERE, 0.0, 4.0, 0, new Vector(0,1,0));
         BobuxRegisterer<Player> registerer = new BobuxRegisterer<Player>(option, user, new Vector(0,0,0), Player.class);
         if (registerer.getEntityList() != null) {
-            Entity[][] targetList = {{user}, null, registerer.getEntityList(), registerer.getEntityList()};
-            Vector[] vectorList = {new Vector(0,1,0), new Vector(0,1,0), null, null};
-            Location[] locationList = {null, user.getLocation(), null, user.getLocation()};
-            Inventory[] inventoryList = {null, null, null, null};
-
-            super.targetList = targetList;
-            super.vectorList = vectorList;
-            super.locationList = locationList;
-            super.inventoryList = inventoryList;
-
             ParticleSequence particleSequence = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.DUST, new DustOptions(Color.GREEN, 3));
             particleSequence.setExplosionOptions(1, 16, 1);
 
-            BobuxAction[] actionList = 
-            {new ChangeVelocity(8),
-            new PlayParticle(particleSequence),
-            new DamageEntity(2),
-            new RepulseFromPoint(4.0, 5.0, 0.5)};
-        
-            super.actionList = actionList;
+            componentHead = new AbilityComponent
+            (new ChangeVelocity(8), user, new Vector(0,1,0));
+            componentHead.addComponent(new AbilityComponent
+            (new PlayParticle(particleSequence), new Vector(0,1,0), user.getLocation()));
+            componentHead.addComponent(new AbilityComponent
+            (new DamageEntity(2), registerer.getEntityList()));
+            componentHead.addComponent(new AbilityComponent
+            (new RepulseFromPoint(4.0, 8, 0.6), registerer.getEntityList(), user.getLocation()));
+
             return true;
         }
         return false;

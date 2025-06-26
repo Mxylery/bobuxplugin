@@ -60,7 +60,7 @@ public class BobuxItemInterface {
     "§8Consumed on use"};
     private static String bouncingItemName = "§r§fBouncing Item";
     public static BobuxItem bouncingItem = 
-    new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, new BouncingItemAbility("Bouncing Item Ability", false, 20), 3);
+    new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, new BouncingItemAbility(), 3);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack hurriedStopwatchStack = new ItemStack(Material.CLOCK);
@@ -71,7 +71,7 @@ public class BobuxItemInterface {
     private static Enchantment[] hurriedStopwatchEnchantList = {Enchantment.UNBREAKING, Enchantment.CHANNELING};
     private static int[] hurriedStopwatchEnchantLevels = {2, 2};
     public static BobuxItem hurriedStopwatch = new BobuxItem
-    (hurriedStopwatchStack, hurriedStopwatchDesc, hurriedStopwatchName, new HurriedStopwatchAbility("Hurried Stopwatch Ability", false, 600), 
+    (hurriedStopwatchStack, hurriedStopwatchDesc, hurriedStopwatchName, new HurriedStopwatchAbility(), 
     hurriedStopwatchEnchantList, hurriedStopwatchEnchantLevels, true, true, 24);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -126,7 +126,7 @@ public class BobuxItemInterface {
     "§85s CD"};
     private static String cleaverName = "§r§fCleaver";
     public static BobuxItem cleaver = new BobuxItem
-    (cleaverStack, cleaverDesc, cleaverName, new CleaverAbility("Cleaver Ability", true, 100), true, 64);
+    (cleaverStack, cleaverDesc, cleaverName, new CleaverAbility(), true, 64);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack lineSpawnerStack = new ItemStack(Material.END_ROD);
@@ -135,7 +135,7 @@ public class BobuxItemInterface {
     "§81s CD"};
     private static String lineSpawnerName = "§r§fLine Spawner";
     public static BobuxItem lineSpawner = new BobuxItem
-    (lineSpawnerStack, lineSpawnerDesc, lineSpawnerName, new LineSpawnerAbility("Line Spawner Passive", false, 5, 0), 16);
+    (lineSpawnerStack, lineSpawnerDesc, lineSpawnerName, new LineSpawnerAbility(), 16);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack railgunStack = new ItemStack(Material.IRON_HOE);
@@ -162,7 +162,7 @@ public class BobuxItemInterface {
     "§85s CD (Right Click)"};
     private static String theHotStickName = "§cTh§6e H§eot §6St§cick";
     public static BobuxItem theHotStick = new BobuxItem
-    (theHotStickStack, theHotStickDesc, theHotStickName, new TheHotStickAbility("The Hot Stick Ability", false, 100), 64);
+    (theHotStickStack, theHotStickDesc, theHotStickName, new TheHotStickAbility(), 64);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack BW5AmmoStack = new ItemStack(Material.LIGHT_BLUE_DYE);
@@ -180,7 +180,7 @@ public class BobuxItemInterface {
     "§85s CD (Right Click)"};
     private static String BW5Name = "§1BW-5 \"Nitro Express\"";
     public static BobuxItem BW5 = new BobuxItem
-    (BW5Stack, BW5Desc, BW5Name, new BW5Ability("BW5 Ability", false, 100), 384);
+    (BW5Stack, BW5Desc, BW5Name, new BW5Ability(), 384);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack kungFuGlovesStack = new ItemStack(Material.BLACK_WOOL);
@@ -215,7 +215,7 @@ public class BobuxItemInterface {
     "§860s CD (Right Click)"};
     private static String bobuxinatorName = "§aBobuxinator";
     public static BobuxItem bobuxinator = new BobuxItem
-    (bobuxinatorStack, bobuxinatorDesc, bobuxinatorName, new BobuxinatorAbility("Bobuxinator Ability", false, 1199), true, 512);
+    (bobuxinatorStack, bobuxinatorDesc, bobuxinatorName, new BobuxinatorAbility(), true, 512);
     //////////////////////////////////////////////////////////////////////////////////////////
      
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -225,7 +225,7 @@ public class BobuxItemInterface {
     "§830s CD (Right Click)"};
     private static String bobuxBrewName = "§6Bobux Brew";
     public static BobuxItem bobuxBrew = new BobuxItem
-    (bobuxBrewStack, bobuxBrewDesc, bobuxBrewName, new BobuxBrewAbility("Bobux Brew Ability", false, 600), false, 400);
+    (bobuxBrewStack, bobuxBrewDesc, bobuxBrewName, new BobuxBrewAbility(), false, 400);
     //////////////////////////////////////////////////////////////////////////////////////////
    
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -354,12 +354,12 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack lesserLootboxStack = new ItemStack(Material.REDSTONE);
+    private static ItemStack lesserLootboxStack = new ItemStack(Material.SPRUCE_WOOD);
     private static String[] lesserLootboxDesc = 
     {"§7Gives you three pieces of Lesser Bobux Loot"};
     private static String lesserLootboxName = "§cLesser Lootbox";
     public static BobuxItem lesserLootbox = new BobuxItem
-    (lesserLootboxStack, lesserLootboxDesc, lesserLootboxName, new LesserLootBoxAbility("Lesser Lootbox Ability", true, 100), 64);
+    (lesserLootboxStack, lesserLootboxDesc, lesserLootboxName, new LesserLootBoxAbility("Lesser Lootbox Ability", true, 100), 32);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -374,7 +374,7 @@ public class BobuxItemInterface {
 
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bardVestStack = new ItemStack(Material.IRON_CHESTPLATE);
-    private static BobuxMetaManipulator bardVestManip = new BobuxMetaManipulator((ArmorMeta) bardVestStack.getItemMeta(), TrimMaterial.LAPIS, TrimPattern.DUNE);
+    private static BobuxMetaManipulator bardVestManip = new BobuxMetaManipulator(bardVestStack, (ArmorMeta) bardVestStack.getItemMeta(), TrimMaterial.LAPIS, TrimPattern.DUNE);
     private static String[] bardVestDesc = 
     {"§8This handy cap assures a great time for all nearby players.",
     "§7(If full set is worn, allies and user receive a variety of buffs.)"};
@@ -385,7 +385,7 @@ public class BobuxItemInterface {
    
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bardLeggingsStack = new ItemStack(Material.IRON_LEGGINGS);
-    private static BobuxMetaManipulator bardLeggingsManip = new BobuxMetaManipulator((ArmorMeta) bardLeggingsStack.getItemMeta(), TrimMaterial.LAPIS, TrimPattern.DUNE);
+    private static BobuxMetaManipulator bardLeggingsManip = new BobuxMetaManipulator(bardLeggingsStack, (ArmorMeta) bardLeggingsStack.getItemMeta(), TrimMaterial.LAPIS, TrimPattern.DUNE);
     private static String[] bardLeggingsDesc = 
     {"§8This handy cap assures a great time for all nearby players.",
     "§7(If full set is worn, allies and user receive a variety of buffs.)"};
@@ -403,7 +403,7 @@ public class BobuxItemInterface {
     "§7(If full set is worn, allies and user receive a variety of buffs.)"};
     private static String bardKicksName = "§dBard Kicks";
     public static BobuxItem bardKicks = new BobuxItem
-    (bardKicksStack, bardKicksDesc, bardKicksName, bardKicksAttributeList, 128);
+    (bardKicksStack, bardKicksDesc, bardKicksName, bardKicksAttributeList, 100);
     //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -424,12 +424,29 @@ public class BobuxItemInterface {
     "§85s CD (Right Click)"};
     private static String flockingFeatherName = "§7Flocking Feather";
     public static BobuxItem flockingFeather = new BobuxItem
-    (flockingFeatherStack, flockingFeatherDesc, flockingFeatherName, 8);
+    (flockingFeatherStack, flockingFeatherDesc, flockingFeatherName, new FlockingFeatherAbility("Flocking Feather Ability", false, 100), 8);
     //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack peaceTreatyStack = new ItemStack(Material.WRITABLE_BOOK);
+    private static String[] peaceTreatyDesc = 
+    {"§7When used, pacifies all mobs around you for a short amount of time.",
+    "§8No CD (Right Click)",
+    "§8Consumed on use"};
+    private static String peaceTreatyName = "§7Peace Treaty";
+    public static BobuxItem peaceTreaty = new BobuxItem
+    (peaceTreatyStack, peaceTreatyDesc, peaceTreatyName, new PeaceTreatyAbility(), 128);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
-
-
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack hypeTrainStack = new ItemStack(Material.MINECART);
+    private static String[] hypeTrainDesc = 
+    {"§7WEEEEEE",
+    "§815s CD (Right Click)"};
+    private static String hypeTrainName = "§7Hype Train";
+    public static BobuxItem hypeTrain = new BobuxItem
+    (hypeTrainStack, hypeTrainDesc, hypeTrainName, new HypeTrainAbility(), 200);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
 
 

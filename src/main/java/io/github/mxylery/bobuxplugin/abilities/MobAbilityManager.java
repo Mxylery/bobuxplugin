@@ -17,7 +17,7 @@ public class MobAbilityManager {
             long lastUse = bobuxEntity.getAbilityHistory().checkForAbilityCD(ability, cooldown, bobuxEntity.getEntity());
             ability.setUser(bobuxEntity.getEntity());
             ability.setTarget(entity);
-            if (lastUse == -1 && ability.setActionList()) {
+            if (lastUse == -1 && ability.assignVariables()) {
                 hostile.useAbility(-1, entity);
                 return true;
             } else {
@@ -29,7 +29,7 @@ public class MobAbilityManager {
         if (bobuxEntity instanceof BobuxProjectile) {
             ability.setUser(bobuxEntity.getEntity());
             ability.setTarget(entity);
-            if (ability.setActionList()) {
+            if (ability.assignVariables()) {
                 bobuxEntity.useAbility(index, entity);
                 return true;
             } else {
@@ -40,7 +40,7 @@ public class MobAbilityManager {
         ability.setUser(bobuxEntity.getEntity());
         ability.setTarget(entity);
         //If no such ability was casted in the past #cooldown ticks
-        if (lastUse == -1 && ability.setActionList()) {
+        if (lastUse == -1 && ability.assignVariables()) {
             bobuxEntity.useAbility(index, entity);
             return true;
         } else {
@@ -53,7 +53,7 @@ public class MobAbilityManager {
         long cooldown = ability.getCooldown();
         if (bobuxEntity instanceof BobuxProjectile) {
             ability.setUser(bobuxEntity.getEntity());
-            if (ability.setActionList()) {
+            if (ability.assignVariables()) {
                 bobuxEntity.useAbility(index);
                 return true;
             } else {
@@ -63,7 +63,7 @@ public class MobAbilityManager {
         long lastUse = bobuxEntity.getAbilityHistory().checkForAbilityCD(ability, cooldown, bobuxEntity.getEntity());
         ability.setUser(bobuxEntity.getEntity());
         //If no such ability was casted in the past #cooldown ticks
-        if (lastUse == -1 && ability.setActionList()) {
+        if (lastUse == -1 && ability.assignVariables()) {
             bobuxEntity.useAbility(index);
             return true;
         } else {

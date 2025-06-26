@@ -31,7 +31,9 @@ import io.github.mxylery.bobuxplugin.entities.BobuxEntity;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntityListener;
 import io.github.mxylery.bobuxplugin.entities.BobuxHostile;
 import io.github.mxylery.bobuxplugin.guis.BobuxGUIGenerator;
+import io.github.mxylery.bobuxplugin.io.BobuxStatsData;
 import io.github.mxylery.bobuxplugin.io.PlayerLocationData;
+import io.github.mxylery.bobuxplugin.player.BobuxPlayerStats;
 
 public final class BobuxPlugin extends JavaPlugin implements Listener {
 
@@ -40,10 +42,13 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
     private static World hubWorld;
     private static World overworld;
     private static HashMap<UUID, Location> playerLocMap;
+    private static HashMap<UUID, BobuxPlayerStats> playerStatMap;
 
     @Override
 	public void onEnable() {
 		getLogger().info("onEnable has been invoked!");
+        playerLocMap = new HashMap<UUID, Location>();
+        playerStatMap = new HashMap<UUID, BobuxPlayerStats>();
 
         server = this.getServer();
         scheduler = this.getServer().getScheduler();
@@ -52,6 +57,10 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
         creator.createWorld();
         overworld = Bukkit.getWorld("world");
         server.getPluginManager().registerEvents(this, this);
+
+        PlayerLocationData.loadDataToGame();
+        BobuxStatsData.loadDataToGame();
+
         BobuxTimer bobuxTimer = new BobuxTimer(this.getServer(), this);
         scheduler.runTaskTimer(this, bobuxTimer, 0, 1);
 
@@ -65,9 +74,8 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
         this.getCommand("bobuxinfo").setExecutor(new BobuxCommands(this));
         this.getCommand("bobuxspawn").setExecutor(new BobuxCommands(this));
         this.getCommand("bobuxhub").setExecutor(new BobuxCommands(this));
-
-        playerLocMap = new HashMap<UUID, Location>();
-        PlayerLocationData.loadDataToGame();
+        this.getCommand("bobuxconvert").setExecutor(new BobuxCommands(this));
+        this.getCommand("bobuxattribute").setExecutor(new BobuxCommands(this));
 
 	}
 
@@ -75,7 +83,9 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
 	public void onDisable() {
 		getLogger().info("onDisable has been invoked!");
         PlayerLocationData.saveDataToFile();
+        BobuxStatsData.saveDataToFile();
         ArrayList<BobuxEntity> entityList = BobuxEntityListener.getBobuxEntityList();
+        if (entityList != null) {
         for (int i = 0; i < entityList.size(); i++) {
             if (entityList.get(i).getEntity() != null) {
                 Entity entity = entityList.get(i).getEntity();
@@ -86,11 +96,18 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
                 }
             }
         }
+        }
 	}
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        Player player = e.getPlayer();
         e.getPlayer().teleport(hubWorld.getSpawnLocation());
+        if (!playerStatMap.containsKey(player.getUniqueId())) {
+            BobuxPlayerStats stats = new BobuxPlayerStats(player);
+            playerStatMap.put(player.getUniqueId(), stats);
+        }
+        System.out.println(playerStatMap.get(player.getUniqueId()));
     }
 
     //For bobuxhub stuff...
@@ -113,6 +130,8 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
         if (!e.getPlayer().getWorld().equals(hubWorld)) {
             PlayerLocationData.saveDataToFile();
             PlayerLocationData.loadDataToGame();
+            BobuxStatsData.saveDataToFile();
+            BobuxStatsData.loadDataToGame();
         }
     }
 
@@ -148,6 +167,14 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
 
     public static void setPlayerLocMap(HashMap<UUID, Location> map) {
         playerLocMap = map;
+    }
+
+    public static void setPlayerStatMap(HashMap<UUID, BobuxPlayerStats> list) {
+        playerStatMap = list;
+    }
+
+    public static HashMap<UUID, BobuxPlayerStats> getPlayerStatMap() {
+        return playerStatMap;
     }
 
 }

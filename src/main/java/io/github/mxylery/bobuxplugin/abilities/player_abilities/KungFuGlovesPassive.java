@@ -5,6 +5,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityPassive;
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.velocity.ChangeVelocity;
@@ -15,22 +16,12 @@ public class KungFuGlovesPassive extends AbilityPassive {
     }
 
     //Assuming the player is a user
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
         if (verifyPassivePeriod()) {
-            Entity[][] targetList = {{user},{singleTarget}};
-            Vector[] vectorList = {new Vector(0,1,0), new Vector(0,1,0)};
-            Location[] locationList = {null, null};
-            Inventory[] inventoryList = {null, null};
+            
+            componentHead = new AbilityComponent(new ChangeVelocity(5), user, new Vector(0,1,0));
+            componentHead.addComponent(new AbilityComponent((new ChangeVelocity(2)), singleTarget, new Vector(0,1,0)));
 
-            super.targetList = targetList;
-            super.vectorList = vectorList;
-            super.locationList = locationList;
-            super.inventoryList = inventoryList;
-
-            BobuxAction[] actionList = 
-            {new ChangeVelocity(5), new ChangeVelocity(0.5)};
-        
-            super.actionList = actionList;
             return true;        
         } else {
             return false;

@@ -80,7 +80,7 @@ public class QuestBoardGUI extends BobuxGUI {
                             BobuxGUIGenerator.randomizeQuest(0, 3);
                         }
                     }
-                }, 600);
+                }, 1200);
             }
             break;
             case 20: 
@@ -91,7 +91,7 @@ public class QuestBoardGUI extends BobuxGUI {
                             BobuxGUIGenerator.randomizeQuest(1, 3);
                         }
                     }
-                }, 600);
+                }, 1200);
             }
             break;
             case 29: 
@@ -102,7 +102,7 @@ public class QuestBoardGUI extends BobuxGUI {
                             BobuxGUIGenerator.randomizeQuest(2, 3);
                         }
                     }
-                }, 600);
+                }, 1200);
             }
             break;
         }

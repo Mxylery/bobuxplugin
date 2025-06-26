@@ -5,14 +5,12 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
 import io.github.mxylery.bobuxplugin.actions.entity.DamageEntity;
@@ -27,12 +25,12 @@ import io.github.mxylery.bobuxplugin.vectors.RegistererOption.RegistererType;
 
 public class BW5Ability extends AbilityOneTime {
 
-    public BW5Ability(String name, boolean muteCD, long cooldown) {
-        super(name, muteCD, cooldown);
+    public BW5Ability() {
+        super("BW5 Ability", false, 100);
     }
 
     //Assuming the player is a player
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
 
         Player player = (Player) user;
         
@@ -43,16 +41,7 @@ public class BW5Ability extends AbilityOneTime {
         if (registerer1.getEntityList() == null) {
             return false;
         }
-        Entity[][] targetList = {registerer1.getEntityList(),{},{},{},{},{},{},{},{}};
         Location enemyLocation = new Location(player.getWorld(), registerer1.getEntityList()[0].getLocation().getX(), registerer1.getEntityList()[0].getLocation().getY() + 1, registerer1.getEntityList()[0].getLocation().getZ());
-        Vector[] vectorList = {null, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, playerDirection, null};
-        Location[] locationList = {null, elevatedPlayerLoc, enemyLocation, enemyLocation, enemyLocation, enemyLocation, enemyLocation, enemyLocation, enemyLocation};
-        Inventory[] inventoryList = {null, null, null, null, null, null, null, null, player.getInventory()};
-
-        super.targetList = targetList;
-        super.vectorList = vectorList;
-        super.locationList = locationList;
-        super.inventoryList = inventoryList;
 
         ParticleSequence BW5ParticleSequence1 = new ParticleSequence
         (ParticleSequenceOptions.LINE, ParticleSequenceOrientations.NORMAL, Particle.WHITE_SMOKE, null);
@@ -72,18 +61,24 @@ public class BW5Ability extends AbilityOneTime {
         ParticleSequence BW5ParticleSequence6 = new ParticleSequence
         (ParticleSequenceOptions.LINE, ParticleSequenceOrientations.LEFT, Particle.DUST, new DustOptions(Color.RED, 2));
         BW5ParticleSequence6.setLineOptions(2,3,1);
-        BobuxAction[] BW5ActionList = 
-        {new DamageEntity(30), 
-        new PlayParticle(BW5ParticleSequence1),
-        new PlayParticle(BW5ParticleSequence2),
-        new PlayParticle(BW5ParticleSequence3),
-        new PlayParticle(BW5ParticleSequence4),
-        new PlayParticle(BW5ParticleSequence5),
-        new PlayParticle(BW5ParticleSequence6),
-        new PlaySound(Sound.ENTITY_GENERIC_EXPLODE, 0.4f, 0.5f),
-        new DeleteItem(BobuxItemInterface.BW5Ammo.getStack(), 1)};
-        
-        super.actionList = BW5ActionList;
+
+        componentHead = new AbilityComponent
+        (new DamageEntity(30), registerer1.getEntityList());
+        componentHead.addComponent(new AbilityComponent
+        (new PlayParticle(BW5ParticleSequence1), playerDirection, elevatedPlayerLoc));
+        componentHead.addComponent(new AbilityComponent
+        (new PlayParticle(BW5ParticleSequence2), playerDirection, enemyLocation));
+        componentHead.addComponent(new AbilityComponent
+        (new PlayParticle(BW5ParticleSequence3), playerDirection, enemyLocation));
+        componentHead.addComponent(new AbilityComponent
+        (new PlayParticle(BW5ParticleSequence4), playerDirection, enemyLocation));
+        componentHead.addComponent(new AbilityComponent
+        (new PlayParticle(BW5ParticleSequence5), playerDirection, enemyLocation));
+        componentHead.addComponent(new AbilityComponent
+        (new PlaySound(Sound.ENTITY_GENERIC_EXPLODE, 0.4f, 0.5f), enemyLocation));
+        componentHead.addComponent(new AbilityComponent
+        (new DeleteItem(BobuxItemInterface.BW5Ammo.getStack(), 1), player.getInventory()));
+
         return true;
     }
 

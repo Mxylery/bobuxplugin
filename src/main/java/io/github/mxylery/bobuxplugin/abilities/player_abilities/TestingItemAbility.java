@@ -1,13 +1,9 @@
 package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
-import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.util.Vector;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.entity.DamageEntity;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 import io.github.mxylery.bobuxplugin.vectors.RegistererOption;
@@ -20,22 +16,12 @@ public class TestingItemAbility extends AbilityOneTime {
     }
 
     //Assuming the player is a user
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
         RegistererOption registererOption1 = new RegistererOption(RegistererType.SPHERE, 0, 5, 0, user.getLocation().getDirection());
         BobuxRegisterer<Mob> registerer1 = new BobuxRegisterer<Mob>(registererOption1, user, Mob.class);
-        Entity[][] targetList = {registerer1.getEntityList()};
-        Vector[] vectorList = {null};
-        Location[] locationList = {null};
-        Inventory[] inventoryList = {null};
 
-        super.targetList = targetList;
-        super.vectorList = vectorList;
-        super.locationList = locationList;
-        super.inventoryList = inventoryList;
+        componentHead = new AbilityComponent(new DamageEntity(10), registerer1.getEntityList());
 
-        BobuxAction[] railgunActionList = {new DamageEntity(10)};
-        
-        super.actionList = railgunActionList;
         return true;
     }
 

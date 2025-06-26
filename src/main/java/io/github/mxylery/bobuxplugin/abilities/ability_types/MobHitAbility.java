@@ -5,6 +5,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.entity.DamageEntity;
 import io.github.mxylery.bobuxplugin.actions.velocity.ChangeVelocity;
@@ -28,7 +29,7 @@ public class MobHitAbility extends AbilityOneTime {
     }
 
     //Assuming the player is a user
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
 
         Vector differenceVector = BobuxUtils.getLocationDifference(user.getLocation(), singleTarget.getLocation());
         double magnitude = user.getLocation().distance(singleTarget.getLocation());
@@ -39,19 +40,9 @@ public class MobHitAbility extends AbilityOneTime {
             differenceVector = new Vector(0,0,0);
         }
 
-        Entity[][] targetList = {{singleTarget}, {singleTarget}};
-        Vector[] vectorList = {differenceVector, null};
-        Location[] locationList = {null, null};
-        Inventory[] inventoryList = {null, null};
-
-        super.targetList = targetList;
-        super.vectorList = vectorList;
-        super.locationList = locationList;
-        super.inventoryList = inventoryList;
-
-        BobuxAction[] actionList = {new ChangeVelocity(magnitude), new DamageEntity(damage)};
+        componentHead = new AbilityComponent(new ChangeVelocity(magnitude), singleTarget, differenceVector);
+        componentHead.addComponent(new AbilityComponent(new DamageEntity(damage), singleTarget));
         
-        super.actionList = actionList;
         return true;
     }
 

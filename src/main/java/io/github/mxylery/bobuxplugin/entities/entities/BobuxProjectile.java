@@ -40,7 +40,7 @@ public abstract class BobuxProjectile extends BobuxEntity {
     @Override
     public void useAbility(int index) {
         abilityList[index].setUser(entity);
-        if (abilityList[index].setActionList()) {
+        if (abilityList[index].assignVariables()) {
             abilityList[index].use();
         }
     }
@@ -49,7 +49,7 @@ public abstract class BobuxProjectile extends BobuxEntity {
     public void useAbility(int index, Entity target) {
         abilityList[index].setUser(entity);
         abilityList[index].setTarget(target);
-        if (abilityList[index].setActionList()) {
+        if (abilityList[index].assignVariables()) {
             abilityList[index].use();
         }
     }

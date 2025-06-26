@@ -11,9 +11,10 @@ import org.bukkit.inventory.meta.trim.TrimPattern;
 //Used in bobuxiteminterface since for some reason I made items by defining them all as public static variables lol
 public class BobuxMetaManipulator {
     
-    public BobuxMetaManipulator(ArmorMeta meta, TrimMaterial material, TrimPattern pattern) {
+    public BobuxMetaManipulator(ItemStack stack, ArmorMeta meta, TrimMaterial material, TrimPattern pattern) {
         ArmorTrim trim = new ArmorTrim(material, pattern);
         meta.setTrim(trim);
+        stack.setItemMeta(meta);
     }
 
     public BobuxMetaManipulator(ItemStack stack, LeatherArmorMeta meta, Color color) {

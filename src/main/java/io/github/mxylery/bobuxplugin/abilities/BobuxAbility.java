@@ -1,11 +1,6 @@
 package io.github.mxylery.bobuxplugin.abilities;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.util.Vector;
-
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 
 /* This will be used for the ability manager and to 
 * give each bobux item a given ability (defining them 
@@ -19,16 +14,13 @@ import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 public abstract class BobuxAbility {
     
     protected int actionListLength;
-    protected BobuxAction[] actionList;
+    protected AbilityComponent componentHead;
     protected Entity user;
     protected long cooldown;
-    protected Inventory[] inventoryList;
-    protected Location[] locationList;
-    protected Vector[] vectorList;
-    protected Entity[][] targetList;
     protected String name;
     protected boolean muteCD;
     protected Entity singleTarget;
+    protected boolean triggeredNormally = true;
 
     public BobuxAbility(String name, boolean muteCD, long cooldown) {
         this.name = name;
@@ -36,40 +28,13 @@ public abstract class BobuxAbility {
         this.cooldown = cooldown;
     }
 
-    protected abstract boolean assignVariables();
-
-    public boolean setActionList() {
-        if (assignVariables()) {
-            for (int i = 0; i < actionList.length; i++) {
-            if (actionList[i].requiresEntities() && targetList[i] != null) {
-                actionList[i].initializeEntityList(targetList[i]);
-            } else if (actionList[i].requiresEntities()) {
-                return false;
-            }
-            if (actionList[i].requiresVector() && vectorList[i] != null) {
-                actionList[i].initializeVector(vectorList[i]);
-            } else if (actionList[i].requiresVector()) {
-                return false;
-            }
-            if (actionList[i].requiresLocation() && locationList[i] != null) {
-                actionList[i].initializeLocation(locationList[i]);
-            } else if (actionList[i].requiresLocation()) {
-                return false;
-            }
-            if (actionList[i].requiresInventory() && inventoryList[i] != null) {
-                actionList[i].initializeInventory(inventoryList[i]);
-            } else if (actionList[i].requiresInventory()) {
-                return false;
-            }
-            }   return true;   
-        } else {
-            return false;
-        }
-    }
+    public abstract boolean assignVariables();
 
     public void use() {
-        for (int i = 0; i < actionList.length; i++) {
-            actionList[i].run();
+        AbilityComponent tempHead = componentHead;
+        while (tempHead != null) {
+            tempHead.useAction();
+            tempHead = tempHead.getNextComponent();
         }
     }
 
@@ -91,6 +56,10 @@ public abstract class BobuxAbility {
 
     public void setTarget(Entity entity) {
         this.singleTarget = entity;
+    }
+
+    public void setTriggeredNormally(boolean triggeredNormally) {
+        this.triggeredNormally = triggeredNormally;
     }
 
 }

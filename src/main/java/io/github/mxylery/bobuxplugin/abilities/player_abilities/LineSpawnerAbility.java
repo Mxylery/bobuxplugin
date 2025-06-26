@@ -6,6 +6,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityPassive;
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
@@ -15,29 +16,20 @@ import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOr
 
 public class LineSpawnerAbility extends AbilityPassive {
 
-    public LineSpawnerAbility(String name, boolean muteCD, long cooldown, long period) {
-        super(name, muteCD, cooldown, period);
+    public LineSpawnerAbility() {
+        super("Line Spawner Ability", true, 5, 0);
     }
 
     //Assuming the player is a user
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
         Location elevatedPlayerLoc = new Location(user.getWorld(), user.getLocation().getX(), user.getLocation().getY() + 1, user.getLocation().getZ());
-        Entity[][] targetList = {null};
-        Vector[] vectorList = {user.getLocation().getDirection()};
-        Location[] locationList = {elevatedPlayerLoc};
-        Inventory[] inventoryList = {null};
-
-        super.targetList = targetList;
-        super.vectorList = vectorList;
-        super.locationList = locationList;
-        super.inventoryList = inventoryList;
 
         ParticleSequence particleSequence1 = 
         new ParticleSequence(ParticleSequenceOptions.LINE, ParticleSequenceOrientations.NORMAL, Particle.END_ROD, null);
         particleSequence1.setLineOptions(30, 2, 0);
-        BobuxAction[] railgunActionList = {new PlayParticle(particleSequence1)};
-        
-        super.actionList = railgunActionList;
+
+        componentHead = new AbilityComponent(new PlayParticle(particleSequence1), user.getLocation().getDirection(), elevatedPlayerLoc);
+
         return true;
     }
 

@@ -1,11 +1,19 @@
 package io.github.mxylery.bobuxplugin.core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
+
 import org.bukkit.Server;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.guis.BobuxGUIGenerator;
+import io.github.mxylery.bobuxplugin.player.BobuxPlayerStats;
+import io.github.mxylery.bobuxplugin.player.TempAttribute;
 
 /**
  * This class keeps track of the ticks of the server and reports to the
@@ -18,6 +26,7 @@ public class BobuxTimer implements Runnable {
     private static BobuxPlugin bobuxPlugin;
     private static World world = BobuxPlugin.getOverworld();
     private static int numberOfDays = -1;
+    private static HashMap<UUID, BobuxPlayerStats> playerStatMap;
 
     public BobuxTimer(Server pluginServer, BobuxPlugin plugin) {
         ticksPassed = 0;
@@ -28,6 +37,7 @@ public class BobuxTimer implements Runnable {
         BobuxDay.rollDay();
         BobuxGUIGenerator.randomizeQuests();
         BobuxGUIGenerator.randomizeMarketItems();
+        playerStatMap = BobuxPlugin.getPlayerStatMap();
     }
 
     private static void refresh() {
@@ -41,10 +51,19 @@ public class BobuxTimer implements Runnable {
             BobuxGUIGenerator.randomizeBounties();
             server.broadcastMessage("New §cquests §fare now available...");
             BobuxGUIGenerator.randomizeQuests();
+            updateAttributes();
             numberOfDays++;
         } else if (world.getTime() == 13000) {
             server.broadcastMessage("The night §6market §fis now open.");
             BobuxGUIGenerator.randomizeMarketItems();
+        }
+    }
+
+    private static void updateAttributes() {
+        List<Player> playerList = world.getPlayers();
+        for (Player player : playerList) {
+            BobuxPlayerStats stats = playerStatMap.get(player.getUniqueId());
+            stats.tick();
         }
     }
 

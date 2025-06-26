@@ -3,13 +3,10 @@ package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.util.Vector;
 
+import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
 import io.github.mxylery.bobuxplugin.actions.entity.DamageEntity;
@@ -27,36 +24,30 @@ public class RailgunAbility extends AbilityOneTime {
     }
 
     //Assuming the player is a user
-    protected boolean assignVariables() {
+    public boolean assignVariables() {
         Location elevatedPlayerLoc = new Location(user.getWorld(), user.getLocation().getX(), user.getLocation().getY() + 1, user.getLocation().getZ());
-        RegistererOption railgunRegistererOption1 = new RegistererOption(RegistererType.LINE, 30, 1, 10, user.getLocation().getDirection());
-        BobuxRegisterer<Mob> railgunRegisterer1 = new BobuxRegisterer<Mob>(railgunRegistererOption1, user, Mob.class);
-        if (railgunRegisterer1.getEntityList() == null) {
+        RegistererOption registererOption = new RegistererOption(RegistererType.LINE, 30, 1, 10, user.getLocation().getDirection());
+        BobuxRegisterer<Mob> registerer = new BobuxRegisterer<Mob>(registererOption, user, Mob.class);
+        if (registerer.getEntityList() == null) {
             return false;
         }
-        Entity[][] targetList = {railgunRegisterer1.getEntityList(),{},{},{}};
-        Vector[] vectorList = {null, user.getLocation().getDirection(), user.getLocation().getDirection(), null};
-        Location[] locationList = {null, elevatedPlayerLoc, elevatedPlayerLoc, elevatedPlayerLoc};
-        Inventory[] inventoryList = {null, null, null, null};
 
-        super.targetList = targetList;
-        super.vectorList = vectorList;
-        super.locationList = locationList;
-        super.inventoryList = inventoryList;
-
-        ParticleSequence railgunParticleSequence1 = 
+        ParticleSequence particleSequence1 = 
         new ParticleSequence(ParticleSequenceOptions.LINE, ParticleSequenceOrientations.NORMAL, Particle.END_ROD, null);
-        railgunParticleSequence1.setLineOptions(30, 2, 0);
-        ParticleSequence railgunParticleSequence2 = 
+        particleSequence1.setLineOptions(30, 2, 0);
+        ParticleSequence particleSequence2 = 
         new ParticleSequence(ParticleSequenceOptions.SPIRAL, ParticleSequenceOrientations.NORMAL, Particle.END_ROD, null);
-        railgunParticleSequence2.setSpiralOptions(30, 5, 0, 1, 1);
-        BobuxAction[] railgunActionList = 
-        {new DamageEntity(10), 
-        new PlayParticle(railgunParticleSequence1), 
-        new PlayParticle(railgunParticleSequence2), 
-        new PlaySound(Sound.ENTITY_FIREWORK_ROCKET_BLAST, 1.0f, 1.0f)};
-        
-        super.actionList = railgunActionList;
+        particleSequence2.setSpiralOptions(30, 5, 0, 1, 1);
+
+        componentHead = new AbilityComponent
+        (new DamageEntity(10), registerer.getEntityList());
+        componentHead.addComponent(new AbilityComponent
+        (new PlayParticle(particleSequence1), user.getLocation().getDirection(), elevatedPlayerLoc));
+        componentHead.addComponent(new AbilityComponent
+        (new PlayParticle(particleSequence2), user.getLocation().getDirection(), elevatedPlayerLoc));
+        componentHead.addComponent(new AbilityComponent
+        (new PlaySound(Sound.ENTITY_FIREWORK_ROCKET_BLAST, 1.0f, 1.0f), elevatedPlayerLoc));
+
         return true;
     }
 
