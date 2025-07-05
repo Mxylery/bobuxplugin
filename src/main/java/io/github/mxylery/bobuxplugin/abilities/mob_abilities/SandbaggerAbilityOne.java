@@ -1,24 +1,17 @@
 package io.github.mxylery.bobuxplugin.abilities.mob_abilities;
 
 import org.bukkit.Color;
-import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.Particle.DustOptions;
-import org.bukkit.entity.Entity;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
-import io.github.mxylery.bobuxplugin.actions.entity.EffectGive;
 import io.github.mxylery.bobuxplugin.actions.spawn.SpawnItem;
-import io.github.mxylery.bobuxplugin.actions.velocity.ChangeVelocity;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence.ParticleSequenceOptions;
@@ -37,15 +30,15 @@ public class SandbaggerAbilityOne extends AbilityOneTime {
         ItemStack bobuxStack;
         int bobuxAmnt;
 
-        if (rng < 0.6) {
+        if (rng < 0.7) {
             bobuxStack = BobuxItemInterface.bobux.getStack();
             double rngTwo = Math.random();
             if (rngTwo < 0.5) {
-                bobuxAmnt = 2;
-            } else {
                 bobuxAmnt = 3;
+            } else {
+                bobuxAmnt = 6;
             }
-        } else if (rng < 0.9) {
+        } else if (rng < 0.95) {
             bobuxStack = BobuxItemInterface.bobuxSquare.getStack();
             double rngTwo = Math.random();
             if (rngTwo < 0.8) {

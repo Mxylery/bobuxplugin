@@ -1,13 +1,9 @@
 package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
-import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityPassive;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.velocity.ChangeVelocity;
 
 public class KungFuGlovesPassive extends AbilityPassive {

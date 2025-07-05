@@ -1,8 +1,10 @@
 package io.github.mxylery.bobuxplugin.guis.animations;
 
+import io.github.mxylery.bobuxplugin.data_structures.GUIStructure;
+
 public class GUIAnimation {
 
-    protected void moveUp(int index) {
+    protected void moveUp(GUIStructure structure, int index) {
         index += 9;
     }
 

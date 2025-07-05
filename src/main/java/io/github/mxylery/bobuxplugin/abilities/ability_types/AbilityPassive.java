@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 import io.github.mxylery.bobuxplugin.abilities.PlayerAbilityManager;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.data_structures.AbilityInstanceStructure;
 
 //In the playerabilitymanager, these abilities will recursively call useAbility at later dates specified by the rep cycle until the condition is removed.

@@ -2,7 +2,6 @@ package io.github.mxylery.bobuxplugin.abilities.ability_types;
 
 import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 
 public abstract class AbilityOneTime extends BobuxAbility {
 

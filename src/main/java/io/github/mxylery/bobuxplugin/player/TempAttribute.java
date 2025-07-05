@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Player;
 
 import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
@@ -17,68 +18,70 @@ public class TempAttribute implements Serializable {
     private String attributeName;
     private long timeLeft;
 
-    public TempAttribute(BobuxAttributeSet bobuxAttributeSet, Player player, long duration) {
+    public TempAttribute(BobuxAttributeSet bobuxAttributeSet, long duration) {
         this.attribute = bobuxAttributeSet.getAttribute();
         this.modifier = bobuxAttributeSet.getModifier();
         this.timeLeft = duration;
-        setAttributeType();
+        this.attributeName = setAttributeType();
     }
 
-    private void setAttributeType() {
+    private String setAttributeType() {
         if (attribute.equals(Attribute.ARMOR)) {
-            attributeName = "ARMOR";
+            return "ARMOR";
         } else if (attribute.equals(Attribute.ARMOR_TOUGHNESS)) {
-            attributeName = "ARMOR_TOUGHNESS";
+            return "ARMOR_TOUGHNESS";
         } else if (attribute.equals(Attribute.ATTACK_DAMAGE)) {
-            attributeName = "ATTACK_DAMAGE";
+            return "ATTACK_DAMAGE";
         } else if (attribute.equals(Attribute.ATTACK_KNOCKBACK)) {
-            attributeName = "ATTACK_KNOCKBACK";
+            return "ATTACK_KNOCKBACK";
         } else if (attribute.equals(Attribute.ATTACK_SPEED)) {
-            attributeName = "ATTACK_SPEED"; 
+            return "ATTACK_SPEED"; 
         } else if (attribute.equals(Attribute.BLOCK_BREAK_SPEED)) {
-            attributeName = "BLOCK_BREAK_SPEED";
+            return "BLOCK_BREAK_SPEED";
         } else if (attribute.equals(Attribute.BLOCK_INTERACTION_RANGE)) {
-            attributeName = "BLOCK_INTERACTION_RANGE";
+            return "BLOCK_INTERACTION_RANGE";
         } else if (attribute.equals(Attribute.BURNING_TIME)) {
-            attributeName = "BURNING_TIME";
+            return "BURNING_TIME";
         } else if (attribute.equals(Attribute.ENTITY_INTERACTION_RANGE)) {
-            attributeName = "ENTITY_INTERACTION_RANGE";
+            return "ENTITY_INTERACTION_RANGE";
         } else if (attribute.equals(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE)) {
-            attributeName = "EXPLOSION_KNOCKBACK_RESISTANCE";
+            return "EXPLOSION_KNOCKBACK_RESISTANCE";
         } else if (attribute.equals(Attribute.FALL_DAMAGE_MULTIPLIER)) {
-            attributeName = "FALL_DAMAGE_MULTIPLIER";
+            return "FALL_DAMAGE_MULTIPLIER";
         } else if (attribute.equals(Attribute.FLYING_SPEED)) {
-            attributeName = "FLYING_SPEED";
+            return "FLYING_SPEED";
         } else if (attribute.equals(Attribute.FOLLOW_RANGE)) {
-            attributeName = "FOLLOW_RANGE";
+            return "FOLLOW_RANGE";
         } else if (attribute.equals(Attribute.GRAVITY)) {
-            attributeName = "GRAVITY";
+            return "GRAVITY";
         } else if (attribute.equals(Attribute.JUMP_STRENGTH)) {
-            attributeName = "JUMP_STRENGTH";
+            return "JUMP_STRENGTH";
         } else if (attribute.equals(Attribute.KNOCKBACK_RESISTANCE)) {
-            attributeName = "KNOCKBACK_RESISTANCE";
+            return "KNOCKBACK_RESISTANCE";
         } else if (attribute.equals(Attribute.LUCK)) {
-            attributeName = "LUCK";
+            return "LUCK";
         } else if (attribute.equals(Attribute.MAX_ABSORPTION)) {
-            attributeName = "MAX_ABSORPTION";
+            return "MAX_ABSORPTION";
         } else if (attribute.equals(Attribute.MAX_HEALTH)) {
-            attributeName = "MAX_HEALTH";
+            return "MAX_HEALTH";
         } else if (attribute.equals(Attribute.MINING_EFFICIENCY)) {
-            attributeName = "MINING_EFFICIENCY";
+            return "MINING_EFFICIENCY";
         } else if (attribute.equals(Attribute.MOVEMENT_EFFICIENCY)) {
-            attributeName = "MAX_ABSORPTION";
+            return "MAX_ABSORPTION";
         } else if (attribute.equals(Attribute.MOVEMENT_SPEED)) {
-            attributeName = "MOVEMENT_SPEED";
+            return "MOVEMENT_SPEED";
         } else if (attribute.equals(Attribute.OXYGEN_BONUS)) {
-            attributeName = "OXYGEN_BONUS";
+            return "OXYGEN_BONUS";
         } else if (attribute.equals(Attribute.SAFE_FALL_DISTANCE)) {
-            attributeName = "SAFE_FALL_DISTANCE";
+            return "SAFE_FALL_DISTANCE";
         } else if (attribute.equals(Attribute.SCALE)) {
-            attributeName = "SCALE";
-        } 
+            return "SCALE";
+        } else {
+            return "MOVEMENT_SPEED";
+        }
     }
 
-    private void chooseAttributeType() {
+    private void chooseAttributeFromString() {
         switch(attributeName) {
             case "ARMOR": attribute = Attribute.ARMOR;
             break;
@@ -122,6 +125,8 @@ public class TempAttribute implements Serializable {
             break;
             case "MOVEMENT_EFFICIENCY": attribute = Attribute.MOVEMENT_EFFICIENCY;
             break;
+            case "MOVEMENT_SPEED": attribute = Attribute.MOVEMENT_SPEED;
+            break;
             case "OXYGEN_BONUS": attribute = Attribute.OXYGEN_BONUS;
             break;
             case "SAFE_FALL_DISTANCE": attribute = Attribute.SAFE_FALL_DISTANCE;
@@ -151,7 +156,7 @@ public class TempAttribute implements Serializable {
 
     public Attribute getAttribute() {
         if (attribute == null) {
-            chooseAttributeType();
+            chooseAttributeFromString();
         }
         return attribute;
     }
@@ -162,6 +167,29 @@ public class TempAttribute implements Serializable {
 
     public void tick() {
         timeLeft--;
+    }
+
+    public String toString() {
+        String[] parsedUnderscores = attributeName.split("_");
+        String finalString = "";
+        for (String string : parsedUnderscores) {
+            String toAppend = string.substring(0,1) + string.substring(1,string.length()).toLowerCase() + " ";
+            finalString = finalString + toAppend;
+        }
+        long seconds = timeLeft/20;
+        int minutes = 0;
+        while (seconds >= 60) {
+            seconds -= 60;
+            minutes++;
+        }
+        String operationString;
+        if (modifier.getOperation() == Operation.ADD_SCALAR) {
+            operationString = String.format("%+f%%", modifier.getAmount());
+        } else {
+            operationString = String.format("%+f", modifier.getAmount());
+        }
+        finalString = String.format("%s%s (%02d:%02d)", finalString, operationString, minutes, seconds);
+        return finalString;
     }
 
 }

@@ -1,5 +1,6 @@
 package io.github.mxylery.bobuxplugin.core;
 
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -308,8 +309,10 @@ public class BobuxTransaction {
                 inventory.addItem(BobuxItemInterface.bobuxSquare.getStack());
                 cost += 8;
             }
-            inventory.addItem(BobuxItemInterface.bobux.getStack());
-            cost += 1;
+            while (cost <= -1) {
+                inventory.addItem(BobuxItemInterface.bobux.getStack());
+                cost += 1;
+            }
         }
     }
 
@@ -429,7 +432,6 @@ public class BobuxTransaction {
             //This variable is used as an intermediate between the previous and next stacks.
             ItemStack intermStack;
             //This goes thru the inventory removing larger moneys first
-            //Rewrite this using only the booleans ranOuts, you can just do if (xStack == null) then xranout = true
             while (cost > 0) {
                 //Checks the tesseracts
                 if (tesseractStack != null && !tessRanOut) {
@@ -471,7 +473,6 @@ public class BobuxTransaction {
                             inventory.setItem(cubeStack[0], intermStack);
                             bobuxCompensator();
                         }
-
                     } else if (cubeStack == null && !cubeRanOut) {
                         cubeRanOut = true;
                         //Checks the squares
@@ -509,10 +510,12 @@ public class BobuxTransaction {
                         } else {
                             inventory.setItem(bbxStack[0], intermStack);
                         }
-                    } 
+                    }
                 }
             player.playSound(player, Sound.BLOCK_AMETHYST_BLOCK_CHIME,0.1f,1f);
-            inventory.addItem(stack);
+            if (!stack.getType().equals(Material.AIR)) {
+                inventory.addItem(stack);
+            }
             wentThrough = true;
         } else {
             player.sendMessage("You do not have enough bobux to go through with this transaction.");

@@ -2,9 +2,11 @@ package io.github.mxylery.bobuxplugin.guis.questboard;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -22,8 +24,9 @@ public class QuestBoardGUI extends BobuxGUI {
     private BukkitScheduler scheduler = BobuxPlugin.getScheduler();
     private BobuxQuest[] bobuxQuests;
 
-    public QuestBoardGUI(Inventory inventory, Player player, BobuxPlugin plugin) {
-        super(inventory, player, plugin);
+    public QuestBoardGUI() {
+        super(Bukkit.createInventory(null, 45), BobuxTimer.getPlugin());
+        updateGUI();
     }
 
     protected void setGUI() {
@@ -70,7 +73,7 @@ public class QuestBoardGUI extends BobuxGUI {
         guiStructure.addSlot(34, finalList[10]);
     }
 
-    protected void slotHit(int slot) {
+    protected void slotHit(InventoryClickEvent e, Player player, int slot) {
         switch (slot) {
             case 11: 
             if (new BobuxTransaction(player, bobuxQuests[0]).wentThrough()) {

@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.guis.BobuxGUIGenerator;
+import io.github.mxylery.bobuxplugin.guis.raffle.BobuxRaffle;
 import io.github.mxylery.bobuxplugin.player.BobuxPlayerStats;
 import io.github.mxylery.bobuxplugin.player.TempAttribute;
 
@@ -51,12 +52,19 @@ public class BobuxTimer implements Runnable {
             BobuxGUIGenerator.randomizeBounties();
             server.broadcastMessage("New §cquests §fare now available...");
             BobuxGUIGenerator.randomizeQuests();
-            updateAttributes();
+            double raffleRng = Math.random();
+            if (raffleRng < 0.5 && BobuxPlugin.getRaffle().isCompleted()) {
+                BobuxRaffle raffle = new BobuxRaffle();
+                BobuxPlugin.setRaffle(raffle);
+            }
             numberOfDays++;
         } else if (world.getTime() == 13000) {
             server.broadcastMessage("The night §6market §fis now open.");
             BobuxGUIGenerator.randomizeMarketItems();
+        } else {
+
         }
+        updateAttributes();
     }
 
     private static void updateAttributes() {

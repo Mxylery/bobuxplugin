@@ -74,7 +74,11 @@ public class PlayerAbilityListener implements Listener {
             } 
         } else if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             if (PlayerAbilityManager.checkForSlot(BobuxItemInterface.fruitcakeAndCookies, player, EquipmentSlot.HAND)
-            || PlayerAbilityManager.checkForSlot(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND)) {
+            || PlayerAbilityManager.checkForSlot(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND) 
+            || PlayerAbilityManager.checkForSlot(BobuxItemInterface.lesserLootbox, player, EquipmentSlot.HAND) 
+            || BobuxUtils.checkWithoutDuraAmnt(e.getItem(), BobuxItemInterface.bobuxSquare)
+            || BobuxUtils.checkWithoutDuraAmnt(e.getItem(), BobuxItemInterface.bobuxCube)
+            || BobuxUtils.checkWithoutDuraAmnt(e.getItem(), BobuxItemInterface.bobuxTesseract)) {
                 e.setCancelled(true);
             }
         }
@@ -135,7 +139,7 @@ public class PlayerAbilityListener implements Listener {
         //Stupid stupid stupid 
         Runnable passiveRunnable = new Runnable(){
             public void run() {
-                PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.lineSpawner, player, EquipmentSlot.HAND, true);
+
             }
         };
         scheduler.runTaskLater(plugin, passiveRunnable, 1);
@@ -150,7 +154,7 @@ public class PlayerAbilityListener implements Listener {
 
             Runnable passiveRunnable = new Runnable(){
             public void run() {
-                    PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.lineSpawner, player, EquipmentSlot.HAND, true);
+                
                 }
             };
             scheduler.runTaskLater(plugin, passiveRunnable, 1);

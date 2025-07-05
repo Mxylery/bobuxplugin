@@ -112,19 +112,25 @@ public class BobuxGUIGenerator implements Listener {
             playerList[i] = (Player) objectList[i];
         }
         for (int i = 0; i < playerList.length; i++) {
-            BobuxBounty[] bountyList = new BobuxBounty[3];
-            bountyList[0] = new BobuxBounty();
-            bountyList[1] = new BobuxBounty();
-            bountyList[2] = new BobuxBounty();
+            BobuxBounty[] bountyList = new BobuxBounty[6];
+            bountyList[0] = new BobuxBounty(0);
+            bountyList[1] = new BobuxBounty(0);
+            bountyList[2] = new BobuxBounty(0);
+            bountyList[3] = new BobuxBounty(1);
+            bountyList[4] = new BobuxBounty(1);
+            bountyList[5] = new BobuxBounty(2);
             playerBountyMap.put(playerList[i], bountyList);
         }
     }
 
     public static void randomizeBounty(Player player) {
-        BobuxBounty[] bountyList = new BobuxBounty[3];
-        bountyList[0] = new BobuxBounty();
-        bountyList[1] = new BobuxBounty();
-        bountyList[2] = new BobuxBounty();
+        BobuxBounty[] bountyList = new BobuxBounty[6];
+        bountyList[0] = new BobuxBounty(0);
+        bountyList[1] = new BobuxBounty(0);
+        bountyList[2] = new BobuxBounty(0);
+        bountyList[3] = new BobuxBounty(1);
+        bountyList[4] = new BobuxBounty(1);
+        bountyList[5] = new BobuxBounty(2);
         playerBountyMap.put(player, bountyList);
     }
 

@@ -1,11 +1,14 @@
 package io.github.mxylery.bobuxplugin.guis.misc;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
+import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.guis.BobuxGUI;
 import io.github.mxylery.bobuxplugin.items.BobuxLoot;
 
@@ -13,8 +16,9 @@ public class LesserLootboxGUI extends BobuxGUI {
 
     private int itemsToCollect = 3;
 
-    public LesserLootboxGUI(Inventory inventory, Player player, BobuxPlugin plugin) {
-        super(inventory, player, plugin);
+    public LesserLootboxGUI() {
+        super(Bukkit.createInventory(null, 27), BobuxTimer.getPlugin());
+        updateGUI();
     }
 
     protected void setGUI() {
@@ -24,7 +28,7 @@ public class LesserLootboxGUI extends BobuxGUI {
         guiStructure.addSlot(15, slotList[2]);
     }
 
-    protected void slotHit(int slot) {
+    protected void slotHit(InventoryClickEvent e, Player player, int slot) {
         if (guiStructure.hasSlot(slot)) {
             player.getInventory().addItem(guiStructure.getStack(slot));
             deleteSlot(slot);

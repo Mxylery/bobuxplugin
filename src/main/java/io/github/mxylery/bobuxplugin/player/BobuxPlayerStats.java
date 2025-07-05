@@ -2,6 +2,7 @@ package io.github.mxylery.bobuxplugin.player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -23,10 +24,6 @@ public class BobuxPlayerStats implements Serializable {
     public BobuxPlayerStats(Player player, ArrayList<TempAttribute> tempAttributeList) {
         this.uuid = player.getUniqueId();
         this.tempAttributeList = tempAttributeList;
-    }
-
-    public void updateBank() {
-
     }
 
     private void removeAttribute(TempAttribute attributeToRemove) {
@@ -51,6 +48,7 @@ public class BobuxPlayerStats implements Serializable {
 
     public void tick() {
         Player player = Bukkit.getPlayer(uuid);
+        ArrayList<TempAttribute> listToRemove = new ArrayList<TempAttribute>();
         for (TempAttribute tempAttribute : tempAttributeList) {
             tempAttribute.tick();
             //If no more time left on temp attribute
@@ -60,9 +58,10 @@ public class BobuxPlayerStats implements Serializable {
 
                 //Removes attribute from player 
                 player.getAttribute(attribute).removeModifier(modifier);
-                tempAttributeList.remove(tempAttribute);
+                listToRemove.add(tempAttribute);
             }
         }
+        tempAttributeList.removeAll(listToRemove);
     }
 
     @Override

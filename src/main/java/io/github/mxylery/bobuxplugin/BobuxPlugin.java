@@ -31,6 +31,8 @@ import io.github.mxylery.bobuxplugin.entities.BobuxEntity;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntityListener;
 import io.github.mxylery.bobuxplugin.entities.BobuxHostile;
 import io.github.mxylery.bobuxplugin.guis.BobuxGUIGenerator;
+import io.github.mxylery.bobuxplugin.guis.core.MainGUI;
+import io.github.mxylery.bobuxplugin.guis.raffle.BobuxRaffle;
 import io.github.mxylery.bobuxplugin.io.BobuxStatsData;
 import io.github.mxylery.bobuxplugin.io.PlayerLocationData;
 import io.github.mxylery.bobuxplugin.player.BobuxPlayerStats;
@@ -43,6 +45,8 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
     private static World overworld;
     private static HashMap<UUID, Location> playerLocMap;
     private static HashMap<UUID, BobuxPlayerStats> playerStatMap;
+    private static BobuxRaffle currentRaffle;
+    private static MainGUI mainGUI;
 
     @Override
 	public void onEnable() {
@@ -63,6 +67,9 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
 
         BobuxTimer bobuxTimer = new BobuxTimer(this.getServer(), this);
         scheduler.runTaskTimer(this, bobuxTimer, 0, 1);
+
+        currentRaffle = new BobuxRaffle();
+        mainGUI = new MainGUI();
 
         new BobuxGiver(this);
         new PlayerAbilityListener(this);
@@ -107,7 +114,7 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
             BobuxPlayerStats stats = new BobuxPlayerStats(player);
             playerStatMap.put(player.getUniqueId(), stats);
         }
-        System.out.println(playerStatMap.get(player.getUniqueId()));
+
     }
 
     //For bobuxhub stuff...
@@ -144,13 +151,21 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
                 playerLocMap.put(player.getUniqueId(), overworld.getSpawnLocation());
                 PlayerLocationData.saveDataToFile();
                 PlayerLocationData.loadDataToGame();
+            } else {
+                playerLocMap.put(player.getUniqueId(), respawnLoc);
+                PlayerLocationData.saveDataToFile();
+                PlayerLocationData.loadDataToGame();
             }
         }
     }
 
     @EventHandler
     public void onSpawn(PlayerRespawnEvent e) {
-        System.out.println(e.getPlayer().teleport(hubWorld.getSpawnLocation()));
+        scheduler.runTaskLater(this, new Runnable() {
+            public void run() {
+                e.getPlayer().teleport(hubWorld.getSpawnLocation());
+            }
+        }, 1);
     }
     
     public static BukkitScheduler getScheduler() {
@@ -175,6 +190,22 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
 
     public static HashMap<UUID, BobuxPlayerStats> getPlayerStatMap() {
         return playerStatMap;
+    }
+
+    public static BobuxPlayerStats getPlayerStats(Player player) {
+        return playerStatMap.get(player.getUniqueId());
+    }
+
+    public static BobuxRaffle getRaffle() {
+        return currentRaffle;
+    }
+
+    public static void setRaffle(BobuxRaffle raffle) {
+        currentRaffle = raffle;
+    }
+
+    public static MainGUI getMainGUI() {
+        return mainGUI;
     }
 
 }

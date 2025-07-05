@@ -2,27 +2,32 @@ package io.github.mxylery.bobuxplugin.guis.core;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.core.BobuxDay;
 import io.github.mxylery.bobuxplugin.core.BobuxTransaction;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.guis.BobuxGUI;
 import io.github.mxylery.bobuxplugin.guis.BobuxGUIGenerator;
 import io.github.mxylery.bobuxplugin.core.BobuxDay.DayType;
+import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 
 public class MarketGUI extends BobuxGUI {
 
-    public MarketGUI(Inventory inventory, Player player, BobuxPlugin plugin) {
-        super(inventory, player, plugin);
+    private Player player;
+
+    public MarketGUI(Player player) {
+        super(Bukkit.createInventory(null, 36), BobuxTimer.getPlugin());
+        this.player = player;
+        updateGUI();
     }
 
-    protected void slotHit(int slot) {
+    protected void slotHit(InventoryClickEvent e, Player player, int slot) {
         if (BobuxDay.getDay() == DayType.AVARICIOUS) {
             switch (slot) {
             case 18: new BobuxTransaction(player, (int) (BobuxGUIGenerator.marketMenu[0].getPrice()*0.9), BobuxGUIGenerator.marketMenu[0].getStack());

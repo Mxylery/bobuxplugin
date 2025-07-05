@@ -15,22 +15,24 @@ public abstract class BobuxGUI implements Listener {
     protected BobuxPlugin plugin;
     protected Inventory inventory;
     protected GUIStructure guiStructure;
-    protected Player player;
 
     protected abstract void setGUI();
-    protected abstract void slotHit(int slot);
+    protected abstract void slotHit(InventoryClickEvent e, Player player, int slot);
+
+    //When making a GUI, the player 
+    public BobuxGUI(Inventory inventory, BobuxPlugin plugin) {
+        this.inventory = inventory;
+        this.guiStructure = new GUIStructure(inventory.getSize());
+        this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    }
 
     //When making a GUI, the player 
     public BobuxGUI(Inventory inventory, Player player, BobuxPlugin plugin) {
         this.inventory = inventory;
         this.guiStructure = new GUIStructure(inventory.getSize());
-        this.player = player;
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        specialGUIOption();
-        setGUI();
-        generateGUI();
-        openGUI();
     }
     
     @EventHandler
@@ -38,7 +40,7 @@ public abstract class BobuxGUI implements Listener {
         if (e.getInventory().equals(inventory)) {
 
             e.setCancelled(true);
-            slotHit(e.getSlot());
+            slotHit(e, (Player) e.getWhoClicked(), e.getSlot());
 
         }
     }
@@ -52,6 +54,19 @@ public abstract class BobuxGUI implements Listener {
         }
     }
 
+    public void updateGUI() {
+        setGUI();
+        generateGUI();
+    }
+
+    protected void generateSlot(int index) {
+        if (guiStructure.hasSlot(index)) {
+            inventory.setItem(index, guiStructure.getStack(index));
+        } else {
+            inventory.setItem(index, null);
+        }
+    }
+
     protected void generateGUI() {
         for (int i = 0; i < inventory.getSize(); i++) {
             if (guiStructure.hasSlot(i)) {
@@ -62,7 +77,7 @@ public abstract class BobuxGUI implements Listener {
         }
     }
 
-    protected void openGUI() {
+    public void openGUI(Player player) {
         player.openInventory(inventory);
     }
 
@@ -78,13 +93,14 @@ public abstract class BobuxGUI implements Listener {
         generateGUI();
     }
 
-    public void adjustSlots(GUIStructure guiStructure) {
-        this.guiStructure = guiStructure;
+    protected void addSlot(ItemStack stack, int slotToAdd) {
+        guiStructure.addSlot(slotToAdd, stack);
         generateGUI();
     }
 
-    protected void specialGUIOption() {
-
+    public void adjustSlots(GUIStructure guiStructure) {
+        this.guiStructure = guiStructure;
+        generateGUI();
     }
     
 }

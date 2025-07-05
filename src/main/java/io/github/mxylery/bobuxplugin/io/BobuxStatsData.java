@@ -67,7 +67,11 @@ public class BobuxStatsData implements Serializable {
     public static void loadDataToGame() {
         // Load the data from disc using our loadData method.
         BobuxStatsData data = new BobuxStatsData(loadData());
-        BobuxPlugin.setPlayerStatMap(data.statMap);
+        if (data.statMap == null) {
+            BobuxPlugin.setPlayerStatMap(new HashMap<UUID, BobuxPlayerStats>());
+        } else {
+            BobuxPlugin.setPlayerStatMap(data.statMap);
+        }
         Bukkit.getServer().getLogger().log(Level.INFO, "Data loaded");
     }
 }

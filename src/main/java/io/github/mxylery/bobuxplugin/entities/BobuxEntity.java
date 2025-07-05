@@ -50,7 +50,7 @@ public abstract class BobuxEntity implements Listener {
                         Bukkit.getPluginManager().callEvent(event);
                     }
                 }
-            }, 0, 20).getTaskId();
+            }, 0, 2).getTaskId();
         }
 
     }

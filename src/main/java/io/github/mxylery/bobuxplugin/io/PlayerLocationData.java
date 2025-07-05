@@ -19,6 +19,7 @@ import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
+import io.github.mxylery.bobuxplugin.player.BobuxPlayerStats;
 
 public class PlayerLocationData implements Serializable {
     private static transient final long serialVersionUUID = -1681012206529286330L;
@@ -89,7 +90,11 @@ public class PlayerLocationData implements Serializable {
     public static void loadDataToGame() {
         // Load the data from disc using our loadData method.
         PlayerLocationData data = new PlayerLocationData(loadData());
-        BobuxPlugin.setPlayerLocMap(data.playerLocMap);
+        if (data.playerLocMap == null) {
+            BobuxPlugin.setPlayerLocMap(new HashMap<UUID, Location>());
+        } else {
+            BobuxPlugin.setPlayerLocMap(data.playerLocMap);
+        }
         Bukkit.getServer().getLogger().log(Level.INFO, "Data loaded");
     }
 }

@@ -1,14 +1,11 @@
 package io.github.mxylery.bobuxplugin.abilities.ability_types;
 
-
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.BobuxAbility;
 import io.github.mxylery.bobuxplugin.abilities.PlayerAbilityManager;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.*;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 

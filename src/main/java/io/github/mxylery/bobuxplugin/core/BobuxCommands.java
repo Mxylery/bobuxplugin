@@ -3,12 +3,9 @@ package io.github.mxylery.bobuxplugin.core;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.GameMode;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlotGroup;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.entities.BobuxEntityListener;
@@ -19,9 +16,7 @@ import io.github.mxylery.bobuxplugin.entities.mobs.JumpySkeleton;
 import io.github.mxylery.bobuxplugin.entities.mobs.Sandbagger;
 import io.github.mxylery.bobuxplugin.entities.mobs.ScoutZombie;
 import io.github.mxylery.bobuxplugin.entities.mobs.StinkyMob;
-import io.github.mxylery.bobuxplugin.guis.core.MainGUI;
 import io.github.mxylery.bobuxplugin.io.PlayerLocationData;
-import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
 import io.github.mxylery.bobuxplugin.items.BobuxItemInterface;
 import io.github.mxylery.bobuxplugin.player.BobuxPlayerStats;
 import io.github.mxylery.bobuxplugin.player.TempAttribute;
@@ -36,11 +31,10 @@ public BobuxCommands(BobuxPlugin plugin) {
 
 @Override
 public boolean onCommand(CommandSender sender, Command command, String string, String[] args) {
-    
     Player player = (Player) sender;
     player.getServer().broadcastMessage(command.getName());
     if (sender instanceof Player) {
-        if (command.getName().equalsIgnoreCase("bobuxgive")) {
+        if (command.getName().equalsIgnoreCase("bobuxgive") && player.getGameMode().equals(GameMode.CREATIVE)) {
             switch (args[0]) {
                 case "testing_item": player.getInventory().addItem(BobuxItemInterface.testingItem.getStack());
                 break;
@@ -57,8 +51,6 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 case "bobux_tesseract": player.getInventory().addItem(BobuxItemInterface.bobuxTesseract.getStack());
                 break;
                 case "cleaver": player.getInventory().addItem(BobuxItemInterface.cleaver.getStack());
-                break;
-                case "line_spawner": player.getInventory().addItem(BobuxItemInterface.lineSpawner.getStack());
                 break;
                 case "railgun": player.getInventory().addItem(BobuxItemInterface.railgun.getStack());
                 break;
@@ -112,7 +104,7 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
             }
             return true;
         } else if (command.getName().equalsIgnoreCase("bobuxmenu")) {
-            MainGUI mainGUI = new MainGUI(Bukkit.createInventory(player, 27), player, plugin);
+            BobuxPlugin.getMainGUI().openGUI(player);
             return true;
         } else if (command.getName().equalsIgnoreCase("bobuxinfo")) {
             //Market info
@@ -136,7 +128,7 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
             player.sendMessage("Next bounty refresh: " + minutes + "m, " + seconds + "s");
             player.sendMessage("Current Day Type: " + BobuxDay.getDay().toString());
             return true;
-        } else if (command.getName().equalsIgnoreCase("bobuxspawn")) {
+        } else if (command.getName().equalsIgnoreCase("bobuxspawn") && player.getGameMode().equals(GameMode.CREATIVE)) {
             switch (args[0]) {
                 case "stinky_mob": StinkyMob stinkyMob = new StinkyMob(player.getLocation());
                 BobuxEntityListener.getBobuxEntityList().add(stinkyMob);
@@ -167,7 +159,7 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
         } else if (command.getName().equalsIgnoreCase("bobuxhub")) {
             if (player.getWorld().equals(BobuxPlugin.getOverworld())) {
                 PlayerLocationData.saveDataToFile();
-                PlayerLocationData.loadDataToGame();
+                PlayerLocationData.loadDataToGame();    
                 player.teleport(BobuxPlugin.getBobuxHub().getSpawnLocation());
             } else {
                 player.sendMessage("You're already in the Bobux Hub!");
@@ -178,7 +170,11 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
         } else if (command.getName().equalsIgnoreCase("bobuxattribute")) {
             HashMap<UUID, BobuxPlayerStats> map = BobuxPlugin.getPlayerStatMap();
             BobuxPlayerStats stats = map.get(player.getUniqueId());
-            stats.addAttribute(new TempAttribute(new BobuxAttributeSet(Attribute.MOVEMENT_SPEED, 1.0, AttributeModifier.Operation.ADD_NUMBER), player, 100));
+            player.sendMessage("Attributes: ");
+            for (TempAttribute attribute : stats.getAttributeList()) {
+                player.sendMessage(attribute.toString());
+            }
+            return true;
         } else {
             return false;
         }

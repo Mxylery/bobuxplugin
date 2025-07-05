@@ -7,6 +7,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\vectors\Bobux
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\spawn\SpawnPearl.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\AbilityInstance.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\velocity\RepulseFromPoint.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\data_structures\GUIStructure.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\mob_abilities\SandbaggerAbilityOne.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\entity\TrueDamageEntity.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\entities\projectiles\BobuxEgg.java
@@ -23,6 +24,8 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\misc\
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\core\BobuxDay.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\io\PlayerLocationData.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\spawn\SpawnArrow.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\raffle\BobuxRaffle.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxArmorSet.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\BobuxAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\ability_types\AbilityPassive.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\velocity\ConstantAcceleration.java
@@ -30,6 +33,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\Bobu
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\BobuxSpawnChances.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\core\BobuxTransaction.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\misc\RandomAction.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\io\OfflinePlayerData.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\aesthetic\PlayParticle.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\BrewRemnantsAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\TestingItemAbility.java
@@ -39,9 +43,11 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\core\BobuxUti
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\entity\TeleportEntity.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\livingentities\hostiles\BigChicken.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\BobuxLivingEntity.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\entity\OpenInventory.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\TheHotStickAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\velocity\PullTowardsPoint.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\animations\GUIAnimation.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\HypeTrainAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\entities\BobuxProjectile.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\MegaLongBowAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\StinkyPantsAbility.java
@@ -50,11 +56,13 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxIt
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\entity\StunMob.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\velocity\ConstantVelocity.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxWeapon.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\player\BobuxPlayerStats.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\BW5Ability.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\FruitcakeAndCookiesAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\mob_abilities\StinkyMobAbilityOne.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\spawn\SpawnEgg.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\BobuxGUIGenerator.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\player\TempAttribute.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\misc\LesserLootboxGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\BobuxPlugin.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\mob_abilities\BigChickenAbilityOne.java
@@ -62,8 +70,8 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\abi
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\events\BobuxTransactionEvent.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\bounty\BountyGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\ability_types\PhaseAbility.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\BardSetAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\item\AddDurability.java
-c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\core\ShopGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\FreakyFoodAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\entity\SetFire.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxLoot.java
@@ -76,6 +84,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\blocks\MultiB
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\bounty\BobuxBounty.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\item\ReduceDurability.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxMetaManipulator.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\FlockingFeatherAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\core\BobuxGiver.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\mobs\StinkyMob.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\mobs\JumpySkeleton.java
@@ -93,6 +102,9 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\item\
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\minigames\poker\BobuxPokerGame.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\HurriedStopwatchAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\BobuxTradeGUI.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\io\BobuxStatsData.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\raffle\RaffleGUI.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\CubeRemoverAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\misc\OpenGUIAction.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\ability_types\AbilityOneTime.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\entities\projectiles\BobuxArrow.java
@@ -101,7 +113,6 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\mobs
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\vectors\ParticlePlayer.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\LesserLootBoxAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\BobuxAction.java
-c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\TempAttribute.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\KungFuGlovesAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\StraightPearlAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\PlayerAbilityManager.java
@@ -117,10 +128,13 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\item\
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\entities\projectiles\BobuxPearl.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\events\BobuxEntityWithinRangeEvent.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\vectors\ParticleSequence.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\PeaceTreatyAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\block\DestroyBlock.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\item\DeleteHeldItem.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\io\RaffleData.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\entity\SaturateEntity.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\projectile_abilities\BigChickenEggHit.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\data_structures\AbilityInstanceStructure.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\AbilityComponent.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\velocity\AddVelocity.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\questboard\Quest.java

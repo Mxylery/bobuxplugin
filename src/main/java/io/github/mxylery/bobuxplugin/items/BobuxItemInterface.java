@@ -129,15 +129,6 @@ public class BobuxItemInterface {
     (cleaverStack, cleaverDesc, cleaverName, new CleaverAbility(), true, 64);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack lineSpawnerStack = new ItemStack(Material.END_ROD);
-    private static String[] lineSpawnerDesc = 
-    {"§7test",
-    "§81s CD"};
-    private static String lineSpawnerName = "§r§fLine Spawner";
-    public static BobuxItem lineSpawner = new BobuxItem
-    (lineSpawnerStack, lineSpawnerDesc, lineSpawnerName, new LineSpawnerAbility(), 16);
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack railgunStack = new ItemStack(Material.IRON_HOE);
     private static String[] railgunDesc = 
     {"§7Shoot a beam that pierces enemies.",
@@ -147,13 +138,13 @@ public class BobuxItemInterface {
     (railgunStack, railgunDesc, railgunName, new RailgunAbility("Railgun Ability", false, 100), true, 128);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack bountyStack = new ItemStack(Material.PAPER);
-    private static String[] bountyDesc = 
-    {"§7Access your bounties here.",
+    private static ItemStack grantsStack = new ItemStack(Material.LIME_DYE);
+    private static String[] grantsDesc = 
+    {"§7Access your grants here.",
     "§8(Left/Right Click)"};
-    private static String bountyName = "§c§lBounties";
-    public static BobuxItem bounty = new BobuxItem
-    (bountyStack, bountyDesc, bountyName);
+    private static String grantsName = "§a§lGrants";
+    public static BobuxItem grants = new BobuxItem
+    (grantsStack, grantsDesc, grantsName);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack theHotStickStack = new ItemStack(Material.BLAZE_ROD);
@@ -364,40 +355,52 @@ public class BobuxItemInterface {
 
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bardCapStack = new ItemStack(Material.LEATHER_HELMET);
+    private static BobuxMetaManipulator bardCapManip = new BobuxMetaManipulator(bardCapStack, (ArmorMeta) bardCapStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.BOLT);
+    private static BobuxAttributeSet bardCapAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.MOVEMENT_SPEED, 0.05, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.HEAD);
+    private static BobuxAttributeSet bardCapAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD);
+    private static BobuxAttributeSet[] bardCapAttributeList = {bardCapAttribute1, bardCapAttribute2};
     private static String[] bardCapDesc = 
     {"§8This handy cap assures a great time for all nearby players.",
     "§7(If full set is worn, allies and user receive a variety of buffs.)"};
     private static String bardCapName = "§dBard Cap";
     public static BobuxItem bardCap = new BobuxItem
-    (bardCapStack, bardCapDesc, bardCapName, 100);
+    (bardCapStack, bardCapDesc, bardCapName, bardCapAttributeList, 100);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack bardVestStack = new ItemStack(Material.IRON_CHESTPLATE);
-    private static BobuxMetaManipulator bardVestManip = new BobuxMetaManipulator(bardVestStack, (ArmorMeta) bardVestStack.getItemMeta(), TrimMaterial.LAPIS, TrimPattern.DUNE);
+    private static ItemStack bardVestStack = new ItemStack(Material.LEATHER_CHESTPLATE);
+    private static BobuxAttributeSet bardVestAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.MOVEMENT_SPEED, 0.05, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.CHEST);
+    private static BobuxAttributeSet bardVestAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST);
+    private static BobuxAttributeSet[] bardVestAttributeList = {bardVestAttribute1, bardVestAttribute2};
+    private static BobuxMetaManipulator bardVestManip = new BobuxMetaManipulator(bardVestStack, (ArmorMeta) bardVestStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.BOLT);
     private static String[] bardVestDesc = 
     {"§8This handy cap assures a great time for all nearby players.",
     "§7(If full set is worn, allies and user receive a variety of buffs.)"};
     private static String bardVestName = "§dBard Vest";
     public static BobuxItem bardVest = new BobuxItem
-    (bardVestStack, bardVestDesc, bardVestName, 150);
+    (bardVestStack, bardVestDesc, bardVestName, bardVestAttributeList, 150);
     //////////////////////////////////////////////////////////////////////////////////////////
    
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack bardLeggingsStack = new ItemStack(Material.IRON_LEGGINGS);
-    private static BobuxMetaManipulator bardLeggingsManip = new BobuxMetaManipulator(bardLeggingsStack, (ArmorMeta) bardLeggingsStack.getItemMeta(), TrimMaterial.LAPIS, TrimPattern.DUNE);
+    private static ItemStack bardLeggingsStack = new ItemStack(Material.LEATHER_LEGGINGS);
+    private static BobuxAttributeSet bardLeggingsAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.MOVEMENT_SPEED, 0.05, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.LEGS);
+    private static BobuxAttributeSet bardLeggingsAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS);
+    private static BobuxAttributeSet[] bardLeggingsAttributeList = {bardLeggingsAttribute1, bardLeggingsAttribute2};
+    private static BobuxMetaManipulator bardLeggingsManip = new BobuxMetaManipulator(bardLeggingsStack, (ArmorMeta) bardLeggingsStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.BOLT);
     private static String[] bardLeggingsDesc = 
     {"§8This handy cap assures a great time for all nearby players.",
     "§7(If full set is worn, allies and user receive a variety of buffs.)"};
     private static String bardLeggingsName = "§dBard Leggings";
     public static BobuxItem bardLeggings = new BobuxItem
-    (bardLeggingsStack, bardLeggingsDesc, bardLeggingsName,  150);
+    (bardLeggingsStack, bardLeggingsDesc, bardLeggingsName,  bardLeggingsAttributeList, 150);
     //////////////////////////////////////////////////////////////////////////////////////////
    
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack bardKicksStack = new ItemStack(Material.LEATHER_BOOTS);
-    private static BobuxAttributeSet bardKicksAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.MOVEMENT_SPEED, 0.1, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.FEET);
-    private static BobuxAttributeSet[] bardKicksAttributeList = {bardKicksAttribute1};
+    private static ItemStack bardKicksStack = new ItemStack(Material.IRON_BOOTS);
+    private static BobuxAttributeSet bardKicksAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.MOVEMENT_SPEED, 0.05, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.FEET);
+    private static BobuxAttributeSet bardKicksAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET);
+    private static BobuxAttributeSet[] bardKicksAttributeList = {bardKicksAttribute1, bardKicksAttribute2};
+    private static BobuxMetaManipulator bardKicksManip = new BobuxMetaManipulator(bardKicksStack, (ArmorMeta) bardKicksStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.BOLT);
     private static String[] bardKicksDesc = 
     {"§8This handy cap assures a great time for all nearby players.",
     "§7(If full set is worn, allies and user receive a variety of buffs.)"};
@@ -422,7 +425,7 @@ public class BobuxItemInterface {
     private static String[] flockingFeatherDesc = 
     {"§7Great way to swiftly escape a bad situation.",
     "§85s CD (Right Click)"};
-    private static String flockingFeatherName = "§7Flocking Feather";
+    private static String flockingFeatherName = "§fFlocking Feather";
     public static BobuxItem flockingFeather = new BobuxItem
     (flockingFeatherStack, flockingFeatherDesc, flockingFeatherName, new FlockingFeatherAbility("Flocking Feather Ability", false, 100), 8);
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -431,8 +434,7 @@ public class BobuxItemInterface {
     private static ItemStack peaceTreatyStack = new ItemStack(Material.WRITABLE_BOOK);
     private static String[] peaceTreatyDesc = 
     {"§7When used, pacifies all mobs around you for a short amount of time.",
-    "§8No CD (Right Click)",
-    "§8Consumed on use"};
+    "§815 CD (Right Click)"};
     private static String peaceTreatyName = "§7Peace Treaty";
     public static BobuxItem peaceTreaty = new BobuxItem
     (peaceTreatyStack, peaceTreatyDesc, peaceTreatyName, new PeaceTreatyAbility(), 128);
@@ -442,16 +444,21 @@ public class BobuxItemInterface {
     private static ItemStack hypeTrainStack = new ItemStack(Material.MINECART);
     private static String[] hypeTrainDesc = 
     {"§7WEEEEEE",
-    "§815s CD (Right Click)"};
-    private static String hypeTrainName = "§7Hype Train";
+    "§810s CD (Right Click)"};
+    private static String hypeTrainName = "§cHype Train";
     public static BobuxItem hypeTrain = new BobuxItem
     (hypeTrainStack, hypeTrainDesc, hypeTrainName, new HypeTrainAbility(), 200);
     //////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack raffleStack = new ItemStack(Material.PAPER);
+    private static String[] raffleDescription = 
+    {"§7Click here to access the raffle",
+    "§8(Right click or left click)"};
+    private static String raffleName = "§d§lRaffle";
+    public static BobuxItem raffle = new BobuxItem
+    (raffleStack, raffleDescription, raffleName);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
 
 }

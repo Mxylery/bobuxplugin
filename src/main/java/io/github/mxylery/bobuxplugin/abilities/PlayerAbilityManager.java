@@ -12,7 +12,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import io.github.mxylery.bobuxplugin.abilities.ability_types.*;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.data_structures.*;
@@ -181,6 +180,7 @@ public class PlayerAbilityManager {
         if (currentInventory.getItem(slot) != null) {
             if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
                 BobuxItem item = bobuxitem;
+                System.out.println(item.getName());
                 BobuxAbility ability;
                 if (!passive) {
                     ability = item.getAbility();

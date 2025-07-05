@@ -1,22 +1,15 @@
 package io.github.mxylery.bobuxplugin.abilities.mob_abilities;
 
 import org.bukkit.Color;
-import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
-import org.bukkit.Sound;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 
 import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
-import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
-import io.github.mxylery.bobuxplugin.actions.aesthetic.PlaySound;
 import io.github.mxylery.bobuxplugin.actions.entity.DamageEntity;
-import io.github.mxylery.bobuxplugin.actions.spawn.SpawnItem;
 import io.github.mxylery.bobuxplugin.actions.velocity.ChangeVelocity;
 import io.github.mxylery.bobuxplugin.actions.velocity.RepulseFromPoint;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;

@@ -146,6 +146,9 @@ public class BobuxUtils {
 	}
 
 	public static boolean checkWithoutDuraAmnt(ItemStack item, BobuxItem bobuxitem) {
+		if (item == null) {
+			return false;
+		}
 		ItemStack tempStack = new ItemStack(item);
 		tempStack.setAmount(1);
 		ItemMeta tempMeta = tempStack.getItemMeta();
