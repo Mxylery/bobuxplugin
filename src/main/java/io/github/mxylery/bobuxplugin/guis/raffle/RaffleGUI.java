@@ -76,13 +76,13 @@ public class RaffleGUI extends BobuxGUI {
         }
         ItemStack signStack = new ItemStack(Material.OAK_SIGN);
         ArrayList<String> signLore = new ArrayList<String>();
-        signLore.add("§fWelcome to Bobux Raffles!");
+        signLore.add("§7Welcome to Bobux Raffles!");
         signLore.add("");
-        signLore.add("§fEvery 50 bobux donated results in getting a Lesser Loot Box");
-        signLore.add("§fEvery 100 bobux donated results in getting a Loot Box");
-        signLore.add("§fEvery 250 bobux donated results in getting a Greater Loot Box");
+        signLore.add("§7Every 50 bobux donated results in getting a Lesser Loot Box");
+        signLore.add("§7Every 100 bobux donated results in getting a Loot Box");
+        signLore.add("§7Every 250 bobux donated results in getting a Greater Loot Box");
         signLore.add("");
-        signLore.add("§fYou will receive the participation attribute if you donate at all.");
+        signLore.add("§7You will receive the participation attribute if you donate at all.");
         ItemMeta signMeta = signStack.getItemMeta();
         signMeta.setLore(signLore);
         signMeta.setDisplayName("§fRaffle");
@@ -91,7 +91,7 @@ public class RaffleGUI extends BobuxGUI {
         
         ItemStack bobuxAdjustStack = new ItemStack(Material.LIME_CONCRETE);
         ArrayList<String> bobuxAdjustLore = new ArrayList<String>();
-        bobuxAdjustLore.add("§aClick to add/remove bobux: " + intervalAmnt);
+        bobuxAdjustLore.add("§7Click to add/remove bobux: " + intervalAmnt);
         bobuxAdjustLore.add("");
         bobuxAdjustLore.add("§7Left click to increase amount");
         bobuxAdjustLore.add("§7Right click to decrease amount");

@@ -179,8 +179,8 @@ public class BobuxRaffle implements Serializable {
                     player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
                     player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
                 }
-                while (remainingContribution > 25) {
-                    remainingContribution -= 25;
+                while (remainingContribution > 50) {
+                    remainingContribution -= 50;
                     player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
                 }
                 remainingContribution = 0;
@@ -221,7 +221,7 @@ public class BobuxRaffle implements Serializable {
                 winner = Bukkit.getPlayer(uuid);
                 BobuxTimer.getServer().broadcastMessage("Congratulations to " + winner.getName() + " for winning the Bobux Raffle!");
                 if (winner.isOnline()) {
-                    winner.getInventory().addItem();
+                    winner.getInventory().addItem(raffleStack);
                 } else {
                     offlinePlayerAttributes.put(uuid, tempAttribute);
                     offlinePlayerStacks.put(uuid, raffleStack);

@@ -329,7 +329,8 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack questboardStack = new ItemStack(Material.OAK_SIGN);
     private static String[] questboardDesc = 
-    {"§8(Left Click/Right Click)"};
+    {"§7Click here to access the questboard.", 
+    "§8(Left Click/Right Click)"};
     private static String questboardName = "§c§lQuestboard";
     public static BobuxItem questboard = new BobuxItem
     (questboardStack, questboardDesc, questboardName);
@@ -355,7 +356,7 @@ public class BobuxItemInterface {
 
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack bardCapStack = new ItemStack(Material.LEATHER_HELMET);
-    private static BobuxMetaManipulator bardCapManip = new BobuxMetaManipulator(bardCapStack, (ArmorMeta) bardCapStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.BOLT);
+    private static BobuxMetaManipulator bardCapManip = new BobuxMetaManipulator(bardCapStack, (ArmorMeta) bardCapStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.WILD);
     private static BobuxAttributeSet bardCapAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.MOVEMENT_SPEED, 0.05, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.HEAD);
     private static BobuxAttributeSet bardCapAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD);
     private static BobuxAttributeSet[] bardCapAttributeList = {bardCapAttribute1, bardCapAttribute2};
@@ -372,7 +373,7 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet bardVestAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.MOVEMENT_SPEED, 0.05, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.CHEST);
     private static BobuxAttributeSet bardVestAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST);
     private static BobuxAttributeSet[] bardVestAttributeList = {bardVestAttribute1, bardVestAttribute2};
-    private static BobuxMetaManipulator bardVestManip = new BobuxMetaManipulator(bardVestStack, (ArmorMeta) bardVestStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.BOLT);
+    private static BobuxMetaManipulator bardVestManip = new BobuxMetaManipulator(bardVestStack, (ArmorMeta) bardVestStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.WILD);
     private static String[] bardVestDesc = 
     {"§8This handy cap assures a great time for all nearby players.",
     "§7(If full set is worn, allies and user receive a variety of buffs.)"};
@@ -386,7 +387,7 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet bardLeggingsAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.MOVEMENT_SPEED, 0.05, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.LEGS);
     private static BobuxAttributeSet bardLeggingsAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS);
     private static BobuxAttributeSet[] bardLeggingsAttributeList = {bardLeggingsAttribute1, bardLeggingsAttribute2};
-    private static BobuxMetaManipulator bardLeggingsManip = new BobuxMetaManipulator(bardLeggingsStack, (ArmorMeta) bardLeggingsStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.BOLT);
+    private static BobuxMetaManipulator bardLeggingsManip = new BobuxMetaManipulator(bardLeggingsStack, (ArmorMeta) bardLeggingsStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.WILD);
     private static String[] bardLeggingsDesc = 
     {"§8This handy cap assures a great time for all nearby players.",
     "§7(If full set is worn, allies and user receive a variety of buffs.)"};
@@ -400,7 +401,7 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet bardKicksAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.MOVEMENT_SPEED, 0.05, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.FEET);
     private static BobuxAttributeSet bardKicksAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET);
     private static BobuxAttributeSet[] bardKicksAttributeList = {bardKicksAttribute1, bardKicksAttribute2};
-    private static BobuxMetaManipulator bardKicksManip = new BobuxMetaManipulator(bardKicksStack, (ArmorMeta) bardKicksStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.BOLT);
+    private static BobuxMetaManipulator bardKicksManip = new BobuxMetaManipulator(bardKicksStack, (ArmorMeta) bardKicksStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.WILD);
     private static String[] bardKicksDesc = 
     {"§8This handy cap assures a great time for all nearby players.",
     "§7(If full set is worn, allies and user receive a variety of buffs.)"};

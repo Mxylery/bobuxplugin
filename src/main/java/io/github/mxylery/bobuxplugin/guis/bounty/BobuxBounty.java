@@ -49,15 +49,19 @@ public class BobuxBounty {
             switch (rng) {
                 case 0: bounty = Bounty.COBBLESTONE;
                 break;
-                case 1: bounty = Bounty.DIRT;
+                case 1: bounty = Bounty.SPIDER_EYE;
                 break;
-                case 2: bounty = Bounty.MUTTON;
+                case 2: bounty = Bounty.DIRT;
                 break;
-                case 3: bounty = Bounty.ROTTEN_FLESH;
+                case 3: bounty = Bounty.MUTTON;
                 break;
-                case 4: bounty = Bounty.SAND;
+                case 4: bounty = Bounty.ROTTEN_FLESH;
                 break;
-                case 5: bounty = Bounty.SPIDER_EYE;
+                case 5: bounty = Bounty.SAND;
+                break;
+                case 6: bounty = Bounty.SPIDER_EYE;
+                break;
+                case 7: bounty = Bounty.STRING;
                 break;
                 default: bounty = Bounty.DIRT;
                 break;

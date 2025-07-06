@@ -184,9 +184,9 @@ public class TempAttribute implements Serializable {
         }
         String operationString;
         if (modifier.getOperation() == Operation.ADD_SCALAR) {
-            operationString = String.format("%+f%%", modifier.getAmount());
+            operationString = String.format("%+.2f%%", modifier.getAmount()*100);
         } else {
-            operationString = String.format("%+f", modifier.getAmount());
+            operationString = String.format("%+.2f", modifier.getAmount()*100);
         }
         finalString = String.format("%s%s (%02d:%02d)", finalString, operationString, minutes, seconds);
         return finalString;

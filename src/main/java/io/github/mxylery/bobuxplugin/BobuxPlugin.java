@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Server;
@@ -35,6 +36,7 @@ import io.github.mxylery.bobuxplugin.guis.core.MainGUI;
 import io.github.mxylery.bobuxplugin.guis.raffle.BobuxRaffle;
 import io.github.mxylery.bobuxplugin.io.BobuxStatsData;
 import io.github.mxylery.bobuxplugin.io.PlayerLocationData;
+import io.github.mxylery.bobuxplugin.io.RaffleData;
 import io.github.mxylery.bobuxplugin.player.BobuxPlayerStats;
 
 public final class BobuxPlugin extends JavaPlugin implements Listener {
@@ -67,8 +69,12 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
 
         BobuxTimer bobuxTimer = new BobuxTimer(this.getServer(), this);
         scheduler.runTaskTimer(this, bobuxTimer, 0, 1);
+        scheduler.runTaskLater(this, new Runnable(){
+            public void run() {
+                RaffleData.loadDataToGame();
+            }
+        }, 20);
 
-        currentRaffle = new BobuxRaffle();
         mainGUI = new MainGUI();
 
         new BobuxGiver(this);
@@ -91,6 +97,7 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
 		getLogger().info("onDisable has been invoked!");
         PlayerLocationData.saveDataToFile();
         BobuxStatsData.saveDataToFile();
+        RaffleData.saveDataToFile();
         ArrayList<BobuxEntity> entityList = BobuxEntityListener.getBobuxEntityList();
         if (entityList != null) {
         for (int i = 0; i < entityList.size(); i++) {
@@ -109,24 +116,26 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
+        player.setGameMode(GameMode.ADVENTURE);
         e.getPlayer().teleport(hubWorld.getSpawnLocation());
         if (!playerStatMap.containsKey(player.getUniqueId())) {
             BobuxPlayerStats stats = new BobuxPlayerStats(player);
             playerStatMap.put(player.getUniqueId(), stats);
         }
-
     }
 
     //For bobuxhub stuff...
     @EventHandler
     public void onSignRightClick(PlayerInteractEvent e) {
-        if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getPlayer().getWorld().equals(hubWorld)) {
+        if (e.getAction().equals(Action.LEFT_CLICK_BLOCK) && e.getPlayer().getWorld().equals(hubWorld)) {
             if (e.getClickedBlock().getBlockData().getMaterial().equals(Material.OAK_SIGN)) {
                 Player player = e.getPlayer();
                 Location lastPlayerLoc = playerLocMap.get(player.getUniqueId());
                 if (lastPlayerLoc == null) {
                     lastPlayerLoc = overworld.getSpawnLocation();
+                    playerLocMap.put(player.getUniqueId(), lastPlayerLoc);
                 }
+                player.setGameMode(GameMode.SURVIVAL);
                 player.teleport(lastPlayerLoc);
             }
         }
@@ -164,6 +173,7 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
         scheduler.runTaskLater(this, new Runnable() {
             public void run() {
                 e.getPlayer().teleport(hubWorld.getSpawnLocation());
+                e.getPlayer().setGameMode(GameMode.ADVENTURE);
             }
         }, 1);
     }
@@ -206,6 +216,10 @@ public final class BobuxPlugin extends JavaPlugin implements Listener {
 
     public static MainGUI getMainGUI() {
         return mainGUI;
+    }
+
+    public static HashMap<UUID, Location> getPlayerLocMap() {
+        return playerLocMap;
     }
 
 }

@@ -55,6 +55,7 @@ public class RaffleData implements Serializable {
             return data;
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
+            BobuxPlugin.setRaffle(new BobuxRaffle());
             return null;
         }
     }

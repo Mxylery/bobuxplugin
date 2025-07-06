@@ -53,7 +53,7 @@ public class PlayerAbilityListener implements Listener {
         if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, false);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, false);
-
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.peaceTreaty, player, EquipmentSlot.HAND, false);
         //Air right clicks
         } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
 
@@ -81,6 +81,10 @@ public class PlayerAbilityListener implements Listener {
             || BobuxUtils.checkWithoutDuraAmnt(e.getItem(), BobuxItemInterface.bobuxTesseract)) {
                 e.setCancelled(true);
             }
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.flockingFeather, player, EquipmentSlot.HAND, false);
+        } else if (e.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, false);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.peaceTreaty, player, EquipmentSlot.HAND, false);
         }
     }
 

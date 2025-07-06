@@ -49,19 +49,19 @@ public final class BobuxGiver implements Listener {
 			case "CREEPER": 
 			case "DROWNED":
 			case "CAVE_SPIDER":
-			case "BOGGED": BobuxUtils.dropBobux(0.2*modifier, entity, bobux, 1); BobuxUtils.dropBobux(0.05*modifier, entity, bobuxSquare, 0);
+			case "BOGGED": BobuxUtils.dropBobux(0.25*modifier, entity, bobux, 1); BobuxUtils.dropBobux(0.05*modifier, entity, bobuxSquare, 0);
 			break;
 			case "VINDICATOR":
 			case "ENDERMAN":
 			case "WITHER_SKELETON":
 			case "CREAKING":
 			case "GHAST":
-			case "BLAZE": BobuxUtils.dropBobux(0.3*modifier, entity, bobux, 3); BobuxUtils.dropBobux(0.1*modifier, entity, bobuxSquare, 1);
+			case "BLAZE": BobuxUtils.dropBobux(0.4*modifier, entity, bobux, 3); BobuxUtils.dropBobux(0.1*modifier, entity, bobuxSquare, 1);
 			break;
 			case "ENDER_DRAGON": 
 			case "WITHER": BobuxUtils.dropBobux(1, entity, bobux, 24); BobuxUtils.dropBobux(1, entity, bobuxSquare, 4);
 			break;
-			default: BobuxUtils.dropBobux(0.1*modifier, entity, bobux, 0);
+			default: BobuxUtils.dropBobux(0.2*modifier, entity, bobux, 0);
 			break;
 		    }
 	    }
