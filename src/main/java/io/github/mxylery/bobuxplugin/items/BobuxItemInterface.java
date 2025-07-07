@@ -375,8 +375,8 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet[] bardVestAttributeList = {bardVestAttribute1, bardVestAttribute2};
     private static BobuxMetaManipulator bardVestManip = new BobuxMetaManipulator(bardVestStack, (ArmorMeta) bardVestStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.WILD);
     private static String[] bardVestDesc = 
-    {"§8This handy cap assures a great time for all nearby players.",
-    "§7(If full set is worn, allies and user receive a variety of buffs.)"};
+    {"§7This vest assures a great time for all nearby players.",
+    "§8(If full set is worn, allies and user receive a variety of buffs.)"};
     private static String bardVestName = "§dBard Vest";
     public static BobuxItem bardVest = new BobuxItem
     (bardVestStack, bardVestDesc, bardVestName, bardVestAttributeList, 150);
@@ -389,8 +389,8 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet[] bardLeggingsAttributeList = {bardLeggingsAttribute1, bardLeggingsAttribute2};
     private static BobuxMetaManipulator bardLeggingsManip = new BobuxMetaManipulator(bardLeggingsStack, (ArmorMeta) bardLeggingsStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.WILD);
     private static String[] bardLeggingsDesc = 
-    {"§8This handy cap assures a great time for all nearby players.",
-    "§7(If full set is worn, allies and user receive a variety of buffs.)"};
+    {"§7These handy pants assure a great time for all nearby players.",
+    "§8(If full set is worn, allies and user receive a variety of buffs.)"};
     private static String bardLeggingsName = "§dBard Leggings";
     public static BobuxItem bardLeggings = new BobuxItem
     (bardLeggingsStack, bardLeggingsDesc, bardLeggingsName,  bardLeggingsAttributeList, 150);
@@ -403,8 +403,8 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet[] bardKicksAttributeList = {bardKicksAttribute1, bardKicksAttribute2};
     private static BobuxMetaManipulator bardKicksManip = new BobuxMetaManipulator(bardKicksStack, (ArmorMeta) bardKicksStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.WILD);
     private static String[] bardKicksDesc = 
-    {"§8This handy cap assures a great time for all nearby players.",
-    "§7(If full set is worn, allies and user receive a variety of buffs.)"};
+    {"§7These slick shoes assure a great time for all nearby players.",
+    "§8(If full set is worn, allies and user receive a variety of buffs.)"};
     private static String bardKicksName = "§dBard Kicks";
     public static BobuxItem bardKicks = new BobuxItem
     (bardKicksStack, bardKicksDesc, bardKicksName, bardKicksAttributeList, 100);
@@ -461,6 +461,84 @@ public class BobuxItemInterface {
     (raffleStack, raffleDescription, raffleName);
     //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack slowPogoStack = new ItemStack(Material.IRON_HOE);
+    private static String[] slowPogoDesc = 
+    {"§7Slow. Pogo. Stick.",
+    "§83s CD (Right Click)"};
+    private static String slowPogoName = "§cSlow Pogo";
+    public static BobuxItem slowPogo = new BobuxItem
+    (slowPogoStack, slowPogoDesc, slowPogoName, new SlowPogoLauncherAbility(), true, 150);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack pogoLauncherStack = new ItemStack(Material.IRON_PICKAXE);
+    private static String[] pogoLauncherDesc = 
+    {"§7Pogo. Stick.",
+    "§83s CD (Right Click)"};
+    private static String pogoLauncherName = "§cPogo Launcher";
+    public static BobuxItem pogoLauncher = new BobuxItem
+    (pogoLauncherStack, pogoLauncherDesc, pogoLauncherName, new PogoLauncherAbility(), true, 150);
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack lootboxStack = new ItemStack(Material.SPRUCE_WOOD);
+    private static String[] lootboxDesc = 
+    {"§7Gives you three pieces of Bobux Loot"};
+    private static String lootboxName = "§cLootbox";
+    public static BobuxItem lootbox = new BobuxItem
+    (lootboxStack, lootboxDesc, lootboxName, new LesserLootBoxAbility("Lootbox Ability", true, 100), 128);
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack greaterLootboxStack = new ItemStack(Material.SPRUCE_WOOD);
+    private static String[] greaterLootboxDesc = 
+    {"§7Gives you three pieces of Bobux Loot"};
+    private static String greaterLootboxName = "§cGreater Lootbox";
+    public static BobuxItem greaterLootbox = new BobuxItem
+    (greaterLootboxStack, greaterLootboxDesc, greaterLootboxName, new LesserLootBoxAbility("Lootbox Ability", true, 100), 512);
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+    /**
+     * ARMOR SETS
+     */
+
+    public static BobuxArmorSet bardSet = new BobuxArmorSet(bardCap, bardVest, bardLeggings, bardKicks, null, new BardSetAbility());
 }
 

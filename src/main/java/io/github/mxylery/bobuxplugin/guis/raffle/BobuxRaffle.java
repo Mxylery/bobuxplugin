@@ -49,7 +49,7 @@ public class BobuxRaffle implements Serializable {
     }
 
     private void chooseTempAttribute() {
-        int attributeRng = (int) Math.random()*5;
+        int attributeRng = (int) (Math.random()*5);
         double timeRng = Math.random();
         long length;
         if (timeRng < 0.33) {
@@ -105,11 +105,11 @@ public class BobuxRaffle implements Serializable {
         switch (raffleStackRng) {
             case 0: raffleStack = new ItemStack(Material.DIAMOND);
             switch (goal) {
-                case 250: raffleStack.setAmount(3);
+                case 250: raffleStack.setAmount(5);
                 break;
-                case 750: raffleStack.setAmount(10);
+                case 750: raffleStack.setAmount(16);
                 break;
-                case 2500: raffleStack.setAmount(32);
+                case 2500: raffleStack.setAmount(64);
                 break;
             }
             break;
@@ -117,9 +117,9 @@ public class BobuxRaffle implements Serializable {
             switch (goal) {
                 case 250: raffleStack.setAmount(1);
                 break;
-                case 750: raffleStack.setAmount(3);
+                case 750: raffleStack.setAmount(4);
                 break;
-                case 2500: raffleStack.setAmount(12);
+                case 2500: raffleStack.setAmount(15);
                 break;
             }
             break;

@@ -51,26 +51,27 @@ public class PlayerAbilityListener implements Listener {
         //Air left clicks
         Player player = e.getPlayer();
         if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.peaceTreaty, player, EquipmentSlot.HAND, false);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.testingItem, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.peaceTreaty, player, EquipmentSlot.HAND);
         //Air right clicks
         } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
 
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.hurriedStopwatch, player, EquipmentSlot.HAND, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.railgun, player, EquipmentSlot.HAND, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.theHotStick, player, EquipmentSlot.HAND, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.fruitcakeAndCookies, player, EquipmentSlot.HAND, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bobuxinator, player, EquipmentSlot.HAND, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.lesserLootbox, player, EquipmentSlot.HAND, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.flockingFeather, player, EquipmentSlot.HAND, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.hypeTrain, player, EquipmentSlot.HAND, false);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.hurriedStopwatch, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.railgun, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.theHotStick, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.fruitcakeAndCookies, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bobuxinator, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.lesserLootbox, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.flockingFeather, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.hypeTrain, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.slowPogo, player, EquipmentSlot.HAND);
             if (BobuxUtils.checkTotalItems(player.getInventory(), BobuxItemInterface.BW5Ammo.getStack()) != null) {
-                PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.BW5, player, EquipmentSlot.HAND, false);
+                PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.BW5, player, EquipmentSlot.HAND);
             } 
             if (BobuxUtils.checkTotalItems(player.getInventory(), new ItemStack(Material.ARROW)) != null) {
-                PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.megaLongBow, player, EquipmentSlot.HAND, false);
+                PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.megaLongBow, player, EquipmentSlot.HAND);
             } 
         } else if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             if (PlayerAbilityManager.checkForSlot(BobuxItemInterface.fruitcakeAndCookies, player, EquipmentSlot.HAND)
@@ -81,10 +82,11 @@ public class PlayerAbilityListener implements Listener {
             || BobuxUtils.checkWithoutDuraAmnt(e.getItem(), BobuxItemInterface.bobuxTesseract)) {
                 e.setCancelled(true);
             }
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.flockingFeather, player, EquipmentSlot.HAND, false);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.slowPogo, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.flockingFeather, player, EquipmentSlot.HAND);
         } else if (e.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND, false);
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.peaceTreaty, player, EquipmentSlot.HAND, false);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.peaceTreaty, player, EquipmentSlot.HAND);
         }
     }
 
@@ -102,7 +104,7 @@ public class PlayerAbilityListener implements Listener {
     public void onProjThrow(ProjectileLaunchEvent e) {
         if (e.getEntity().getShooter() instanceof Player) {
             Player player = (Player) e.getEntity().getShooter();
-            if (PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.straightPearl, player, EquipmentSlot.HAND, false)) {
+            if (PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.straightPearl, player, EquipmentSlot.HAND)) {
                 e.setCancelled(true);
             }
         }
@@ -111,7 +113,7 @@ public class PlayerAbilityListener implements Listener {
     @EventHandler
     public void onSneak(PlayerToggleSneakEvent e) {
         Player player = e.getPlayer();
-        PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.stinkyPants, player, EquipmentSlot.LEGS, false);
+        PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.stinkyPants, player, EquipmentSlot.LEGS);
     }
 
     //Any abilities that should be activated when hitting an enemy
@@ -121,9 +123,9 @@ public class PlayerAbilityListener implements Listener {
             Player player = (Player) e.getDamageSource().getCausingEntity();
             Entity damagedEntity = e.getEntity();
 
-            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND, damagedEntity, false);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.cleaver, player, EquipmentSlot.HAND, damagedEntity);
             if (!player.isSneaking()) {
-                PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND, damagedEntity, true);            
+                PlayerAbilityManager.checkForPassiveSlotMatch(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND, damagedEntity);            
             }
         }
     }
@@ -158,7 +160,7 @@ public class PlayerAbilityListener implements Listener {
 
             Runnable passiveRunnable = new Runnable(){
             public void run() {
-                
+                    PlayerAbilityManager.checkForPassiveArmorSetMatch(BobuxItemInterface.bardSet, player);
                 }
             };
             scheduler.runTaskLater(plugin, passiveRunnable, 1);
@@ -171,7 +173,7 @@ public class PlayerAbilityListener implements Listener {
     @EventHandler
     public void onConsume(PlayerItemConsumeEvent e) {
         Player player = e.getPlayer();
-        if (PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bobuxBrew, player, EquipmentSlot.HAND, false)) {
+        if (PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bobuxBrew, player, EquipmentSlot.HAND)) {
             e.setCancelled(true);
             Runnable runnable = new Runnable(){
                 public void run() { 

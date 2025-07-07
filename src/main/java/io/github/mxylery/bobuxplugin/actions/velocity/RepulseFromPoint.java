@@ -26,8 +26,10 @@ public class RepulseFromPoint extends BobuxAction {
         for (int i = 0; i < super.entityList.length; i++) {
             if (entityList[i] instanceof LivingEntity) {
                 Vector vector = BobuxUtils.getLocationDifference(super.location, super.entityList[i].getLocation());
-                double euclDist = BobuxUtils.getLocationDifferenceMagnitude(entityList[i].getLocation(), super.location);
-                double sendStrength = strength*0.1*Math.sqrt(Math.max(radius*radius - euclDist*euclDist,0));
+                double euclDist = vector.length();
+                vector.normalize();
+                double sendStrength = strength*0.2*Math.sqrt(Math.max(radius*radius - euclDist*euclDist,0));
+                System.out.println(sendStrength);
                 ChangeVelocity velocityAction = new ChangeVelocity(sendStrength);
                 Entity[] entityAsArray = {entityList[i]};
                 vector.add(new Vector(0,bounce,0));

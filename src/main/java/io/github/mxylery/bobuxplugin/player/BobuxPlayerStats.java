@@ -2,7 +2,6 @@ package io.github.mxylery.bobuxplugin.player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;

@@ -47,21 +47,29 @@ public class BobuxBounty {
                 }
             }
             switch (rng) {
-                case 0: bounty = Bounty.COBBLESTONE;
+                case 0: bounty = Bounty.ANDESITE;
                 break;
-                case 1: bounty = Bounty.SPIDER_EYE;
+                case 1: bounty = Bounty.COBBLESTONE;
                 break;
-                case 2: bounty = Bounty.DIRT;
+                case 2: bounty = Bounty.BONE;
                 break;
-                case 3: bounty = Bounty.MUTTON;
+                case 3: bounty = Bounty.DIRT;
                 break;
-                case 4: bounty = Bounty.ROTTEN_FLESH;
+                case 4: bounty = Bounty.DIORITE;
                 break;
-                case 5: bounty = Bounty.SAND;
+                case 5: bounty = Bounty.GRAVEL;
                 break;
-                case 6: bounty = Bounty.SPIDER_EYE;
+                case 6: bounty = Bounty.KELP;
                 break;
-                case 7: bounty = Bounty.STRING;
+                case 7: bounty = Bounty.MUTTON;
+                break;
+                case 8: bounty = Bounty.ROTTEN_FLESH;
+                break;
+                case 9: bounty = Bounty.SAND;
+                break;
+                case 10: bounty = Bounty.SPIDER_EYE;
+                break;
+                case 11: bounty = Bounty.STRING;
                 break;
                 default: bounty = Bounty.DIRT;
                 break;
@@ -70,7 +78,11 @@ public class BobuxBounty {
             stacks[i] = new ItemStack(bounty.stack);
             stacks[i].setAmount(stackAmnt);
             rngTrack[i] = rng;
-            compensation += bounty.bobux;
+            double tempCompensation = 0;
+            for (int j = 0; j < stackAmnt; j++) {
+                tempCompensation += bounty.bobux;
+            }
+            compensation += (int) tempCompensation;
         }
     }
 
@@ -90,33 +102,39 @@ public class BobuxBounty {
                 break;
                 case 1: bounty = Bounty.CARROT;
                 break;
-                case 2: bounty = Bounty.GLASS;
+                case 2: bounty = Bounty.COAL;
                 break;
-                case 3: bounty = Bounty.IRON_INGOT;
+                case 3: bounty = Bounty.FLINT;
                 break;
-                case 4: bounty = Bounty.LAPIS_LAZULI;
+                case 4: bounty = Bounty.GLASS;
                 break;
-                case 5: bounty = Bounty.LEATHER;
+                case 5: bounty = Bounty.IRON_INGOT;
                 break;
-                case 6: bounty = Bounty.OAK_LOG;
+                case 6: bounty = Bounty.LAPIS_LAZULI;
                 break;
-                case 7: bounty = Bounty.POTATO;
+                case 7: bounty = Bounty.LEATHER;
                 break;
-                case 8: bounty = Bounty.REDSTONE_BLOCK;
+                case 8: bounty = Bounty.OAK_LOG;
                 break;
-                case 9: bounty = Bounty.RED_MUSHROOM;
+                case 9: bounty = Bounty.POTATO;
                 break;
-                case 10: bounty = Bounty.STEAK;
+                case 10: bounty = Bounty.REDSTONE_BLOCK;
                 break;
-                case 11: bounty = Bounty.WHEAT;
+                case 11: bounty = Bounty.RED_MUSHROOM;
                 break;
-                case 12: bounty = Bounty.WOOL;
+                case 12: bounty = Bounty.STEAK;
                 break;
-                case 13: bounty = Bounty.BIRCH_LOG;
+                case 13: bounty = Bounty.SUGAR_CANE;
                 break;
-                case 14: bounty = Bounty.DARK_OAK_LOG;
+                case 14: bounty = Bounty.WHEAT;
                 break;
-                case 15: bounty = Bounty.SEEDS;
+                case 15: bounty = Bounty.WOOL;
+                break;
+                case 16: bounty = Bounty.BIRCH_LOG;
+                break;
+                case 17: bounty = Bounty.DARK_OAK_LOG;
+                break;
+                case 18: bounty = Bounty.SEEDS;
                 break;
                 default: bounty = Bounty.WOOL;
                 break;
@@ -125,7 +143,11 @@ public class BobuxBounty {
             stacks[i] = new ItemStack(bounty.stack);
             stacks[i].setAmount(stackAmnt);
             rngTrack[i] = rng;
-            compensation += bounty.bobux;
+            double tempCompensation = 0;
+            for (int j = 0; j < stackAmnt; j++) {
+                tempCompensation += bounty.bobux;
+            }
+            compensation += (int) tempCompensation;
         }
     }
 
@@ -153,6 +175,8 @@ public class BobuxBounty {
                 break;
                 case 5: bounty = Bounty.NETHERITE_INGOT;
                 break;
+                case 6: bounty = Bounty.SHULKER_SHELL;
+                break;
                 default: bounty = Bounty.DIAMOND;
                 break;
             }
@@ -160,7 +184,11 @@ public class BobuxBounty {
             stacks[i] = new ItemStack(bounty.stack);
             stacks[i].setAmount(stackAmnt);
             rngTrack[i] = rng;
-            compensation += bounty.bobux;
+            double tempCompensation = 0;
+            for (int j = 0; j < stackAmnt; j++) {
+                tempCompensation += bounty.bobux;
+            }
+            compensation += (int) tempCompensation;
         }
     }
 

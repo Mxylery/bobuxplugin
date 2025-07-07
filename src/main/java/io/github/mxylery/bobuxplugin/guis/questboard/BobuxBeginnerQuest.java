@@ -4,7 +4,7 @@ public class BobuxBeginnerQuest extends BobuxQuest {
 
     public BobuxBeginnerQuest(int questAmount) {
         super(questAmount);
-        compensation = 25;
+        compensation = 50;
     }
 
     protected void generateQuests() {

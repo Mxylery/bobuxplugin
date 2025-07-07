@@ -14,6 +14,7 @@ import io.github.mxylery.bobuxplugin.items.BobuxAttributeSet;
 public class TempAttribute implements Serializable {
     
     private transient Attribute attribute;
+    private transient boolean paused;
     private AttributeModifier modifier;
     private String attributeName;
     private long timeLeft;
@@ -23,6 +24,7 @@ public class TempAttribute implements Serializable {
         this.modifier = bobuxAttributeSet.getModifier();
         this.timeLeft = duration;
         this.attributeName = setAttributeType();
+        this.paused = false;
     }
 
     private String setAttributeType() {
@@ -166,7 +168,17 @@ public class TempAttribute implements Serializable {
     }
 
     public void tick() {
-        timeLeft--;
+        if (!paused) {
+            timeLeft--;
+        }
+    }
+
+    public void setPaused(boolean isPaused) {
+        paused = isPaused;
+    }
+
+    public boolean isPaused() {
+        return paused;
     }
 
     public String toString() {

@@ -61,6 +61,7 @@ public class BobuxTimer implements Runnable {
             if (raffleRng < 0.5 && BobuxPlugin.getRaffle().isCompleted()) {
                 BobuxRaffle raffle = new BobuxRaffle();
                 BobuxPlugin.setRaffle(raffle);
+                Bukkit.getServer().broadcastMessage("A new raffle has started!");
             }
             numberOfDays++;
         } else if (world.getTime() == 13000) {

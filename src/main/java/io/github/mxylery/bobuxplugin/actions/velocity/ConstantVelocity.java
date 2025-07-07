@@ -1,11 +1,8 @@
 package io.github.mxylery.bobuxplugin.actions.velocity;
 
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.Listener;
-
 import io.github.mxylery.bobuxplugin.actions.BobuxAction;
 
-public class ConstantVelocity extends BobuxAction implements Listener {
+public class ConstantVelocity extends BobuxAction {
     
     private double magnitude;
     private final long max;
@@ -22,13 +19,11 @@ public class ConstantVelocity extends BobuxAction implements Listener {
 
     @Override
     public void run() {
-        if (counter != max) {
+        if (counter == max) {
             vector.multiply(magnitude*0.1);
         }
         for (int i = 0; i < super.entityList.length; i++) {
-            if (entityList[i] instanceof LivingEntity) {
-                entityList[i].setVelocity(vector);
-            }
+            entityList[i].setVelocity(vector);
         }
         counter--;
         if (counter > 0) {

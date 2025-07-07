@@ -99,6 +99,11 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 case "peace_treaty": player.getInventory().addItem(BobuxItemInterface.peaceTreaty.getStack());
                 break;
                 case "hype_train": player.getInventory().addItem(BobuxItemInterface.hypeTrain.getStack());
+                break;
+                case "slow_pogo": player.getInventory().addItem(BobuxItemInterface.slowPogo.getStack());
+                break;
+                case "pogo_launcher": player.getInventory().addItem(BobuxItemInterface.pogoLauncher.getStack());
+                break;
                 default:
                 break;
             }
@@ -159,7 +164,7 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
         } else if (command.getName().equalsIgnoreCase("bobuxhub")) {
             if (player.getWorld().equals(BobuxPlugin.getOverworld())) {
                 PlayerLocationData.saveDataToFile();
-                PlayerLocationData.loadDataToGame();    
+                PlayerLocationData.loadDataToGame();
                 player.teleport(BobuxPlugin.getBobuxHub().getSpawnLocation());
             } else {
                 player.sendMessage("You're already in the Bobux Hub!");

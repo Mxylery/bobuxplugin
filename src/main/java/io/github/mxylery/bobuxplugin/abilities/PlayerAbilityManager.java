@@ -15,6 +15,7 @@ import io.github.mxylery.bobuxplugin.abilities.ability_types.*;
 import io.github.mxylery.bobuxplugin.core.BobuxTimer;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.data_structures.*;
+import io.github.mxylery.bobuxplugin.items.BobuxArmorSet;
 import io.github.mxylery.bobuxplugin.items.BobuxItem;
 
 //This is where all cooldowns get registered to players and whatnot. Also take into account mobs, can have seperate methods or even a seperate class
@@ -142,78 +143,139 @@ public class PlayerAbilityManager {
         } 
     }
 
-    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity otherEntity, boolean passive) {
+    /**
+     * Constructor used for when a player and another entity is directly involved with an ability. 
+     * 
+     * Example: Cleaver uses this to take in the mob being hit
+     * @param bobuxitem
+     * @param holder
+     * @param slot
+     * @param otherEntity
+     * @param passive
+     */
+    public static void checkForPassiveSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity otherEntity) {
         PlayerInventory currentInventory = holder.getInventory();
         if (currentInventory.getItem(slot) != null) {
             if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
                 BobuxItem item = bobuxitem;
-                BobuxAbility ability;
-                if (!passive) {
-                    ability = item.getAbility();
-                } else {
-                    ability = item.getPassive();
-                }
+                BobuxAbility ability = item.getPassive();
                 ability.setTriggeredNormally(true);
                 ability.setTarget(otherEntity);
                 ability.setUser(holder);
-                if (!passive) {
-                    if (ability.assignVariables() && verifyItemCD(holder, ability)) {
-                        useAbility(holder, ability);
-                    }
-                } else {
-                    if (ability.assignVariables() && verifyItemCD(holder, ability)) {
-                        usePassive(holder, ability);  
-                        Runnable passiveRunnable = new Runnable(){
-                            public void run() {
-                                checkForSlotMatch(bobuxitem, holder, slot, passive);
-                            }
-                        };
-                        scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
-                    }
+                if (verifyItemCD(holder, ability) && ability.assignVariables()) {
+                    usePassive(holder, ability);  
+                    Runnable passiveRunnable = new Runnable(){
+                        public void run() {
+                            checkForPassiveSlotMatch(bobuxitem, holder, slot);
+                        }
+                    };
+                    scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
+                }
+            }
+        }
+    }
+    
+
+    public static void checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, Entity otherEntity) {
+        PlayerInventory currentInventory = holder.getInventory();
+        if (currentInventory.getItem(slot) != null) {
+            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
+                BobuxItem item = bobuxitem;
+                BobuxAbility ability = item.getAbility();
+                ability.setTriggeredNormally(true);
+                ability.setTarget(otherEntity);
+                ability.setUser(holder);
+                if (verifyItemCD(holder, ability) && ability.assignVariables()) {
+                    useAbility(holder, ability);
                 }
             }
         }
     }
 
-    public static boolean checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot, boolean passive) {
+    public static boolean checkForSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot) {
         PlayerInventory currentInventory = holder.getInventory();
         if (currentInventory.getItem(slot) != null) {
             if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
                 BobuxItem item = bobuxitem;
-                System.out.println(item.getName());
-                BobuxAbility ability;
-                if (!passive) {
-                    ability = item.getAbility();
-                } else {
-                    ability = item.getPassive();
-                }
+                BobuxAbility ability = item.getAbility();
                 ability.setTriggeredNormally(true);
                 ability.setUser(holder);
-                if (!passive) {
-                    if (ability.assignVariables() && verifyItemCD(holder, ability)) {
-                        useAbility(holder, ability);
-                        return true;
-                    }
-                    return false;
-                } else {
-                    if (ability.assignVariables() && verifyItemCD(holder, ability)) {
-                        usePassive(holder, ability);  
-                        //Cooldown is actually the delay, so if the delay isn't 0 (if it relies on a delay)
-                        if (ability.getCooldown() != 0) {
-                            Runnable passiveRunnable = new Runnable(){
-                                public void run() {
-                                    checkForSlotMatch(bobuxitem, holder, slot, passive);
-                                }
-                            };
-                        scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
-                        return true;
-                        }
-                    }
-                    return false;
-                }
-            } return false;
+                if (verifyItemCD(holder, ability) && ability.assignVariables()) {
+                    useAbility(holder, ability);
+                    return true;
+                } 
+            } 
         } return false;
     }
+
+    public static boolean checkForPassiveSlotMatch(BobuxItem bobuxitem, Player holder, EquipmentSlot slot) {
+        PlayerInventory currentInventory = holder.getInventory();
+        if (currentInventory.getItem(slot) != null) {
+            if (BobuxUtils.checkWithoutDuraAmnt(currentInventory.getItem(slot), bobuxitem)) {
+                BobuxItem item = bobuxitem;
+                BobuxAbility ability = item.getPassive();
+                ability.setTriggeredNormally(true);
+                ability.setUser(holder);
+                if (verifyItemCD(holder, ability) && ability.assignVariables()) {
+                    usePassive(holder, ability);  
+                    //Cooldown is actually the delay, so if the delay isn't 0 (if it relies on a delay)
+                    if (ability.getCooldown() != 0) {
+                        Runnable passiveRunnable = new Runnable(){
+                            public void run() {
+                                checkForPassiveSlotMatch(bobuxitem, holder, slot);
+                            }
+                        };
+                    scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
+                    return true;
+                    }
+                }
+                    return false;
+            }
+        } return false;
+    } 
+
+    public static boolean checkForPassiveArmorSetMatch(BobuxArmorSet armorSet, Player wearer) {
+        PlayerInventory currentInventory = wearer.getInventory();
+        BobuxItem[] set = armorSet.getSetArray();
+        if (set[0] != null) {
+            if (!BobuxUtils.checkWithoutDuraAmnt(currentInventory.getHelmet(), set[0])) {
+                return false;
+            }
+        }
+        if (set[1] != null) {
+            if (!BobuxUtils.checkWithoutDuraAmnt(currentInventory.getChestplate(), set[1])) {
+                return false;
+            }
+        }
+        if (set[2] != null) {
+            if (!BobuxUtils.checkWithoutDuraAmnt(currentInventory.getLeggings(), set[2])) {
+                return false;
+            }
+        }
+        if (set[3] != null) {
+            if (!BobuxUtils.checkWithoutDuraAmnt(currentInventory.getBoots(), set[3])) {
+                return false;
+            }
+        }
+        BobuxAbility ability = armorSet.getPassive();
+        ability.setTriggeredNormally(true);
+        ability.setUser(wearer);
+        if (ability.assignVariables() && verifyItemCD(wearer, ability)) {
+            usePassive(wearer, ability);  
+            //Cooldown is actually the delay, so if the delay isn't 0 (if it relies on a delay)
+            if (ability.getCooldown() != 0) {
+                    Runnable passiveRunnable = new Runnable(){
+                    public void run() {
+                        checkForPassiveArmorSetMatch(armorSet, wearer);
+                    }
+                };
+            scheduler.runTaskLater(plugin, passiveRunnable, ability.getCooldown());
+            return true;
+            }
+        }
+        return false;
+    }
+        
 
     public static boolean checkForSlot(BobuxItem bobuxitem, Player holder, EquipmentSlot slot) {
         PlayerInventory currentInventory = holder.getInventory();
