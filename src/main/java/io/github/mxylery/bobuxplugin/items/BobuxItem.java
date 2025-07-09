@@ -115,6 +115,21 @@ public class BobuxItem {
         this.attributeSet = attributeSet;
         initializeStack();
     }
+
+    public BobuxItem(ItemStack stack, String[] description, String name, BobuxAttributeSet[] attributeSet, boolean unbreakable, int price) {
+        this.stack = stack;
+        this.description = description;
+        this.name = name;
+        this.ability = null;
+        this.enchants = null;
+        this.enchantLevels = null;
+        this.unbreakable = unbreakable;
+        this.price = price;
+        this.passive = null;
+        this.hideFlag = false;
+        this.attributeSet = attributeSet;
+        initializeStack();
+    }
      
     public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, AbilityPassive passive, 
     int price) {

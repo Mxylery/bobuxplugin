@@ -233,6 +233,39 @@ public class PlayerAbilityManager {
             }
         } return false;
     } 
+    
+    public static boolean checkForArmorSetMatch(BobuxArmorSet armorSet, Player wearer) {
+        PlayerInventory currentInventory = wearer.getInventory();
+        BobuxItem[] set = armorSet.getSetArray();
+        if (set[0] != null) {
+            if (!BobuxUtils.checkWithoutDuraAmnt(currentInventory.getHelmet(), set[0])) {
+                return false;
+            }
+        }
+        if (set[1] != null) {
+            if (!BobuxUtils.checkWithoutDuraAmnt(currentInventory.getChestplate(), set[1])) {
+                return false;
+            }
+        }
+        if (set[2] != null) {
+            if (!BobuxUtils.checkWithoutDuraAmnt(currentInventory.getLeggings(), set[2])) {
+                return false;
+            }
+        }
+        if (set[3] != null) {
+            if (!BobuxUtils.checkWithoutDuraAmnt(currentInventory.getBoots(), set[3])) {
+                return false;
+            }
+        }
+        BobuxAbility ability = armorSet.getAbility();
+        ability.setTriggeredNormally(true);
+        ability.setUser(wearer);
+        if (verifyItemCD(wearer, ability) && ability.assignVariables()) {
+            useAbility(wearer, ability);
+            return true;
+        }
+        return true;
+    }
 
     public static boolean checkForPassiveArmorSetMatch(BobuxArmorSet armorSet, Player wearer) {
         PlayerInventory currentInventory = wearer.getInventory();

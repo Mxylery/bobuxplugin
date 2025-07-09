@@ -32,6 +32,7 @@ public class BobuxRaffle implements Serializable {
     private transient Player winner;
     private static transient HashMap<UUID, ItemStack> offlinePlayerStacks = new HashMap<UUID, ItemStack>();
     private static transient HashMap<UUID, TempAttribute> offlinePlayerAttributes = new HashMap<UUID, TempAttribute>();
+    private static transient HashMap<UUID, Integer> offlinePlayerDonations = new HashMap<UUID, Integer>();
     
     public BobuxRaffle() {
         double goalRng = Math.random();
@@ -45,7 +46,6 @@ public class BobuxRaffle implements Serializable {
         chooseRaffleStack();
         chooseTempAttribute();
         isCompleted = false;
-        Bukkit.getServer().broadcastMessage("A new raffle has started!");
     }
 
     private void chooseTempAttribute() {
@@ -53,11 +53,11 @@ public class BobuxRaffle implements Serializable {
         double timeRng = Math.random();
         long length;
         if (timeRng < 0.33) {
-            length = 6000;
-        } else if (timeRng < 0.67) {
-            length = 12000;
-        } else {
             length = 24000;
+        } else if (timeRng < 0.67) {
+            length = 48000;
+        } else {
+            length = 72000;
         }
         BobuxAttributeSet attributeSet;
         switch(attributeRng) {
@@ -167,23 +167,27 @@ public class BobuxRaffle implements Serializable {
                 BobuxPlayerStats stats = BobuxPlugin.getPlayerStats(player);
                 stats.addAttribute(tempAttribute);
             }
-            while (remainingContribution > 0) {
-                while (remainingContribution > 250) {
-                    remainingContribution -= 250;
-                    player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
-                    player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
-                    player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
+            if (player.isOnline()) {
+                while (remainingContribution > 0) {
+                    while (remainingContribution > 500) {
+                        remainingContribution -= 500;
+                        player.getInventory().addItem(BobuxItemInterface.greaterLootbox.getStack());
+                        player.getInventory().addItem(BobuxItemInterface.lootbox.getStack());
+                        player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
+                    }
+                    while (remainingContribution > 100) {
+                        remainingContribution -= 100;
+                        player.getInventory().addItem(BobuxItemInterface.lootbox.getStack());
+                        player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
+                    }
+                    while (remainingContribution > 50) {
+                        remainingContribution -= 50;
+                        player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
+                    }
+                    remainingContribution = 0;
                 }
-                while (remainingContribution > 100) {
-                    remainingContribution -= 100;
-                    player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
-                    player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
-                }
-                while (remainingContribution > 50) {
-                    remainingContribution -= 50;
-                    player.getInventory().addItem(BobuxItemInterface.lesserLootbox.getStack());
-                }
-                remainingContribution = 0;
+            } else {
+                offlinePlayerDonations.put(uuid, remainingContribution);
             }
         }
     }
@@ -252,12 +256,20 @@ public class BobuxRaffle implements Serializable {
         return offlinePlayerStacks;
     }
 
+    public HashMap<UUID, Integer> getOfflineDonations() {
+        return offlinePlayerDonations;
+    }
+
     public void setOfflineStacks(HashMap<UUID, ItemStack> stackMap) {
         offlinePlayerStacks = stackMap;
     }
 
     public void setOfflineAttributeMap(HashMap<UUID, TempAttribute> attributeMap) {
         offlinePlayerAttributes = attributeMap;
+    }
+
+    public void setOfflineDonations(HashMap<UUID, Integer> playerDonations) {
+        offlinePlayerDonations = playerDonations;
     }
 
     public ItemStack getWinningStack() {

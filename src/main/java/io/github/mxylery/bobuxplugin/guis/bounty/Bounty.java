@@ -23,6 +23,7 @@ public enum Bounty {
 	BROWN_MUSHROOM (1, 2, 8, new ItemStack(Material.BROWN_MUSHROOM)),
 	BIRCH_LOG (1, 8, 16, new ItemStack(Material.BIRCH_LOG)),
 	COAL (1, 8, 16, new ItemStack(Material.COAL)),
+	COD (1, 8, 16, new ItemStack(Material.COD)),
 	CARROT (1, 8, 16, new ItemStack(Material.CARROT)),
 	DARK_OAK_LOG (1, 8, 16, new ItemStack(Material.DARK_OAK_LOG)),
 	FLINT (2, 3, 6, new ItemStack(Material.BROWN_MUSHROOM)),
@@ -32,13 +33,15 @@ public enum Bounty {
 	LEATHER (2, 6, 10, new ItemStack(Material.LEATHER)),
 	OAK_LOG (1, 8, 16, new ItemStack(Material.OAK_LOG)),
 	POTATO (1, 8, 16, new ItemStack(Material.POTATO)),
+	PUFFERFISH (3, 3, 6, new ItemStack(Material.PUFFERFISH)),
 	RED_MUSHROOM (6, 2, 8, new ItemStack(Material.RED_MUSHROOM)),
 	REDSTONE_BLOCK (2, 4, 7, new ItemStack(Material.REDSTONE_BLOCK)),
+	SALMON (1.5, 6, 12, new ItemStack(Material.SALMON)),
 	SEEDS (0.5, 15, 30, new ItemStack(Material.WHEAT_SEEDS)),
 	STEAK (4, 4, 8, new ItemStack(Material.COOKED_BEEF)),
 	SUGAR_CANE (1, 8, 16, new ItemStack(Material.SUGAR_CANE)),
-	WHEAT (8, 6, 12, new ItemStack(Material.WHEAT)),
-	WOOL (9, 5, 10, new ItemStack(Material.WHITE_WOOL)),
+	WHEAT (1, 6, 12, new ItemStack(Material.WHEAT)),
+	WOOL (3, 5, 10, new ItemStack(Material.WHITE_WOOL)),
 
 	//Rarities
 	DIAMOND (40, 2, 4, new ItemStack(Material.DIAMOND)),
@@ -56,7 +59,7 @@ public enum Bounty {
 
     public static int typeCount = 36;
 	public static int junkCount = 12;
-	public static int goodsCount = 19;
+	public static int goodsCount = 22;
 	public static int raritiesCount = 7;
 
     Bounty(double bobux, int min, int max, ItemStack stack) {

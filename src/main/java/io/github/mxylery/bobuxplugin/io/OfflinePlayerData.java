@@ -18,7 +18,6 @@ import org.bukkit.util.io.BukkitObjectOutputStream;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
 import io.github.mxylery.bobuxplugin.guis.raffle.BobuxRaffle;
-import io.github.mxylery.bobuxplugin.player.BobuxPlayerStats;
 import io.github.mxylery.bobuxplugin.player.TempAttribute;
 
 public class OfflinePlayerData implements Serializable {
@@ -26,16 +25,19 @@ public class OfflinePlayerData implements Serializable {
 
     public final HashMap<UUID, ItemStack> offlinePlayerStacks;
     public final HashMap<UUID, TempAttribute> offlinePlayerAttributes;
+    public final HashMap<UUID, Integer> offlinePlayerDonations;
 
     // Can be used for saving
-    public OfflinePlayerData(HashMap<UUID, ItemStack> offlinePlayerStacks, HashMap<UUID, TempAttribute> offlinePlayerAttributes) {
+    public OfflinePlayerData(HashMap<UUID, ItemStack> offlinePlayerStacks, HashMap<UUID, TempAttribute> offlinePlayerAttributes, HashMap<UUID, Integer> offlinePlayerDonations) {
         this.offlinePlayerStacks = offlinePlayerStacks;
         this.offlinePlayerAttributes = offlinePlayerAttributes;
+        this.offlinePlayerDonations = offlinePlayerDonations;
     }
     // Can be used for loading
     public OfflinePlayerData(OfflinePlayerData loadedData) {
         this.offlinePlayerStacks = loadedData.offlinePlayerStacks;
         this.offlinePlayerAttributes = loadedData.offlinePlayerAttributes;
+        this.offlinePlayerDonations = loadedData.offlinePlayerDonations;
     }
 
     public boolean saveData() {
@@ -67,7 +69,8 @@ public class OfflinePlayerData implements Serializable {
     public static void saveDataToFile() {
         HashMap<UUID, ItemStack> stacks = BobuxPlugin.getRaffle().getOfflineStacks();
         HashMap<UUID, TempAttribute> attributes = BobuxPlugin.getRaffle().getOfflineAttributeMap();
-        new OfflinePlayerData(stacks, attributes).saveData();
+        HashMap<UUID, Integer> donations = BobuxPlugin.getRaffle().getOfflineDonations();
+        new OfflinePlayerData(stacks, attributes, donations).saveData();
         Bukkit.getServer().getLogger().log(Level.INFO, "Data saved");
     }
 
@@ -77,6 +80,7 @@ public class OfflinePlayerData implements Serializable {
         BobuxRaffle raffle = BobuxPlugin.getRaffle();
         raffle.setOfflineAttributeMap(data.offlinePlayerAttributes);
         raffle.setOfflineStacks(data.offlinePlayerStacks);
+        raffle.setOfflineDonations(data.offlinePlayerDonations);
         Bukkit.getServer().getLogger().log(Level.INFO, "Data loaded");
     }
 }

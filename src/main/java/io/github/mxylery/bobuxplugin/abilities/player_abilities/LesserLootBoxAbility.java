@@ -1,7 +1,11 @@
 package io.github.mxylery.bobuxplugin.abilities.player_abilities;
 
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
 import org.bukkit.Sound;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.FireworkMeta;
 
 import io.github.mxylery.bobuxplugin.abilities.AbilityComponent;
 import io.github.mxylery.bobuxplugin.abilities.ability_types.PhaseAbility;
@@ -42,6 +46,11 @@ public class LesserLootBoxAbility extends PhaseAbility {
             triggerPhase(player, BobuxItemInterface.lesserLootbox, 9, 2);
         } else if (phase == 2 && !triggeredNormally) {
             componentHead = new AbilityComponent(new DeleteItem(BobuxItemInterface.lesserLootbox.getStack(), 1), player.getInventory());
+            Firework firework = player.getWorld().spawn(player.getLocation(), Firework.class);
+            FireworkMeta fireworkMeta = firework.getFireworkMeta();
+            FireworkEffect fireworkEffect = FireworkEffect.builder().flicker(false).trail(false).withColor(Color.WHITE).build();
+            fireworkMeta.addEffect(fireworkEffect);
+            firework.detonate();
 
             phase = 0;
             new LesserLootboxGUI().openGUI(player);

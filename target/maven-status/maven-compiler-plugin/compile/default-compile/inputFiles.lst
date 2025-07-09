@@ -6,6 +6,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\vectors\Regis
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\vectors\BobuxRegisterer.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\spawn\SpawnPearl.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\AbilityInstance.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\misc\LootboxGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\velocity\RepulseFromPoint.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\SlowPogoLauncherAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\data_structures\GUIStructure.java
@@ -27,6 +28,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\io\PlayerLoca
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\spawn\SpawnArrow.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\raffle\BobuxRaffle.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxArmorSet.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\GreaterLootboxAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\BobuxAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\ability_types\AbilityPassive.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\velocity\ConstantAcceleration.java
@@ -46,6 +48,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\livi
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\BobuxLivingEntity.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\entity\OpenInventory.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\TheHotStickAbility.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\FishermansSetAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\projectile_abilities\PogoLauncherProjectileAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\velocity\PullTowardsPoint.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\animations\GUIAnimation.java
@@ -61,6 +64,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\entit
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\velocity\ConstantVelocity.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxWeapon.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\player\BobuxPlayerStats.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\misc\CulturalCoreGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\BW5Ability.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\FruitcakeAndCookiesAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\mob_abilities\StinkyMobAbilityOne.java
@@ -81,6 +85,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\pla
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\entity\SetFire.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxLoot.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxItemInterface.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\LootboxAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\mobs\Sandbagger.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\questboard\QuestBoardGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\mob_abilities\CulturalCultistAbilityOne.java
@@ -109,10 +114,12 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\minigames\pok
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\HurriedStopwatchAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\BobuxTradeGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\io\BobuxStatsData.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\FishermansPoleAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\raffle\RaffleGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\CubeRemoverAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\misc\OpenGUIAction.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\ability_types\AbilityOneTime.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\item\AddEnchant.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\entities\projectiles\BobuxArrow.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\spawn\SpawnEntity.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\mobs\ScoutZombie.java
@@ -127,6 +134,7 @@ c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\pla
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\CleaverAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\items\BobuxEquipment.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\entities\mobs\CulturalCultist.java
+c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\misc\GreaterLootboxGUI.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\guis\questboard\BobuxQuest.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\abilities\player_abilities\LineSpawnerAbility.java
 c:\Dev\VSC\bobuxplugin\src\main\java\io\github\mxylery\bobuxplugin\actions\entity\DamageEntity.java

@@ -31,7 +31,7 @@ public class BobuxGUIGenerator implements Listener {
 
     public static BobuxItem[] marketMenu = new BobuxItem[5];
     public static int menuSize = 3;
-    public static final int marketItemTotal = 27;
+    public static final int marketItemTotal = 32;
     public static void randomizeMarketItems() {
         if (BobuxDay.getDay() != DayType.AVARICIOUS) {
             menuSize = 3;
@@ -101,6 +101,16 @@ public class BobuxGUIGenerator implements Listener {
                 case 25: marketMenu[i] = BobuxItemInterface.slowPogo;
                 break;
                 case 26: marketMenu[i] = BobuxItemInterface.pogoLauncher;
+                break;
+                case 27: marketMenu[i] = BobuxItemInterface.fishermanBoots;
+                break;
+                case 28: marketMenu[i] = BobuxItemInterface.fishermanHat;
+                break;
+                case 29: marketMenu[i] = BobuxItemInterface.fishermanPants;
+                break;
+                case 30: marketMenu[i] = BobuxItemInterface.fishermanVest;
+                break;
+                case 31: marketMenu[i] = BobuxItemInterface.fishermansPole;
                 break;
             }
             noDupe[i] = rng;

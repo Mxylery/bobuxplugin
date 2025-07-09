@@ -104,6 +104,20 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
                 case "pogo_launcher": player.getInventory().addItem(BobuxItemInterface.pogoLauncher.getStack());
                 break;
+                case "fisherman_boots": player.getInventory().addItem(BobuxItemInterface.fishermanBoots.getStack());
+                break;
+                case "fisherman_hat": player.getInventory().addItem(BobuxItemInterface.fishermanHat.getStack());
+                break;
+                case "fisherman_vest": player.getInventory().addItem(BobuxItemInterface.fishermanVest.getStack());
+                break;
+                case "fisherman_pants": player.getInventory().addItem(BobuxItemInterface.fishermanPants.getStack());
+                break;
+                case "fishermans_pole": player.getInventory().addItem(BobuxItemInterface.fishermansPole.getStack());
+                break;
+                case "lootbox": player.getInventory().addItem(BobuxItemInterface.lootbox.getStack());
+                break;
+                case "greater_lootbox": player.getInventory().addItem(BobuxItemInterface.greaterLootbox.getStack());
+                break;
                 default:
                 break;
             }

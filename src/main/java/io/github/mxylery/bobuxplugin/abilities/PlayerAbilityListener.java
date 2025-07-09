@@ -1,7 +1,9 @@
 package io.github.mxylery.bobuxplugin.abilities;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,6 +12,7 @@ import org.bukkit.event.entity.EntityBreedEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInputEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -19,6 +22,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import io.github.mxylery.bobuxplugin.BobuxPlugin;
@@ -64,9 +68,12 @@ public class PlayerAbilityListener implements Listener {
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.fruitcakeAndCookies, player, EquipmentSlot.HAND);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bobuxinator, player, EquipmentSlot.HAND);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.lesserLootbox, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.lootbox, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.greaterLootbox, player, EquipmentSlot.HAND);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.flockingFeather, player, EquipmentSlot.HAND);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.hypeTrain, player, EquipmentSlot.HAND);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.slowPogo, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.pogoLauncher, player, EquipmentSlot.HAND);
             if (BobuxUtils.checkTotalItems(player.getInventory(), BobuxItemInterface.BW5Ammo.getStack()) != null) {
                 PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.BW5, player, EquipmentSlot.HAND);
             } 
@@ -77,16 +84,44 @@ public class PlayerAbilityListener implements Listener {
             if (PlayerAbilityManager.checkForSlot(BobuxItemInterface.fruitcakeAndCookies, player, EquipmentSlot.HAND)
             || PlayerAbilityManager.checkForSlot(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND) 
             || PlayerAbilityManager.checkForSlot(BobuxItemInterface.lesserLootbox, player, EquipmentSlot.HAND) 
+            || PlayerAbilityManager.checkForSlot(BobuxItemInterface.lootbox, player, EquipmentSlot.HAND) 
+            || PlayerAbilityManager.checkForSlot(BobuxItemInterface.greaterLootbox, player, EquipmentSlot.HAND) 
             || BobuxUtils.checkWithoutDuraAmnt(e.getItem(), BobuxItemInterface.bobuxSquare)
             || BobuxUtils.checkWithoutDuraAmnt(e.getItem(), BobuxItemInterface.bobuxCube)
             || BobuxUtils.checkWithoutDuraAmnt(e.getItem(), BobuxItemInterface.bobuxTesseract)) {
                 e.setCancelled(true);
             }
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.slowPogo, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.pogoLauncher, player, EquipmentSlot.HAND);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.flockingFeather, player, EquipmentSlot.HAND);
         } else if (e.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.bouncingItem, player, EquipmentSlot.HAND);
             PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.peaceTreaty, player, EquipmentSlot.HAND);
+        }
+    }
+
+    @EventHandler
+    public void onInvClick(InventoryClickEvent e) {
+        ItemStack cursorStack = e.getCursor();
+        ItemStack clickedOnStack = e.getCurrentItem();
+
+        if (cursorStack != null && clickedOnStack != null) {
+            ItemMeta clickedOnMeta = clickedOnStack.getItemMeta();
+            if (e.getClick().isRightClick()) {
+                if (clickedOnStack.getType().equals(Material.FISHING_ROD)) {
+                    if (BobuxUtils.checkWithoutDuraAmnt(cursorStack, BobuxItemInterface.culturalCoreLOTS)) {
+                        clickedOnMeta.addEnchant(Enchantment.LUCK_OF_THE_SEA, 4, true);
+                        clickedOnStack.setItemMeta(clickedOnMeta);
+                        int prevAmnt = cursorStack.getAmount();
+                        cursorStack.setAmount(prevAmnt - 1);
+                    } else if (BobuxUtils.checkWithoutDuraAmnt(cursorStack, BobuxItemInterface.culturalCoreLure)) {
+                        clickedOnMeta.addEnchant(Enchantment.LURE, 4, true);
+                        clickedOnStack.setItemMeta(clickedOnMeta);
+                        int prevAmnt = cursorStack.getAmount();
+                        cursorStack.setAmount(prevAmnt - 1);
+                    }
+                }
+            }
         }
     }
 
@@ -164,6 +199,16 @@ public class PlayerAbilityListener implements Listener {
                 }
             };
             scheduler.runTaskLater(plugin, passiveRunnable, 1);
+        }
+    }
+
+    @EventHandler
+    public void onFish(PlayerFishEvent e) {
+        Player player = e.getPlayer();
+
+        if (e.getState().equals(PlayerFishEvent.State.CAUGHT_FISH)) {
+            PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.fishermansPole, player, EquipmentSlot.HAND);
+            PlayerAbilityManager.checkForArmorSetMatch(BobuxItemInterface.fishermansSet, player);
         }
     }
 

@@ -58,7 +58,7 @@ public class BobuxTimer implements Runnable {
                 player.getInventory().addItem(BobuxItemInterface.bobuxSquare.getStack());
             }
             double raffleRng = Math.random();
-            if (raffleRng < 0.5 && BobuxPlugin.getRaffle().isCompleted()) {
+            if (raffleRng < 0.3 && BobuxPlugin.getRaffle().isCompleted()) {
                 BobuxRaffle raffle = new BobuxRaffle();
                 BobuxPlugin.setRaffle(raffle);
                 Bukkit.getServer().broadcastMessage("A new raffle has started!");

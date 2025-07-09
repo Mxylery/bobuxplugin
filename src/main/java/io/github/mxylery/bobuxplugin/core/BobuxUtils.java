@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -145,23 +146,33 @@ public class BobuxUtils {
 		return newLocation;
 	}
 
+	/**
+	 * Checks if an item matches a bobuxitem excluding enchantments, durability and amount.
+	 * @param item
+	 * @param bobuxitem
+	 * @return
+	 */
 	public static boolean checkWithoutDuraAmnt(ItemStack item, BobuxItem bobuxitem) {
-		if (item == null) {
+		if (item == null || item.getType().equals(Material.AIR) || bobuxitem == null) {
 			return false;
 		}
-		ItemStack tempStack = new ItemStack(item);
-		tempStack.setAmount(1);
-		ItemMeta tempMeta = tempStack.getItemMeta();
-		if (tempMeta instanceof Damageable && bobuxitem.getStack().getItemMeta() instanceof Damageable) {
-			Damageable damageable = (Damageable) tempMeta;
-			damageable.setDamage(0);
-			tempStack.setItemMeta(damageable);
-			if (damageable.equals((Damageable) bobuxitem.getStack().getItemMeta())) {
+		ItemStack tempStack1 = new ItemStack(item);
+		tempStack1.setAmount(1);
+		tempStack1.removeEnchantments();
+		ItemMeta tempMeta1 = tempStack1.getItemMeta();
+		ItemStack tempStack2 = new ItemStack(bobuxitem.getStack());
+		tempStack2.setAmount(1);
+		tempStack2.removeEnchantments();
+		ItemMeta tempMeta2 = tempStack2.getItemMeta();
+		if (tempMeta1 instanceof Damageable && tempMeta2 instanceof Damageable) {
+			Damageable damageable1 = (Damageable) tempMeta1;
+			damageable1.setDamage(0);
+			Damageable damageable2 = (Damageable) tempMeta2;
+			damageable2.setDamage(0);
+			if (damageable1.equals(damageable2)) {
 				return true;
 			}
-			return false;
-		}
-		if (tempStack.equals(bobuxitem.getStack())) {
+		} else if (tempMeta1.equals(tempMeta2)) {
 			return true;
 		}
 		return false;
@@ -169,6 +180,9 @@ public class BobuxUtils {
 
 	//do this wehne back
 	public static boolean checkWithoutDuraAmnt(ItemStack item1, ItemStack item2) {
+		if (item1 == null || item1.getType().equals(Material.AIR) || item2 == null || item2.getType().equals(Material.AIR)) {
+			return false;
+		}
 		ItemStack tempStack1 = new ItemStack(item1);
 		tempStack1.setAmount(1);
 		ItemMeta tempMeta1 = tempStack1.getItemMeta();

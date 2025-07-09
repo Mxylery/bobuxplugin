@@ -425,10 +425,10 @@ public class BobuxItemInterface {
     private static ItemStack flockingFeatherStack = new ItemStack(Material.FEATHER);
     private static String[] flockingFeatherDesc = 
     {"§7Great way to swiftly escape a bad situation.",
-    "§85s CD (Right Click)"};
+    "§810s CD (Right Click)"};
     private static String flockingFeatherName = "§fFlocking Feather";
     public static BobuxItem flockingFeather = new BobuxItem
-    (flockingFeatherStack, flockingFeatherDesc, flockingFeatherName, new FlockingFeatherAbility("Flocking Feather Ability", false, 100), 8);
+    (flockingFeatherStack, flockingFeatherDesc, flockingFeatherName, new FlockingFeatherAbility("Flocking Feather Ability", false, 200), 12);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -448,7 +448,7 @@ public class BobuxItemInterface {
     "§810s CD (Right Click)"};
     private static String hypeTrainName = "§cHype Train";
     public static BobuxItem hypeTrain = new BobuxItem
-    (hypeTrainStack, hypeTrainDesc, hypeTrainName, new HypeTrainAbility(), 200);
+    (hypeTrainStack, hypeTrainDesc, hypeTrainName, new HypeTrainAbility(), 64);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -482,31 +482,112 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack lootboxStack = new ItemStack(Material.SPRUCE_WOOD);
+    private static ItemStack lootboxStack = new ItemStack(Material.STRIPPED_BIRCH_LOG);
     private static String[] lootboxDesc = 
-    {"§7Gives you three pieces of Bobux Loot"};
+    {"§7Gives you three pieces of Bobux Loot",
+    "§85s CD (Right Click)"};
     private static String lootboxName = "§cLootbox";
     public static BobuxItem lootbox = new BobuxItem
-    (lootboxStack, lootboxDesc, lootboxName, new LesserLootBoxAbility("Lootbox Ability", true, 100), 128);
+    (lootboxStack, lootboxDesc, lootboxName, new LootboxAbility(), 128);
     //////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack greaterLootboxStack = new ItemStack(Material.SPRUCE_WOOD);
+    private static ItemStack greaterLootboxStack = new ItemStack(Material.CRIMSON_ROOTS);
     private static String[] greaterLootboxDesc = 
-    {"§7Gives you three pieces of Bobux Loot"};
+    {"§7Gives you three pieces of Greater Bobux Loot",
+    "§85s CD (Right Click)"};
     private static String greaterLootboxName = "§cGreater Lootbox";
     public static BobuxItem greaterLootbox = new BobuxItem
-    (greaterLootboxStack, greaterLootboxDesc, greaterLootboxName, new LesserLootBoxAbility("Lootbox Ability", true, 100), 512);
+    (greaterLootboxStack, greaterLootboxDesc, greaterLootboxName, new GreaterLootboxAbility(), 512);
     //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack fishermanVestStack = new ItemStack(Material.GOLDEN_CHESTPLATE);
+    private static BobuxAttributeSet fishermanVestAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.LUCK, 0.05, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST);
+    private static BobuxAttributeSet fishermanVestAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST);
+    private static BobuxAttributeSet[] fishermanVestAttributeList = {fishermanVestAttribute1, fishermanVestAttribute2};
+    private static BobuxMetaManipulator fishermanVestManip = new BobuxMetaManipulator(fishermanVestStack, (ArmorMeta) fishermanVestStack.getItemMeta(), TrimMaterial.DIAMOND, TrimPattern.SNOUT);
+    private static String[] fishermanVestDesc = 
+    {"§7Perfect gear for a fishing trip!",
+    "§8(If full set is worn, gain a small chance of fishing up lootboxes)"};
+    private static String fishermanVestName = "§dFisherman Vest";
+    public static BobuxItem fishermanVest = new BobuxItem
+    (fishermanVestStack, fishermanVestDesc, fishermanVestName, fishermanVestAttributeList, true, 75);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack fishermanPantsStack = new ItemStack(Material.GOLDEN_LEGGINGS);
+    private static BobuxAttributeSet fishermanPantsAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.LUCK, 0.05, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS);
+    private static BobuxAttributeSet fishermanPantsAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS);
+    private static BobuxAttributeSet[] fishermanPantsAttributeList = {fishermanPantsAttribute1, fishermanPantsAttribute2};
+    private static BobuxMetaManipulator fishermanPantsManip = new BobuxMetaManipulator(fishermanPantsStack, (ArmorMeta) fishermanPantsStack.getItemMeta(), TrimMaterial.DIAMOND, TrimPattern.SNOUT);
+    private static String[] fishermanPantsDesc = 
+    {"§7Perfect gear for a fishing trip!",
+    "§8(If full set is worn, gain a small chance of fishing up lootboxes)"};
+    private static String fishermanPantsName = "§dFisherman Pants";
+    public static BobuxItem fishermanPants = new BobuxItem
+    (fishermanPantsStack, fishermanPantsDesc, fishermanPantsName, fishermanPantsAttributeList, true, 75);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack fishermanHatStack = new ItemStack(Material.GOLDEN_HELMET);
+    private static BobuxAttributeSet fishermanHatAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.LUCK, 0.05, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD);
+    private static BobuxAttributeSet fishermanHatAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD);
+    private static BobuxAttributeSet[] fishermanHatAttributeList = {fishermanHatAttribute1, fishermanHatAttribute2};
+    private static BobuxMetaManipulator fishermanHatManip = new BobuxMetaManipulator(fishermanHatStack, (ArmorMeta) fishermanHatStack.getItemMeta(), TrimMaterial.DIAMOND, TrimPattern.SNOUT);
+    private static String[] fishermanHatDesc = 
+    {"§7Perfect gear for a fishing trip!",
+    "§8(If full set is worn, gain a small chance of fishing up lootboxes)"};
+    private static String fishermanHatName = "§dFisherman Hat";
+    public static BobuxItem fishermanHat = new BobuxItem
+    (fishermanHatStack, fishermanHatDesc, fishermanHatName, fishermanHatAttributeList, true, 50);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack fishermanBootsStack = new ItemStack(Material.GOLDEN_BOOTS);
+    private static BobuxAttributeSet fishermanBootsAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.LUCK, 0.05, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET);
+    private static BobuxAttributeSet fishermanBootsAttribute2 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ARMOR, 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET);
+    private static BobuxAttributeSet[] fishermanBootsAttributeList = {fishermanBootsAttribute1, fishermanBootsAttribute2};
+    private static BobuxMetaManipulator fishermanBootsManip = new BobuxMetaManipulator(fishermanBootsStack, (ArmorMeta) fishermanBootsStack.getItemMeta(), TrimMaterial.DIAMOND, TrimPattern.SNOUT);
+    private static String[] fishermanBootsDesc = 
+    {"§7Perfect gear for a fishing trip!",
+    "§8(If full set is worn, gain a small chance of fishing up lootboxes)"};
+    private static String fishermanBootsName = "§dFisherman Boots";
+    public static BobuxItem fishermanBoots = new BobuxItem
+    (fishermanBootsStack, fishermanBootsDesc, fishermanBootsName, fishermanBootsAttributeList, true, 50);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack fishermansPoleStack = new ItemStack(Material.FISHING_ROD);
+    private static BobuxAttributeSet fishermansPoleAttribute1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.LUCK, 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
+    private static BobuxAttributeSet[] fishermansPoleAttributeList = {fishermansPoleAttribute1};
+    private static String[] fishermansPoleDesc = 
+    {"§7Perfect gear for a fishing trip!",
+    "§8(If full set is worn, gain a small chance of fishing up lootboxes)"};
+    private static String fishermansPoleName = "§dFisherman's Pole";
+    public static BobuxItem fishermansPole = new BobuxItem
+    (fishermansPoleStack, fishermansPoleDesc, fishermansPoleName, new FishermansPoleAbility(), fishermansPoleAttributeList, 128);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack culturalCoreLOTSStack = new ItemStack(Material.ARMADILLO_SCUTE);
+    private static String[] culturalCoreLOTSDesc = 
+    {"§7Right clicking a fishing rod in your inventory", 
+    "§7with this item will give it Luck Of The Sea IV."};
+    private static String culturalCoreLOTSName = "§dCultural Core (Luck Of The Sea)";
+    public static BobuxItem culturalCoreLOTS = new BobuxItem
+    (culturalCoreLOTSStack, culturalCoreLOTSDesc, culturalCoreLOTSName);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
-
-
+    //////////////////////////////////////////////////////////////////////////////////////////
+    private static ItemStack culturalCoreLureStack = new ItemStack(Material.ARMADILLO_SCUTE);
+    private static String[] culturalCoreLureDesc = 
+    {"§7Right clicking a fishing rod in your inventory", 
+    "§7with this item will give it Lure IV."};
+    private static String culturalCoreLureName = "§dCultural Core (Lure)";
+    public static BobuxItem culturalCoreLure = new BobuxItem
+    (culturalCoreLureStack, culturalCoreLureDesc, culturalCoreLureName);
+    //////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -540,5 +621,6 @@ public class BobuxItemInterface {
      */
 
     public static BobuxArmorSet bardSet = new BobuxArmorSet(bardCap, bardVest, bardLeggings, bardKicks, null, new BardSetAbility());
+    public static BobuxArmorSet fishermansSet = new BobuxArmorSet(fishermanHat, fishermanVest, fishermanPants, fishermanBoots, new FishermansSetAbility(), null);
 }
 
