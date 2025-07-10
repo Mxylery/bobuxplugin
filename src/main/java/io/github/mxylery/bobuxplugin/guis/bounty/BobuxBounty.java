@@ -27,6 +27,10 @@ public class BobuxBounty {
         return stacks;
     }
 
+    /**
+     * Returns whether the grant is completed or not.
+     * @return the completion state
+     */
     public boolean getState() {
         return completed;
     }

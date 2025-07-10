@@ -23,12 +23,15 @@ public class ConstantVelocity extends BobuxAction {
             vector.multiply(magnitude*0.1);
         }
         for (int i = 0; i < super.entityList.length; i++) {
-            entityList[i].setVelocity(vector);
+            if (entityList[i] != null) {
+                entityList[i].setVelocity(vector);
+            }
         }
         counter--;
         if (counter > 0) {
             this.runLater(1);
         }
+        
     }
 
 }

@@ -27,9 +27,11 @@ public class HurriedStopwatchAbility extends AbilityOneTime {
 
         Entity[] userList = {user};
 
-        ParticleSequence particleSequence1 = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.DUST, new DustOptions(Color.YELLOW, 2));
+        ParticleSequence particleSequence1 = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.DUST, new DustOptions(Color.fromRGB(100, 100, 0), 2));
         particleSequence1.setExplosionOptions(1, 10, 1);
-        ParticleSequence particleSequence2 = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.DUST, new DustOptions(Color.fromRGB(0,0,50), 2));
+        ParticleSequence particleSequence2 = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.DUST, new DustOptions(Color.fromRGB(50,50,50), 2));
+        particleSequence2.setExplosionOptions(1, 10, 1);
+        ParticleSequence particleSequence3 = new ParticleSequence(ParticleSequenceOptions.EXPLOSION, ParticleSequenceOrientations.NORMAL, Particle.DUST, new DustOptions(Color.fromRGB(0,0,100), 2));
         particleSequence2.setExplosionOptions(1, 10, 1);
 
         componentHead = new AbilityComponent
@@ -43,7 +45,9 @@ public class HurriedStopwatchAbility extends AbilityOneTime {
         componentHead.addComponent(new AbilityComponent
         (new PlayParticle(particleSequence1), user.getLocation().getDirection(), user.getLocation()));
         componentHead.addComponent(new AbilityComponent
-        (new PlayParticle(particleSequence2), user.getLocation().getDirection(), user.getLocation()));
+        (new DelayedAction(new PlayParticle(particleSequence2), 5), user.getLocation().getDirection(), user.getLocation()));
+        componentHead.addComponent(new AbilityComponent
+        (new DelayedAction(new PlayParticle(particleSequence3), 10), user.getLocation().getDirection(), user.getLocation()));
 
         return true;
     }

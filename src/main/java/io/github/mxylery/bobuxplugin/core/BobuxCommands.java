@@ -72,8 +72,6 @@ public boolean onCommand(CommandSender sender, Command command, String string, S
                 break;
                 case "straight_pearl": player.getInventory().addItem(BobuxItemInterface.straightPearl.getStack());
                 break;
-                case "mega_long_bow": player.getInventory().addItem(BobuxItemInterface.megaLongBow.getStack());
-                break;
                 case "freaky_carrot": player.getInventory().addItem(BobuxItemInterface.freakyCarrot.getStack());
                 break;
                 case "stinky_pants": player.getInventory().addItem(BobuxItemInterface.stinkyPants.getStack());

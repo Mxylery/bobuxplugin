@@ -77,9 +77,6 @@ public class PlayerAbilityListener implements Listener {
             if (BobuxUtils.checkTotalItems(player.getInventory(), BobuxItemInterface.BW5Ammo.getStack()) != null) {
                 PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.BW5, player, EquipmentSlot.HAND);
             } 
-            if (BobuxUtils.checkTotalItems(player.getInventory(), new ItemStack(Material.ARROW)) != null) {
-                PlayerAbilityManager.checkForSlotMatch(BobuxItemInterface.megaLongBow, player, EquipmentSlot.HAND);
-            } 
         } else if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             if (PlayerAbilityManager.checkForSlot(BobuxItemInterface.fruitcakeAndCookies, player, EquipmentSlot.HAND)
             || PlayerAbilityManager.checkForSlot(BobuxItemInterface.kungFuGloves, player, EquipmentSlot.HAND) 

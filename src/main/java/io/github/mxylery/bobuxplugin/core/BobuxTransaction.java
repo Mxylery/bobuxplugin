@@ -44,6 +44,11 @@ public class BobuxTransaction {
     private boolean checkTotalItems() {
         if (object instanceof BobuxBounty) {
             BobuxBounty bounty = (BobuxBounty) object;
+            if (bounty.getState()) {
+                player.sendMessage("This grant has already been claimed.");
+                player.playSound(player, Sound.BLOCK_BELL_USE, 0.5f, 1f);
+                return false;
+            }
             int itemTotal0 = 0;
             int itemTotal1 = 0;
             int itemTotal2 = 0;

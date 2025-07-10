@@ -24,7 +24,7 @@ public class StraightPearlAbility extends AbilityOneTime {
         pearl.setOwner(player);
 
         componentHead = new AbilityComponent
-        (new ConstantVelocity(1, 80), pearl.getEntity(), user.getLocation().getDirection());
+        (new ConstantVelocity(5, 250), pearl.getEntity(), user.getLocation().getDirection());
         componentHead.addComponent(new AbilityComponent
         (new DeleteItem(BobuxItemInterface.straightPearl.getStack(), 1), player.getInventory()));
 

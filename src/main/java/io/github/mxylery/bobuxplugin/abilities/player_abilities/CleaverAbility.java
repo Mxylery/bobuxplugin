@@ -12,6 +12,7 @@ import io.github.mxylery.bobuxplugin.abilities.ability_types.AbilityOneTime;
 import io.github.mxylery.bobuxplugin.actions.aesthetic.PlayParticle;
 import io.github.mxylery.bobuxplugin.actions.entity.DamageEntity;
 import io.github.mxylery.bobuxplugin.actions.velocity.ChangeVelocity;
+import io.github.mxylery.bobuxplugin.actions.velocity.RepulseFromPoint;
 import io.github.mxylery.bobuxplugin.core.BobuxUtils;
 import io.github.mxylery.bobuxplugin.vectors.BobuxRegisterer;
 import io.github.mxylery.bobuxplugin.vectors.ParticleSequence;
@@ -31,7 +32,7 @@ public class CleaverAbility extends AbilityOneTime {
 
         Vector userEyeVector = user.getLocation().getDirection();
         Location sphereLoc = BobuxUtils.offsetLocation(singleTarget.getLocation(), userEyeVector, 3, 0);
-        RegistererOption option = new RegistererOption(RegistererType.SPHERE, 2.5, 3, 0, user.getLocation().getDirection());
+        RegistererOption option = new RegistererOption(RegistererType.SPHERE, 0, 3, 0, user.getLocation().getDirection());
         BobuxRegisterer<Mob> registerer = new BobuxRegisterer<Mob>(option, singleTarget, user, Mob.class);
         Vector slightKnockUp = new Vector(userEyeVector.getX(), userEyeVector.getY() + 1, userEyeVector.getZ());
         if (registerer.getEntityList() == null) {
@@ -45,7 +46,7 @@ public class CleaverAbility extends AbilityOneTime {
         componentHead = new AbilityComponent
         (new DamageEntity(5), registerer.getEntityList());
         componentHead.addComponent(new AbilityComponent(
-        new ChangeVelocity(8), registerer.getEntityList(), slightKnockUp));
+        new ChangeVelocity(6), registerer.getEntityList(), slightKnockUp));
         componentHead.addComponent(new AbilityComponent(
         new PlayParticle(particleSequence), user.getLocation().getDirection(), sphereLoc));
 

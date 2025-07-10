@@ -44,7 +44,7 @@ public class StinkyMob extends BobuxMob {
         BobuxAbility[] abilityList = {new StinkyMobAbilityOne("Stinky Mob Ability One", false, 100)};
 
         ItemStack[] dropTable = {BobuxItemInterface.stinkyResidue.getStack(), BobuxItemInterface.stinkyPants.getStack()};
-        double[] dropWeights = {0.5, 0.05};
+        double[] dropWeights = {1, 0.05};
         int[][] dropRanges = {{1,1},{1,1}};
 
         super.maxHealth = 20;

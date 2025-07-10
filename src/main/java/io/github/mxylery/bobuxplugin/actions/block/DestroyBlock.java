@@ -21,7 +21,7 @@ public class DestroyBlock extends BobuxAction {
 
     public void run() {
         MultiBlock blocksToRemove = new MultiBlock(location, vector);
-        ArrayList<Block> blockList = blocksToRemove.getBlocks(length, width, height);
+        ArrayList<Block> blockList = blocksToRemove.getBlocksAlongVector(length, width, height);
         for (Block block : blockList) {
             block.setType(Material.AIR);
         }

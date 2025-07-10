@@ -21,7 +21,6 @@ public class BobuxItem {
     private int[] enchantLevels;
     private boolean unbreakable;
     private AbilityPassive passive;
-    private boolean hideFlag;
     private BobuxAttributeSet[] attributeSet;
 
     public BobuxItem (ItemStack stack, String[] description, String name) {
@@ -34,7 +33,6 @@ public class BobuxItem {
         this.unbreakable = true;
         this.price = 1;
         this.passive = null;
-        this.hideFlag = true;
         this.attributeSet = null;
         initializeStack();
     }
@@ -49,7 +47,6 @@ public class BobuxItem {
         this.unbreakable = false;
         this.price = price;
         this.passive = null;
-        this.hideFlag = false;
         this.attributeSet = null;
         initializeStack();
     }
@@ -64,7 +61,6 @@ public class BobuxItem {
         this.unbreakable = false;
         this.price = price;
         this.passive = null;
-        this.hideFlag = false;
         this.attributeSet = attributeSet;
         initializeStack();
     }
@@ -80,7 +76,6 @@ public class BobuxItem {
         this.unbreakable = false;
         this.price = price;
         this.passive = passive;
-        this.hideFlag = false;
         this.attributeSet = null;
         initializeStack();
     }
@@ -96,7 +91,6 @@ public class BobuxItem {
         this.unbreakable = false;
         this.price = price;
         this.passive = null;
-        this.hideFlag = false;
         this.attributeSet = null;
         initializeStack();
     }
@@ -111,7 +105,6 @@ public class BobuxItem {
         this.unbreakable = false;
         this.price = price;
         this.passive = null;
-        this.hideFlag = false;
         this.attributeSet = attributeSet;
         initializeStack();
     }
@@ -126,7 +119,6 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = null;
-        this.hideFlag = false;
         this.attributeSet = attributeSet;
         initializeStack();
     }
@@ -142,7 +134,6 @@ public class BobuxItem {
         this.unbreakable = false;
         this.price = 1;
         this.passive = passive;
-        this.hideFlag = false;
         this.attributeSet = null;
         initializeStack();
     }
@@ -158,7 +149,6 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = null;
-        this.hideFlag = false;
         this.attributeSet = null;
         initializeStack();
     }
@@ -174,7 +164,6 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = null;
-        this.hideFlag = false;
         this.attributeSet = attributeSet;
         initializeStack();
     }
@@ -190,7 +179,6 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = passive;
-        this.hideFlag = false;
         this.attributeSet = null;
         initializeStack();
     }
@@ -206,7 +194,6 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = passive;
-        this.hideFlag = false;
         this.attributeSet = attributeSet;
         initializeStack();
     }
@@ -222,7 +209,6 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = passive;
-        this.hideFlag = false;
         this.attributeSet = attributeSet;
         initializeStack();
     }
@@ -247,32 +233,6 @@ public class BobuxItem {
         this.unbreakable = unbreakable;
         this.price = price;
         this.passive = null;
-        this.hideFlag = false;
-        this.attributeSet = null;
-        initializeStack();
-    }
-
-    public BobuxItem (ItemStack stack, String[] description, String name, BobuxAbility ability, AbilityPassive passive,
-    Enchantment[] enchants, int[] enchantLevels, boolean unbreakable, boolean hideFlag, int price) {
-        this.stack = stack;
-        this.description = description;
-        this.name = name;
-        this.ability = ability;
-        this.enchants = enchants;
-        if (enchants == null) {
-            this.enchantLevels = null;
-        } else if (enchantLevels == null) {
-            this.enchantLevels = new int[enchants.length];
-            for (int i = 0; i < enchants.length; i++) {
-                this.enchantLevels[i] = 1;
-            }
-        } else {
-            this.enchantLevels = enchantLevels;
-        }
-        this.unbreakable = unbreakable;
-        this.price = price;
-        this.passive = passive;
-        this.hideFlag = hideFlag;
         this.attributeSet = null;
         initializeStack();
     }
@@ -303,11 +263,6 @@ public class BobuxItem {
         if (unbreakable) {
             meta.setUnbreakable(unbreakable);
         }
-
-        if (hideFlag) {
-            meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP, ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
-        }
-
 		meta.setDisplayName(name);
 		meta.setLore(lore);
 		stack.setItemMeta(meta);

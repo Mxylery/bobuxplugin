@@ -49,7 +49,7 @@ public class BobuxRaffle implements Serializable {
     }
 
     private void chooseTempAttribute() {
-        int attributeRng = (int) (Math.random()*5);
+        int attributeRng = (int) (Math.random()*3);
         double timeRng = Math.random();
         long length;
         if (timeRng < 0.33) {

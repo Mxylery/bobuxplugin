@@ -43,12 +43,12 @@ import io.github.mxylery.bobuxplugin.abilities.player_abilities.*;
 
 public class BobuxItemInterface {
 
-    private static final int itemTotal = 13;
+    private static final int itemTotal = 40;
 
     private static ItemStack testingItemStack = new ItemStack(Material.IRON_INGOT);
     private static String[] testingItemDesc = 
     {"§7§oBalls"};
-    private static String testingItemName = "§r§fTesting Item";
+    private static String testingItemName = "§fTesting Item";
     public static BobuxItem testingItem = 
     new BobuxItem(testingItemStack, testingItemDesc, testingItemName, new TestingItemAbility("Testing Item Ability", false, 40), 5000);
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -56,9 +56,10 @@ public class BobuxItemInterface {
     private static ItemStack bouncingItemStack = new ItemStack(Material.SLIME_BALL);
     private static String[] bouncingItemDesc = 
     {"§7Allows you to leap in the direction you are looking.", 
+    "",
     "§81s CD (Left Click)",
     "§8Consumed on use"};
-    private static String bouncingItemName = "§r§fBouncing Item";
+    private static String bouncingItemName = "§2Bouncing Item";
     public static BobuxItem bouncingItem = 
     new BobuxItem(bouncingItemStack, bouncingItemDesc, bouncingItemName, new BouncingItemAbility(), 3);
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -66,8 +67,9 @@ public class BobuxItemInterface {
     private static ItemStack hurriedStopwatchStack = new ItemStack(Material.CLOCK);
     private static String[] hurriedStopwatchDesc = 
     {"§7Gives the user Speed III for 5 seconds",
+    "",
     "§815s CD (Right Click)"};
-    private static String hurriedStopwatchName = "§r§fHurried Stopwatch";
+    private static String hurriedStopwatchName = "§eHurried Stopwatch";
     private static Enchantment[] hurriedStopwatchEnchantList = {Enchantment.UNBREAKING, Enchantment.CHANNELING};
     private static int[] hurriedStopwatchEnchantLevels = {2, 2};
     public static BobuxItem hurriedStopwatch = new BobuxItem
@@ -78,6 +80,7 @@ public class BobuxItemInterface {
     private static ItemStack bobuxStack = new ItemStack(Material.LIME_DYE);
     private static String[] bobuxDesc = 
     {"§7Official currency of the Bobux SMP",
+    "",
     "§8Worth 1 $BBX"};
     private static String bobuxName = "§l§aBobux";
     public static BobuxItem bobux = new BobuxItem
@@ -87,6 +90,7 @@ public class BobuxItemInterface {
     private static ItemStack bobuxSquareStack = new ItemStack(Material.LIME_WOOL);
     private static String[] bobuxSquareDesc = 
     {"§7Official currency of the Bobux SMP",
+    "",
     "§8Worth 8 $BBX"};
     private static String bobuxSquareName = "§l§aBobux Square";
     public static BobuxItem bobuxSquare = new BobuxItem
@@ -96,6 +100,7 @@ public class BobuxItemInterface {
     private static ItemStack bobuxCubeStack = new ItemStack(Material.LIME_TERRACOTTA);
     private static String[] bobuxCubeDesc = 
     {"§7Official currency of the Bobux SMP",
+    "",
     "§8Worth 64 $BBX"};
     private static String bobuxCubeName = "§l§aBobux Cube";
     public static BobuxItem bobuxCube = new BobuxItem
@@ -105,6 +110,7 @@ public class BobuxItemInterface {
     private static ItemStack bobuxTesseractStack = new ItemStack(Material.EMERALD_BLOCK);
     private static String[] bobuxTesseractDesc = 
     {"§7Official currency of the Bobux SMP",
+    "",
     "§8Worth 512 $BBX"};
     private static String bobuxTesseractName = "§l§aBobux Tesseract";
     public static BobuxItem bobuxTesseract = new BobuxItem
@@ -114,6 +120,7 @@ public class BobuxItemInterface {
     private static ItemStack marketStack = new ItemStack(Material.GOLDEN_HORSE_ARMOR);
     private static String[] marketDesc = 
     {"§7Access the daily market here.",
+    "",
     "§8(Left/Right Click)"};
     private static String marketName = "§6§lMarket";
     public static BobuxItem market = new BobuxItem
@@ -123,8 +130,9 @@ public class BobuxItemInterface {
     private static ItemStack cleaverStack = new ItemStack(Material.GOLDEN_SWORD);
     private static String[] cleaverDesc = 
     {"§7Hitting mobs with this sword cleaves the mobs behind it.",
+    "",
     "§85s CD"};
-    private static String cleaverName = "§r§fCleaver";
+    private static String cleaverName = "§6Cleaver";
     public static BobuxItem cleaver = new BobuxItem
     (cleaverStack, cleaverDesc, cleaverName, new CleaverAbility(), true, 64);
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -132,6 +140,7 @@ public class BobuxItemInterface {
     private static ItemStack railgunStack = new ItemStack(Material.IRON_HOE);
     private static String[] railgunDesc = 
     {"§7Shoot a beam that pierces enemies.",
+    "",
     "§85s CD (Right Click)"};
     private static String railgunName = "§r§fRailgun";
     public static BobuxItem railgun = new BobuxItem
@@ -141,6 +150,7 @@ public class BobuxItemInterface {
     private static ItemStack grantsStack = new ItemStack(Material.LIME_DYE);
     private static String[] grantsDesc = 
     {"§7Access your grants here.",
+    "",
     "§8(Left/Right Click)"};
     private static String grantsName = "§a§lGrants";
     public static BobuxItem grants = new BobuxItem
@@ -150,6 +160,7 @@ public class BobuxItemInterface {
     private static ItemStack theHotStickStack = new ItemStack(Material.BLAZE_ROD);
     private static String[] theHotStickDesc = 
     {"§7Right click to launch a blazing line of pure fire!",
+    "",
     "§85s CD (Right Click)"};
     private static String theHotStickName = "§cTh§6e H§eot §6St§cick";
     public static BobuxItem theHotStick = new BobuxItem
@@ -159,17 +170,19 @@ public class BobuxItemInterface {
     private static ItemStack BW5AmmoStack = new ItemStack(Material.LIGHT_BLUE_DYE);
     private static String[] BW5AmmoDesc = 
     {"§7Ammunition used for the BW5 \"Nitro Express\" Rifle.",
+    "",
     "§8This item will be consumed upon one use of the BW5."};
-    private static String BW5AmmoName = "§1BW-5 Ammo";
+    private static String BW5AmmoName = "§9BW-5 Ammo";
     public static BobuxItem BW5Ammo = new BobuxItem
     (BW5AmmoStack, BW5AmmoDesc, BW5AmmoName, 4);
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack BW5Stack = new ItemStack(Material.DIAMOND_HOE);
     private static String[] BW5Desc = 
-    {"§7Nowhere would anyone expect this...",
+    {"§7From nowhere would anyone expect this...",
+    "",
     "§85s CD (Right Click)"};
-    private static String BW5Name = "§1BW-5 \"Nitro Express\"";
+    private static String BW5Name = "§9BW-5 \"Nitro Express\"";
     public static BobuxItem BW5 = new BobuxItem
     (BW5Stack, BW5Desc, BW5Name, new BW5Ability(), 384);
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -177,6 +190,7 @@ public class BobuxItemInterface {
     private static ItemStack kungFuGlovesStack = new ItemStack(Material.BLACK_WOOL);
     private static String[] kungFuGlovesDesc = 
     {"§7Punch.",
+    "",
     "§8Harness your inner zen..."};
     private static String kungFuGlovesName = "§7Kung Fu Gloves";
     private static BobuxAttributeSet kungFuGlovesAttributes1 = new BobuxAttributeSet(org.bukkit.attribute.Attribute.ATTACK_DAMAGE, 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND);
@@ -189,11 +203,12 @@ public class BobuxItemInterface {
     private static ItemStack fruitcakeAndCookiesStack = new ItemStack(Material.CAKE);
     private static String[] fruitcakeAndCookiesDesc = 
     {"§7Some fruitcake and cookies to ease your soul.",
-    "§830s CD (Right Click)",
     "",
     "§o§8Maybe tears are endless...",
     "§o§8I just need some refreshment...",
-    "§o§8Just to cool my heart"};
+    "§o§8Just to cool my heart",
+    "",
+    "§830s CD (Right Click)"};
     private static String fruitcakeAndCookiesName = "§4Fruitcake §fand §6Cookies";
     public static BobuxItem fruitcakeAndCookies = new BobuxItem
     (fruitcakeAndCookiesStack, fruitcakeAndCookiesDesc, fruitcakeAndCookiesName, new FruitcakeAndCookiesAbility("Fruitcake And Cookies Ability", false, 600), true, 1024);
@@ -203,6 +218,7 @@ public class BobuxItemInterface {
     private static ItemStack bobuxinatorStack = new ItemStack(Material.STICKY_PISTON);
     private static String[] bobuxinatorDesc = 
     {"§7It's an investment!",
+    "",
     "§860s CD (Right Click)"};
     private static String bobuxinatorName = "§aBobuxinator";
     public static BobuxItem bobuxinator = new BobuxItem
@@ -213,6 +229,7 @@ public class BobuxItemInterface {
     private static ItemStack bobuxBrewStack = new ItemStack(Material.HONEY_BOTTLE);
     private static String[] bobuxBrewDesc = 
     {"§7Surely there are no side effects...",
+    "",
     "§830s CD (Right Click)"};
     private static String bobuxBrewName = "§6Bobux Brew";
     public static BobuxItem bobuxBrew = new BobuxItem
@@ -223,6 +240,7 @@ public class BobuxItemInterface {
     private static ItemStack bobuxBrewRemnantsStack = new ItemStack(Material.HONEY_BLOCK);
     private static String[] bobuxBrewRemnantsDesc = 
     {"§7Bobux Brew will reappear in this slot.",
+    "",
     "§830s CD"};
     private static String bobuxBrewRemnantsName = "§7Bobux Brew Remnants";
     public static BobuxItem bobuxBrewRemnants = new BobuxItem
@@ -237,21 +255,12 @@ public class BobuxItemInterface {
     public static BobuxItem straightPearl = new BobuxItem
     (straightPearlStack, straightPearlDesc, straightPearlName, new StraightPearlAbility("Straight Pearl Ability", true, 1), 8);
     //////////////////////////////////////////////////////////////////////////////////////////
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-    private static ItemStack megaLongBowStack = new ItemStack(Material.BOW);
-    private static String[] megaLongBowDesc = 
-    {"§7Why is this here?",
-    "§82s CD (Right Click)"};
-    private static String megaLongBowName = "§7Mega Long Bow";
-    public static BobuxItem megaLongBow = new BobuxItem
-    (megaLongBowStack, megaLongBowDesc, megaLongBowName, new MegaLongBowAbility("Mega Longbow Ability", true, 20), 512);
-    //////////////////////////////////////////////////////////////////////////////////////////
     
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack freakyCarrotStack = new ItemStack(Material.CARROT);
     private static String[] freakyCarrotDesc = 
     {"§7When breeding with this carrot, animals will make three children instead of one.",
+    "",
     "§8No CD (Right Click)"};
     private static String freakyCarrotName = "§6Freaky Carrot";
     public static BobuxItem freakyCarrot = new BobuxItem
@@ -264,6 +273,7 @@ public class BobuxItemInterface {
     (stinkyPantsStack, (LeatherArmorMeta) stinkyPantsStack.getItemMeta(), Color.fromRGB(0, 100, 0));
     private static String[] stinkyPantsDesc = 
     {"§7Eww...",
+    "",
     "§85s CD (Sneak)"};
     private static String stinkyPantsName = "§2Stinky Pants";
     public static BobuxItem stinkyPants = new BobuxItem
@@ -274,6 +284,7 @@ public class BobuxItemInterface {
     private static ItemStack freakyWheatStack = new ItemStack(Material.WHEAT);
     private static String[] freakyWheatDesc = 
     {"§7When breeding with this wheat, animals will make three children instead of one.",
+    "",
     "§8No CD (Right Click)"};
     private static String freakyWheatName = "§eFreaky Wheat";
     public static BobuxItem freakyWheat = new BobuxItem
@@ -284,6 +295,7 @@ public class BobuxItemInterface {
     private static ItemStack freakySeedsStack = new ItemStack(Material.WHEAT_SEEDS);
     private static String[] freakySeedsDesc = 
     {"§7When breeding with these seeds, animals will make three children instead of one.",
+    "",
     "§8No CD (Right Click)"};
     private static String freakySeedsName = "§aFreaky Seeds";
     public static BobuxItem freakySeeds = new BobuxItem
@@ -329,8 +341,9 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack questboardStack = new ItemStack(Material.OAK_SIGN);
     private static String[] questboardDesc = 
-    {"§7Click here to access the questboard.", 
-    "§8(Left Click/Right Click)"};
+    {"§7Access the Questboard here.",
+    "",
+    "§8(Left/Right Click)"};
     private static String questboardName = "§c§lQuestboard";
     public static BobuxItem questboard = new BobuxItem
     (questboardStack, questboardDesc, questboardName);
@@ -348,7 +361,9 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack lesserLootboxStack = new ItemStack(Material.SPRUCE_WOOD);
     private static String[] lesserLootboxDesc = 
-    {"§7Gives you three pieces of Lesser Bobux Loot"};
+    {"§7Gives you three pieces of Lesser Bobux Loot",
+    "",
+    "§85s CD (Right Click)"};
     private static String lesserLootboxName = "§cLesser Lootbox";
     public static BobuxItem lesserLootbox = new BobuxItem
     (lesserLootboxStack, lesserLootboxDesc, lesserLootboxName, new LesserLootBoxAbility("Lesser Lootbox Ability", true, 100), 32);
@@ -362,6 +377,7 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet[] bardCapAttributeList = {bardCapAttribute1, bardCapAttribute2};
     private static String[] bardCapDesc = 
     {"§8This handy cap assures a great time for all nearby players.",
+    "",
     "§7(If full set is worn, allies and user receive a variety of buffs.)"};
     private static String bardCapName = "§dBard Cap";
     public static BobuxItem bardCap = new BobuxItem
@@ -390,6 +406,7 @@ public class BobuxItemInterface {
     private static BobuxMetaManipulator bardLeggingsManip = new BobuxMetaManipulator(bardLeggingsStack, (ArmorMeta) bardLeggingsStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.WILD);
     private static String[] bardLeggingsDesc = 
     {"§7These handy pants assure a great time for all nearby players.",
+    "",
     "§8(If full set is worn, allies and user receive a variety of buffs.)"};
     private static String bardLeggingsName = "§dBard Leggings";
     public static BobuxItem bardLeggings = new BobuxItem
@@ -404,6 +421,7 @@ public class BobuxItemInterface {
     private static BobuxMetaManipulator bardKicksManip = new BobuxMetaManipulator(bardKicksStack, (ArmorMeta) bardKicksStack.getItemMeta(), TrimMaterial.EMERALD, TrimPattern.WILD);
     private static String[] bardKicksDesc = 
     {"§7These slick shoes assure a great time for all nearby players.",
+    "",
     "§8(If full set is worn, allies and user receive a variety of buffs.)"};
     private static String bardKicksName = "§dBard Kicks";
     public static BobuxItem bardKicks = new BobuxItem
@@ -425,6 +443,7 @@ public class BobuxItemInterface {
     private static ItemStack flockingFeatherStack = new ItemStack(Material.FEATHER);
     private static String[] flockingFeatherDesc = 
     {"§7Great way to swiftly escape a bad situation.",
+    "",
     "§810s CD (Right Click)"};
     private static String flockingFeatherName = "§fFlocking Feather";
     public static BobuxItem flockingFeather = new BobuxItem
@@ -435,8 +454,9 @@ public class BobuxItemInterface {
     private static ItemStack peaceTreatyStack = new ItemStack(Material.WRITABLE_BOOK);
     private static String[] peaceTreatyDesc = 
     {"§7When used, pacifies all mobs around you for a short amount of time.",
+    "",
     "§815 CD (Right Click)"};
-    private static String peaceTreatyName = "§7Peace Treaty";
+    private static String peaceTreatyName = "§9Peace Treaty";
     public static BobuxItem peaceTreaty = new BobuxItem
     (peaceTreatyStack, peaceTreatyDesc, peaceTreatyName, new PeaceTreatyAbility(), 128);
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -445,6 +465,7 @@ public class BobuxItemInterface {
     private static ItemStack hypeTrainStack = new ItemStack(Material.MINECART);
     private static String[] hypeTrainDesc = 
     {"§7WEEEEEE",
+    "",
     "§810s CD (Right Click)"};
     private static String hypeTrainName = "§cHype Train";
     public static BobuxItem hypeTrain = new BobuxItem
@@ -454,8 +475,9 @@ public class BobuxItemInterface {
     //////////////////////////////////////////////////////////////////////////////////////////
     private static ItemStack raffleStack = new ItemStack(Material.PAPER);
     private static String[] raffleDescription = 
-    {"§7Click here to access the raffle",
-    "§8(Right click or left click)"};
+    {"§7Access the raffle here.",
+    "",
+    "§8(Left/Right Click)"};
     private static String raffleName = "§d§lRaffle";
     public static BobuxItem raffle = new BobuxItem
     (raffleStack, raffleDescription, raffleName);
@@ -465,6 +487,7 @@ public class BobuxItemInterface {
     private static ItemStack slowPogoStack = new ItemStack(Material.IRON_HOE);
     private static String[] slowPogoDesc = 
     {"§7Slow. Pogo. Stick.",
+    "",
     "§83s CD (Right Click)"};
     private static String slowPogoName = "§cSlow Pogo";
     public static BobuxItem slowPogo = new BobuxItem
@@ -475,6 +498,7 @@ public class BobuxItemInterface {
     private static ItemStack pogoLauncherStack = new ItemStack(Material.IRON_PICKAXE);
     private static String[] pogoLauncherDesc = 
     {"§7Pogo. Stick.",
+    "",
     "§83s CD (Right Click)"};
     private static String pogoLauncherName = "§cPogo Launcher";
     public static BobuxItem pogoLauncher = new BobuxItem
@@ -485,6 +509,7 @@ public class BobuxItemInterface {
     private static ItemStack lootboxStack = new ItemStack(Material.STRIPPED_BIRCH_LOG);
     private static String[] lootboxDesc = 
     {"§7Gives you three pieces of Bobux Loot",
+    "",
     "§85s CD (Right Click)"};
     private static String lootboxName = "§cLootbox";
     public static BobuxItem lootbox = new BobuxItem
@@ -495,6 +520,7 @@ public class BobuxItemInterface {
     private static ItemStack greaterLootboxStack = new ItemStack(Material.CRIMSON_ROOTS);
     private static String[] greaterLootboxDesc = 
     {"§7Gives you three pieces of Greater Bobux Loot",
+    "",
     "§85s CD (Right Click)"};
     private static String greaterLootboxName = "§cGreater Lootbox";
     public static BobuxItem greaterLootbox = new BobuxItem
@@ -508,7 +534,8 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet[] fishermanVestAttributeList = {fishermanVestAttribute1, fishermanVestAttribute2};
     private static BobuxMetaManipulator fishermanVestManip = new BobuxMetaManipulator(fishermanVestStack, (ArmorMeta) fishermanVestStack.getItemMeta(), TrimMaterial.DIAMOND, TrimPattern.SNOUT);
     private static String[] fishermanVestDesc = 
-    {"§7Perfect gear for a fishing trip!",
+    {"§7A nice vest to wear on a fishing trip.",
+    "",
     "§8(If full set is worn, gain a small chance of fishing up lootboxes)"};
     private static String fishermanVestName = "§dFisherman Vest";
     public static BobuxItem fishermanVest = new BobuxItem
@@ -522,7 +549,8 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet[] fishermanPantsAttributeList = {fishermanPantsAttribute1, fishermanPantsAttribute2};
     private static BobuxMetaManipulator fishermanPantsManip = new BobuxMetaManipulator(fishermanPantsStack, (ArmorMeta) fishermanPantsStack.getItemMeta(), TrimMaterial.DIAMOND, TrimPattern.SNOUT);
     private static String[] fishermanPantsDesc = 
-    {"§7Perfect gear for a fishing trip!",
+    {"§7These pants will protect you from the murky waters...",
+    "",
     "§8(If full set is worn, gain a small chance of fishing up lootboxes)"};
     private static String fishermanPantsName = "§dFisherman Pants";
     public static BobuxItem fishermanPants = new BobuxItem
@@ -536,7 +564,8 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet[] fishermanHatAttributeList = {fishermanHatAttribute1, fishermanHatAttribute2};
     private static BobuxMetaManipulator fishermanHatManip = new BobuxMetaManipulator(fishermanHatStack, (ArmorMeta) fishermanHatStack.getItemMeta(), TrimMaterial.DIAMOND, TrimPattern.SNOUT);
     private static String[] fishermanHatDesc = 
-    {"§7Perfect gear for a fishing trip!",
+    {"§7Perfect hat to wear on a fishing trip.",
+    "",
     "§8(If full set is worn, gain a small chance of fishing up lootboxes)"};
     private static String fishermanHatName = "§dFisherman Hat";
     public static BobuxItem fishermanHat = new BobuxItem
@@ -550,7 +579,8 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet[] fishermanBootsAttributeList = {fishermanBootsAttribute1, fishermanBootsAttribute2};
     private static BobuxMetaManipulator fishermanBootsManip = new BobuxMetaManipulator(fishermanBootsStack, (ArmorMeta) fishermanBootsStack.getItemMeta(), TrimMaterial.DIAMOND, TrimPattern.SNOUT);
     private static String[] fishermanBootsDesc = 
-    {"§7Perfect gear for a fishing trip!",
+    {"§7No water's going in these shoes!",
+    "",
     "§8(If full set is worn, gain a small chance of fishing up lootboxes)"};
     private static String fishermanBootsName = "§dFisherman Boots";
     public static BobuxItem fishermanBoots = new BobuxItem
@@ -563,6 +593,7 @@ public class BobuxItemInterface {
     private static BobuxAttributeSet[] fishermansPoleAttributeList = {fishermansPoleAttribute1};
     private static String[] fishermansPoleDesc = 
     {"§7Perfect gear for a fishing trip!",
+    "",
     "§8(If full set is worn, gain a small chance of fishing up lootboxes)"};
     private static String fishermansPoleName = "§dFisherman's Pole";
     public static BobuxItem fishermansPole = new BobuxItem
@@ -573,6 +604,7 @@ public class BobuxItemInterface {
     private static ItemStack culturalCoreLOTSStack = new ItemStack(Material.ARMADILLO_SCUTE);
     private static String[] culturalCoreLOTSDesc = 
     {"§7Right clicking a fishing rod in your inventory", 
+    "",
     "§7with this item will give it Luck Of The Sea IV."};
     private static String culturalCoreLOTSName = "§dCultural Core (Luck Of The Sea)";
     public static BobuxItem culturalCoreLOTS = new BobuxItem
@@ -583,6 +615,7 @@ public class BobuxItemInterface {
     private static ItemStack culturalCoreLureStack = new ItemStack(Material.ARMADILLO_SCUTE);
     private static String[] culturalCoreLureDesc = 
     {"§7Right clicking a fishing rod in your inventory", 
+    "",
     "§7with this item will give it Lure IV."};
     private static String culturalCoreLureName = "§dCultural Core (Lure)";
     public static BobuxItem culturalCoreLure = new BobuxItem
